@@ -169,7 +169,7 @@ export const PROJECT_DEFAULTS_RAW: Omit<ProjectCase, 'status'>[] = [
     "categoryLabel": "Event Cinematography",
     "year": "2026",
     "coverImage": "/img/poster/finalWasthi.jpg",
-    "videoUrl": "/video/Events/finalWasthi.mp4",
+    "videoUrl": "/video/Marketing/Techubiz Final.mp4",
     "aspectRatio": "landscape",
     "summary": "Dynamic event coverage that encapsulates the energy, scale, and atmosphere of live concerts, cultural ceremonies, and grand opening events.",
     "challenge": "Adapting to unpredictable lighting and fast-paced environments.",
@@ -180,7 +180,7 @@ export const PROJECT_DEFAULTS_RAW: Omit<ProjectCase, 'status'>[] = [
       "Full Concert Reels"
     ],
     "gallery": [
-      "/video/Events/ColoredFinalEuphoria (1).mp4",
+      "/video/Marketing/Ashan Glass FInal.mp4",
       "/video/Events/finalWasthi.mp4",
       "/img/poster/finalWasthi.jpg"
     ],

@@ -43,41 +43,33 @@ const WorkCardItem: React.FC<{
   useEffect(() => {
     if (!isVideo || !project.videoUrl || !containerRef.current) return;
 
+    const currentVideo = videoRef.current;
+    if (currentVideo) {
+      currentVideo.play().catch(() => {});
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          if (!videoRef.current) return;
           if (entry.isIntersecting) {
-            if (videoRef.current) {
-              videoRef.current.play().then(() => {
-                setIsPlaying(true);
-              }).catch(() => {});
-            }
+            videoRef.current.play().catch(() => {});
           } else {
-            if (videoRef.current) {
-              videoRef.current.pause();
-              setIsPlaying(false);
-            }
+            videoRef.current.pause();
           }
         });
       },
-      { threshold: 0.2, rootMargin: '60px 0px' }
+      { threshold: 0.15, rootMargin: '100px 0px' }
     );
 
     observer.observe(containerRef.current);
     return () => observer.disconnect();
   }, [isVideo, project.videoUrl]);
 
-  const handleMouseEnter = () => {
-    if (videoRef.current && videoRef.current.paused) {
-      videoRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
-    }
-  };
-
   return (
     <div
       ref={containerRef}
       onClick={() => onSelect(project)}
-      onMouseEnter={handleMouseEnter}
       className="works-card group cursor-pointer flex flex-col gap-4 bg-[#0a0a0a] border border-white/10 hover:border-[var(--fx-yellow)]/60 p-3 sm:p-4 rounded-sm transition-all duration-300 hover:shadow-[0_12px_36px_rgba(0,0,0,0.9)]"
     >
       {/* Media Wrapper */}
@@ -102,33 +94,27 @@ const WorkCardItem: React.FC<{
           )}
         </div>
 
-        {/* Cover Image (Always present as instant poster) */}
-        <img
-          src={project.coverImage || 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=800'}
-          alt={project.title}
-          loading={idx < PAGE_SIZE ? 'eager' : 'lazy'}
-          decoding="async"
-          className={`absolute inset-0 w-full h-full object-cover object-top transition-all duration-700 ease-out group-hover:scale-105 ${
-            isVideo && isPlaying
-              ? 'opacity-0'
-              : 'opacity-100 filter grayscale contrast-[1.05] group-hover:grayscale-0'
-          }`}
-          referrerPolicy="no-referrer"
-        />
-
-        {/* In-View Autoplay Video Stream */}
-        {isVideo && project.videoUrl && (
+        {/* In-View Autoplay Video Stream or Photo */}
+        {isVideo && project.videoUrl ? (
           <video
             ref={videoRef}
             src={project.videoUrl}
             poster={project.videoPoster || project.coverImage}
+            autoPlay
             muted
             loop
             playsInline
-            preload="metadata"
-            className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105 ${
-              isPlaying ? 'opacity-100' : 'opacity-0'
-            }`}
+            preload="auto"
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          />
+        ) : (
+          <img
+            src={project.coverImage || 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=800'}
+            alt={project.title}
+            loading={idx < PAGE_SIZE ? 'eager' : 'lazy'}
+            decoding="async"
+            className="absolute inset-0 w-full h-full object-cover object-top transition-all duration-700 ease-out group-hover:scale-105 filter grayscale contrast-[1.05] group-hover:grayscale-0"
+            referrerPolicy="no-referrer"
           />
         )}
 

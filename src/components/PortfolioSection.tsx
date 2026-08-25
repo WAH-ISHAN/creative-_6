@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { ProjectCase } from '../types';
 import { resolveSelectedWork, useContent } from '../context/ContentContext';
 import { ArrowRight, Heart, Play } from 'lucide-react';
@@ -16,43 +16,33 @@ const ProjectCard = ({ project, onSelectProject, onSwitchToWeddings }: {
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
 
-  // In-View Autoplay Engine using IntersectionObserver
+  // In-View Autoplay Controller
   useEffect(() => {
     if (!project.videoUrl || !containerRef.current) return;
+
+    const currentVideo = videoRef.current;
+    if (currentVideo) {
+      currentVideo.play().catch(() => {});
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          if (!videoRef.current) return;
           if (entry.isIntersecting) {
-            if (videoRef.current) {
-              videoRef.current.play().then(() => {
-                setIsPlaying(true);
-              }).catch(() => {
-                // Silently fallback if browser blocks
-              });
-            }
+            videoRef.current.play().catch(() => {});
           } else {
-            if (videoRef.current) {
-              videoRef.current.pause();
-              setIsPlaying(false);
-            }
+            videoRef.current.pause();
           }
         });
       },
-      { threshold: 0.25, rootMargin: '50px 0px' }
+      { threshold: 0.15, rootMargin: '100px 0px' }
     );
 
     observer.observe(containerRef.current);
     return () => observer.disconnect();
   }, [project.videoUrl]);
-
-  const handleMouseEnter = () => {
-    if (videoRef.current && videoRef.current.paused) {
-      videoRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
-    }
-  };
 
   const handleClick = () => {
     if (project.isWedding && onSwitchToWeddings) {
@@ -66,50 +56,43 @@ const ProjectCard = ({ project, onSelectProject, onSwitchToWeddings }: {
     <div
       ref={containerRef}
       onClick={handleClick}
-      onMouseEnter={handleMouseEnter}
       className="group cursor-pointer flex flex-col items-center text-center gap-4"
     >
-      <div className="relative w-full aspect-[4/5] bg-[#0c0c0c] border border-[var(--fx-border-dark)] overflow-hidden rounded-sm">
-        {/* Cover Image (Always present as fallback & instant poster) */}
-        <img
-          src={project.coverImage || 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=1000&auto=format&fit=crop'}
-          alt={project.title}
-          loading="lazy"
-          decoding="async"
-          className={`absolute inset-0 w-full h-full object-cover object-top transition-all duration-700 ease-out group-hover:scale-105 ${
-            project.videoUrl && isPlaying
-              ? 'opacity-0'
-              : 'opacity-100 filter grayscale group-hover:grayscale-0'
-          }`}
-          referrerPolicy="no-referrer"
-        />
-
-        {/* High-Performance In-View Video */}
-        {project.videoUrl && (
+      <div className="relative w-full aspect-[4/5] bg-[#0c0c0c] border border-[var(--fx-border-dark)] overflow-hidden rounded-sm group-hover:border-[var(--fx-yellow)]/60 transition-colors">
+        {/* High-Performance Video / Photo Display */}
+        {project.videoUrl ? (
           <video
             ref={videoRef}
             src={project.videoUrl}
             poster={project.coverImage}
+            autoPlay
             muted
             loop
             playsInline
-            preload="metadata"
-            className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105 ${
-              isPlaying ? 'opacity-100' : 'opacity-0'
-            }`}
+            preload="auto"
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          />
+        ) : (
+          <img
+            src={project.coverImage || 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=1000&auto=format&fit=crop'}
+            alt={project.title}
+            loading="lazy"
+            decoding="async"
+            className="absolute inset-0 w-full h-full object-cover object-top transition-all duration-700 ease-out group-hover:scale-105 filter grayscale group-hover:grayscale-0"
+            referrerPolicy="no-referrer"
           />
         )}
 
         {/* Video Badge */}
         {project.videoUrl && (
-          <div className="absolute top-3 right-3 z-10 bg-black/70 backdrop-blur-md px-2 py-0.5 rounded-sm border border-white/20 text-[9px] font-mono-tech text-[var(--fx-yellow)] tracking-widest uppercase flex items-center gap-1 pointer-events-none">
+          <div className="absolute top-3 right-3 z-10 bg-black/75 backdrop-blur-md px-2 py-0.5 rounded-sm border border-white/20 text-[9px] font-mono-tech text-[var(--fx-yellow)] tracking-widest uppercase flex items-center gap-1 pointer-events-none">
             <Play className="w-2.5 h-2.5 fill-[var(--fx-yellow)]" />
-            <span>4K REEL</span>
+            <span>4K CINEMA</span>
           </div>
         )}
 
         {/* Hover overlay indicator */}
-        <div className="absolute inset-0 bg-black/35 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none z-20">
+        <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none z-20">
           <div className="text-[10px] font-mono-tech tracking-widest text-[var(--fx-white)] flex items-center gap-2 px-6 py-3 border border-[var(--fx-white)] backdrop-blur-sm shadow-2xl">
             <span className="w-1.5 h-1.5 bg-[var(--fx-yellow)] rounded-full animate-pulse-subtle" />
             {project.isWedding ? 'VIEW WEDDINGS' : 'VIEW PROJECT'}
