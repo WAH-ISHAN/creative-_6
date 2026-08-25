@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useContent, DEFAULT_CONTENT } from '../context/ContentContext';
+import { useContent, DEFAULT_CONTENT, useSectionStyle } from '../context/ContentContext';
 import type { AgencyService } from '../types';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const ServicesSection: React.FC<{ onSelectService?: (service: AgencyService) => void }> = ({ onSelectService }) => {
   const { content } = useContent();
+  const sec = useSectionStyle('services');
   const rawServices = (content.services && content.services.length > 0) ? content.services : DEFAULT_CONTENT.services;
   const services = (rawServices as AgencyService[]).filter(s => (s.status ?? 'published') === 'published');
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
@@ -16,6 +17,11 @@ export const ServicesSection: React.FC<{ onSelectService?: (service: AgencyServi
   const listRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!sec.animationsEnabled) {
+      if (titleRef.current) titleRef.current.style.opacity = '1';
+      return;
+    }
+
     let ctx = gsap.context(() => {
       // Scroll animation for title
       gsap.from(titleRef.current, {
@@ -46,10 +52,10 @@ export const ServicesSection: React.FC<{ onSelectService?: (service: AgencyServi
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [sec.animationsEnabled]);
 
   return (
-    <section ref={sectionRef} id="section-services" className="relative w-full bg-[var(--fx-white)] text-[var(--fx-black)] py-12 sm:py-20 md:py-28 px-6 sm:px-8 md:px-12 select-none border-t border-[var(--fx-border-light)] overflow-hidden no-parallax">
+    <section ref={sectionRef} id="section-services" style={sec.style} className="relative w-full bg-[var(--fx-white)] text-[var(--fx-black)] py-12 sm:py-20 md:py-28 px-6 sm:px-8 md:px-12 select-none border-t border-[var(--fx-border-light)] overflow-hidden no-parallax">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24 relative">
 
         {/* Left: Section Header & Narrative */}

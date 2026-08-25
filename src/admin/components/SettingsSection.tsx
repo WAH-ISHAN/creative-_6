@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
-import { Settings as SettingsIcon, Download, Upload, RotateCcw, ShieldAlert } from 'lucide-react';
-import { TextInput, CollapseSection, PageHeader } from './AdminFields';
+import { Settings as SettingsIcon, Download, Upload, RotateCcw, ShieldAlert, Code2, Sparkles, Sliders } from 'lucide-react';
+import { TextInput, TextArea, CollapseSection, ToggleSwitch, PageHeader } from './AdminFields';
 import type { SiteContent } from '../../context/ContentContext';
 
 interface SettingsSectionProps {
@@ -31,7 +31,7 @@ export const SettingsSection: React.FC<SettingsSectionProps> = ({ content, updat
       try {
         const parsed = JSON.parse(event.target?.result as string);
         update([], parsed);
-        alert('Backup imported and synced to the server.');
+        alert('Backup imported and synced to the server successfully.');
       } catch {
         alert('Invalid JSON backup file.');
       }
@@ -49,35 +49,51 @@ export const SettingsSection: React.FC<SettingsSectionProps> = ({ content, updat
     <div className="space-y-6">
       <PageHeader
         icon={SettingsIcon}
-        title="Settings"
-        description="Studio identity, data backups and server options."
+        title="Settings & Code Customizer"
+        description="Custom CSS animations injector, studio identity, backups, and performance settings."
       />
 
-      {/* General Studio Info */}
-      <CollapseSection title="Studio identity" defaultOpen>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <TextInput label="Brand name" value={identity.brandName || ''} onChange={v => update(['settings', 'identity', 'brandName'], v)} />
-          <TextInput label="Operating timezone" value={identity.timezone || ''} onChange={v => update(['settings', 'identity', 'timezone'], v)} />
-          <TextInput label="Primary currency" value={identity.currency || ''} onChange={v => update(['settings', 'identity', 'currency'], v)} />
-          <TextInput label="System language" value={identity.language || ''} onChange={v => update(['settings', 'identity', 'language'], v)} />
+      {/* ─── 1. CUSTOM CSS & ANIMATION CODE INJECTOR (RULE 4) ─── */}
+      <CollapseSection title="Custom CSS & Animation Code Injector" defaultOpen>
+        <div className="space-y-4">
+          <p className="text-xs text-gray-500">
+            Inject custom CSS rules, @keyframes animations, hover transitions, and bespoke styling directly into the live website.
+          </p>
+
+          <TextArea
+            label="Custom CSS Code"
+            rows={8}
+            value={content.customCss || ''}
+            onChange={v => update(['customCss'], v)}
+            placeholder={`/* Example custom CSS / keyframe animation */\n@keyframes floatSlow {\n  0%, 100% { transform: translateY(0); }\n  50% { transform: translateY(-8px); }\n}\n\n.my-custom-badge {\n  animation: floatSlow 4s ease-in-out infinite;\n}`}
+          />
         </div>
       </CollapseSection>
 
-      {/* Database Backup & Restore */}
-      <CollapseSection title="Backup & restore" defaultOpen>
+      {/* ─── 2. STUDIO IDENTITY ─── */}
+      <CollapseSection title="Studio Identity" defaultOpen>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <TextInput label="Brand Name" value={identity.brandName || ''} onChange={v => update(['settings', 'identity', 'brandName'], v)} />
+          <TextInput label="Operating Timezone" value={identity.timezone || ''} onChange={v => update(['settings', 'identity', 'timezone'], v)} />
+          <TextInput label="Primary Currency" value={identity.currency || ''} onChange={v => update(['settings', 'identity', 'currency'], v)} />
+          <TextInput label="System Language" value={identity.language || ''} onChange={v => update(['settings', 'identity', 'language'], v)} />
+        </div>
+      </CollapseSection>
+
+      {/* ─── 3. DATABASE BACKUP & RESTORE ─── */}
+      <CollapseSection title="Database Backup & Export" defaultOpen>
         <div className="space-y-4">
-          <p className="text-sm text-gray-500">
-            Download a complete JSON snapshot of the website content — projects, copy, media links
-            and settings — or restore a previous backup.
+          <p className="text-xs text-gray-500">
+            Download a complete JSON snapshot of all site content, media references, projects and styles, or import a saved backup.
           </p>
 
           <div className="flex flex-wrap gap-3">
             <button
               type="button"
               onClick={handleExportBackup}
-              className="flex items-center gap-2 bg-gray-900 text-white text-xs font-semibold px-5 py-2.5 rounded-md hover:bg-gray-700 transition-colors"
+              className="flex items-center gap-2 bg-gray-900 text-white text-xs font-semibold px-5 py-2.5 rounded-md hover:bg-gray-700 transition-colors cursor-pointer"
             >
-              <Download className="w-4 h-4" /> Export JSON backup
+              <Download className="w-4 h-4" /> Export JSON Backup
             </button>
 
             <input
@@ -91,32 +107,35 @@ export const SettingsSection: React.FC<SettingsSectionProps> = ({ content, updat
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="flex items-center gap-2 bg-white border border-gray-300 text-gray-700 hover:border-gray-900 hover:text-gray-900 text-xs font-medium px-5 py-2.5 rounded-md transition-colors"
+              className="flex items-center gap-2 bg-white border border-gray-300 text-gray-700 hover:border-gray-900 hover:text-gray-900 text-xs font-medium px-5 py-2.5 rounded-md transition-colors cursor-pointer"
             >
-              <Upload className="w-4 h-4" /> Import backup
+              <Upload className="w-4 h-4" /> Import Backup
             </button>
           </div>
         </div>
       </CollapseSection>
 
-      {/* Danger Zone */}
-      <div className="border border-red-200 bg-red-50 p-6 rounded-lg space-y-3">
-        <div className="flex items-center gap-2 text-red-700">
-          <ShieldAlert className="w-5 h-5" />
-          <h4 className="text-sm font-semibold">Danger zone</h4>
+      {/* ─── 4. DANGER ZONE ─── */}
+      <CollapseSection title="Reset to Factory Defaults">
+        <div className="space-y-4">
+          <div className="p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
+            <ShieldAlert className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="text-xs font-bold text-red-900">Reset Content & Database</p>
+              <p className="text-xs text-red-700 mt-1">
+                Restores all project records, text copy, styles, and settings back to original defaults.
+              </p>
+              <button
+                type="button"
+                onClick={handleFactoryReset}
+                className="mt-3 flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white text-xs font-bold px-4 py-2 rounded-md transition-colors cursor-pointer"
+              >
+                <RotateCcw className="w-3.5 h-3.5" /> Reset Everything to Defaults
+              </button>
+            </div>
+          </div>
         </div>
-        <p className="text-sm text-red-600/90 max-w-xl">
-          Reset all modified content, projects and gallery items back to the original factory defaults.
-        </p>
-
-        <button
-          type="button"
-          onClick={handleFactoryReset}
-          className="flex items-center gap-2 bg-white border border-red-300 text-red-700 hover:bg-red-100 text-xs font-semibold px-4 py-2.5 rounded-md transition-colors"
-        >
-          <RotateCcw className="w-3.5 h-3.5" /> Factory reset
-        </button>
-      </div>
+      </CollapseSection>
     </div>
   );
 };

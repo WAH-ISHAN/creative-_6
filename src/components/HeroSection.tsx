@@ -2,15 +2,16 @@ import React, { useEffect, useRef } from 'react';
 import { smoothScrollTo } from '../utils/smoothScroll';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useContent } from '../context/ContentContext';
+import { useContent, useSectionStyle } from '../context/ContentContext';
 
-// Served statically from /public/video
+// Served statically from /public/video or fallback
 const HERO_VIDEO_URL = '/video/intro-hero.mp4';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const HeroSection: React.FC = () => {
   const { content } = useContent();
+  const sec = useSectionStyle('hero');
 
   const heroRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -27,6 +28,14 @@ export const HeroSection: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    if (!sec.animationsEnabled) {
+      // Instant reveal when animations are disabled
+      if (heroRef.current) heroRef.current.style.opacity = '1';
+      if (mainTitleRef.current) { mainTitleRef.current.style.opacity = '1'; mainTitleRef.current.style.filter = 'none'; }
+      if (subTextRef.current) subTextRef.current.style.opacity = '1';
+      return;
+    }
+
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: 'power4.out' }, delay: 0.15 });
 
@@ -56,17 +65,26 @@ export const HeroSection: React.FC = () => {
     }, heroRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [sec.animationsEnabled]);
 
   const scrollToNextSection = () => {
-    const target = document.getElementById('section-introduction');
-    if (target) {
-      smoothScrollTo(target);
+    const nextSec = document.getElementById('section-intro') || document.getElementById('section-featured-work');
+    if (nextSec) {
+      smoothScrollTo(nextSec);
     }
   };
 
+  const heroHeadingBase = 2.75 * sec.headingScale;
+  const heroHeadingVw = 8.2 * sec.headingScale;
+  const heroHeadingMax = 7.7 * sec.headingScale;
+
   return (
-    <section ref={heroRef} id="hero" className="no-parallax relative w-full min-h-[100svh] h-[100svh] max-h-[1200px] flex flex-col justify-center items-center overflow-hidden select-none bg-black text-[var(--fx-white)] pt-24 pb-8 sm:pb-10 px-6 sm:px-10 md:px-14 lg:px-16">
+    <section 
+      ref={heroRef} 
+      id="hero" 
+      style={sec.style}
+      className="relative w-full h-[100svh] min-h-[640px] flex items-center justify-center overflow-hidden select-none bg-[var(--fx-black)] text-[var(--fx-white)]"
+    >
       
       {/* ─── FULL HIGH-DEFINITION BACKGROUND HERO VIDEO ─── */}
       <div className="absolute inset-0 z-0 w-full h-full overflow-hidden pointer-events-none">
@@ -91,15 +109,15 @@ export const HeroSection: React.FC = () => {
           <h1
             ref={mainTitleRef}
             className="will-change-transform font-editorial uppercase tracking-tight font-normal select-none leading-[0.88] text-white"
-            style={{ fontSize: 'clamp(2.75rem, 8.2vw, 7.7rem)' }}
+            style={{ fontSize: `clamp(${heroHeadingBase}rem, ${heroHeadingVw}vw, ${heroHeadingMax}rem)` }}
           >
-            BEYOND<br />
-            <span className="text-[var(--fx-yellow)]">CREATIVITY</span>
+            {content.hero?.title?.split('\n')[0] || 'BEYOND'}<br />
+            <span style={{ color: sec.accent }}>{content.hero?.title?.split('\n')[1] || 'CREATIVITY'}</span>
           </h1>
           
           <p 
             className="font-mono-tech text-white/75 leading-relaxed font-normal max-w-xs md:max-w-sm drop-shadow-md tracking-[0.22em] uppercase text-center"
-            style={{ fontSize: 'clamp(7.5px, 0.75vw, 9.5px)' }}
+            style={{ fontSize: `clamp(${7.5 * sec.bodyScale}px, ${0.75 * sec.bodyScale}vw, ${9.5 * sec.bodyScale}px)` }}
           >
             {content.hero?.description || 'CreativeFX is a creative agency specializing in photography, videography, content creation, and digital marketing solutions for modern brands.'}
           </p>
@@ -117,6 +135,7 @@ export const HeroSection: React.FC = () => {
           </button>
         </div>
       </div>
+
     </section>
   );
 };

@@ -183,15 +183,47 @@ export const DEFAULT_CONTENT = {
   // ─── Theme / branding (admin → Theme section) ──────────────────────────────
   theme: {
     accentColor: '#fcbf13',
+    backgroundColor: '#050505',
+    textColor: '#ffffff',
+    textMutedColor: '#888888',
+    borderColor: 'rgba(255, 255, 255, 0.16)',
     logoUrl: '/img/creativefx-bgr-logo.png',
+    fontDisplay: 'League Spartan',
+    fontBody: 'Inter',
+    fontMono: 'JetBrains Mono',
+    customGoogleFontUrl: '',
   },
-  // ─── Navigation labels (admin → Website → Navigation) ──────────────────────
+  // ─── Section-by-section Design & Animation overrides ───────────────────────
+  sectionStyles: {
+    hero: { bg: '', text: '', accent: '', headingScale: 1, bodyScale: 1, animationsEnabled: true, font: '' },
+    intro: { bg: '', text: '', accent: '', headingScale: 1, bodyScale: 1, animationsEnabled: true, font: '' },
+    featuredWork: { bg: '', text: '', accent: '', headingScale: 1, bodyScale: 1, animationsEnabled: true, font: '' },
+    portfolio: { bg: '', text: '', accent: '', headingScale: 1, bodyScale: 1, animationsEnabled: true, font: '' },
+    services: { bg: '', text: '', accent: '', headingScale: 1, bodyScale: 1, animationsEnabled: true, font: '' },
+    about: { bg: '', text: '', accent: '', headingScale: 1, bodyScale: 1, animationsEnabled: true, font: '' },
+    contact: { bg: '', text: '', accent: '', headingScale: 1, bodyScale: 1, animationsEnabled: true, font: '' },
+    cta: { bg: '', text: '', accent: '', headingScale: 1, bodyScale: 1, animationsEnabled: true, font: '' },
+    footer: { bg: '', text: '', accent: '', headingScale: 1, bodyScale: 1, animationsEnabled: true, font: '' },
+    weddings: { bg: '', text: '', accent: '', headingScale: 1, bodyScale: 1, animationsEnabled: true, font: '' },
+  } as Record<string, { bg?: string; text?: string; accent?: string; border?: string; headingScale?: number; bodyScale?: number; animationsEnabled?: boolean; font?: string }>,
+  // ─── Custom CSS code injector ──────────────────────────────────────────────
+  customCss: '',
+  // ─── Navigation labels and options (admin → Website → Navigation) ───────────
   nav: {
     work: 'PORTFOLIO',
     services: 'SERVICES',
     weddings: 'WEDDINGS',
     about: 'ABOUT',
     cta: 'INQUIRE',
+    ctaUrl: '#section-contact',
+    showWork: true,
+    showServices: true,
+    showWeddings: true,
+    showAbout: true,
+    showCta: true,
+    transparentOnTop: true,
+    glassBlur: true,
+    customLinks: [] as { id: string; label: string; url: string; active: boolean; isExternal?: boolean }[],
   },
   // ─── Footer (admin → Website → Footer) ─────────────────────────────────────
   footer: {
@@ -204,8 +236,10 @@ export const DEFAULT_CONTENT = {
     showWorks: true,
     customCursor: true,
     maintenanceMode: false,
+    animationsMasterEnabled: true,
     announcementEnabled: false,
     announcementText: 'NOW BOOKING COMMERCIALS & WEDDING DATES FOR 2026 / 2027',
+    announcementUrl: '',
     rateCardEnabled: false,
     rateCardUrl: '',
     bookingPolicy: '',
@@ -355,11 +389,58 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
     }
     if (canonical && seo.canonicalUrl) canonical.setAttribute('href', seo.canonicalUrl);
 
-    // Brand accent color → drives the whole public site via CSS variable
+    // Brand theme & colors → dynamic CSS variables
     const theme = { ...DEFAULT_CONTENT.theme, ...(content.theme || {}) };
+    const root = document.documentElement;
+
     if (theme.accentColor && /^#[0-9a-fA-F]{3,8}$/.test(theme.accentColor)) {
-      document.documentElement.style.setProperty('--fx-yellow', theme.accentColor);
+      root.style.setProperty('--fx-yellow', theme.accentColor);
+      root.style.setProperty('--fx-accent', theme.accentColor);
     }
+    if (theme.backgroundColor && /^#[0-9a-fA-F]{3,8}$/.test(theme.backgroundColor)) {
+      root.style.setProperty('--fx-black', theme.backgroundColor);
+    }
+    if (theme.textColor && /^#[0-9a-fA-F]{3,8}$/.test(theme.textColor)) {
+      root.style.setProperty('--fx-white', theme.textColor);
+    }
+    if (theme.textMutedColor && /^#[0-9a-fA-F]{3,8}$/.test(theme.textMutedColor)) {
+      root.style.setProperty('--fx-gray', theme.textMutedColor);
+    }
+    if (theme.borderColor) {
+      root.style.setProperty('--fx-border-dark', theme.borderColor);
+    }
+
+    // Font families
+    if (theme.fontDisplay) {
+      root.style.setProperty('--fx-font-display', `'${theme.fontDisplay}', 'Forum', 'League Spartan', sans-serif`);
+    }
+    if (theme.fontBody) {
+      root.style.setProperty('--fx-font-body', `'${theme.fontBody}', 'Inter', sans-serif`);
+    }
+    if (theme.fontMono) {
+      root.style.setProperty('--fx-font-mono', `'${theme.fontMono}', 'JetBrains Mono', monospace`);
+    }
+
+    // Dynamic Google Fonts loader
+    if (theme.customGoogleFontUrl && theme.customGoogleFontUrl.startsWith('http')) {
+      let fontLink = document.getElementById('cfx-custom-google-fonts') as HTMLLinkElement | null;
+      if (!fontLink) {
+        fontLink = document.createElement('link');
+        fontLink.id = 'cfx-custom-google-fonts';
+        fontLink.rel = 'stylesheet';
+        document.head.appendChild(fontLink);
+      }
+      fontLink.href = theme.customGoogleFontUrl;
+    }
+
+    // Custom CSS code injector
+    let customStyle = document.getElementById('cfx-custom-user-styles') as HTMLStyleElement | null;
+    if (!customStyle) {
+      customStyle = document.createElement('style');
+      customStyle.id = 'cfx-custom-user-styles';
+      document.head.appendChild(customStyle);
+    }
+    customStyle.textContent = content.customCss || '';
   }, [content]);
 
   // Load content from server on mount
@@ -432,6 +513,31 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
 };
 
 export const useContent = () => useContext(ContentContext);
+
+/**
+ * Returns dynamic styles, fonts, and animation state for any section
+ */
+export function useSectionStyle(sectionKey: string) {
+  const { content } = useContent();
+  const styles = content.sectionStyles?.[sectionKey] || {};
+  const masterAnim = content.settings?.animationsMasterEnabled ?? true;
+
+  const inlineStyle: React.CSSProperties = {};
+  if (styles.bg) inlineStyle.backgroundColor = styles.bg;
+  if (styles.text) inlineStyle.color = styles.text;
+  if (styles.font) inlineStyle.fontFamily = `'${styles.font}', sans-serif`;
+
+  return {
+    style: inlineStyle,
+    bg: styles.bg || undefined,
+    text: styles.text || undefined,
+    accent: styles.accent || content.theme?.accentColor || '#fcbf13',
+    headingScale: styles.headingScale ?? 1,
+    bodyScale: styles.bodyScale ?? 1,
+    animationsEnabled: masterAnim && (styles.animationsEnabled ?? true),
+    font: styles.font || undefined,
+  };
+}
 
 // ─── Master project helpers (single source of truth) ─────────────────────────
 /**

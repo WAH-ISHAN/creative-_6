@@ -1,12 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useContent } from '../context/ContentContext';
+import { useContent, useSectionStyle } from '../context/ContentContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const AboutSection: React.FC = () => {
   const { content } = useContent();
+  const sec = useSectionStyle('about');
   const about = content.about || {};
   const headlineLines = (about.headline || 'WE CREATE\nWHAT PEOPLE\nREMEMBER.').split('\n');
 
@@ -16,6 +17,11 @@ export const AboutSection: React.FC = () => {
   const textGroup2Ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!sec.animationsEnabled) {
+      if (titleRef.current) titleRef.current.style.opacity = '1';
+      return;
+    }
+
     let ctx = gsap.context(() => {
       gsap.from(titleRef.current, {
         y: 60,
@@ -57,10 +63,10 @@ export const AboutSection: React.FC = () => {
       }
     }, sectionRef);
     return () => ctx.revert();
-  }, []);
+  }, [sec.animationsEnabled]);
 
   return (
-    <section ref={sectionRef} id="section-about" className="relative w-full bg-[var(--fx-black)] text-[var(--fx-white)] py-16 sm:py-24 md:py-32 px-6 sm:px-8 md:px-12 select-none border-t border-[var(--fx-border-dark)] overflow-hidden no-parallax">
+    <section ref={sectionRef} id="section-about" style={sec.style} className="relative w-full bg-[var(--fx-black)] text-[var(--fx-white)] py-16 sm:py-24 md:py-32 px-6 sm:px-8 md:px-12 select-none border-t border-[var(--fx-border-dark)] overflow-hidden no-parallax">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-16 md:gap-24 items-start">
 
         {/* Left Column: Title */}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useContent } from '../context/ContentContext';
+import { useContent, useSectionStyle } from '../context/ContentContext';
 import { resetGlobalScroll, smoothScrollTo } from '../utils/scrollManager';
 
 interface FooterProps {
@@ -16,6 +16,7 @@ export const Footer: React.FC<FooterProps> = ({
   onNavigateSection,
 }) => {
   const { content } = useContent();
+  const sec = useSectionStyle('footer');
   const contact = { ...content.contact };
   const tagline = content.footer?.tagline || "LET'S CREATE WHAT PEOPLE REMEMBER.";
   const copyright = content.footer?.copyright || 'CREATIVEFX STUDIO. ALL RIGHTS RESERVED.';
@@ -65,7 +66,7 @@ export const Footer: React.FC<FooterProps> = ({
   };
 
   return (
-    <footer className="w-full bg-[#050505] text-[var(--fx-white)] py-14 sm:py-20 px-6 sm:px-8 md:px-12 lg:px-16 select-none border-t border-[var(--fx-border-dark)]">
+    <footer style={sec.style} className="w-full bg-[#050505] text-[var(--fx-white)] py-14 sm:py-20 px-6 sm:px-8 md:px-12 lg:px-16 select-none border-t border-[var(--fx-border-dark)]">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12 md:gap-16">
         
         {/* Left: Brand */}

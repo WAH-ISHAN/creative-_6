@@ -1,12 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useContent } from '../context/ContentContext';
+import { useContent, useSectionStyle } from '../context/ContentContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const IntroductionSection: React.FC = () => {
   const { content } = useContent();
+  const sec = useSectionStyle('intro');
   const intro = content.intro || {};
   const headlineLines = (intro.headline || 'WE CREATE\nWHAT PEOPLE\nREMEMBER.').split('\n');
 
@@ -16,6 +17,13 @@ export const IntroductionSection: React.FC = () => {
   const imageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!sec.animationsEnabled) {
+      if (titleRef.current) titleRef.current.style.opacity = '1';
+      if (textRef.current) textRef.current.style.opacity = '1';
+      if (imageRef.current) imageRef.current.style.opacity = '1';
+      return;
+    }
+
     let ctx = gsap.context(() => {
       // Title slide up
       gsap.from(titleRef.current, {
@@ -60,18 +68,15 @@ export const IntroductionSection: React.FC = () => {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [sec.animationsEnabled]);
 
   return (
     <section
       ref={sectionRef}
       id="section-introduction"
-      className="relative w-full bg-[var(--fx-white)] text-[var(--fx-black)] py-16 sm:py-24 md:py-32 px-6 sm:px-8 md:px-12 select-none no-parallax overflow-hidden"
+      style={sec.style}
+      className="relative w-full bg-[var(--fx-white)] text-[var(--fx-black)] py-16 sm:py-24 md:py-32 px-6 sm:px-8 md:px-12 select-none no-parallax"
     >
-      {/* Continuous Architectural Arc Outline connecting to Featured Work */}
-      <div className="absolute left-[-48vw] bottom-[-40vh] w-[103vw] h-[100vh] rounded-r-full border-r border-black/10 pointer-events-none hidden md:block" />
-      <div className="absolute left-[-52vw] bottom-[-45vh] w-[110vw] h-[110vh] rounded-r-full border-r border-black/5 pointer-events-none hidden md:block" />
-
       <div className="relative z-10 max-w-6xl mx-auto">
         <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
 
@@ -82,7 +87,11 @@ export const IntroductionSection: React.FC = () => {
               <span>{intro.label || '/ Studio'}</span>
             </div>
 
-            <h2 ref={titleRef} className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-editorial font-normal uppercase tracking-tight text-[var(--fx-black)] leading-[0.95]">
+            <h2 
+              ref={titleRef} 
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-editorial font-normal uppercase tracking-tight text-[var(--fx-black)] leading-[0.95]"
+              style={{ fontSize: sec.headingScale !== 1 ? `${sec.headingScale * 3.75}rem` : undefined }}
+            >
               {headlineLines.map((line, i) => (
                 <React.Fragment key={i}>
                   {line}
@@ -91,7 +100,7 @@ export const IntroductionSection: React.FC = () => {
               ))}
             </h2>
 
-            <div className="w-12 h-1 bg-[var(--fx-black)]"></div>
+            <div className="w-12 h-1 bg-[var(--fx-black)]" style={{ backgroundColor: sec.accent || 'var(--fx-black)' }}></div>
           </div>
 
           {/* Right Column: Text & Image */}
@@ -100,11 +109,17 @@ export const IntroductionSection: React.FC = () => {
 
               <div className="h-px w-16 bg-[var(--fx-border-light)]"></div>
 
-              <p className="text-base sm:text-lg font-tech text-[var(--fx-gray)] leading-relaxed animate-text-on-scroll whitespace-pre-line">
+              <p 
+                className="text-base sm:text-lg font-tech text-[var(--fx-gray)] leading-relaxed animate-text-on-scroll whitespace-pre-line"
+                style={{ fontSize: sec.bodyScale !== 1 ? `${sec.bodyScale * 1.125}rem` : undefined }}
+              >
                 {intro.body || ''}
               </p>
 
-              <p className="text-base sm:text-lg font-tech text-[var(--fx-gray)] leading-relaxed animate-text-on-scroll">
+              <p 
+                className="text-base sm:text-lg font-tech text-[var(--fx-gray)] leading-relaxed animate-text-on-scroll"
+                style={{ fontSize: sec.bodyScale !== 1 ? `${sec.bodyScale * 1.125}rem` : undefined }}
+              >
                 {intro.bodyLine2 || ''}
               </p>
             </div>

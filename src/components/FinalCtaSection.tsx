@@ -3,7 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Sparkles, ArrowUpRight } from 'lucide-react';
 import { soundEngine } from '../utils/audio';
-import { useContent } from '../context/ContentContext';
+import { useContent, useSectionStyle } from '../context/ContentContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,6 +13,7 @@ interface FinalCtaSectionProps {
 
 export const FinalCtaSection: React.FC<FinalCtaSectionProps> = ({ onStartProject }) => {
   const { content } = useContent();
+  const sec = useSectionStyle('cta');
   const cta = content.cta || {};
   const headlineLines = (cta.headline || 'WANT YOUR BRAND\nTO BE OUR NEXT\nPROJECT?').split('\n');
   const sectionRef = useRef<HTMLElement>(null);
@@ -21,6 +22,11 @@ export const FinalCtaSection: React.FC<FinalCtaSectionProps> = ({ onStartProject
   const buttonRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!sec.animationsEnabled) {
+      if (titleRef.current) titleRef.current.style.opacity = '1';
+      return;
+    }
+
     let ctx = gsap.context(() => {
       gsap.from(containerRef.current, {
         y: 40,
@@ -61,10 +67,10 @@ export const FinalCtaSection: React.FC<FinalCtaSectionProps> = ({ onStartProject
       });
     }, sectionRef);
     return () => ctx.revert();
-  }, []);
+  }, [sec.animationsEnabled]);
 
   return (
-    <section ref={sectionRef} className="no-parallax w-full bg-[#050505] text-[var(--fx-white)] py-20 sm:py-28 md:py-36 px-6 sm:px-8 md:px-12 lg:px-16 border-t border-[var(--fx-border-dark)] select-none overflow-hidden">
+    <section ref={sectionRef} style={sec.style} className="no-parallax w-full bg-[#050505] text-[var(--fx-white)] py-20 sm:py-28 md:py-36 px-6 sm:px-8 md:px-12 lg:px-16 border-t border-[var(--fx-border-dark)] select-none overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <div ref={containerRef} className="bg-[#0a0a0a] border border-white/10 rounded-2xl p-10 sm:p-16 md:p-20 text-center space-y-8 relative shadow-[0_25px_60px_rgba(0,0,0,0.9)] group hover:border-white/20 transition-colors">
           

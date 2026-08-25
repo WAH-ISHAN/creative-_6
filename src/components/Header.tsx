@@ -25,24 +25,35 @@ export const Header: React.FC<HeaderProps> = ({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { content } = useContent();
 
-  // Admin-managed navigation labels & visibility (fall back to brand defaults)
+  const nav = content.nav || {};
+  const settings = content.settings || {};
+  const theme = content.theme || {};
+
   const navLabels = {
-    work: content.nav?.work || 'PORTFOLIO',
-    services: content.nav?.services || 'SERVICES',
-    weddings: content.nav?.weddings || 'WEDDINGS',
-    about: content.nav?.about || 'ABOUT',
-    cta: content.nav?.cta || 'INQUIRE',
+    work: nav.work || 'PORTFOLIO',
+    services: nav.services || 'SERVICES',
+    weddings: nav.weddings || 'WEDDINGS',
+    about: nav.about || 'ABOUT',
+    cta: nav.cta || 'INQUIRE',
+    ctaUrl: nav.ctaUrl || '#section-contact',
   };
-  const showWeddings = content.settings?.showWeddings ?? true;
-  const showWorks = content.settings?.showWorks ?? true;
-  const announcementEnabled = content.settings?.announcementEnabled ?? false;
-  const announcementText = content.settings?.announcementText || '';
+
+  const showWorks = (nav.showWork ?? true) && (settings.showWorks ?? true);
+  const showServices = nav.showServices ?? true;
+  const showWeddings = (nav.showWeddings ?? true) && (settings.showWeddings ?? true);
+  const showAbout = nav.showAbout ?? true;
+  const showCta = nav.showCta ?? true;
+  const customLinks = Array.isArray(nav.customLinks) ? nav.customLinks : [];
+
+  const announcementEnabled = settings.announcementEnabled ?? false;
+  const announcementText = settings.announcementText || '';
+  const announcementUrl = settings.announcementUrl || '';
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -58,6 +69,22 @@ export const Header: React.FC<HeaderProps> = ({
     }
   };
 
+  const handleCtaClick = () => {
+    setMobileMenuOpen(false);
+    if (navLabels.ctaUrl?.startsWith('#')) {
+      const targetId = navLabels.ctaUrl.replace('#', '');
+      scrollToSection(targetId, onOpenContact);
+    } else if (navLabels.ctaUrl?.startsWith('http')) {
+      window.open(navLabels.ctaUrl, '_blank', 'noopener,noreferrer');
+    } else if (navLabels.ctaUrl) {
+      window.location.href = navLabels.ctaUrl;
+    } else if (onOpenContact) {
+      onOpenContact();
+    } else {
+      scrollToSection('section-contact');
+    }
+  };
+
   return (
     <header
       className={`fixed top-0 w-full z-[100] transition-all duration-500 ease-out ${
@@ -68,8 +95,14 @@ export const Header: React.FC<HeaderProps> = ({
     >
       {/* Announcement Bar */}
       {announcementEnabled && announcementText && (
-        <div className="absolute top-0 left-0 w-full bg-[var(--fx-yellow)] text-black text-center py-1.5 px-4 text-[10px] font-mono-tech tracking-[0.2em] uppercase overflow-hidden whitespace-nowrap">
-          {announcementText}
+        <div className="absolute top-0 left-0 w-full bg-[var(--fx-yellow)] text-black text-center py-1.5 px-4 text-[10px] font-mono-tech tracking-[0.2em] uppercase overflow-hidden whitespace-nowrap z-50">
+          {announcementUrl ? (
+            <a href={announcementUrl} className="hover:underline font-bold">
+              {announcementText} →
+            </a>
+          ) : (
+            <span>{announcementText}</span>
+          )}
         </div>
       )}
 
@@ -77,12 +110,20 @@ export const Header: React.FC<HeaderProps> = ({
         
         {/* BRAND TITLE / LOGO */}
         <div 
-          className="cursor-pointer select-none relative group flex items-center"
+          className="cursor-pointer select-none relative group flex items-center gap-3"
           onClick={() => {
             if (onLogoClick) onLogoClick();
             else scrollToSection('hero');
           }}
         >
+          {theme.logoUrl && theme.logoUrl.trim() ? (
+            <img
+              src={theme.logoUrl}
+              alt="CreativeFX Logo"
+              className="h-8 md:h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              onError={e => { (e.currentTarget as HTMLElement).style.display = 'none'; }}
+            />
+          ) : null}
           <span className="text-xl sm:text-2xl font-editorial font-normal tracking-[0.14em] text-[var(--fx-white)] uppercase transition-transform duration-300 group-hover:scale-[1.02]">
             CREATIVE<span className="text-[var(--fx-yellow)] font-bold">FX</span>
           </span>
@@ -100,13 +141,15 @@ export const Header: React.FC<HeaderProps> = ({
               <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-[var(--fx-yellow)] transition-all duration-300 group-hover:w-full" />
             </button>
           )}
-          <button 
-            onClick={() => scrollToSection('section-services', onOpenServices)} 
-            className="px-2 py-1 text-xs sm:text-sm font-mono-tech tracking-[0.22em] text-[var(--fx-light-gray)] hover:text-[var(--fx-yellow)] transition-all duration-300 uppercase cursor-pointer relative group"
-          >
-            <span>{navLabels.services}</span>
-            <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-[var(--fx-yellow)] transition-all duration-300 group-hover:w-full" />
-          </button>
+          {showServices && (
+            <button 
+              onClick={() => scrollToSection('section-services', onOpenServices)} 
+              className="px-2 py-1 text-xs sm:text-sm font-mono-tech tracking-[0.22em] text-[var(--fx-light-gray)] hover:text-[var(--fx-yellow)] transition-all duration-300 uppercase cursor-pointer relative group"
+            >
+              <span>{navLabels.services}</span>
+              <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-[var(--fx-yellow)] transition-all duration-300 group-hover:w-full" />
+            </button>
+          )}
           {showWeddings && (
             <button 
               onClick={() => scrollToSection('weddings', onOpenWeddings)} 
@@ -116,20 +159,38 @@ export const Header: React.FC<HeaderProps> = ({
               <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-[var(--fx-yellow)] transition-all duration-300 group-hover:w-full" />
             </button>
           )}
-          <button 
-            onClick={() => scrollToSection('section-about', onOpenAbout)} 
-            className="px-2 py-1 text-xs sm:text-sm font-mono-tech tracking-[0.22em] text-[var(--fx-light-gray)] hover:text-[var(--fx-yellow)] transition-all duration-300 uppercase cursor-pointer relative group"
-          >
-            <span>{navLabels.about}</span>
-            <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-[var(--fx-yellow)] transition-all duration-300 group-hover:w-full" />
-          </button>
+          {showAbout && (
+            <button 
+              onClick={() => scrollToSection('section-about', onOpenAbout)} 
+              className="px-2 py-1 text-xs sm:text-sm font-mono-tech tracking-[0.22em] text-[var(--fx-light-gray)] hover:text-[var(--fx-yellow)] transition-all duration-300 uppercase cursor-pointer relative group"
+            >
+              <span>{navLabels.about}</span>
+              <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-[var(--fx-yellow)] transition-all duration-300 group-hover:w-full" />
+            </button>
+          )}
+
+          {/* Custom user links */}
+          {customLinks.filter(l => l.active !== false).map(l => (
+            <a
+              key={l.id}
+              href={l.url}
+              target={l.isExternal ? '_blank' : '_self'}
+              rel={l.isExternal ? 'noopener noreferrer' : undefined}
+              className="px-2 py-1 text-xs sm:text-sm font-mono-tech tracking-[0.22em] text-[var(--fx-light-gray)] hover:text-[var(--fx-yellow)] transition-all duration-300 uppercase cursor-pointer relative group"
+            >
+              <span>{l.label}</span>
+              <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-[var(--fx-yellow)] transition-all duration-300 group-hover:w-full" />
+            </a>
+          ))}
           
-          <button
-            onClick={() => scrollToSection('section-contact', onOpenContact)}
-            className="ml-4 lg:ml-6 px-6 py-2 border border-white/60 text-white text-xs sm:text-sm font-mono-tech tracking-[0.24em] font-semibold hover:bg-[var(--fx-yellow)] hover:border-[var(--fx-yellow)] hover:text-black transition-all duration-300 uppercase rounded-sm cursor-pointer shadow-sm"
-          >
-            {navLabels.cta}
-          </button>
+          {showCta && (
+            <button
+              onClick={handleCtaClick}
+              className="ml-4 lg:ml-6 px-6 py-2 border border-white/60 text-white text-xs sm:text-sm font-mono-tech tracking-[0.24em] font-semibold hover:bg-[var(--fx-yellow)] hover:border-[var(--fx-yellow)] hover:text-black transition-all duration-300 uppercase rounded-sm cursor-pointer shadow-sm"
+            >
+              {navLabels.cta}
+            </button>
+          )}
         </nav>
 
         {/* MOBILE MENU TOGGLE */}
@@ -151,16 +212,32 @@ export const Header: React.FC<HeaderProps> = ({
         }`}
         style={{ top: '64px' }}
       >
-        <div className="flex flex-col items-center gap-8 w-full px-6">
+        <div className="flex flex-col items-center gap-6 w-full px-6 overflow-y-auto max-h-[85vh]">
           {showWorks && (
-            <button onClick={() => scrollToSection('section-portfolio', onOpenWork)} className="text-3xl font-editorial tracking-widest text-white uppercase w-full text-center py-4 border-b border-[var(--fx-border-dark)] hover:text-[var(--fx-yellow)] transition-colors cursor-pointer">{navLabels.work}</button>
+            <button onClick={() => scrollToSection('section-portfolio', onOpenWork)} className="text-2xl font-editorial tracking-widest text-white uppercase w-full text-center py-3 border-b border-[var(--fx-border-dark)] hover:text-[var(--fx-yellow)] transition-colors cursor-pointer">{navLabels.work}</button>
           )}
-          <button onClick={() => scrollToSection('section-services', onOpenServices)} className="text-3xl font-editorial tracking-widest text-white uppercase w-full text-center py-4 border-b border-[var(--fx-border-dark)] hover:text-[var(--fx-yellow)] transition-colors cursor-pointer">{navLabels.services}</button>
+          {showServices && (
+            <button onClick={() => scrollToSection('section-services', onOpenServices)} className="text-2xl font-editorial tracking-widest text-white uppercase w-full text-center py-3 border-b border-[var(--fx-border-dark)] hover:text-[var(--fx-yellow)] transition-colors cursor-pointer">{navLabels.services}</button>
+          )}
           {showWeddings && (
-            <button onClick={() => scrollToSection('weddings', onOpenWeddings)} className="text-3xl font-editorial tracking-widest text-white uppercase w-full text-center py-4 border-b border-[var(--fx-border-dark)] hover:text-[var(--fx-yellow)] transition-colors cursor-pointer">{navLabels.weddings}</button>
+            <button onClick={() => scrollToSection('weddings', onOpenWeddings)} className="text-2xl font-editorial tracking-widest text-white uppercase w-full text-center py-3 border-b border-[var(--fx-border-dark)] hover:text-[var(--fx-yellow)] transition-colors cursor-pointer">{navLabels.weddings}</button>
           )}
-          <button onClick={() => scrollToSection('section-about', onOpenAbout)} className="text-3xl font-editorial tracking-widest text-white uppercase w-full text-center py-4 border-b border-[var(--fx-border-dark)] hover:text-[var(--fx-yellow)] transition-colors cursor-pointer">{navLabels.about}</button>
-          <button onClick={() => scrollToSection('section-contact', onOpenContact)} className="text-3xl font-editorial tracking-widest text-[var(--fx-yellow)] uppercase w-full text-center py-4 border-b border-[var(--fx-border-dark)] hover:text-white transition-colors cursor-pointer">{navLabels.cta}</button>
+          {showAbout && (
+            <button onClick={() => scrollToSection('section-about', onOpenAbout)} className="text-2xl font-editorial tracking-widest text-white uppercase w-full text-center py-3 border-b border-[var(--fx-border-dark)] hover:text-[var(--fx-yellow)] transition-colors cursor-pointer">{navLabels.about}</button>
+          )}
+          {customLinks.filter(l => l.active !== false).map(l => (
+            <a
+              key={l.id}
+              href={l.url}
+              target={l.isExternal ? '_blank' : '_self'}
+              className="text-2xl font-editorial tracking-widest text-white uppercase w-full text-center py-3 border-b border-[var(--fx-border-dark)] hover:text-[var(--fx-yellow)] transition-colors cursor-pointer"
+            >
+              {l.label}
+            </a>
+          ))}
+          {showCta && (
+            <button onClick={handleCtaClick} className="text-2xl font-editorial tracking-widest text-[var(--fx-yellow)] uppercase w-full text-center py-3 border-b border-[var(--fx-border-dark)] hover:text-white transition-colors cursor-pointer">{navLabels.cta}</button>
+          )}
         </div>
       </div>
     </header>

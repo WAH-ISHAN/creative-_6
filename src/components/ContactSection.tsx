@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useContent, API_BASE } from '../context/ContentContext';
+import { useContent, API_BASE, useSectionStyle } from '../context/ContentContext';
 import { MessageCircle, CheckCircle2, Quote } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const ContactSection: React.FC = () => {
   const { content } = useContent();
+  const sec = useSectionStyle('contact');
   const contact = content.contact || {};
   const pageCopy = content.contactPage || {};
   const testimonials = content.testimonials?.length ? content.testimonials : [];
@@ -36,6 +37,8 @@ export const ContactSection: React.FC = () => {
 
   // Entrance animations
   useEffect(() => {
+    if (!sec.animationsEnabled) return;
+
     const ctx = gsap.context(() => {
       gsap.from('.contact-left-card', {
         y: 40,
@@ -60,7 +63,7 @@ export const ContactSection: React.FC = () => {
       });
     }, sectionRef);
     return () => ctx.revert();
-  }, []);
+  }, [sec.animationsEnabled]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
