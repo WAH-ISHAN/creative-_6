@@ -52,18 +52,18 @@ export const WeddingHero: React.FC<WeddingHeroProps> = ({
   }, []);
 
   return (
-    <section ref={containerRef} className="relative w-full min-h-[100svh] flex flex-col justify-center items-center bg-[var(--fx-black)] text-[var(--fx-white)] px-6 overflow-hidden">
+    <section ref={containerRef} className="relative w-full min-h-[100svh] flex flex-col items-center justify-center bg-[var(--fx-black)] text-[var(--fx-white)] px-6 pt-32 pb-16 overflow-hidden">
       
-      {/* Top Meta */}
-      <div className="absolute top-28 md:top-32 left-0 right-0 z-20 w-full max-w-7xl mx-auto flex justify-between px-6 sm:px-10 text-xs font-mono-tech tracking-[0.25em] text-[var(--fx-gray)] uppercase">
-        <div className="flex items-center gap-2">
+      <div className="relative z-10 max-w-6xl mx-auto w-full flex flex-col items-center justify-center gap-6 sm:gap-8 md:gap-10">
+        
+        {/* Top Meta Badge (In-flow above heading, never overlapping) */}
+        <div className="flex items-center gap-2.5 text-xs sm:text-sm font-mono-tech tracking-[0.28em] text-[var(--fx-gray)] uppercase">
           <span className="text-[var(--fx-yellow)] font-bold">01</span>
-          <span className="text-[var(--fx-white)] font-semibold">{w.heroSubtitle || '/ Weddings by CreativeFX'}</span>
+          <span className="text-[var(--fx-white)] font-semibold">{w.heroSubtitle || 'WEDDING PHOTOGRAPHY & CINEMATOGRAPHY'}</span>
         </div>
-      </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-col items-center justify-center mt-20 gap-10">
-        <h1 ref={headlineRef} className="text-4xl sm:text-5xl md:text-7xl lg:text-[6.8rem] font-editorial tracking-tight uppercase leading-[0.95] text-center text-[var(--fx-white)]">
+        {/* Elegant Balanced Headline */}
+        <h1 ref={headlineRef} className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-editorial tracking-tight uppercase leading-[0.98] text-center text-[var(--fx-white)] max-w-5xl">
           {headlineLines.map((line, i) => (
             <React.Fragment key={i}>
               {line}
@@ -72,10 +72,11 @@ export const WeddingHero: React.FC<WeddingHeroProps> = ({
           ))}
         </h1>
 
+        {/* Cinematic Preview Box */}
         <div
           ref={imageContainerRef}
           onClick={onPlayReel || onExploreFeaturedStory}
-          className="relative w-full max-w-4xl aspect-video md:aspect-[21/9] overflow-hidden bg-black border border-white/20 rounded-sm group cursor-pointer shadow-2xl"
+          className="relative w-full max-w-4xl aspect-video md:aspect-[21/9] overflow-hidden bg-black border border-white/20 rounded-md group cursor-pointer shadow-2xl mt-2"
         >
           <img
             src={heroImage}
@@ -99,9 +100,9 @@ export const WeddingHero: React.FC<WeddingHeroProps> = ({
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-10 z-20 w-full flex justify-center text-xs font-mono-tech uppercase tracking-[0.2em] text-[var(--fx-gray)]">
+      <div className="pt-8 z-20 w-full flex justify-center text-xs font-mono-tech uppercase tracking-[0.2em] text-[var(--fx-gray)]">
         <div className="flex flex-col items-center gap-2">
-          <div className="w-px h-12 bg-white/20 relative overflow-hidden">
+          <div className="w-px h-10 bg-white/20 relative overflow-hidden">
             <div className="absolute top-0 w-full h-4 bg-[var(--fx-yellow)] animate-[pulse-subtle_2s_infinite]" />
           </div>
           <span className="text-[10px] tracking-[0.3em] font-bold text-white/70">SCROLL</span>
