@@ -27,7 +27,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   // Admin-managed navigation labels & visibility (fall back to brand defaults)
   const navLabels = {
-    work: content.nav?.work || 'WORK',
+    work: content.nav?.work || 'PORTFOLIO',
     services: content.nav?.services || 'SERVICES',
     weddings: content.nav?.weddings || 'WEDDINGS',
     about: content.nav?.about || 'ABOUT',

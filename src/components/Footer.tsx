@@ -132,7 +132,7 @@ export const Footer: React.FC<FooterProps> = ({
               onClick={handleWorksLink}
               className="text-left text-sm sm:text-base text-gray-300 hover:text-[var(--fx-yellow)] hover:translate-x-1 transition-all cursor-pointer"
             >
-              Work
+              Portfolio
             </button>
             <button 
               type="button"
