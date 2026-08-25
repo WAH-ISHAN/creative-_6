@@ -87,17 +87,17 @@ export const HeroSection: React.FC = () => {
 
       {/* ─── FOREGROUND: HERO HEADLINE & NARRATIVE ─── */}
       <div ref={bgTitleRef} className="relative z-20 pointer-events-none flex flex-col items-center justify-center px-6 text-center">
-        <div ref={subTextRef} className="flex flex-col items-center gap-5 md:gap-7 max-w-4xl mx-auto drop-shadow-2xl">
+        <div ref={subTextRef} className="flex flex-col items-center gap-4 md:gap-5 max-w-3xl mx-auto drop-shadow-2xl">
           <h1
             ref={mainTitleRef}
             className="will-change-transform font-editorial uppercase tracking-tight font-normal select-none leading-[0.88] text-white"
-            style={{ fontSize: 'clamp(4.2rem, 12.5vw, 11.5rem)' }}
+            style={{ fontSize: 'clamp(3.1rem, 9.2vw, 8.6rem)' }}
           >
             BEYOND<br />
             <span className="text-[var(--fx-yellow)]">CREATIVITY</span>
           </h1>
           
-          <p className="font-mono-tech text-xs sm:text-sm md:text-base text-white/85 leading-relaxed font-normal max-w-xl md:max-w-2xl drop-shadow-md tracking-wider uppercase">
+          <p className="font-mono-tech text-[10px] sm:text-xs md:text-sm text-white/80 leading-relaxed font-normal max-w-md md:max-w-lg drop-shadow-md tracking-[0.16em] uppercase">
             {content.hero?.description || 'CreativeFX is a creative agency specializing in photography, videography, content creation, and digital marketing solutions for modern brands.'}
           </p>
         </div>
