@@ -29,7 +29,6 @@ export const HeroSection: React.FC = () => {
 
   useEffect(() => {
     if (!sec.animationsEnabled) {
-      // Instant reveal when animations are disabled
       if (heroRef.current) heroRef.current.style.opacity = '1';
       if (mainTitleRef.current) { mainTitleRef.current.style.opacity = '1'; mainTitleRef.current.style.filter = 'none'; }
       if (subTextRef.current) subTextRef.current.style.opacity = '1';
@@ -44,19 +43,19 @@ export const HeroSection: React.FC = () => {
       // Dramatic text reveal for BEYOND CREATIVITY
       if (mainTitleRef.current) {
         tl.fromTo(mainTitleRef.current, 
-          { scale: 1.08, opacity: 0, filter: 'blur(10px)', letterSpacing: '0.1em' }, 
-          { scale: 1, opacity: 1, filter: 'blur(0px)', letterSpacing: 'normal', duration: 1.8, ease: 'power3.out' }, 
+          { scale: 1.05, opacity: 0, filter: 'blur(8px)' }, 
+          { scale: 1, opacity: 1, filter: 'blur(0px)', duration: 1.6, ease: 'power3.out' }, 
           0.1
         );
       }
 
       // Subtext fade in
       if (subTextRef.current) {
-        tl.fromTo(subTextRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1.4, ease: 'power3.out' }, 0.5);
+        tl.fromTo(subTextRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' }, 0.45);
       }
       
       if (scrollIndicatorRef.current) {
-        tl.fromTo(scrollIndicatorRef.current, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 1.2, ease: 'power2.out' }, 0.8);
+        tl.fromTo(scrollIndicatorRef.current, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 1.2, ease: 'power2.out' }, 0.7);
       }
 
       if (heroRef.current && bgTitleRef.current) {
@@ -74,9 +73,9 @@ export const HeroSection: React.FC = () => {
     }
   };
 
-  const heroHeadingBase = 2.75 * sec.headingScale;
-  const heroHeadingVw = 8.2 * sec.headingScale;
-  const heroHeadingMax = 7.7 * sec.headingScale;
+  const heroHeadingBase = 3.5 * sec.headingScale;
+  const heroHeadingVw = 8.5 * sec.headingScale;
+  const heroHeadingMax = 7.5 * sec.headingScale;
 
   return (
     <section 
@@ -98,26 +97,28 @@ export const HeroSection: React.FC = () => {
           preload="auto"
           className="w-full h-full object-cover object-center filter brightness-[0.75] contrast-[1.08] transition-opacity duration-1000"
         />
-        {/* Dark Vignette & Gradient Overlays for Razor Sharp Text Contrast */}
+        {/* Dark Vignette & Gradient Overlays for Cinematic Contrast */}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/60 pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.6)_70%,rgba(0,0,0,0.95)_100%)] pointer-events-none" />
       </div>
 
       {/* ─── FOREGROUND: HERO HEADLINE & NARRATIVE ─── */}
       <div ref={bgTitleRef} className="relative z-20 pointer-events-none flex flex-col items-center justify-center px-6 text-center">
-        <div ref={subTextRef} className="flex flex-col items-center gap-3.5 md:gap-4 max-w-2xl mx-auto drop-shadow-2xl">
+        <div ref={subTextRef} className="flex flex-col items-center max-w-2xl mx-auto drop-shadow-2xl">
           <h1
             ref={mainTitleRef}
-            className="will-change-transform font-editorial uppercase tracking-tight font-normal select-none leading-[0.88] text-white"
+            className="will-change-transform font-editorial uppercase tracking-tight font-normal select-none leading-[0.92] text-white text-center"
             style={{ fontSize: `clamp(${heroHeadingBase}rem, ${heroHeadingVw}vw, ${heroHeadingMax}rem)` }}
           >
             {content.hero?.title?.split('\n')[0] || 'BEYOND'}<br />
-            <span style={{ color: sec.accent }}>{content.hero?.title?.split('\n')[1] || 'CREATIVITY'}</span>
+            <span style={{ color: sec.accent || '#fcbf13' }}>
+              {content.hero?.title?.split('\n')[1] || 'CREATIVITY'}
+            </span>
           </h1>
           
           <p 
-            className="font-mono-tech text-white/75 leading-relaxed font-normal max-w-xs md:max-w-sm drop-shadow-md tracking-[0.22em] uppercase text-center"
-            style={{ fontSize: `clamp(${7.5 * sec.bodyScale}px, ${0.75 * sec.bodyScale}vw, ${9.5 * sec.bodyScale}px)` }}
+            className="font-tech text-white/90 leading-relaxed font-normal max-w-xl mx-auto drop-shadow-md text-center mt-6 sm:mt-8"
+            style={{ fontSize: `clamp(${13 * sec.bodyScale}px, ${1.05 * sec.bodyScale}vw, ${16 * sec.bodyScale}px)` }}
           >
             {content.hero?.description || 'CreativeFX is a creative agency specializing in photography, videography, content creation, and digital marketing solutions for modern brands.'}
           </p>

@@ -188,7 +188,7 @@ export const DEFAULT_CONTENT = {
     textMutedColor: '#888888',
     borderColor: 'rgba(255, 255, 255, 0.16)',
     logoUrl: '/img/creativefx-bgr-logo.png',
-    fontDisplay: 'League Spartan',
+    fontDisplay: 'Forum',
     fontBody: 'Inter',
     fontMono: 'JetBrains Mono',
     customGoogleFontUrl: '',
@@ -412,7 +412,9 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
     // Font families
     if (theme.fontDisplay) {
-      root.style.setProperty('--fx-font-display', `'${theme.fontDisplay}', 'Forum', 'League Spartan', sans-serif`);
+      root.style.setProperty('--fx-font-display', `'${theme.fontDisplay}', 'Forum', 'Cinzel', serif`);
+    } else {
+      root.style.setProperty('--fx-font-display', `'Forum', 'Cinzel', serif`);
     }
     if (theme.fontBody) {
       root.style.setProperty('--fx-font-body', `'${theme.fontBody}', 'Inter', sans-serif`);
