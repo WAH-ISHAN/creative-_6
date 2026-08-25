@@ -160,7 +160,13 @@ const WorkCardItem: React.FC<{
   );
 };
 
-export const WorksPage: React.FC<WorksPageProps> = ({ initialFilter, onSelectProject, onSwitchToStudio, onSwitchToWeddings }) => {
+export const WorksPage: React.FC<WorksPageProps> = ({
+  initialFilter,
+  onSelectProject,
+  onSwitchToStudio,
+  onSwitchToServices,
+  onSwitchToWeddings,
+}) => {
   const [activeType, setActiveType] = useState<'ALL' | 'PHOTO' | 'VIDEO'>('ALL');
   const [activeCategory, setActiveCategory] = useState<string>('ALL');
   const [searchQuery, setSearchQuery] = useState<string>('');
