@@ -388,24 +388,6 @@ function App() {
           >
             ↑
           </button>
-
-          {/* Secret Admin Trigger — tap 5× bottom-left corner */}
-          <div
-            style={{ position: 'fixed', bottom: 0, left: 0, width: 120, height: 48, zIndex: 9998, cursor: 'default' }}
-            onClick={() => {
-              const now = Date.now();
-              const key = '__cfx_taps__';
-              const prev = JSON.parse(sessionStorage.getItem(key) || '[]').filter((t: number) => now - t < 3000);
-              prev.push(now);
-              sessionStorage.setItem(key, JSON.stringify(prev));
-              if (prev.length >= 5) {
-                sessionStorage.removeItem(key);
-                const token = sessionStorage.getItem('cfx_admin_token');
-                if (token) setShowAdminPanel(true);
-                else setShowAdminLogin(true);
-              }
-            }}
-          />
         </>
       )}
 
