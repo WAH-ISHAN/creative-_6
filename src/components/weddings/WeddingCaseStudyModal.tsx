@@ -60,10 +60,11 @@ export const WeddingCaseStudyModal: React.FC<WeddingCaseStudyModalProps> = ({
 
       <div
         id="wedding-case-study-overlay"
+        data-lenis-prevent="true"
         className="fixed inset-0 z-50 overflow-y-auto bg-[var(--fx-black)] text-[var(--fx-white)] animate-in fade-in duration-300"
       >
         {/* Sticky Top Header Navigation */}
-        <div className="sticky top-0 z-40 w-full bg-[var(--fx-black)]/95 backdrop-blur-md border-b border-white/10 px-6 sm:px-12 py-5 flex justify-between items-center select-none">
+        <div className="sticky top-0 z-40 w-full bg-[var(--fx-black)]/95 backdrop-blur-md border-b border-white/10 px-6 sm:px-12 py-4 flex justify-between items-center select-none">
           
           <div className="flex items-center gap-3">
             <span className="font-editorial font-bold text-xl sm:text-2xl tracking-wider text-[var(--fx-yellow)]">
@@ -74,7 +75,19 @@ export const WeddingCaseStudyModal: React.FC<WeddingCaseStudyModalProps> = ({
             </span>
           </div>
 
-          <div className="flex items-center gap-3 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <button
+              type="button"
+              onClick={() => {
+                soundEngine.playClick();
+                onClose();
+              }}
+              className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-[var(--fx-yellow)] hover:text-black text-white text-xs font-mono-tech uppercase tracking-widest font-bold transition-all cursor-pointer rounded-sm border border-white/20"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span className="hidden sm:inline">BACK TO</span>
+              <span>WEDDINGS</span>
+            </button>
             <button
               type="button"
               onClick={() => {
@@ -82,6 +95,7 @@ export const WeddingCaseStudyModal: React.FC<WeddingCaseStudyModalProps> = ({
                 onClose();
               }}
               className="flex items-center gap-2 px-4 py-2 bg-[var(--fx-yellow)] text-black hover:bg-white text-xs font-mono-tech uppercase tracking-widest font-bold transition-all cursor-pointer rounded-sm"
+              title="Close story"
             >
               <span>CLOSE</span>
               <X className="w-4 h-4" />
@@ -236,16 +250,29 @@ export const WeddingCaseStudyModal: React.FC<WeddingCaseStudyModalProps> = ({
               </span>
             </div>
 
-            <button
-              type="button"
-              onClick={() => {
-                soundEngine.playOpen();
-                onInquire();
-              }}
-              className="px-8 py-4 bg-[var(--fx-yellow)] text-black hover:bg-white text-xs sm:text-sm font-mono-tech uppercase tracking-[0.25em] font-bold transition-all cursor-pointer self-stretch sm:self-auto text-center rounded-sm shadow-xl hover:scale-105"
-            >
-              BOOK YOUR WEDDING DATE
-            </button>
+            <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+              <button
+                type="button"
+                onClick={() => {
+                  soundEngine.playClick();
+                  onClose();
+                }}
+                className="w-full sm:w-auto px-6 py-4 border border-white/20 hover:border-white text-white hover:text-black hover:bg-white text-xs sm:text-sm font-mono-tech uppercase tracking-[0.2em] font-bold transition-all cursor-pointer text-center rounded-sm flex items-center justify-center gap-2"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span>RETURN TO WEDDINGS</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  soundEngine.playOpen();
+                  onInquire();
+                }}
+                className="w-full sm:w-auto px-8 py-4 bg-[var(--fx-yellow)] text-black hover:bg-white text-xs sm:text-sm font-mono-tech uppercase tracking-[0.25em] font-bold transition-all cursor-pointer text-center rounded-sm shadow-xl hover:scale-105"
+              >
+                BOOK YOUR WEDDING DATE
+              </button>
+            </div>
 
           </div>
 

@@ -44,6 +44,45 @@ export const WeddingExperiencePage: React.FC<WeddingExperiencePageProps> = ({
     resetGlobalScroll();
   }, []);
 
+  const handleSelectStory = (story: WeddingStory) => {
+    soundEngine.playOpen();
+    setSelectedStory(story);
+    const slug = story.slug || story.id || story.couple.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    window.history.pushState({ weddingStoryId: story.id }, '', `/weddings/${slug}`);
+  };
+
+  const handleCloseStory = () => {
+    setSelectedStory(null);
+    if (window.location.pathname.toLowerCase().startsWith('/weddings/')) {
+      window.history.pushState(null, '', '/weddings');
+    }
+  };
+
+  useEffect(() => {
+    const syncRouteWithState = () => {
+      const pathname = window.location.pathname.toLowerCase();
+      if (pathname.startsWith('/weddings/')) {
+        const slug = pathname.replace('/weddings/', '').trim();
+        if (slug) {
+          const match = stories.find(s =>
+            (s.slug && s.slug.toLowerCase() === slug) ||
+            (s.id && s.id.toLowerCase() === slug) ||
+            s.couple.toLowerCase().replace(/[^a-z0-9]+/g, '-') === slug
+          );
+          if (match) {
+            setSelectedStory(match);
+            return;
+          }
+        }
+      }
+      setSelectedStory(null);
+    };
+
+    syncRouteWithState();
+    window.addEventListener('popstate', syncRouteWithState);
+    return () => window.removeEventListener('popstate', syncRouteWithState);
+  }, [stories]);
+
   const scrollToSection = (id: string) => {
     soundEngine.playClick();
     const el = document.getElementById(id);
@@ -82,21 +121,21 @@ export const WeddingExperiencePage: React.FC<WeddingExperiencePageProps> = ({
         <WeddingHero
           onBeginStory={() => scrollToSection('wedding-story-timeline')}
           onExploreFeaturedStory={() => {
-            if (featuredStory) setSelectedStory(featuredStory);
+            if (featuredStory) handleSelectStory(featuredStory);
           }}
           onPlayReel={() => { if (featuredStory) setActiveFilmStory(featuredStory); }}
         />
 
         {/* 01 / STORY TIMELINE */}
         <WeddingStorySection
-          onSelectStory={(story) => setSelectedStory(story)}
+          onSelectStory={(story) => handleSelectStory(story)}
           onExploreStageDetail={(stage) => setSelectedStage(stage)}
           onOpenLightbox={handleOpenLightbox}
         />
 
         {/* 02 / SELECTED WEDDINGS */}
         <WeddingSelectedStories
-          onSelectStory={(story) => setSelectedStory(story)}
+          onSelectStory={(story) => handleSelectStory(story)}
           onPlayFilm={(story) => setActiveFilmStory(story)}
           onOpenLightbox={handleOpenLightbox}
         />
@@ -136,11 +175,11 @@ export const WeddingExperiencePage: React.FC<WeddingExperiencePageProps> = ({
       {selectedStory && (
         <WeddingCaseStudyModal
           story={selectedStory}
-          onClose={() => setSelectedStory(null)}
-          onSelectStory={(s) => setSelectedStory(s)}
+          onClose={handleCloseStory}
+          onSelectStory={(s) => handleSelectStory(s)}
           onPlayFilm={(s) => setActiveFilmStory(s)}
           onInquire={() => {
-            setSelectedStory(null);
+            handleCloseStory();
             setInquiryOpen(true);
           }}
         />
