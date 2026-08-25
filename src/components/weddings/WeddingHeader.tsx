@@ -48,12 +48,13 @@ export const WeddingHeader: React.FC<WeddingHeaderProps> = ({
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between">
           
-          {/* LOGO */}
+          {/* LOGO (Routes to Main Studio) */}
           <div 
             className="text-xl md:text-2xl font-editorial tracking-[0.08em] uppercase text-white cursor-pointer select-none relative group flex items-center gap-2"
-            onClick={() => handleLinkClick(() => smoothScrollTo(0))}
+            onClick={() => handleLinkClick(onSwitchToStudio)}
+            title="Return to CreativeFX Studio"
           >
-            CREATIVEFX
+            CREATIVE<span className="text-[var(--fx-yellow)] font-bold">FX</span>
             <span className="text-[10px] font-mono-tech tracking-[0.3em] text-[var(--fx-yellow)] uppercase mt-1 hidden sm:inline-block">/ WEDDINGS</span>
             <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-[var(--fx-yellow)] transition-all duration-300 group-hover:w-full" />
           </div>
@@ -70,10 +71,6 @@ export const WeddingHeader: React.FC<WeddingHeaderProps> = ({
             </button>
             <button onClick={() => handleLinkClick(onNavigateToApproach)} className="px-2 py-1 text-xs sm:text-sm font-mono-tech tracking-[0.22em] text-[var(--fx-light-gray)] hover:text-[var(--fx-yellow)] transition-all duration-300 uppercase cursor-pointer relative group">
               <span>APPROACH</span>
-              <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-[var(--fx-yellow)] transition-all duration-300 group-hover:w-full" />
-            </button>
-            <button onClick={() => handleLinkClick(onSwitchToStudio)} className="px-2 py-1 text-xs sm:text-sm font-mono-tech tracking-[0.22em] text-[var(--fx-light-gray)] hover:text-[var(--fx-yellow)] transition-all duration-300 uppercase cursor-pointer relative group">
-              <span>STUDIO</span>
               <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-[var(--fx-yellow)] transition-all duration-300 group-hover:w-full" />
             </button>
 
