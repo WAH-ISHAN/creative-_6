@@ -167,8 +167,9 @@ app.post('/api/content', authMiddleware, (req, res) => {
     if (Object.keys(req.body).length === 0) {
       return res.status(400).json({ error: 'Refusing to save an empty content document' });
     }
-    writeJsonAtomic(DATA_FILE, req.body);
-    res.json({ ok: true });
+    const docToSave = { ...req.body, _updatedAt: req.body._updatedAt || Date.now() };
+    writeJsonAtomic(DATA_FILE, docToSave);
+    res.json({ ok: true, _updatedAt: docToSave._updatedAt });
   } catch (e) {
     res.status(500).json({ error: 'Failed to save' });
   }

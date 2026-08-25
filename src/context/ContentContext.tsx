@@ -332,8 +332,28 @@ function setNestedValue(obj: unknown, path: string[], value: unknown): unknown {
 export const API_BASE =
   (typeof import.meta !== 'undefined' && (import.meta as { env?: Record<string, string> }).env?.VITE_API_URL) || '';
 
+const LOCAL_STORAGE_KEY = 'cfx_site_content_v3';
+const LOCAL_STORAGE_TS_KEY = 'cfx_site_content_v3_ts';
+
+function getInitialContent(): SiteContent {
+  if (typeof window !== 'undefined') {
+    try {
+      const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (parsed && typeof parsed === 'object') {
+          return migrateContent(parsed);
+        }
+      }
+    } catch (e) {
+      console.warn('[ContentContext] Failed to load from localStorage', e);
+    }
+  }
+  return DEFAULT_CONTENT;
+}
+
 export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [content, setContent] = useState<SiteContent>(DEFAULT_CONTENT);
+  const [content, setContent] = useState<SiteContent>(getInitialContent);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
@@ -445,17 +465,49 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
     customStyle.textContent = content.customCss || '';
   }, [content]);
 
-  // Load content from server on mount
+  // Load content from server on mount with smart timestamp sync (Local edits never lost)
   useEffect(() => {
     fetch(`${API_BASE}/api/content`)
       .then(r => r.json())
-      .then(data => {
-        setContent(migrateContent(data));
+      .then(serverData => {
+        if (!serverData || typeof serverData !== 'object' || Object.keys(serverData).length === 0) {
+          setIsLoading(false);
+          return;
+        }
+
+        const localTs = parseInt(localStorage.getItem(LOCAL_STORAGE_TS_KEY) || '0', 10);
+        const serverTs = (serverData as { _updatedAt?: number })._updatedAt || 0;
+
+        // If local edits are newer than server, keep local and sync to server!
+        if (localTs > serverTs) {
+          console.log('[ContentContext] Local edits are newer than server. Syncing local to server.');
+          const currentLocal = localStorage.getItem(LOCAL_STORAGE_KEY);
+          if (currentLocal) {
+            try {
+              const doc = JSON.parse(currentLocal);
+              fetch(`${API_BASE}/api/content`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'x-admin-token': sessionStorage.getItem('cfx_admin_token') || '' },
+                body: JSON.stringify(doc),
+              }).catch(() => {});
+            } catch {}
+          }
+          setIsLoading(false);
+          return;
+        }
+
+        // Server is newer or equal — migrate and update local cache
+        const migrated = migrateContent(serverData);
+        setContent(migrated);
+        try {
+          localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(migrated));
+          if (serverTs) localStorage.setItem(LOCAL_STORAGE_TS_KEY, serverTs.toString());
+        } catch {}
         setIsLoading(false);
       })
       .catch(() => {
-        // Server not reachable — use defaults (works in dev without server)
-        console.warn('[ContentContext] Server not reachable, using defaults.');
+        // Server offline or not reachable — local state already has localStorage content!
+        console.warn('[ContentContext] Server not reachable, using local cached content.');
         setIsLoading(false);
       });
   }, []);
@@ -480,10 +532,22 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
     }
   }, []);
 
-  // Update a field by path, persist to server (debounced ~600ms)
+  // Update a field by path, persist immediately to localStorage + debounced to server
   const updateContent = useCallback(async (path: string[], value: unknown) => {
     setContent(prev => {
       const next = setNestedValue(prev, path, value) as SiteContent;
+      const now = Date.now();
+      (next as unknown as { _updatedAt?: number })._updatedAt = now;
+
+      // 1. Instant client-side persistence (Never lost on reload/spin-down)
+      try {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(next));
+        localStorage.setItem(LOCAL_STORAGE_TS_KEY, now.toString());
+      } catch (e) {
+        console.warn('[ContentContext] localStorage write failed', e);
+      }
+
+      // 2. Debounced server persistence
       pendingDoc.current = next;
       if (saveTimer.current) window.clearTimeout(saveTimer.current);
       saveTimer.current = window.setTimeout(() => { void flushSave(); }, 600);
@@ -493,6 +557,10 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
   const resetContent = useCallback(async () => {
     setContent(DEFAULT_CONTENT);
+    try {
+      localStorage.removeItem(LOCAL_STORAGE_KEY);
+      localStorage.removeItem(LOCAL_STORAGE_TS_KEY);
+    } catch {}
     setIsSaving(true);
     try {
       await fetch(`${API_BASE}/api/content/reset`, {
