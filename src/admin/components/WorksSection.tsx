@@ -55,13 +55,20 @@ export const WorksSection: React.FC<WorksSectionProps> = ({ item, content, updat
     update(['projects'], projects.filter(x => x.id !== p.id));
   };
 
-  // Existing categories for the datalist
+  // Standard categories specified for CreativeFX
   const knownCategories = useMemo(() => {
-    const set = new Set<string>();
-    projects.forEach(p => p.category && set.add(String(p.category).toUpperCase()));
-    ['COMMERCIAL', 'FASHION', 'EVENTS', 'PORTRAIT', 'CELEBRATIONS', 'WEDDINGS'].forEach(c => set.add(c));
-    return [...set];
-  }, [projects]);
+    return [
+      'Graduation',
+      'Events',
+      'Casual Shoots',
+      'Birthday',
+      'Conceptual Reels',
+      'Product',
+      'Marketing Reels',
+      'Drone',
+      'Other'
+    ];
+  }, []);
 
   // ── Add Project form state ──
   const blankNew = () => ({

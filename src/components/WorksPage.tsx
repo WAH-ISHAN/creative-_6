@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { smoothScrollTo, resetGlobalScroll } from '../utils/scrollManager';
 import { usePublishedProjects, useContent } from '../context/ContentContext';
 import { ProjectCase } from '../types';
-import { ArrowLeft, Search, X, Camera, Film, Sparkles, ArrowUpRight } from 'lucide-react';
+import { ArrowLeft, Search, X, Camera, Film, Sparkles, ArrowUpRight, LayoutGrid } from 'lucide-react';
 import { Header } from './Header';
 import { Footer } from './Footer';
 import { soundEngine } from '../utils/audio';
@@ -16,15 +16,26 @@ interface WorksPageProps {
 
 const PAGE_SIZE = 12;
 
-/** Friendly labels for known category ids; unknown categories pass through. */
-const CATEGORY_LABELS: Record<string, string> = {
-  COMMERCIAL: 'COMMERCIAL',
-  FASHION: 'FASHION',
-  EVENTS: 'EVENTS',
-  PORTRAIT: 'PORTRAITS & CASUAL',
-  CELEBRATIONS: 'CELEBRATIONS',
-  WEDDINGS: 'WEDDINGS',
-};
+// Exact Categories specified
+const PHOTO_CATEGORIES = [
+  'Graduation',
+  'Events',
+  'Casual Shoots',
+  'Birthday',
+  'Product',
+  'Other'
+];
+
+const VIDEO_CATEGORIES = [
+  'Graduation',
+  'Events',
+  'Conceptual Reels',
+  'Birthday',
+  'Drone',
+  'Product',
+  'Marketing Reels',
+  'Other'
+];
 
 /**
  * High-performance, interactive Work Card with B&W to Color & Play on Hover
@@ -148,7 +159,8 @@ const WorkCardItem: React.FC<{
 };
 
 export const WorksPage: React.FC<WorksPageProps> = ({ initialFilter, onSwitchToStudio, onSwitchToWeddings }) => {
-  const [activeCategory, setActiveCategory] = useState<string>((initialFilter || 'ALL').toUpperCase());
+  const [activeType, setActiveType] = useState<'ALL' | 'PHOTO' | 'VIDEO'>('ALL');
+  const [activeCategory, setActiveCategory] = useState<string>('ALL');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const allProjects = usePublishedProjects();
@@ -161,78 +173,59 @@ export const WorksPage: React.FC<WorksPageProps> = ({ initialFilter, onSwitchToS
   });
 
   useEffect(() => {
-    // Reset scroll to absolute top immediately on mount
     resetGlobalScroll();
-  }, []);
-
-  // Keep the URL shareable when the filter changes (?f=PHOTOGRAPHY)
-  useEffect(() => {
-    const url = new URL(window.location.href);
-    if (activeCategory === 'ALL') url.searchParams.delete('f');
-    else url.searchParams.set('f', activeCategory.toLowerCase());
-    window.history.replaceState(null, '', url.pathname + (url.search || '') );
-    setVisibleCount(PAGE_SIZE);
-  }, [activeCategory]);
+    if (initialFilter) {
+      const f = initialFilter.toUpperCase();
+      if (f === 'PHOTOGRAPHY' || f === 'PHOTO') setActiveType('PHOTO');
+      else if (f === 'VIDEO' || f === 'CINEMA') setActiveType('VIDEO');
+      else setActiveCategory(initialFilter);
+    }
+  }, [initialFilter]);
 
   // Admin-editable page header
   const worksTitle = (content.pages?.worksTitle || 'WORKS /\nPROJECTS').split('\n');
   const worksIntro = content.pages?.worksIntro || '';
 
-  // ── Filter categories generated dynamically from the master project data ──
-  const categories = useMemo(() => {
-    const typeChips = [
-      { id: 'PHOTOGRAPHY', label: 'PHOTOGRAPHY' },
-      { id: 'VIDEO', label: 'CINEMA 4K' },
-    ];
-    // Unique project categories in list order
-    const catIds: string[] = [];
-    for (const p of allProjects) {
-      const cat = (p.category || '').toUpperCase();
-      if (cat && !catIds.includes(cat)) catIds.push(cat);
+  // ── Available category list based on active media type ──
+  const categoryChips = useMemo(() => {
+    if (activeType === 'PHOTO') {
+      return [{ id: 'ALL', label: 'ALL PHOTOS' }, ...PHOTO_CATEGORIES.map(c => ({ id: c, label: c.toUpperCase() }))];
     }
-    return [
-      { id: 'ALL', label: 'ALL WORKS' },
-      ...typeChips,
-      ...catIds.map(id => ({ id, label: CATEGORY_LABELS[id] || id })),
-    ];
-  }, [allProjects]);
+    if (activeType === 'VIDEO') {
+      return [{ id: 'ALL', label: 'ALL VIDEOS' }, ...VIDEO_CATEGORIES.map(c => ({ id: c, label: c.toUpperCase() }))];
+    }
+    // Combined Unique Categories
+    const combined = Array.from(new Set([...PHOTO_CATEGORIES, ...VIDEO_CATEGORIES]));
+    return [{ id: 'ALL', label: 'ALL WORKS' }, ...combined.map(c => ({ id: c, label: c.toUpperCase() }))];
+  }, [activeType]);
 
-  const matchesCategory = (p: ProjectCase, catId: string): boolean => {
-    if (catId === 'ALL') return true;
-    if (catId === 'PHOTOGRAPHY') return p.type === 'photography';
-    if (catId === 'VIDEO') return p.type === 'video' || !!p.videoUrl;
+  const matchesProject = (p: ProjectCase): boolean => {
+    const isPhoto = p.type === 'photography';
+    const isVideo = p.type === 'video' || !!p.videoUrl;
 
-    const cat = (p.category || '').toUpperCase();
-    const catLabel = (p.categoryLabel || '').toUpperCase();
-    const tags = (p.tags || []).map(t => t.toUpperCase());
+    // 1. Type Match
+    if (activeType === 'PHOTO' && !isPhoto) return false;
+    if (activeType === 'VIDEO' && !isVideo) return false;
 
-    if (catId === 'WEDDINGS') {
-      return cat.includes('WEDDING') || catLabel.includes('WEDDING') || tags.some(t => t.includes('WEDDING'));
-    }
-    if (catId === 'COMMERCIAL') {
-      return cat.includes('COMMERCIAL') || catLabel.includes('COMMERCIAL') || catLabel.includes('PRODUCT') || catLabel.includes('MARKETING') || tags.some(t => t.includes('COMMERCIAL') || t.includes('PRODUCT') || t.includes('MARKETING'));
-    }
-    if (catId === 'EVENTS') {
-      return cat.includes('EVENT') || catLabel.includes('EVENT') || catLabel.includes('GRADUATION') || catLabel.includes('ANNIVERSARY') || tags.some(t => t.includes('EVENT') || t.includes('GRADUATION') || t.includes('ANNIVERSARY'));
-    }
-    if (catId === 'PORTRAIT') {
-      return cat.includes('PORTRAIT') || cat.includes('CELEBRATION') || catLabel.includes('PORTRAIT') || catLabel.includes('BIRTHDAY') || catLabel.includes('CASUAL') || tags.some(t => t.includes('PORTRAIT') || t.includes('CASUAL') || t.includes('BIRTHDAY'));
-    }
-    if (catId === 'FASHION') {
-      return cat.includes('FASHION') || catLabel.includes('FASHION') || tags.some(t => t.includes('FASHION'));
-    }
-    if (catId === 'CELEBRATIONS') {
-      return cat.includes('CELEBRATION') || catLabel.includes('CELEBRATION') || catLabel.includes('BIRTHDAY') || tags.some(t => t.includes('CELEBRATION') || t.includes('BIRTHDAY'));
+    // 2. Category Match
+    if (activeCategory !== 'ALL') {
+      const pCat = (p.category || '').toLowerCase();
+      const pCatLabel = (p.categoryLabel || '').toLowerCase();
+      const pTags = (p.tags || []).map(t => t.toLowerCase());
+      const targetCat = activeCategory.toLowerCase();
+
+      const matched =
+        pCat === targetCat ||
+        pCatLabel === targetCat ||
+        pTags.includes(targetCat) ||
+        pCat.includes(targetCat) ||
+        pCatLabel.includes(targetCat);
+
+      if (!matched) return false;
     }
 
-    return cat === catId || catLabel === catId || tags.includes(catId);
-  };
-
-  const filteredProjects = useMemo(() => {
-    return allProjects.filter((p) => {
-      const matchCat = matchesCategory(p, activeCategory);
-      if (!matchCat) return false;
-      if (!searchQuery.trim()) return true;
+    // 3. Search Query Match
+    if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       return (
         p.title.toLowerCase().includes(q) ||
@@ -241,15 +234,20 @@ export const WorksPage: React.FC<WorksPageProps> = ({ initialFilter, onSwitchToS
         (p.categoryLabel || '').toLowerCase().includes(q) ||
         (p.tags || []).some(t => t.toLowerCase().includes(q))
       );
-    });
-  }, [allProjects, activeCategory, searchQuery]);
+    }
+
+    return true;
+  };
+
+  const filteredProjects = useMemo(() => {
+    return allProjects.filter(matchesProject);
+  }, [allProjects, activeType, activeCategory, searchQuery]);
 
   const visibleProjects = filteredProjects.slice(0, visibleCount);
 
   const handleSelectProject = (project: ProjectCase) => {
     soundEngine.playClick();
-    window.history.pushState(null, '', `/works/${project.slug}`);
-    window.dispatchEvent(new Event('popstate'));
+    window.location.hash = `#project-${project.slug || project.id}`;
   };
 
   return (
@@ -296,17 +294,51 @@ export const WorksPage: React.FC<WorksPageProps> = ({ initialFilter, onSwitchToS
           </div>
         </div>
 
+        {/* Media Type Filter Tabs */}
+        <div className="pt-8 pb-4 flex items-center gap-3">
+          <button
+            onClick={() => { soundEngine.playClick(); setActiveType('ALL'); setActiveCategory('ALL'); }}
+            className={`px-5 py-2 rounded-sm text-xs font-mono-tech tracking-widest uppercase transition-all cursor-pointer flex items-center gap-2 ${
+              activeType === 'ALL'
+                ? 'bg-white text-black font-bold shadow-lg'
+                : 'bg-white/5 text-gray-400 hover:text-white border border-white/10'
+            }`}
+          >
+            <LayoutGrid className="w-3.5 h-3.5" />
+            <span>ALL COMMISSIONS</span>
+          </button>
+
+          <button
+            onClick={() => { soundEngine.playClick(); setActiveType('PHOTO'); setActiveCategory('ALL'); }}
+            className={`px-5 py-2 rounded-sm text-xs font-mono-tech tracking-widest uppercase transition-all cursor-pointer flex items-center gap-2 ${
+              activeType === 'PHOTO'
+                ? 'bg-[var(--fx-yellow)] text-black font-bold shadow-lg'
+                : 'bg-white/5 text-gray-400 hover:text-white border border-white/10'
+            }`}
+          >
+            <Camera className="w-3.5 h-3.5" />
+            <span>PHOTO</span>
+          </button>
+
+          <button
+            onClick={() => { soundEngine.playClick(); setActiveType('VIDEO'); setActiveCategory('ALL'); }}
+            className={`px-5 py-2 rounded-sm text-xs font-mono-tech tracking-widest uppercase transition-all cursor-pointer flex items-center gap-2 ${
+              activeType === 'VIDEO'
+                ? 'bg-[var(--fx-yellow)] text-black font-bold shadow-lg'
+                : 'bg-white/5 text-gray-400 hover:text-white border border-white/10'
+            }`}
+          >
+            <Film className="w-3.5 h-3.5" />
+            <span>VIDEO</span>
+          </button>
+        </div>
+
         {/* Filter Controls & Search */}
-        <div className="py-8 flex flex-col lg:flex-row gap-6 lg:items-center justify-between border-b border-[var(--fx-border-dark)]">
+        <div className="py-6 flex flex-col lg:flex-row gap-6 lg:items-center justify-between border-b border-[var(--fx-border-dark)]">
           {/* Category Chips */}
           <div className="flex items-center gap-2 overflow-x-auto pb-2 lg:pb-0 no-scrollbar">
-            {categories.map(cat => {
-              const count = cat.id === 'ALL'
-                ? allProjects.length
-                : allProjects.filter(p => matchesCategory(p, cat.id)).length;
+            {categoryChips.map(cat => {
               const isActive = activeCategory === cat.id;
-
-              if (count === 0 && cat.id !== 'ALL') return null;
 
               return (
                 <button
@@ -319,9 +351,6 @@ export const WorksPage: React.FC<WorksPageProps> = ({ initialFilter, onSwitchToS
                   }`}
                 >
                   <span>{cat.label}</span>
-                  <span className={`text-[10px] ${isActive ? 'text-black/70' : 'text-gray-500'}`}>
-                    {count}
-                  </span>
                 </button>
               );
             })}
@@ -334,7 +363,7 @@ export const WorksPage: React.FC<WorksPageProps> = ({ initialFilter, onSwitchToS
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by client, title, tag..."
+              placeholder="Search by title, category, tag..."
               className="w-full pl-9 pr-8 py-2 bg-white/5 border border-white/10 rounded-sm text-xs font-mono-tech text-white placeholder:text-gray-500 focus:outline-none focus:border-[var(--fx-yellow)] transition-colors"
             />
             {searchQuery && (
@@ -353,12 +382,12 @@ export const WorksPage: React.FC<WorksPageProps> = ({ initialFilter, onSwitchToS
           <span>
             SHOWING {visibleProjects.length} OF {filteredProjects.length}
           </span>
-          {activeCategory !== 'ALL' && (
+          {(activeCategory !== 'ALL' || activeType !== 'ALL' || searchQuery) && (
             <button
-              onClick={() => setActiveCategory('ALL')}
+              onClick={() => { setActiveType('ALL'); setActiveCategory('ALL'); setSearchQuery(''); }}
               className="text-[var(--fx-yellow)] hover:underline cursor-pointer"
             >
-              CLEAR FILTER
+              RESET ALL FILTERS
             </button>
           )}
         </div>
@@ -368,10 +397,10 @@ export const WorksPage: React.FC<WorksPageProps> = ({ initialFilter, onSwitchToS
           {filteredProjects.length === 0 ? (
             <div className="py-24 text-center border border-dashed border-white/10 rounded-sm">
               <Sparkles className="w-8 h-8 text-gray-600 mx-auto mb-4" />
-              <p className="text-xl font-editorial uppercase text-gray-400">NO PROJECTS FOUND</p>
+              <p className="text-xl font-editorial uppercase text-gray-400">NO PROJECTS FOUND IN THIS CATEGORY</p>
               <p className="text-xs font-mono-tech text-gray-600 mt-2">TRY CLEARING YOUR SEARCH OR CHOOSING ANOTHER CATEGORY</p>
               <button
-                onClick={() => { setActiveCategory('ALL'); setSearchQuery(''); }}
+                onClick={() => { setActiveType('ALL'); setActiveCategory('ALL'); setSearchQuery(''); }}
                 className="mt-6 px-6 py-2.5 bg-[var(--fx-yellow)] text-black font-mono-tech text-xs uppercase tracking-widest font-semibold hover:bg-white transition-colors cursor-pointer"
               >
                 SHOW ALL WORKS
