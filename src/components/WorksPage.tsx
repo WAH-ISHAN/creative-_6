@@ -12,6 +12,7 @@ interface WorksPageProps {
   initialFilter?: string | null;
   onSelectProject?: (project: ProjectCase) => void;
   onSwitchToStudio: () => void;
+  onSwitchToServices: () => void;
   onSwitchToWeddings: () => void;
 }
 
@@ -263,7 +264,7 @@ export const WorksPage: React.FC<WorksPageProps> = ({ initialFilter, onSelectPro
         activeView="work"
         onLogoClick={onSwitchToStudio}
         onOpenWork={() => smoothScrollTo(0)}
-        onOpenServices={() => { onSwitchToStudio(); setTimeout(() => document.getElementById('section-services')?.scrollIntoView(), 100); }}
+        onOpenServices={onSwitchToServices}
         onOpenAbout={() => { onSwitchToStudio(); setTimeout(() => document.getElementById('section-about')?.scrollIntoView(), 100); }}
         onOpenContact={() => { onSwitchToStudio(); setTimeout(() => document.getElementById('section-contact')?.scrollIntoView(), 100); }}
         onOpenWeddings={onSwitchToWeddings}
@@ -447,6 +448,7 @@ export const WorksPage: React.FC<WorksPageProps> = ({ initialFilter, onSelectPro
       <Footer
         onNavigateHome={onSwitchToStudio}
         onNavigateWorks={() => smoothScrollTo(0)}
+        onNavigateServices={onSwitchToServices}
         onNavigateWeddings={onSwitchToWeddings}
         onNavigateSection={(sectionId) => {
           onSwitchToStudio();

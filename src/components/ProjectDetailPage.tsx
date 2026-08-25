@@ -228,6 +228,7 @@ interface ProjectDetailPageProps {
   projectSlug: string;
   onBack: () => void;
   onSwitchToStudio: () => void;
+  onSwitchToServices: () => void;
   onSwitchToWeddings: () => void;
   onStartProject: () => void;
 }
@@ -236,6 +237,7 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
   projectSlug,
   onBack,
   onSwitchToStudio,
+  onSwitchToServices,
   onSwitchToWeddings,
   onStartProject
 }) => {
@@ -276,7 +278,7 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
           activeView="work"
           onLogoClick={onSwitchToStudio}
           onOpenWork={onBack}
-          onOpenServices={() => { onSwitchToStudio(); setTimeout(() => document.getElementById('section-services')?.scrollIntoView(), 100); }}
+          onOpenServices={onSwitchToServices}
           onOpenAbout={() => { onSwitchToStudio(); setTimeout(() => document.getElementById('section-about')?.scrollIntoView(), 100); }}
           onOpenContact={onStartProject}
           onOpenWeddings={onSwitchToWeddings}
@@ -303,6 +305,7 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
         <Footer
           onNavigateHome={onSwitchToStudio}
           onNavigateWorks={onBack}
+          onNavigateServices={onSwitchToServices}
           onNavigateWeddings={onSwitchToWeddings}
           onNavigateSection={(sectionId) => {
             onSwitchToStudio();
@@ -336,7 +339,7 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
         activeView="work"
         onLogoClick={onSwitchToStudio}
         onOpenWork={onBack}
-        onOpenServices={() => { onSwitchToStudio(); setTimeout(() => document.getElementById('section-services')?.scrollIntoView(), 100); }}
+        onOpenServices={onSwitchToServices}
         onOpenAbout={() => { onSwitchToStudio(); setTimeout(() => document.getElementById('section-about')?.scrollIntoView(), 100); }}
         onOpenContact={onStartProject}
         onOpenWeddings={onSwitchToWeddings}
@@ -681,6 +684,7 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
       <Footer
         onNavigateHome={onSwitchToStudio}
         onNavigateWorks={onBack}
+        onNavigateServices={onSwitchToServices}
         onNavigateWeddings={onSwitchToWeddings}
         onNavigateSection={(sectionId) => {
           onSwitchToStudio();

@@ -296,6 +296,7 @@ function App() {
           initialFilter={worksFilter}
           onSelectProject={handleSelectProject}
           onSwitchToStudio={handleSwitchToStudio}
+          onSwitchToServices={handleSwitchToServices}
           onSwitchToWeddings={handleSwitchToWeddings}
         />
       ) : currentView === 'project' && selectedProjectSlug ? (
@@ -303,6 +304,7 @@ function App() {
           projectSlug={selectedProjectSlug}
           onBack={() => handleSwitchToWorks()}
           onSwitchToStudio={handleSwitchToStudio}
+          onSwitchToServices={handleSwitchToServices}
           onSwitchToWeddings={handleSwitchToWeddings}
           onStartProject={handleStartProject}
         />
