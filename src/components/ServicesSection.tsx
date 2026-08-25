@@ -66,8 +66,8 @@ export const ServicesSection: React.FC<{ onSelectService?: (service: AgencyServi
           </div>
           <h2 ref={titleRef} className="text-4xl sm:text-5xl md:text-6xl font-editorial font-normal uppercase tracking-tight text-[var(--fx-black)] leading-[0.95]">
             WE TURN<br />
-            IDEAS INTO<br />
-            VISUALS.
+            <span className="text-[var(--fx-yellow)]">IDEAS INTO<br />
+            VISUALS.</span>
           </h2>
           <p className="text-sm sm:text-base font-tech text-[var(--fx-gray)] leading-relaxed max-w-sm pt-2">
             We deliver high-end photography, cinematic video production, brand strategy, and social content systems for modern brands and visionary creators.
