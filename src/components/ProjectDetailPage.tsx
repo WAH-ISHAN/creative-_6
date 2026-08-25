@@ -239,8 +239,12 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
   onSwitchToWeddings,
   onStartProject
 }) => {
-  const allProjects = usePublishedProjects();
-  const project = allProjects.find(p => p.slug === projectSlug);
+  const project = allProjects.find(
+    p => p.slug === projectSlug ||
+         p.id === projectSlug ||
+         (p.slug && p.slug.toLowerCase() === (projectSlug || '').toLowerCase()) ||
+         (p.id && p.id.toLowerCase() === (projectSlug || '').toLowerCase())
+  );
 
   useEffect(() => {
     resetGlobalScroll();

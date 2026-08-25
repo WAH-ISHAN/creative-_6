@@ -10,6 +10,7 @@ import { useSeo } from '../utils/useSeo';
 
 interface WorksPageProps {
   initialFilter?: string | null;
+  onSelectProject?: (project: ProjectCase) => void;
   onSwitchToStudio: () => void;
   onSwitchToWeddings: () => void;
 }
@@ -158,7 +159,7 @@ const WorkCardItem: React.FC<{
   );
 };
 
-export const WorksPage: React.FC<WorksPageProps> = ({ initialFilter, onSwitchToStudio, onSwitchToWeddings }) => {
+export const WorksPage: React.FC<WorksPageProps> = ({ initialFilter, onSelectProject, onSwitchToStudio, onSwitchToWeddings }) => {
   const [activeType, setActiveType] = useState<'ALL' | 'PHOTO' | 'VIDEO'>('ALL');
   const [activeCategory, setActiveCategory] = useState<string>('ALL');
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -247,7 +248,12 @@ export const WorksPage: React.FC<WorksPageProps> = ({ initialFilter, onSwitchToS
 
   const handleSelectProject = (project: ProjectCase) => {
     soundEngine.playClick();
-    window.location.hash = `#project-${project.slug || project.id}`;
+    if (onSelectProject) {
+      onSelectProject(project);
+    } else {
+      window.history.pushState(null, '', `/works/${project.slug || project.id}`);
+      window.dispatchEvent(new Event('popstate'));
+    }
   };
 
   return (

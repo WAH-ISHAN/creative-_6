@@ -31,21 +31,33 @@ type View = 'studio' | 'weddings' | 'works' | 'project';
 
 function parsePath(pathname: string): { view: View; slug: string | null; worksFilter: string | null } {
   const path = pathname.toLowerCase().replace(/\/+$/, '') || '/';
+  const hash = typeof window !== 'undefined' ? window.location.hash.toLowerCase() : '';
+
   if (path === '/admin') return { view: 'studio', slug: null, worksFilter: null };
-  // Detail routes MUST win over keyword matching — e.g. /works/ravindu-malikshi-wedding
-  // is a project detail page, not the weddings experience.
-  if (path.startsWith('/works/') || path.startsWith('/projects/')) {
-    const slug = path.replace('/works/', '').replace('/projects/', '');
-    return { view: 'project', slug: slug || null, worksFilter: null };
+
+  // Hash-based project routing (#project-slug)
+  if (hash && hash.startsWith('#project-')) {
+    const slug = hash.replace('#project-', '').trim();
+    if (slug) return { view: 'project', slug, worksFilter: null };
   }
+
+  // Path-based project routing (/works/slug or /projects/slug)
+  if (path.startsWith('/works/') || path.startsWith('/projects/')) {
+    const slug = path.replace('/works/', '').replace('/projects/', '').trim();
+    if (slug) return { view: 'project', slug: slug || null, worksFilter: null };
+  }
+
   if (path.includes('wedding')) return { view: 'weddings', slug: null, worksFilter: null };
-  if (path.includes('works') || path.includes('projects')) {
+
+  if (path === '/works' || path === '/projects' || path.startsWith('/works') || path.startsWith('/projects')) {
     const f = new URLSearchParams(window.location.search).get('f');
     return { view: 'works', slug: null, worksFilter: f ? f.toUpperCase() : null };
   }
+
   // Category shortcuts → Works page with a preset filter
   if (/^\/(photography|photos)\b/.test(path)) return { view: 'works', slug: null, worksFilter: 'PHOTOGRAPHY' };
   if (/^\/(video|videos|cinema)\b/.test(path)) return { view: 'works', slug: null, worksFilter: 'VIDEO' };
+
   return { view: 'studio', slug: null, worksFilter: null };
 }
 
@@ -255,6 +267,7 @@ function App() {
         <WorksPage
           key={worksFilter || 'all'}
           initialFilter={worksFilter}
+          onSelectProject={handleSelectProject}
           onSwitchToStudio={handleSwitchToStudio}
           onSwitchToWeddings={handleSwitchToWeddings}
         />
