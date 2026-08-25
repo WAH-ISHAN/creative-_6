@@ -87,17 +87,17 @@ export const HeroSection: React.FC = () => {
 
       {/* ─── FOREGROUND: HERO HEADLINE & NARRATIVE ─── */}
       <div ref={bgTitleRef} className="relative z-20 pointer-events-none flex flex-col items-center justify-center px-6 text-center">
-        <div ref={subTextRef} className="flex flex-col items-center gap-4 md:gap-5 max-w-3xl mx-auto drop-shadow-2xl">
+        <div ref={subTextRef} className="flex flex-col items-center gap-3.5 md:gap-4 max-w-2xl mx-auto drop-shadow-2xl">
           <h1
             ref={mainTitleRef}
             className="will-change-transform font-editorial uppercase tracking-tight font-normal select-none leading-[0.88] text-white"
-            style={{ fontSize: 'clamp(3.1rem, 9.2vw, 8.6rem)' }}
+            style={{ fontSize: 'clamp(2.75rem, 8.2vw, 7.7rem)' }}
           >
             BEYOND<br />
             <span className="text-[var(--fx-yellow)]">CREATIVITY</span>
           </h1>
           
-          <p className="font-mono-tech text-[10px] sm:text-xs md:text-sm text-white/80 leading-relaxed font-normal max-w-md md:max-w-lg drop-shadow-md tracking-[0.16em] uppercase">
+          <p className="font-mono-tech text-[9px] sm:text-[11px] md:text-xs text-white/80 leading-relaxed font-normal max-w-sm md:max-w-md drop-shadow-md tracking-[0.18em] uppercase">
             {content.hero?.description || 'CreativeFX is a creative agency specializing in photography, videography, content creation, and digital marketing solutions for modern brands.'}
           </p>
         </div>
