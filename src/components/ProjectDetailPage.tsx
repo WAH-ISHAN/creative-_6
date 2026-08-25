@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { detectMediaKind, GalleryMedia, ProjectCase, toGalleryItems } from '../types';
-import { usePublishedProjects } from '../context/ContentContext';
+import { usePublishedProjects, useContent } from '../context/ContentContext';
 
 import { ArrowLeft, X, ChevronLeft, ChevronRight, ZoomIn, Film, Camera, ArrowUpRight } from 'lucide-react';
 import { Header } from './Header';
@@ -239,6 +239,8 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
   onSwitchToWeddings,
   onStartProject
 }) => {
+  const { isLoading } = useContent();
+  const allProjects = usePublishedProjects();
   const project = allProjects.find(
     p => p.slug === projectSlug ||
          p.id === projectSlug ||
@@ -257,6 +259,15 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
     image: project?.coverImage,
     index: !!project,
   });
+
+  if (isLoading && !project) {
+    return (
+      <div className="min-h-screen bg-[var(--fx-black)] text-[var(--fx-white)] flex flex-col items-center justify-center">
+        <div className="w-8 h-8 border-2 border-[var(--fx-yellow)] border-t-transparent rounded-full animate-spin" />
+        <span className="mt-4 text-xs font-mono-tech tracking-widest text-gray-400 uppercase">LOADING PROJECT...</span>
+      </div>
+    );
+  }
 
   if (!project) {
     return (
