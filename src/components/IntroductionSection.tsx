@@ -66,8 +66,12 @@ export const IntroductionSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="section-introduction"
-      className="relative w-full bg-[var(--fx-white)] text-[var(--fx-black)] py-16 sm:py-24 md:py-32 px-6 sm:px-8 md:px-12 select-none no-parallax"
+      className="relative w-full bg-[var(--fx-white)] text-[var(--fx-black)] py-16 sm:py-24 md:py-32 px-6 sm:px-8 md:px-12 select-none no-parallax overflow-hidden"
     >
+      {/* Continuous Architectural Arc Outline connecting to Featured Work */}
+      <div className="absolute left-[-48vw] bottom-[-40vh] w-[103vw] h-[100vh] rounded-r-full border-r border-black/10 pointer-events-none hidden md:block" />
+      <div className="absolute left-[-52vw] bottom-[-45vh] w-[110vw] h-[110vh] rounded-r-full border-r border-black/5 pointer-events-none hidden md:block" />
+
       <div className="relative z-10 max-w-6xl mx-auto">
         <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
 
