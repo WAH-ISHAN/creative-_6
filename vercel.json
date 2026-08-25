@@ -3,6 +3,10 @@
   "outputDirectory": "dist",
   "rewrites": [
     {
+      "source": "/video/(.*)",
+      "destination": "/video/$1"
+    },
+    {
       "source": "/img/(.*)",
       "destination": "/img/$1"
     },

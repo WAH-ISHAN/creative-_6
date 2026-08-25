@@ -8,10 +8,11 @@ coverage/
 !.env.example
 
 # Large video files exceeding GitHub 100MB limit
-*.mp4
-*.MP4
-*.mov
-*.MOV
 video/
-public/video/
-web intro/*.mp4
+web intro/
+public/video/Malikshi_Ravindu_Wedding.mp4
+*.MOV
+*.mov
+
+# Allow Hero video under 100MB
+!public/video/intro-hero.mp4
