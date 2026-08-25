@@ -151,27 +151,8 @@ export const FeaturedWorkSection: React.FC<FeaturedWorkSectionProps> = ({ onSele
       {/* DESKTOP PINNED EXPERIENCE */}
       <div className="hidden md:block h-screen supports-[height:100svh]:h-[100svh] w-full relative overflow-hidden">
 
-        {/* Precision Geometric Arc spanning exactly from Studio (top: 0) to Selected Work (bottom: 100%) */}
-        <div className="fw-curve absolute inset-0 w-full h-full z-20 pointer-events-none overflow-hidden">
-          <svg
-            className="w-full h-full filter drop-shadow-[20px_0_35px_rgba(0,0,0,0.06)]"
-            viewBox="0 0 1000 1000"
-            preserveAspectRatio="none"
-          >
-            {/* White solid mask covering the left typography side */}
-            <path
-              d="M 0,0 L 440,0 Q 640,500 440,1000 L 0,1000 Z"
-              fill="#ffffff"
-            />
-            {/* Subtle elegant border edge */}
-            <path
-              d="M 440,0 Q 640,500 440,1000"
-              fill="none"
-              stroke="rgba(0, 0, 0, 0.06)"
-              strokeWidth="1.5"
-            />
-          </svg>
-        </div>
+        {/* Massive White Curve masking the photos */}
+        <div className="fw-curve absolute left-[-45vw] top-[-20vh] w-[95vw] h-[140vh] bg-white rounded-r-full z-20 shadow-[40px_0_60px_rgba(0,0,0,0.06)] pointer-events-none" />
 
         {/* Left Side: Typography (Z-30 above curve) */}
         <div className="absolute left-0 top-0 w-[50vw] h-full z-30 flex flex-col justify-center pl-16 lg:pl-24 xl:pl-32">
