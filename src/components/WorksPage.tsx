@@ -300,49 +300,72 @@ export const WorksPage: React.FC<WorksPageProps> = ({ initialFilter, onSelectPro
           </div>
         </div>
 
-        {/* Media Type Filter Tabs */}
-        <div className="pt-8 pb-4 flex items-center gap-3">
-          <button
-            onClick={() => { soundEngine.playClick(); setActiveType('ALL'); setActiveCategory('ALL'); }}
-            className={`px-5 py-2 rounded-sm text-xs font-mono-tech tracking-widest uppercase transition-all cursor-pointer flex items-center gap-2 ${
-              activeType === 'ALL'
-                ? 'bg-white text-black font-bold shadow-lg'
-                : 'bg-white/5 text-gray-400 hover:text-white border border-white/10'
-            }`}
-          >
-            <LayoutGrid className="w-3.5 h-3.5" />
-            <span>ALL COMMISSIONS</span>
-          </button>
+        {/* Modern High-Contrast Filter & Category Engine */}
+        <div className="my-8 p-4 sm:p-6 bg-[#0c0c0c] border border-white/20 rounded-md shadow-2xl space-y-5">
+          {/* Row 1: Media Type Switcher & Search Bar */}
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-white/10 pb-5">
+            {/* Primary Media Format Tabs */}
+            <div className="flex items-center gap-2.5 flex-wrap">
+              <button
+                onClick={() => { soundEngine.playClick(); setActiveType('ALL'); setActiveCategory('ALL'); }}
+                className={`px-4 sm:px-5 py-2 rounded-sm text-xs font-mono-tech tracking-wider uppercase transition-all duration-200 cursor-pointer flex items-center gap-2 ${
+                  activeType === 'ALL'
+                    ? 'bg-[var(--fx-yellow)] text-black font-bold border border-[var(--fx-yellow)] shadow-[0_0_18px_rgba(252,191,19,0.35)] scale-[1.02]'
+                    : 'bg-[#181818] text-white font-semibold border border-white/20 hover:border-white/60 hover:bg-[#222222]'
+                }`}
+              >
+                <LayoutGrid className="w-3.5 h-3.5" />
+                <span>ALL COMMISSIONS</span>
+              </button>
 
-          <button
-            onClick={() => { soundEngine.playClick(); setActiveType('PHOTO'); setActiveCategory('ALL'); }}
-            className={`px-5 py-2 rounded-sm text-xs font-mono-tech tracking-widest uppercase transition-all cursor-pointer flex items-center gap-2 ${
-              activeType === 'PHOTO'
-                ? 'bg-[var(--fx-yellow)] text-black font-bold shadow-lg'
-                : 'bg-white/5 text-gray-400 hover:text-white border border-white/10'
-            }`}
-          >
-            <Camera className="w-3.5 h-3.5" />
-            <span>PHOTO</span>
-          </button>
+              <button
+                onClick={() => { soundEngine.playClick(); setActiveType('PHOTO'); setActiveCategory('ALL'); }}
+                className={`px-4 sm:px-5 py-2 rounded-sm text-xs font-mono-tech tracking-wider uppercase transition-all duration-200 cursor-pointer flex items-center gap-2 ${
+                  activeType === 'PHOTO'
+                    ? 'bg-[var(--fx-yellow)] text-black font-bold border border-[var(--fx-yellow)] shadow-[0_0_18px_rgba(252,191,19,0.35)] scale-[1.02]'
+                    : 'bg-[#181818] text-white font-semibold border border-white/20 hover:border-white/60 hover:bg-[#222222]'
+                }`}
+              >
+                <Camera className="w-3.5 h-3.5" />
+                <span>PHOTO</span>
+              </button>
 
-          <button
-            onClick={() => { soundEngine.playClick(); setActiveType('VIDEO'); setActiveCategory('ALL'); }}
-            className={`px-5 py-2 rounded-sm text-xs font-mono-tech tracking-widest uppercase transition-all cursor-pointer flex items-center gap-2 ${
-              activeType === 'VIDEO'
-                ? 'bg-[var(--fx-yellow)] text-black font-bold shadow-lg'
-                : 'bg-white/5 text-gray-400 hover:text-white border border-white/10'
-            }`}
-          >
-            <Film className="w-3.5 h-3.5" />
-            <span>VIDEO</span>
-          </button>
-        </div>
+              <button
+                onClick={() => { soundEngine.playClick(); setActiveType('VIDEO'); setActiveCategory('ALL'); }}
+                className={`px-4 sm:px-5 py-2 rounded-sm text-xs font-mono-tech tracking-wider uppercase transition-all duration-200 cursor-pointer flex items-center gap-2 ${
+                  activeType === 'VIDEO'
+                    ? 'bg-[var(--fx-yellow)] text-black font-bold border border-[var(--fx-yellow)] shadow-[0_0_18px_rgba(252,191,19,0.35)] scale-[1.02]'
+                    : 'bg-[#181818] text-white font-semibold border border-white/20 hover:border-white/60 hover:bg-[#222222]'
+                }`}
+              >
+                <Film className="w-3.5 h-3.5" />
+                <span>VIDEO</span>
+              </button>
+            </div>
 
-        {/* Filter Controls & Search */}
-        <div className="py-6 flex flex-col lg:flex-row gap-6 lg:items-center justify-between border-b border-[var(--fx-border-dark)]">
-          {/* Category Chips */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 lg:pb-0 no-scrollbar">
+            {/* Search Box */}
+            <div className="relative w-full md:w-72">
+              <Search className="w-3.5 h-3.5 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search title, category, tag..."
+                className="w-full pl-9 pr-8 py-2 bg-[#181818] border border-white/20 rounded-sm text-xs font-mono-tech text-white placeholder:text-gray-400 focus:outline-none focus:border-[var(--fx-yellow)] focus:ring-1 focus:ring-[var(--fx-yellow)] transition-all"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white cursor-pointer"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Row 2: Crisp, High-Contrast Category Badges */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar flex-wrap sm:flex-nowrap">
             {categoryChips.map(cat => {
               const isActive = activeCategory === cat.id;
 
@@ -350,10 +373,10 @@ export const WorksPage: React.FC<WorksPageProps> = ({ initialFilter, onSelectPro
                 <button
                   key={cat.id}
                   onClick={() => { soundEngine.playClick(); setActiveCategory(cat.id); }}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-mono-tech tracking-wider uppercase whitespace-nowrap transition-all duration-300 cursor-pointer flex items-center gap-1.5 ${
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-mono-tech tracking-wider uppercase whitespace-nowrap transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${
                     isActive
-                      ? 'bg-[var(--fx-yellow)] text-black font-semibold shadow-[0_0_12px_rgba(252,191,19,0.35)]'
-                      : 'bg-white/5 text-[var(--fx-gray)] hover:bg-white/10 hover:text-white border border-white/5'
+                      ? 'bg-[var(--fx-yellow)] text-black font-bold border border-[var(--fx-yellow)] shadow-[0_0_14px_rgba(252,191,19,0.4)] scale-105'
+                      : 'bg-[#181818] text-white font-medium border border-white/25 hover:border-[var(--fx-yellow)] hover:text-[var(--fx-yellow)] hover:bg-[#222222]'
                   }`}
                 >
                   <span>{cat.label}</span>
@@ -361,39 +384,22 @@ export const WorksPage: React.FC<WorksPageProps> = ({ initialFilter, onSelectPro
               );
             })}
           </div>
-
-          {/* Search Box */}
-          <div className="relative min-w-[240px] max-w-xs">
-            <Search className="w-3.5 h-3.5 text-gray-500 absolute left-3 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by title, category, tag..."
-              className="w-full pl-9 pr-8 py-2 bg-white/5 border border-white/10 rounded-sm text-xs font-mono-tech text-white placeholder:text-gray-500 focus:outline-none focus:border-[var(--fx-yellow)] transition-colors"
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery('')}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white cursor-pointer"
-              >
-                <X className="w-3.5 h-3.5" />
-              </button>
-            )}
-          </div>
         </div>
 
-        {/* Counter */}
-        <div className="py-6 flex justify-between items-center text-[11px] font-mono-tech tracking-widest text-[var(--fx-gray)] uppercase">
-          <span>
-            SHOWING {visibleProjects.length} OF {filteredProjects.length}
-          </span>
+        {/* Counter Bar */}
+        <div className="pb-6 flex justify-between items-center text-xs font-mono-tech tracking-widest text-gray-400 uppercase">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[var(--fx-yellow)] animate-pulse-subtle" />
+            <span>
+              SHOWING <strong className="text-white">{visibleProjects.length}</strong> OF <strong className="text-white">{filteredProjects.length}</strong> RELEASES
+            </span>
+          </div>
           {(activeCategory !== 'ALL' || activeType !== 'ALL' || searchQuery) && (
             <button
               onClick={() => { setActiveType('ALL'); setActiveCategory('ALL'); setSearchQuery(''); }}
-              className="text-[var(--fx-yellow)] hover:underline cursor-pointer"
+              className="text-[var(--fx-yellow)] hover:text-white font-bold transition-colors cursor-pointer flex items-center gap-1"
             >
-              RESET ALL FILTERS
+              <span>✕ RESET ALL FILTERS</span>
             </button>
           )}
         </div>
