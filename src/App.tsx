@@ -32,11 +32,13 @@ type View = 'studio' | 'weddings' | 'works' | 'project';
 function parsePath(pathname: string): { view: View; slug: string | null; worksFilter: string | null } {
   const path = pathname.toLowerCase().replace(/\/+$/, '') || '/';
   if (path === '/admin') return { view: 'studio', slug: null, worksFilter: null };
-  if (path.includes('wedding')) return { view: 'weddings', slug: null, worksFilter: null };
+  // Detail routes MUST win over keyword matching — e.g. /works/ravindu-malikshi-wedding
+  // is a project detail page, not the weddings experience.
   if (path.startsWith('/works/') || path.startsWith('/projects/')) {
     const slug = path.replace('/works/', '').replace('/projects/', '');
     return { view: 'project', slug: slug || null, worksFilter: null };
   }
+  if (path.includes('wedding')) return { view: 'weddings', slug: null, worksFilter: null };
   if (path.includes('works') || path.includes('projects')) {
     const f = new URLSearchParams(window.location.search).get('f');
     return { view: 'works', slug: null, worksFilter: f ? f.toUpperCase() : null };

@@ -138,13 +138,14 @@ const mainH1 = (page) => page.evaluate(() => {
     await page.goto(BASE + '/admin', { waitUntil: 'domcontentloaded' }); await ready(page, 800);
     ok('25a', 'admin gate shows login', await page.locator('text=Sign in to manage website content').count() > 0);
 
-    await page.fill('input[type="password"]', 'wrongpass');
-    await page.click('button[type="submit"]');
+    const loginBtn = page.locator('.cfx-admin button[type="submit"]');
+    await page.fill('.cfx-admin input[type="password"]', 'wrongpass');
+    await loginBtn.click();
     await page.waitForTimeout(900); await ready(page, 300);
     ok('25b', 'wrong password rejected in UI', await page.locator('text=Incorrect password').count() > 0);
 
-    await page.fill('input[type="password"]', 'creativefx2026');
-    await page.click('button[type="submit"]'); await ready(page, 1200);
+    await page.fill('.cfx-admin input[type="password"]', 'creativefx2026');
+    await loginBtn.click(); await ready(page, 1200);
     ok('25c', 'login opens admin panel', await page.locator('text=Content management').count() > 0);
 
     await page.click('nav button:has-text("Contact / Inquiries")'); await page.waitForTimeout(1200);
@@ -271,6 +272,27 @@ const mainH1 = (page) => page.evaluate(() => {
     // featured images still animated (GSAP running after churn)
     const t = await page.evaluate(() => { const el = document.querySelector('.fw-image'); return el ? getComputedStyle(el).transform !== 'none' : false; });
     ok('32b', 'GSAP transforms live after route churn', t);
+    await context.close();
+  }
+
+  // ══════════════════════════════════════════════════════════
+  // H · OG absolute URLs & no sensitive exposure (#27/#28)
+  // ══════════════════════════════════════════════════════════
+  {
+    const { context, page } = await newPage(browser);
+    for (const route of ['/', '/works', '/weddings', '/works/ceylon-gems']) {
+      await page.goto(BASE + route, { waitUntil: 'domcontentloaded' }); await ready(page, 500);
+      const og = await page.evaluate(() => document.querySelector('meta[property="og:image"]')?.content || '');
+      ok('27', `og:image absolute on ${route}`, /^https?:\/\//.test(og), og.slice(0, 70));
+    }
+    const html = await (await fetch(BASE + '/')).text();
+    ok('28a', 'served HTML contains no password/secret', !html.includes('creativefx2026') && !html.includes('cfx-secret'));
+    ok('28b', 'public cannot read inquiries (401)', (await fetch(BASE + '/api/inquiries')).status === 401);
+    ok('28c', 'public cannot read server stats (401)', (await fetch(BASE + '/api/stats')).status === 401);
+    ok('28d', 'public cannot list uploads (401)', (await fetch(BASE + '/api/uploads')).status === 401);
+    // visitor session carries no admin token
+    const tok = await page.evaluate(() => sessionStorage.getItem('cfx_admin_token'));
+    ok('28e', 'no admin token in visitor session', !tok);
     await context.close();
   }
 

@@ -311,7 +311,10 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
   useEffect(() => {
     const seo = { ...DEFAULT_CONTENT.seo, ...(content.seo || {}) };
 
-    document.title = seo.title;
+    // A route-level useSeo() owns the title when one is active (e.g. a project
+    // detail page) — the global default must not win the race against it.
+    const routeOwnsTitle = (globalThis as unknown as { __cfxRouteTitle?: { active: boolean } }).__cfxRouteTitle?.active;
+    if (!routeOwnsTitle) document.title = seo.title;
 
     const setMeta = (attr: string, key: string, val: string) => {
       let el = document.head.querySelector(`meta[${attr}="${key}"]`) as HTMLMetaElement | null;

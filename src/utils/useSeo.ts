@@ -20,6 +20,13 @@ function setMeta(attr: string, key: string, val: string) {
 }
 
 /**
+ * Registry so the global ContentProvider SEO effect knows a specific view
+ * owns the current <title> (and must not overwrite it when content loads).
+ */
+const routeTitle = { active: false, value: '' };
+(globalThis as unknown as Record<string, unknown>).__cfxRouteTitle = routeTitle;
+
+/**
  * Per-view SEO manager. The global defaults live in ContentContext; this hook
  * layers route/project-specific values on top and restores them on unmount.
  */
@@ -28,6 +35,8 @@ export function useSeo({ title, description, image, index = true }: SeoOptions) 
     const prevTitle = document.title;
 
     document.title = title;
+    routeTitle.active = true;
+    routeTitle.value = title;
 
     const origin = document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.href?.replace(/\/$/, '');
     let base = '';
@@ -43,6 +52,7 @@ export function useSeo({ title, description, image, index = true }: SeoOptions) 
     setMeta('name', 'robots', index ? 'index, follow' : 'noindex, nofollow');
 
     return () => {
+      if (routeTitle.active && routeTitle.value === title) routeTitle.active = false;
       document.title = prevTitle;
     };
   }, [title, description, image, index]);
