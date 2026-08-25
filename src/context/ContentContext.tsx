@@ -187,7 +187,7 @@ export const DEFAULT_CONTENT = {
   },
   // ─── Navigation labels (admin → Website → Navigation) ──────────────────────
   nav: {
-    work: 'WORK',
+    work: 'PORTFOLIO',
     services: 'SERVICES',
     weddings: 'WEDDINGS',
     about: 'ABOUT',
