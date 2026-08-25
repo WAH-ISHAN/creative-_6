@@ -288,7 +288,7 @@ function App() {
               <Header
                 activeView={activeSection}
                 onLogoClick={handleSwitchToStudio}
-                onOpenWork={() => scrollToSection('section-featured-work')}
+                onOpenWork={() => handleSwitchToWorks()}
                 onOpenServices={() => scrollToSection('section-services')}
                 onOpenAbout={() => scrollToSection('section-about')}
                 onOpenContact={() => scrollToSection('section-contact')}

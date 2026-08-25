@@ -260,17 +260,13 @@ export const WorksPage: React.FC<WorksPageProps> = ({ initialFilter, onSelectPro
     <div className="w-full min-h-screen bg-[var(--fx-black)] text-[var(--fx-white)] flex flex-col selection:bg-[var(--fx-yellow)] selection:text-black">
       {/* Universal Header */}
       <Header
-        activeTab="work"
-        onNavigateHome={onSwitchToStudio}
-        onNavigateWorks={() => smoothScrollTo(0)}
-        onNavigateWeddings={onSwitchToWeddings}
-        onNavigateSection={(sectionId) => {
-          onSwitchToStudio();
-          setTimeout(() => {
-            const el = document.getElementById(sectionId);
-            if (el) smoothScrollTo(el);
-          }, 150);
-        }}
+        activeView="work"
+        onLogoClick={onSwitchToStudio}
+        onOpenWork={() => smoothScrollTo(0)}
+        onOpenServices={() => { onSwitchToStudio(); setTimeout(() => document.getElementById('section-services')?.scrollIntoView(), 100); }}
+        onOpenAbout={() => { onSwitchToStudio(); setTimeout(() => document.getElementById('section-about')?.scrollIntoView(), 100); }}
+        onOpenContact={() => { onSwitchToStudio(); setTimeout(() => document.getElementById('section-contact')?.scrollIntoView(), 100); }}
+        onOpenWeddings={onSwitchToWeddings}
       />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-6 sm:px-8 md:px-12 pt-32 sm:pt-40 pb-24">
