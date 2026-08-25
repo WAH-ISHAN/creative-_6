@@ -146,7 +146,7 @@
       "categoryLabel": "Marketing Reels",
       "year": "2026",
       "coverImage": "/img/poster/RentMasterFinal.jpg",
-      "videoUrl": "/video/Marketing/HELAFITS - Final.mp4",
+      "videoUrl": "/video/Marketing/RentMasterFinal.mp4",
       "aspectRatio": "portrait",
       "summary": "Engaging marketing campaigns designed to captivate audiences and drive brand awareness.",
       "challenge": "Creating scroll-stopping content in a saturated digital landscape.",
@@ -183,7 +183,8 @@
           "type": "post"
         }
       ],
-      "status": "published"
+      "status": "published",
+      "videoPoster": "/img/poster/RentMasterFinal.jpg"
     },
     {
       "id": "proj-03",
