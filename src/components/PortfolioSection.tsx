@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { ProjectCase } from '../types';
 import { resolveSelectedWork, useContent } from '../context/ContentContext';
 import { ArrowRight, Heart, Play } from 'lucide-react';
@@ -14,35 +14,23 @@ const ProjectCard = ({ project, onSelectProject, onSwitchToWeddings }: {
   onSelectProject?: (project: ProjectCase) => void;
   onSwitchToWeddings?: () => void;
 }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
 
-  // In-View Autoplay Controller
-  useEffect(() => {
-    if (!project.videoUrl || !containerRef.current) return;
-
-    const currentVideo = videoRef.current;
-    if (currentVideo) {
-      currentVideo.play().catch(() => {});
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    if (videoRef.current) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play().catch(() => {});
     }
+  };
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!videoRef.current) return;
-          if (entry.isIntersecting) {
-            videoRef.current.play().catch(() => {});
-          } else {
-            videoRef.current.pause();
-          }
-        });
-      },
-      { threshold: 0.15, rootMargin: '100px 0px' }
-    );
-
-    observer.observe(containerRef.current);
-    return () => observer.disconnect();
-  }, [project.videoUrl]);
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+  };
 
   const handleClick = () => {
     if (project.isWedding && onSwitchToWeddings) {
@@ -54,32 +42,39 @@ const ProjectCard = ({ project, onSelectProject, onSwitchToWeddings }: {
 
   return (
     <div
-      ref={containerRef}
       onClick={handleClick}
-      className="group cursor-pointer flex flex-col items-center text-center gap-4"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className="group cursor-pointer flex flex-col items-center text-center gap-4 select-none"
     >
       <div className="relative w-full aspect-[4/5] bg-[#0c0c0c] border border-[var(--fx-border-dark)] overflow-hidden rounded-sm group-hover:border-[var(--fx-yellow)]/60 transition-colors">
-        {/* High-Performance Video / Photo Display */}
-        {project.videoUrl ? (
+        {/* Cover Image (Default Black & White, turns to full vibrant color on hover) */}
+        <img
+          src={project.coverImage || 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=1000&auto=format&fit=crop'}
+          alt={project.title}
+          loading="lazy"
+          decoding="async"
+          className={`absolute inset-0 w-full h-full object-cover object-top transition-all duration-700 ease-out group-hover:scale-105 ${
+            project.videoUrl && isHovered
+              ? 'opacity-0'
+              : 'opacity-100 filter grayscale group-hover:grayscale-0'
+          }`}
+          referrerPolicy="no-referrer"
+        />
+
+        {/* Video Player (Plays & reveals in full color on mouse hover) */}
+        {project.videoUrl && (
           <video
             ref={videoRef}
             src={project.videoUrl}
             poster={project.coverImage}
-            autoPlay
             muted
             loop
             playsInline
             preload="auto"
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-          />
-        ) : (
-          <img
-            src={project.coverImage || 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=1000&auto=format&fit=crop'}
-            alt={project.title}
-            loading="lazy"
-            decoding="async"
-            className="absolute inset-0 w-full h-full object-cover object-top transition-all duration-700 ease-out group-hover:scale-105 filter grayscale group-hover:grayscale-0"
-            referrerPolicy="no-referrer"
+            className={`absolute inset-0 w-full h-full object-cover transition-all duration-500 ease-out group-hover:scale-105 ${
+              isHovered ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            }`}
           />
         )}
 
@@ -87,7 +82,7 @@ const ProjectCard = ({ project, onSelectProject, onSwitchToWeddings }: {
         {project.videoUrl && (
           <div className="absolute top-3 right-3 z-10 bg-black/75 backdrop-blur-md px-2 py-0.5 rounded-sm border border-white/20 text-[9px] font-mono-tech text-[var(--fx-yellow)] tracking-widest uppercase flex items-center gap-1 pointer-events-none">
             <Play className="w-2.5 h-2.5 fill-[var(--fx-yellow)]" />
-            <span>4K CINEMA</span>
+            <span>4K REEL</span>
           </div>
         )}
 

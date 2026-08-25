@@ -27,7 +27,7 @@ const CATEGORY_LABELS: Record<string, string> = {
 };
 
 /**
- * High-performance, viewport-aware Work Card with In-View Autoplay
+ * High-performance, interactive Work Card with B&W to Color & Play on Hover
  */
 const WorkCardItem: React.FC<{
   project: ProjectCase;
@@ -35,42 +35,31 @@ const WorkCardItem: React.FC<{
   total: number;
   onSelect: (project: ProjectCase) => void;
 }> = ({ project, idx, total, onSelect }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const isVideo = project.type === 'video' || !!project.videoUrl;
 
-  useEffect(() => {
-    if (!isVideo || !project.videoUrl || !containerRef.current) return;
-
-    const currentVideo = videoRef.current;
-    if (currentVideo) {
-      currentVideo.play().catch(() => {});
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    if (videoRef.current) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play().catch(() => {});
     }
+  };
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!videoRef.current) return;
-          if (entry.isIntersecting) {
-            videoRef.current.play().catch(() => {});
-          } else {
-            videoRef.current.pause();
-          }
-        });
-      },
-      { threshold: 0.15, rootMargin: '100px 0px' }
-    );
-
-    observer.observe(containerRef.current);
-    return () => observer.disconnect();
-  }, [isVideo, project.videoUrl]);
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+  };
 
   return (
     <div
-      ref={containerRef}
       onClick={() => onSelect(project)}
-      className="works-card group cursor-pointer flex flex-col gap-4 bg-[#0a0a0a] border border-white/10 hover:border-[var(--fx-yellow)]/60 p-3 sm:p-4 rounded-sm transition-all duration-300 hover:shadow-[0_12px_36px_rgba(0,0,0,0.9)]"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className="works-card group cursor-pointer flex flex-col gap-4 bg-[#0a0a0a] border border-white/10 hover:border-[var(--fx-yellow)]/60 p-3 sm:p-4 rounded-sm transition-all duration-300 hover:shadow-[0_12px_36px_rgba(0,0,0,0.9)] select-none"
     >
       {/* Media Wrapper */}
       <div className="relative w-full aspect-[4/5] overflow-hidden bg-black rounded-sm border border-white/10 group-hover:border-white/30 transition-colors fx-media--fill">
@@ -94,27 +83,33 @@ const WorkCardItem: React.FC<{
           )}
         </div>
 
-        {/* In-View Autoplay Video Stream or Photo */}
-        {isVideo && project.videoUrl ? (
+        {/* Cover Image (Default Black & White, turns to full vibrant color on hover) */}
+        <img
+          src={project.coverImage || 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=800'}
+          alt={project.title}
+          loading={idx < PAGE_SIZE ? 'eager' : 'lazy'}
+          decoding="async"
+          className={`absolute inset-0 w-full h-full object-cover object-top transition-all duration-700 ease-out group-hover:scale-105 ${
+            isVideo && isHovered
+              ? 'opacity-0'
+              : 'opacity-100 filter grayscale contrast-[1.05] group-hover:grayscale-0'
+          }`}
+          referrerPolicy="no-referrer"
+        />
+
+        {/* Video Player (Plays & reveals in full color on mouse hover) */}
+        {isVideo && project.videoUrl && (
           <video
             ref={videoRef}
             src={project.videoUrl}
             poster={project.videoPoster || project.coverImage}
-            autoPlay
             muted
             loop
             playsInline
             preload="auto"
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-          />
-        ) : (
-          <img
-            src={project.coverImage || 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=800'}
-            alt={project.title}
-            loading={idx < PAGE_SIZE ? 'eager' : 'lazy'}
-            decoding="async"
-            className="absolute inset-0 w-full h-full object-cover object-top transition-all duration-700 ease-out group-hover:scale-105 filter grayscale contrast-[1.05] group-hover:grayscale-0"
-            referrerPolicy="no-referrer"
+            className={`absolute inset-0 w-full h-full object-cover transition-all duration-500 ease-out group-hover:scale-105 ${
+              isHovered ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            }`}
           />
         )}
 
@@ -252,8 +247,9 @@ export const WorksPage: React.FC<WorksPageProps> = ({ initialFilter, onSwitchToS
   const visibleProjects = filteredProjects.slice(0, visibleCount);
 
   const handleSelectProject = (project: ProjectCase) => {
-    soundEngine.playSwoosh();
-    window.location.hash = `#project-${project.slug || project.id}`;
+    soundEngine.playClick();
+    window.history.pushState(null, '', `/works/${project.slug}`);
+    window.dispatchEvent(new Event('popstate'));
   };
 
   return (
