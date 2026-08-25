@@ -90,39 +90,43 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* DESKTOP NAV */}
-        <nav className="hidden md:flex items-center gap-4 lg:gap-6">
+        <nav className="hidden md:flex items-center gap-6 lg:gap-8 xl:gap-10">
           {showWorks && (
             <button 
               onClick={() => scrollToSection('section-portfolio', onOpenWork)} 
-              className="px-3 xl:px-4 py-2 text-lg xl:text-xl font-mono-tech tracking-widest text-[var(--fx-light-gray)] hover:bg-[var(--fx-yellow)] hover:text-black transition-all duration-300 uppercase rounded-sm cursor-pointer"
+              className="px-2 py-1 text-xs sm:text-sm font-mono-tech tracking-[0.22em] text-[var(--fx-light-gray)] hover:text-[var(--fx-yellow)] transition-all duration-300 uppercase cursor-pointer relative group"
             >
-              {navLabels.work}
+              <span>{navLabels.work}</span>
+              <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-[var(--fx-yellow)] transition-all duration-300 group-hover:w-full" />
             </button>
           )}
           <button 
             onClick={() => scrollToSection('section-services', onOpenServices)} 
-            className="px-3 xl:px-4 py-2 text-lg xl:text-xl font-mono-tech tracking-widest text-[var(--fx-light-gray)] hover:bg-[var(--fx-yellow)] hover:text-black transition-all duration-300 uppercase rounded-sm cursor-pointer"
+            className="px-2 py-1 text-xs sm:text-sm font-mono-tech tracking-[0.22em] text-[var(--fx-light-gray)] hover:text-[var(--fx-yellow)] transition-all duration-300 uppercase cursor-pointer relative group"
           >
-            {navLabels.services}
+            <span>{navLabels.services}</span>
+            <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-[var(--fx-yellow)] transition-all duration-300 group-hover:w-full" />
           </button>
           {showWeddings && (
             <button 
               onClick={() => scrollToSection('weddings', onOpenWeddings)} 
-              className="px-3 xl:px-4 py-2 text-lg xl:text-xl font-mono-tech tracking-widest text-[var(--fx-light-gray)] hover:bg-[var(--fx-yellow)] hover:text-black transition-all duration-300 uppercase rounded-sm cursor-pointer"
+              className="px-2 py-1 text-xs sm:text-sm font-mono-tech tracking-[0.22em] text-[var(--fx-light-gray)] hover:text-[var(--fx-yellow)] transition-all duration-300 uppercase cursor-pointer relative group"
             >
-              {navLabels.weddings}
+              <span>{navLabels.weddings}</span>
+              <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-[var(--fx-yellow)] transition-all duration-300 group-hover:w-full" />
             </button>
           )}
           <button 
             onClick={() => scrollToSection('section-about', onOpenAbout)} 
-            className="px-3 xl:px-4 py-2 text-lg xl:text-xl font-mono-tech tracking-widest text-[var(--fx-light-gray)] hover:bg-[var(--fx-yellow)] hover:text-black transition-all duration-300 uppercase rounded-sm cursor-pointer"
+            className="px-2 py-1 text-xs sm:text-sm font-mono-tech tracking-[0.22em] text-[var(--fx-light-gray)] hover:text-[var(--fx-yellow)] transition-all duration-300 uppercase cursor-pointer relative group"
           >
-            {navLabels.about}
+            <span>{navLabels.about}</span>
+            <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-[var(--fx-yellow)] transition-all duration-300 group-hover:w-full" />
           </button>
           
           <button
             onClick={() => scrollToSection('section-contact', onOpenContact)}
-            className="ml-2 xl:ml-4 px-5 xl:px-8 py-2.5 border border-white text-white text-lg xl:text-xl font-mono-tech tracking-widest hover:bg-[var(--fx-yellow)] hover:border-[var(--fx-yellow)] hover:text-black transition-all duration-300 uppercase cursor-pointer"
+            className="ml-4 lg:ml-6 px-6 py-2 border border-white/60 text-white text-xs sm:text-sm font-mono-tech tracking-[0.24em] font-semibold hover:bg-[var(--fx-yellow)] hover:border-[var(--fx-yellow)] hover:text-black transition-all duration-300 uppercase rounded-sm cursor-pointer shadow-sm"
           >
             {navLabels.cta}
           </button>

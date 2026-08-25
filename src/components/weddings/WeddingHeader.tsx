@@ -18,7 +18,6 @@ export const WeddingHeader: React.FC<WeddingHeaderProps> = ({
   onNavigateToTimeline,
   onNavigateToStories,
   onNavigateToApproach,
-  onNavigateToFilms,
   onSwitchToStudio,
 }) => {
   const [scrolled, setScrolled] = useState(false);
@@ -60,24 +59,28 @@ export const WeddingHeader: React.FC<WeddingHeaderProps> = ({
           </div>
 
           {/* DESKTOP NAV */}
-          <nav className="hidden md:flex items-center gap-4 lg:gap-6">
-            <button onClick={() => handleLinkClick(onNavigateToStories)} className="px-4 py-2 text-xl font-mono-tech tracking-widest text-[var(--fx-light-gray)] hover:bg-[var(--fx-yellow)] hover:text-black transition-all duration-300 uppercase rounded-sm">
-              STORIES
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8 xl:gap-10">
+            <button onClick={() => handleLinkClick(onNavigateToStories)} className="px-2 py-1 text-xs sm:text-sm font-mono-tech tracking-[0.22em] text-[var(--fx-light-gray)] hover:text-[var(--fx-yellow)] transition-all duration-300 uppercase cursor-pointer relative group">
+              <span>STORIES</span>
+              <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-[var(--fx-yellow)] transition-all duration-300 group-hover:w-full" />
             </button>
-            <button onClick={() => handleLinkClick(onNavigateToTimeline)} className="px-4 py-2 text-xl font-mono-tech tracking-widest text-[var(--fx-light-gray)] hover:bg-[var(--fx-yellow)] hover:text-black transition-all duration-300 uppercase rounded-sm">
-              TIMELINE
+            <button onClick={() => handleLinkClick(onNavigateToTimeline)} className="px-2 py-1 text-xs sm:text-sm font-mono-tech tracking-[0.22em] text-[var(--fx-light-gray)] hover:text-[var(--fx-yellow)] transition-all duration-300 uppercase cursor-pointer relative group">
+              <span>TIMELINE</span>
+              <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-[var(--fx-yellow)] transition-all duration-300 group-hover:w-full" />
             </button>
-            <button onClick={() => handleLinkClick(onNavigateToApproach)} className="px-4 py-2 text-xl font-mono-tech tracking-widest text-[var(--fx-light-gray)] hover:bg-[var(--fx-yellow)] hover:text-black transition-all duration-300 uppercase rounded-sm">
-              APPROACH
+            <button onClick={() => handleLinkClick(onNavigateToApproach)} className="px-2 py-1 text-xs sm:text-sm font-mono-tech tracking-[0.22em] text-[var(--fx-light-gray)] hover:text-[var(--fx-yellow)] transition-all duration-300 uppercase cursor-pointer relative group">
+              <span>APPROACH</span>
+              <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-[var(--fx-yellow)] transition-all duration-300 group-hover:w-full" />
             </button>
-            <button onClick={() => handleLinkClick(onSwitchToStudio)} className="px-4 py-2 text-xl font-mono-tech tracking-widest text-[var(--fx-light-gray)] hover:bg-[var(--fx-yellow)] hover:text-black transition-all duration-300 uppercase rounded-sm">
-              STUDIO
+            <button onClick={() => handleLinkClick(onSwitchToStudio)} className="px-2 py-1 text-xs sm:text-sm font-mono-tech tracking-[0.22em] text-[var(--fx-light-gray)] hover:text-[var(--fx-yellow)] transition-all duration-300 uppercase cursor-pointer relative group">
+              <span>STUDIO</span>
+              <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-[var(--fx-yellow)] transition-all duration-300 group-hover:w-full" />
             </button>
 
             {/* INQUIRE CTA */}
             <button 
               onClick={() => handleLinkClick(onInquire)} 
-              className="hidden lg:flex items-center gap-2 border border-white/20 px-6 py-2 ml-4 rounded-sm hover:border-[var(--fx-yellow)] hover:text-[var(--fx-yellow)] transition-all group cursor-pointer font-mono-tech text-sm tracking-widest uppercase text-white"
+              className="ml-4 lg:ml-6 px-6 py-2 border border-white/60 text-white text-xs sm:text-sm font-mono-tech tracking-[0.24em] font-semibold hover:bg-[var(--fx-yellow)] hover:border-[var(--fx-yellow)] hover:text-black transition-all duration-300 uppercase rounded-sm cursor-pointer shadow-sm"
             >
               INQUIRE
             </button>
