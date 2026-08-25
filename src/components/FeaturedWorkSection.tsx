@@ -151,8 +151,8 @@ export const FeaturedWorkSection: React.FC<FeaturedWorkSectionProps> = ({ onSele
       {/* DESKTOP PINNED EXPERIENCE */}
       <div className="hidden md:block h-screen supports-[height:100svh]:h-[100svh] w-full relative overflow-hidden">
 
-        {/* Massive White Curve masking the photos */}
-        <div className="fw-curve absolute left-[-45vw] top-[-20vh] w-[95vw] h-[140vh] bg-white rounded-r-full z-20 shadow-[40px_0_60px_rgba(0,0,0,0.06)] pointer-events-none" />
+        {/* Massive White Circular Curve starting from Studio panel */}
+        <div className="fw-curve absolute left-[-45vw] top-[-35vh] w-[95vw] h-[170vh] bg-white rounded-r-full z-20 shadow-[40px_0_60px_rgba(0,0,0,0.06)] pointer-events-none" />
 
         {/* Left Side: Typography (Z-30 above curve) */}
         <div className="absolute left-0 top-0 w-[50vw] h-full z-30 flex flex-col justify-center pl-16 lg:pl-24 xl:pl-32">
