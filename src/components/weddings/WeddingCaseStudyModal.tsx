@@ -88,32 +88,30 @@ export const WeddingCaseStudyModal: React.FC<WeddingCaseStudyModalProps> = ({
             </button>
           </div>
 
-        </div>
-
-        {/* Main Case Study Article Body */}
-        <article className="w-full max-w-6xl mx-auto px-6 sm:px-10 py-12 sm:py-20 select-none">
+        </div>        {/* Main Case Study Article Body */}
+        <article className="w-full max-w-5xl mx-auto px-6 sm:px-10 py-8 sm:py-14 select-none">
           
           {/* Story Metadata Header */}
-          <div className="mb-12 sm:mb-16">
-            <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm font-mono-tech tracking-[0.25em] text-[var(--fx-yellow)] uppercase mb-5 font-bold">
+          <div className="mb-8 sm:mb-10">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs font-mono-tech tracking-[0.25em] text-[var(--fx-yellow)] uppercase mb-3 font-bold">
               <span className="flex items-center gap-1.5">
-                <MapPin className="w-4 h-4 text-white" />
+                <MapPin className="w-3.5 h-3.5 text-white" />
                 {story.location}
               </span>
               <span>•</span>
               <span className="flex items-center gap-1.5">
-                <Calendar className="w-4 h-4 text-white" />
+                <Calendar className="w-3.5 h-3.5 text-white" />
                 {story.date}
               </span>
               <span>•</span>
               <span>VENUE: {story.venue}</span>
             </div>
 
-            <h1 className="font-editorial font-bold text-5xl sm:text-7xl md:text-8xl lg:text-9xl leading-[0.9] tracking-tight uppercase text-white mb-8">
+            <h1 className="font-editorial font-normal text-3xl sm:text-5xl md:text-6xl lg:text-[4.25rem] leading-[1.05] tracking-tight uppercase text-white mb-4">
               {story.couple}
             </h1>
 
-            <p className="font-serif italic text-xl sm:text-3xl md:text-4xl text-white/90 max-w-3xl leading-relaxed border-l-4 border-[var(--fx-yellow)] pl-6 my-10">
+            <p className="font-serif italic text-base sm:text-xl md:text-2xl text-white/90 max-w-3xl leading-relaxed border-l-2 border-[var(--fx-yellow)] pl-5 my-5">
               "{story.storyQuote}"
             </p>
           </div>
@@ -121,7 +119,7 @@ export const WeddingCaseStudyModal: React.FC<WeddingCaseStudyModalProps> = ({
           {/* Hero Archival Portrait with Click-to-Zoom */}
           <div
             onClick={() => setLightboxIdx(0)}
-            className="relative w-full h-[500px] sm:h-[680px] bg-black overflow-hidden mb-16 border border-white/20 rounded-sm cursor-zoom-in group shadow-2xl"
+            className="relative w-full h-[360px] sm:h-[480px] md:h-[540px] bg-black overflow-hidden mb-12 sm:mb-16 border border-white/20 rounded-xl cursor-zoom-in group shadow-2xl"
           >
             <img
               src={story.heroImage}
@@ -130,47 +128,47 @@ export const WeddingCaseStudyModal: React.FC<WeddingCaseStudyModalProps> = ({
               referrerPolicy="no-referrer"
             />
             
-            <div className="absolute top-6 right-6 bg-black/80 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 text-xs font-mono-tech text-white flex items-center gap-2">
+            <div className="absolute top-4 sm:top-6 right-4 sm:right-6 bg-black/80 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 text-xs font-mono-tech text-white flex items-center gap-2">
               <ZoomIn className="w-3.5 h-3.5 text-[var(--fx-yellow)]" />
               <span>CLICK TO OPEN FULLSCREEN</span>
             </div>
 
-            <div className="absolute bottom-6 left-6 text-xs font-mono-tech tracking-widest text-white uppercase bg-black/80 px-4 py-2 border border-white/20">
+            <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 text-[10px] sm:text-xs font-mono-tech tracking-widest text-white uppercase bg-black/80 px-3 py-1.5 sm:px-4 sm:py-2 border border-white/20 rounded-sm">
               {story.couple} // WEDDING PHOTOGRAPHY BY CREATIVEFX
             </div>
           </div>
 
           {/* Narrative Paragraphs & Specs Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 sm:gap-14 mb-24">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-12 mb-16 sm:mb-20">
             
             {/* Left Narrative */}
-            <div className="md:col-span-8 flex flex-col gap-6 text-base sm:text-xl text-white/80 leading-relaxed font-tech">
+            <div className="md:col-span-8 flex flex-col gap-5 text-sm sm:text-base text-white/80 leading-relaxed font-tech">
               {story.storyParagraphs.map((para, i) => (
                 <p key={i}>{para}</p>
               ))}
             </div>
 
             {/* Right Technical Details */}
-            <div className="md:col-span-4 flex flex-col gap-5 border border-white/20 p-6 sm:p-8 bg-white/5 rounded-sm h-fit">
-              <span className="text-xs font-mono-tech tracking-[0.25em] text-[var(--fx-yellow)] uppercase border-b border-white/10 pb-3 font-bold">
+            <div className="md:col-span-4 flex flex-col gap-4 border border-white/20 p-5 sm:p-6 bg-white/5 rounded-xl h-fit">
+              <span className="text-xs font-mono-tech tracking-[0.25em] text-[var(--fx-yellow)] uppercase border-b border-white/10 pb-2.5 font-bold">
                 COVERAGE HIGHLIGHTS
               </span>
 
-              <div className="text-xs sm:text-sm font-mono-tech tracking-wider text-white/80 flex flex-col gap-4">
+              <div className="text-xs sm:text-sm font-mono-tech tracking-wider text-white/80 flex flex-col gap-3.5">
                 <div>
-                  <span className="block text-xs text-white/50 uppercase font-bold mb-1">PHOTOGRAPHY</span>
+                  <span className="block text-[10px] text-white/50 uppercase font-bold mb-0.5">PHOTOGRAPHY</span>
                   <span className="text-white font-semibold">{story.details.photographer}</span>
                 </div>
                 <div>
-                  <span className="block text-xs text-white/50 uppercase font-bold mb-1">CINEMATOGRAPHY</span>
+                  <span className="block text-[10px] text-white/50 uppercase font-bold mb-0.5">CINEMATOGRAPHY</span>
                   <span className="text-white font-semibold">{story.details.cinematographer}</span>
                 </div>
                 <div>
-                  <span className="block text-xs text-white/50 uppercase font-bold mb-1">CAMERA SETUP</span>
+                  <span className="block text-[10px] text-white/50 uppercase font-bold mb-0.5">CAMERA SETUP</span>
                   <span className="text-white font-semibold">{story.details.cameraFormat}</span>
                 </div>
                 <div>
-                  <span className="block text-xs text-white/50 uppercase font-bold mb-1">DELIVERABLES</span>
+                  <span className="block text-[10px] text-white/50 uppercase font-bold mb-0.5">DELIVERABLES</span>
                   <span className="text-white font-semibold">{story.details.deliveredFrames}</span>
                 </div>
               </div>
