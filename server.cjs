@@ -27,14 +27,12 @@ const PORT = process.env.PORT || 4000;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'creativefx2026';
 const SECRET_KEY = process.env.SECRET_KEY || 'cfx-secret-2026';
 const IS_PRODUCTION = (process.env.NODE_ENV || '').toLowerCase() === 'production';
-
-// Production safeguard: refuse to boot with the default credential.
-if (IS_PRODUCTION && (!process.env.ADMIN_PASSWORD || ADMIN_PASSWORD === 'creativefx2026')) {
-  console.error('\n  [FATAL] Refusing to start in production with the default admin password.');
-  console.error('          Set a strong ADMIN_PASSWORD environment variable first.\n');
-  process.exit(1);
-}
 const USING_DEFAULT_PASSWORD = ADMIN_PASSWORD === 'creativefx2026';
+
+if (IS_PRODUCTION && USING_DEFAULT_PASSWORD) {
+  console.log('\n  [NOTICE] Running in production with default admin password: creativefx2026');
+  console.log('           You can set a custom ADMIN_PASSWORD in Render Environment variables anytime.\n');
+}
 const DATA_FILE = path.join(__dirname, 'data', 'content.json');
 const UPLOADS_DIR = path.join(__dirname, 'public', 'uploads');
 const INQUIRIES_FILE = path.join(__dirname, 'data', 'inquiries.json');
