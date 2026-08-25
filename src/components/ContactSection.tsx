@@ -129,12 +129,12 @@ export const ContactSection: React.FC = () => {
       id="section-contact"
       className="no-parallax relative w-full bg-white text-black py-20 sm:py-28 md:py-36 px-6 sm:px-8 md:px-12 lg:px-16 border-t border-neutral-200 overflow-hidden select-none"
     >
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-20 items-center">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-20 items-stretch">
 
         {/* ════════════════ LEFT: RADIANT PURE WHITE FROSTED TESTIMONIAL CARD ════════════════ */}
         {currentTestimonial && (
-        <div className="contact-left-card lg:col-span-6 w-full">
-          <div className="relative overflow-hidden rounded-[36px] sm:rounded-[44px] bg-[#f9f9fb] border border-neutral-200/70 text-black p-7 sm:p-10 min-h-[500px] sm:min-h-[580px] flex flex-col justify-between shadow-[0_20px_60px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.02)] group">
+        <div className="contact-left-card lg:col-span-6 w-full flex flex-col h-full">
+          <div className="relative overflow-hidden rounded-[36px] sm:rounded-[44px] bg-[#f9f9fb] border border-neutral-200/70 text-black p-7 sm:p-10 w-full h-full flex flex-col justify-between shadow-[0_20px_60px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.02)] group">
 
             {/* Pure white ambient glows */}
             <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-white to-transparent pointer-events-none" />
@@ -152,25 +152,27 @@ export const ContactSection: React.FC = () => {
               </span>
             </div>
 
-            {/* Center Floating Pure White Testimonial Box */}
-            <div className="relative z-10 my-auto py-6">
-              <div className="relative overflow-hidden bg-white border border-neutral-100 rounded-3xl p-7 sm:p-9 text-neutral-900 shadow-[0_15px_40px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.03)] transition-all duration-500">
+            {/* Center Floating Pure White Testimonial Box (Full Height) */}
+            <div className="relative z-10 my-auto py-6 flex-1 flex flex-col justify-center">
+              <div className="relative overflow-hidden bg-white border border-neutral-100 rounded-3xl p-7 sm:p-9 text-neutral-900 shadow-[0_15px_40px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.03)] transition-all duration-500 flex flex-col justify-between h-full min-h-[320px]">
 
                 {/* Gloss Reflection Highlight */}
                 <div className="absolute top-0 inset-x-0 h-[1.5px] bg-gradient-to-r from-transparent via-neutral-100 to-transparent pointer-events-none" />
 
-                {/* Quote Icon */}
-                <div className="w-12 h-12 rounded-2xl bg-black text-[var(--fx-yellow)] flex items-center justify-center mb-6 shadow-sm">
-                  <Quote className="w-5 h-5 fill-[var(--fx-yellow)]" />
+                <div>
+                  {/* Quote Icon */}
+                  <div className="w-12 h-12 rounded-2xl bg-black text-[var(--fx-yellow)] flex items-center justify-center mb-6 shadow-sm">
+                    <Quote className="w-5 h-5 fill-[var(--fx-yellow)]" />
+                  </div>
+
+                  {/* Quote Text */}
+                  <p className="text-base sm:text-[17px] font-tech text-neutral-900 leading-relaxed font-normal mb-7">
+                    "{currentTestimonial.quote}"
+                  </p>
                 </div>
 
-                {/* Quote Text */}
-                <p className="text-base sm:text-[17px] font-tech text-neutral-900 leading-relaxed font-normal mb-7">
-                  "{currentTestimonial.quote}"
-                </p>
-
                 {/* Author Info */}
-                <div className="flex items-center gap-4 pt-5 border-t border-neutral-100">
+                <div className="flex items-center gap-4 pt-5 border-t border-neutral-100 mt-auto">
                   <img
                     src={currentTestimonial.avatar}
                     alt={currentTestimonial.author}
@@ -210,7 +212,7 @@ export const ContactSection: React.FC = () => {
         )}
 
         {/* ════════════════ RIGHT: EDITORIAL CONTACT FORM ════════════════ */}
-        <div className={`contact-right-form w-full max-w-xl ${currentTestimonial ? 'lg:col-span-6' : 'lg:col-span-12 mx-auto'}`}>
+        <div className={`contact-right-form w-full max-w-xl flex flex-col justify-between ${currentTestimonial ? 'lg:col-span-6' : 'lg:col-span-12 mx-auto'}`}>
           <div className="space-y-3 mb-8">
             {pageCopy.label && (
               <span className="text-xs font-mono-tech tracking-[0.25em] text-neutral-500 uppercase font-bold">{pageCopy.label}</span>
