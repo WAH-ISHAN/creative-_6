@@ -58,7 +58,7 @@ export const PROJECT_DEFAULTS_RAW: Omit<ProjectCase, 'status'>[] = [
     "categoryLabel": "Marketing Campaigns",
     "year": "2026",
     "coverImage": "/img/poster/RentMasterFinal.jpg",
-    "videoUrl": "/video/Marketing/RentMasterFinal.mp4",
+    "videoUrl": "/video/Marketing/HELAFITS - Final.mp4",
     "aspectRatio": "portrait",
     "summary": "Engaging marketing campaigns designed to captivate audiences and drive brand awareness.",
     "challenge": "Creating scroll-stopping content in a saturated digital landscape.",
