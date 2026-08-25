@@ -24,17 +24,21 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin, onClose }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password: cleanPassword }),
       });
-      const data = await res.json();
-      if (data.token) {
+      const data = await res.json().catch(() => ({}));
+      if (data && data.token) {
         sessionStorage.setItem('cfx_admin_token', data.token);
         onLogin();
+        return;
+      }
+      if (cleanPassword === 'creativefx2026') {
+        sessionStorage.setItem('cfx_admin_token', 'dev-token');
+        onLogin();
+        return;
+      }
+      if (res.status === 429) {
+        setError('Too many attempts. Please wait a moment.');
       } else {
-        if (cleanPassword === 'creativefx2026') {
-          sessionStorage.setItem('cfx_admin_token', 'dev-token');
-          onLogin();
-        } else {
-          setError('Incorrect password. Try again.');
-        }
+        setError('Incorrect password. Try again.');
       }
     } catch {
       // Fallback for client/static deployment without API server
