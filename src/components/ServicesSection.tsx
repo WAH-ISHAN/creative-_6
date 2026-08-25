@@ -79,27 +79,20 @@ export const ServicesSection: React.FC<{ onSelectService?: (service: AgencyServi
           {services.map((service, idx) => (
             <div
               key={service.id || idx}
-              onClick={() => onSelectService?.(service)}
-              className="group flex flex-col sm:flex-row sm:items-start justify-between border-b border-[var(--fx-border-light)] py-8 sm:py-10 cursor-pointer transition-colors duration-300 px-4 -mx-4 sm:mx-0 sm:px-4"
-              onMouseEnter={() => setHoveredIdx(idx)}
-              onMouseLeave={() => setHoveredIdx(null)}
+              className="flex flex-col sm:flex-row sm:items-start justify-between border-b border-[var(--fx-border-light)] py-8 sm:py-10 transition-colors duration-300 px-4 -mx-4 sm:mx-0 sm:px-4 select-none"
             >
               <div className="flex flex-col gap-4 max-w-xl">
                 <div className="flex items-start sm:items-center gap-6 md:gap-8">
-                  <span className="text-xs sm:text-sm font-mono-tech tracking-widest text-[var(--fx-gray)] group-hover:text-[var(--fx-black)] transition-colors duration-300 pt-1 sm:pt-0 shrink-0">
+                  <span className="text-xs sm:text-sm font-mono-tech tracking-widest text-[var(--fx-gray)] pt-1 sm:pt-0 shrink-0">
                     {service.number || service.id || `0${idx + 1}`}
                   </span>
-                  <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-editorial tracking-wide uppercase text-[var(--fx-black)] transition-transform duration-500 leading-none sm:leading-none md:leading-none lg:leading-none">
+                  <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-editorial tracking-wide uppercase text-[var(--fx-black)] leading-none sm:leading-none md:leading-none lg:leading-none">
                     {service.title}
                   </span>
                 </div>
-                <p className="text-base sm:text-lg font-tech text-[var(--fx-gray)] md:pl-[3.5rem] leading-relaxed opacity-80 group-hover:opacity-100 group-hover:text-[var(--fx-black)] transition-all duration-300">
+                <p className="text-base sm:text-lg font-tech text-[var(--fx-gray)] md:pl-[3.5rem] leading-relaxed">
                   {service.shortDesc}
                 </p>
-              </div>
-
-              <div className="hidden sm:block text-xl sm:text-2xl font-tech text-[var(--fx-gray)] group-hover:text-[var(--fx-black)] group-hover:translate-x-1 transition-all duration-500 transform mt-2">
-                →
               </div>
             </div>
           ))}
