@@ -2,63 +2,67 @@ import { WeddingTimelineStage, WeddingStory } from '../types';
 
 export const WEDDING_TIMELINE_STAGES: WeddingTimelineStage[] = [
   {
-    id: 'stage-beginning',
+    id: 'stage-morning-prep',
     stageNumber: '01',
-    title: 'THE MORNING PREPARATION',
-    shortDesc: 'The quiet anticipation. Getting ready with loved ones.',
-    fullDesc: 'The calm before the celebration begins. Hair, makeup, traditional jewelry, family blessings, and the emotional, heartfelt moments before you step out to say "I do".',
+    title: 'MORNING PREPARATION',
+    shortDesc: 'The quiet moments before the celebration begins.',
+    fullDesc: 'The quiet moments before the celebration begins. From getting ready and final details to family blessings, we capture the excitement, emotions, and anticipation of the morning.',
     image: '/img/wedding/Ravindu & Malikshi/DSC09088.jpg',
-    moodNote: 'BRIDAL PREPARATION / CANDID EMOTIONS / FAMILY BLESSINGS',
+    moodNote: 'BRIDAL & GROOM PREPARATION / FAMILY BLESSINGS / INTIMATE DETAILS',
     moments: [
-      'Bridal & Groom getting ready details',
-      'Mother & Father blessings and happy tears',
-      'The intimate first look with parents & bridal party',
-      'Relaxed, natural portraits before the ceremony'
+      'Bridal & Groom getting-ready moments',
+      'Hair, makeup, attire & jewelry details',
+      'Parents\' blessings and emotional moments',
+      'Natural portraits before the ceremony'
     ]
   },
   {
-    id: 'stage-ceremony',
+    id: 'stage-first-look',
     stageNumber: '02',
-    title: 'THE SACRED CEREMONY',
-    shortDesc: 'The exchange of vows, traditions, and timeless promises.',
-    fullDesc: 'The heart of your wedding day. From the walk down the aisle and the traditional Poruwa rituals to the exchanging of rings and blessings from family and friends.',
-    image: '/img/wedding/Ravindu & Malikshi/DSC09201.jpg',
-    moodNote: 'TRADITIONAL CUSTOMS / SACRED VOWS / UNFILTERED JOY',
-    moments: [
-      'Aisle entrance & emotional first look',
-      'Traditional Poruwa ceremony & customs',
-      'Vow & ring exchange witnessed by loved ones',
-      'The joyous walk out as newlyweds to roaring cheers'
-    ]
-  },
-  {
-    id: 'stage-celebration',
-    stageNumber: '03',
-    title: 'THE RECEPTION & FIRST DANCE',
-    shortDesc: 'Laughter, heartfelt speeches, and unforgettable celebrations.',
-    fullDesc: 'The energy and happiness of celebrating with everyone you love. Champagne toasts, moving speeches, your romantic first dance under warm lights, and an electric dance floor.',
-    image: '/img/wedding/Ravindu & Malikshi/DSC09225.jpg',
-    moodNote: 'LIVE CELEBRATION / FIRST DANCE / DANCE FLOOR ENERGY',
-    moments: [
-      'Romantic first dance under ambient lights',
-      'Heartfelt toasts, cheers, and laughs',
-      'Cake cutting & celebratory champagne toast',
-      'High-energy party moments on the dance floor'
-    ]
-  },
-  {
-    id: 'stage-farewell',
-    stageNumber: '04',
-    title: 'COUPLE PORTRAITS & FAREWELL',
-    shortDesc: 'Golden hour sunset frames and the midnight send-off.',
-    fullDesc: 'Taking a quiet breath together during sunset for stunning couple portraits, followed by a sparkling night send-off into your new journey together.',
+    title: 'FIRST LOOK',
+    shortDesc: 'A beautiful moment of anticipation, emotion, and connection.',
+    fullDesc: 'A beautiful moment of anticipation, emotion, and connection. We capture the genuine reactions and intimate moments when the couple sees each other for the first time.',
     image: '/img/wedding/Ravindu & Malikshi/DSC09233.jpg',
-    moodNote: 'GOLDEN HOUR / ROMANTIC PORTRAITS / MEMORABLE SEND-OFF',
+    moodNote: 'EMOTIONAL FIRST LOOK / CANDID REACTION / INTIMATE CONNECTION',
     moments: [
-      'Golden hour romantic couple portraits',
-      'Warm hugs & emotional goodbyes with closest friends',
-      'Sparkler tunnel & night farewell departure',
-      'Timeless memories captured forever'
+      'The couple\'s first look',
+      'Genuine reactions and emotions',
+      'First moments together',
+      'Intimate portraits of the couple',
+      'Candid moments with the bridal party'
+    ]
+  },
+  {
+    id: 'stage-sacred-ceremony',
+    stageNumber: '03',
+    title: 'THE SACRED CEREMONY',
+    shortDesc: 'The heart of the celebration, traditional rituals and sacred vows.',
+    fullDesc: 'The heart of the celebration. From traditional rituals and meaningful vows to blessings and joyful emotions, we preserve every significant moment of the ceremony.',
+    image: '/img/wedding/Ravindu & Malikshi/DSC09201.jpg',
+    moodNote: 'TRADITIONAL RITUALS / MEANINGFUL VOWS / SACRED BLESSINGS',
+    moments: [
+      'Traditional wedding rituals & ceremonies',
+      'Vows, blessings & symbolic moments',
+      'Family and loved ones witnessing the ceremony',
+      'Emotional reactions and candid moments',
+      'Beautiful details of the ceremony setting'
+    ]
+  },
+  {
+    id: 'stage-wedding-function',
+    stageNumber: '04',
+    title: 'WEDDING FUNCTION',
+    shortDesc: 'The celebration comes alive with laughter, music, and unforgettable energy.',
+    fullDesc: 'The celebration comes alive with laughter, music, family, and unforgettable moments. We capture the energy of the reception while preserving the details and emotions that make your wedding unique.',
+    image: '/img/wedding/Ravindu & Malikshi/DSC09225.jpg',
+    moodNote: 'RECEPTION ENERGY / CELEBRATION / FIRST DANCE & MEMORIES',
+    moments: [
+      'Couple entrances & grand moments',
+      'Cake cutting and special traditions',
+      'First dance & couple moments',
+      'Family, friends & candid celebrations',
+      'Speeches, laughter and joyful memories',
+      'Reception details, décor & atmosphere'
     ]
   }
 ];
