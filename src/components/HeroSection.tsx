@@ -97,7 +97,10 @@ export const HeroSection: React.FC = () => {
             <span className="text-[var(--fx-yellow)]">CREATIVITY</span>
           </h1>
           
-          <p className="font-mono-tech text-[9px] sm:text-[11px] md:text-xs text-white/80 leading-relaxed font-normal max-w-sm md:max-w-md drop-shadow-md tracking-[0.18em] uppercase">
+          <p 
+            className="font-mono-tech text-white/75 leading-relaxed font-normal max-w-xs md:max-w-sm drop-shadow-md tracking-[0.22em] uppercase text-center"
+            style={{ fontSize: 'clamp(7.5px, 0.75vw, 9.5px)' }}
+          >
             {content.hero?.description || 'CreativeFX is a creative agency specializing in photography, videography, content creation, and digital marketing solutions for modern brands.'}
           </p>
         </div>
