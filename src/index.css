@@ -1,0 +1,625 @@
+@import url('https://fonts.googleapis.com/css2?family=Forum&family=Inter:wght@400;500;600&family=League+Spartan:wght@100..900&display=swap');
+@import "tailwindcss";
+
+:root {
+  --fx-black: #050505;
+  --fx-white: #ffffff;
+  --fx-gray: #666666;
+  --fx-light-gray: #dcdcdc;
+  --fx-yellow: #fcbf13;
+
+  --fx-border-light: rgba(0, 0, 0, 0.12);
+  --fx-border-dark: rgba(255, 255, 255, 0.16);
+
+  /* ── Font stacks (with resilient fallbacks) ── */
+  --fx-font-display: 'Forum', 'League Spartan', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  --fx-font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --fx-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --fx-font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --fx-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* ── Typography rhythm tokens ── */
+  --fx-line-body: 1.65;
+  --fx-line-heading: 1.05;
+  --fx-letter-wide: 0.08em;
+  --fx-letter-tight: -0.02em;
+}
+
+/* Prevent mobile browsers from inflating text unpredictably */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* ── Reusable CreativeFX container (#6) ──────────────────────────────────── */
+.fx-container {
+  width: min(100% - clamp(2rem, 5vw, 8rem), 1440px);
+  margin-inline: auto;
+}
+
+/* ── Container queries — cards adapt to their column width (#33) ─────────── */
+.works-card {
+  container-type: inline-size;
+}
+
+@container (max-width: 380px) {
+  .works-card-title {
+    font-size: 1.125rem; /* 18px — graceful in tight columns */
+    letter-spacing: normal;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   GLOBAL MEDIA SYSTEM (#4)
+   Every image/video lives inside a .fx-media container that owns the sizing.
+   The container controls dimensions (aspect-ratio utilities); the media fills it.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.fx-media {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Fill mode — media absolutely fills the controlled box (crop via cover) */
+.fx-media--fill > img,
+.fx-media--fill > video,
+.fx-media--fill > iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Contain mode — entire photo always visible, letterboxed elegantly */
+.fx-media--contain > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Natural mode — masonry/editorial flow, height follows ratio but capped */
+.fx-media--natural > img,
+.fx-media--natural > video {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 82vh;
+  object-fit: contain;
+}
+
+@layer base {
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--fx-white);
+    color: var(--fx-black);
+    margin: 0;
+    overflow-x: hidden;
+  }
+
+  img, video {
+    display: block;
+    max-width: 100%;
+  }
+
+  ::selection {
+    background-color: var(--fx-yellow);
+    color: var(--fx-black);
+  }
+}
+
+.font-display {
+  font-family: var(--fx-font-display);
+  text-transform: uppercase;
+  font-weight: 400 !important; /* Forum ships a single 400 weight — no faux bold */
+}
+
+.font-editorial {
+  font-family: var(--fx-font-display);
+  text-transform: uppercase;
+  font-weight: 400 !important;
+}
+
+.font-condensed {
+  font-family: var(--fx-font-display);
+  text-transform: uppercase;
+  font-weight: 400 !important;
+}
+
+.font-serif-editorial {
+  font-family: var(--fx-font-display);
+  text-transform: uppercase;
+  font-weight: 400 !important;
+}
+
+.font-mono-tech {
+  font-family: var(--fx-font-mono);
+}
+
+.font-tech {
+  font-family: var(--fx-font-body);
+}
+
+/* Lenis smooth scrolling rules */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Keyframes */
+@keyframes reveal-up {
+  0% {
+    opacity: 0;
+    transform: translateY(100%) skewY(4deg);
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) skewY(0deg);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+@keyframes float-indicator {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.animate-reveal-1 {
+  animation: reveal-up 1s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+.animate-reveal-2 {
+  animation: reveal-up 1s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+}
+
+.animate-reveal-3 {
+  animation: reveal-up 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+}
+
+.animate-float-indicator {
+  animation: float-indicator 2.2s ease-in-out infinite;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 3s ease-in-out infinite;
+}
+
+@keyframes text-shine {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.animate-text-shine {
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.2) 20%,
+    rgba(255, 255, 255, 0.2) 40%,
+    rgba(252, 191, 19, 0.8) 50%,
+    rgba(255, 255, 255, 0.2) 60%,
+    rgba(255, 255, 255, 0.2) 80%
+  );
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: text-shine 6s linear infinite;
+}
+
+/* Hairline scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #FAFAFA;
+}
+::-webkit-scrollbar-thumb {
+  background: #DCDCDC;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #999999;
+}
+
+/* Mobile Scroll Reveal Effect */
+@media (max-width: 768px) {
+  .scroll-color-reveal {
+    /* Slightly faster transition on mobile for snappiness */
+    transition: filter 0.6s ease-out, transform 0.6s ease-out !important;
+  }
+  .scroll-color-reveal.color-revealed {
+    filter: grayscale(0) !important;
+    transform: scale(1.03) !important;
+  }
+}
+
+/* ─── GPU Acceleration helpers ─── */
+section,
+.fw-image,
+.will-change-transform {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* ─── Buttons & tap targets — bigger on mobile ─── */
+@media (max-width: 768px) {
+  button, a, [role="button"] {
+    min-height: 44px;       /* Apple HIG tap target minimum */
+    touch-action: manipulation;
+  }
+
+  /* Reduce excessive text on small screens */
+  .font-editorial {
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* ─── Prevent layout shift from scrollbar ─── */
+html {
+  scrollbar-gutter: stable;
+  -webkit-tap-highlight-color: transparent;   /* remove blue flash on tap */
+  -webkit-touch-callout: none;
+}
+
+/* ─── Reduce-motion: respect system preference ─── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .lenis.lenis-smooth {
+    overflow: auto !important;
+  }
+}
+
+/* ─── Smooth image rendering ─── */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* ─── Thin golden scrollbar (branding) ─── */
+::-webkit-scrollbar {
+  width: 3px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--fx-yellow);
+  border-radius: 3px;
+}
+
+
+.hero-title-shine {
+  position: relative;
+  display: inline-block;
+}
+.hero-title-shine::after {
+  content: 'CREATIVEFX';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent);
+  background-size: 50% 100%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine-sweep 2s ease-in-out forwards;
+  animation-delay: 1.8s;
+  background-position: -200% 0;
+  pointer-events: none;
+}
+@keyframes shine-sweep {
+  0% { background-position: -200% 0; }
+  100% { background-position: 300% 0; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CREATIVEFX TYPOGRAPHY SYSTEM
+   Centralized, responsive, accessible. Utilities compile to var() references,
+   so every text-* class across the entire site scales from these tokens.
+   Identity preserved: BLACK · WHITE · GRAY · restrained YELLOW.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@theme {
+  /* ── Type scale (readability-tuned) ── */
+  --text-xs: 0.8125rem;                                    /* 13px metadata floor  */
+  --text-xs--line-height: 1.6;
+  --text-sm: 0.9375rem;                                    /* 15px supporting text */
+  --text-sm--line-height: 1.6;
+  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);    /* 16 → 18px body       */
+  --text-base--line-height: 1.65;
+  --text-lg: clamp(1.125rem, 1.02rem + 0.45vw, 1.3125rem); /* 18 → 21px lead       */
+  --text-lg--line-height: 1.6;
+  --text-xl: 1.375rem;                                     /* 22px subheading      */
+  --text-xl--line-height: 1.35;
+  --text-2xl: 1.625rem;                                    /* 26px                 */
+  --text-2xl--line-height: 1.25;
+  --text-3xl: 2rem;                                        /* 32px                 */
+  --text-3xl--line-height: 1.2;
+  --text-4xl: 2.375rem;                                    /* 38px                 */
+  --text-4xl--line-height: 1.15;
+  --text-5xl: 3.25rem;                                     /* 52px                 */
+  --text-5xl--line-height: 1.05;
+  /* Display ladder — fluid clamp() so hero & major headings scale smoothly */
+  --text-6xl: clamp(2.75rem, 4.5vw + 1rem, 3.75rem);       /* 44 → 60px            */
+  --text-6xl--line-height: 1;
+  --text-7xl: clamp(3.25rem, 6vw + 0.75rem, 4.5rem);       /* 52 → 72px            */
+  --text-7xl--line-height: 1;
+  --text-8xl: clamp(3.75rem, 8vw + 0.5rem, 6rem);          /* 60 → 96px            */
+  --text-8xl--line-height: 0.95;
+  --text-9xl: clamp(4.5rem, 10vw + 0.25rem, 8rem);         /* 72 → 128px           */
+  --text-9xl--line-height: 0.95;
+}
+
+/* ── Accessibility text-size modes (A− / A / A+) ─────────────────────────── */
+html[data-text-size="large"] {
+  --text-xs: 0.875rem;
+  --text-sm: 1rem;
+  --text-base: 1.1875rem;
+  --text-lg: 1.3125rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.125rem;
+  --text-4xl: 2.5rem;
+  --text-5xl: 3.5rem;
+}
+
+html[data-text-size="xlarge"] {
+  --text-xs: 0.9375rem;
+  --text-sm: 1.0625rem;
+  --text-base: 1.3125rem;
+  --text-lg: 1.4375rem;
+  --text-xl: 1.625rem;
+  --text-2xl: 1.875rem;
+  --text-3xl: 2.25rem;
+  --text-4xl: 2.625rem;
+  --text-5xl: 3.75rem;
+}
+
+/* ── Arbitrary micro-sizes → readable metadata floor (12–14px range) ─────── */
+[class*="text-[10px]"],
+[class*="text-[11px]"],
+[class*="text-[13px]"] {
+  font-size: var(--text-xs);
+  line-height: 1.6;
+}
+
+/* ── Paragraph measure: editorial reading width, narrower widths kept ────── */
+p:not([class*="max-w"]) {
+  max-width: 62ch;
+}
+
+/* ── No thin weights for body copy ───────────────────────────────────────── */
+p[class*="font-thin"],
+p[class*="font-extralight"],
+p[class*="font-light"] {
+  font-weight: 400;
+}
+
+/* ── Navigation weight for comfortable scanning ──────────────────────────── */
+header button,
+header a {
+  font-weight: 500;
+}
+
+/* ── Visible keyboard focus (accessibility) ──────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--fx-yellow);
+  outline-offset: 2px;
+}
+
+/* ── Reduced motion — calm non-essential movement, keep all content ──────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.15s !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes shine-sweep {
+  0% { background-position: -200% 0; }
+  100% { background-position: 300% 0; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CREATIVEFX TYPOGRAPHY SYSTEM
+   Centralized, responsive, accessible. Utilities compile to var() references,
+   so every text-* class across the entire site scales from these tokens.
+   Identity preserved: BLACK · WHITE · GRAY · restrained YELLOW.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@theme {
+  /* ── Type scale (readability-tuned) ── */
+  --text-xs: 0.8125rem;                                    /* 13px metadata floor  */
+  --text-xs--line-height: 1.6;
+  --text-sm: 0.9375rem;                                    /* 15px supporting text */
+  --text-sm--line-height: 1.6;
+  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);    /* 16 → 18px body       */
+  --text-base--line-height: 1.65;
+  --text-lg: clamp(1.125rem, 1.02rem + 0.45vw, 1.3125rem); /* 18 → 21px lead       */
+  --text-lg--line-height: 1.6;
+  --text-xl: 1.375rem;                                     /* 22px subheading      */
+  --text-xl--line-height: 1.35;
+  --text-2xl: 1.625rem;                                    /* 26px                 */
+  --text-2xl--line-height: 1.25;
+  --text-3xl: 2rem;                                        /* 32px                 */
+  --text-3xl--line-height: 1.2;
+  --text-4xl: 2.375rem;                                    /* 38px                 */
+  --text-4xl--line-height: 1.15;
+  --text-5xl: 3.25rem;                                     /* 52px                 */
+  --text-5xl--line-height: 1.05;
+  /* Display ladder — fluid clamp() so hero & major headings scale smoothly */
+  --text-6xl: clamp(2.75rem, 4.5vw + 1rem, 3.75rem);       /* 44 → 60px            */
+  --text-6xl--line-height: 1;
+  --text-7xl: clamp(3.25rem, 6vw + 0.75rem, 4.5rem);       /* 52 → 72px            */
+  --text-7xl--line-height: 1;
+  --text-8xl: clamp(3.75rem, 8vw + 0.5rem, 6rem);          /* 60 → 96px            */
+  --text-8xl--line-height: 0.95;
+  --text-9xl: clamp(4.5rem, 10vw + 0.25rem, 8rem);         /* 72 → 128px           */
+  --text-9xl--line-height: 0.95;
+}
+
+/* ── Accessibility text-size modes (A− / A / A+) ─────────────────────────── */
+html[data-text-size="large"] {
+  --text-xs: 0.875rem;
+  --text-sm: 1rem;
+  --text-base: 1.1875rem;
+  --text-lg: 1.3125rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.125rem;
+  --text-4xl: 2.5rem;
+  --text-5xl: 3.5rem;
+}
+
+html[data-text-size="xlarge"] {
+  --text-xs: 0.9375rem;
+  --text-sm: 1.0625rem;
+  --text-base: 1.3125rem;
+  --text-lg: 1.4375rem;
+  --text-xl: 1.625rem;
+  --text-2xl: 1.875rem;
+  --text-3xl: 2.25rem;
+  --text-4xl: 2.625rem;
+  --text-5xl: 3.75rem;
+}
+
+/* ── Arbitrary micro-sizes → readable metadata floor (12–14px range) ─────── */
+[class*="text-[10px]"],
+[class*="text-[11px]"],
+[class*="text-[13px]"] {
+  font-size: var(--text-xs);
+  line-height: 1.6;
+}
+
+/* ── Paragraph measure: editorial reading width, narrower widths kept ────── */
+p:not([class*="max-w"]) {
+  max-width: 62ch;
+}
+
+/* ── No thin weights for body copy ───────────────────────────────────────── */
+p[class*="font-thin"],
+p[class*="font-extralight"],
+p[class*="font-light"] {
+  font-weight: 400;
+}
+
+/* ── Navigation weight for comfortable scanning ──────────────────────────── */
+header button,
+header a {
+  font-weight: 500;
+}
+
+/* ── Visible keyboard focus (accessibility) ──────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--fx-yellow);
+  outline-offset: 2px;
+}
+
+/* ── Reduced motion — calm non-essential movement, keep all content ──────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.15s !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Admin usability scale — compact-but-readable controls (#29–32) ──────── */
+.cfx-admin button {
+  font-size: 0.9375rem; /* 15px */
+}
+
+.cfx-admin input,
+.cfx-admin select,
+.cfx-admin textarea {
+  font-size: 1rem; /* 16px */
+}
+
+/* ── Continuous Smooth Gold Shimmer Light Sweep Effect ── */
+@keyframes fx-gold-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.fx-gold-shimmer-text {
+  background: linear-gradient(
+    105deg,
+    #ffffff 20%,
+    #ffffff 38%,
+    #fcbf13 46%,
+    #fffbe0 50%,
+    #fcbf13 54%,
+    #ffffff 62%,
+    #ffffff 80%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: fx-gold-shimmer 7s ease-in-out infinite;
+  display: inline-block;
+  filter: drop-shadow(0 0 30px rgba(252, 191, 19, 0.28));
+  will-change: background-position;
+}

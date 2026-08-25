@@ -1,0 +1,1482 @@
+{
+  "hero": {
+    "title": "CREATIVEFX",
+    "subtitle": "CREATE. CAPTURE. CONNECT.",
+    "description": "CreativeFX is a creative agency specializing in photography, videography, content creation, and digital marketing solutions for modern brands."
+  },
+  "intro": {
+    "sectionNumber": "01",
+    "headline": "WE CREATE\nWHAT PEOPLE\nREMEMBER.",
+    "body": "CreativeFX is a creative agency specializing in photography, videography, content creation, and digital marketing — built to make modern brands stand out.",
+    "bodyLine2": "Based in Sri Lanka. Working globally.",
+    "label": "/ Studio",
+    "image": "/img/Products/Zova Clothing/DSC06381.jpg"
+  },
+  "services": [
+    {
+      "id": "01",
+      "title": "PHOTOGRAPHY & VIDEOGRAPHY",
+      "description": "We capture high quality photos and videos for brands, products, events, and promotional purposes, ensuring visually compelling and professional content."
+    },
+    {
+      "id": "02",
+      "title": "VIDEO EDITING & MOTION GRAPHICS",
+      "description": "We create engaging video content with smooth editing, visual effects, and motion graphics to enhance storytelling and marketing impact."
+    },
+    {
+      "id": "03",
+      "title": "SOCIAL MEDIA CONTENT DESIGN",
+      "description": "Creation of engaging social media graphics and promotional content that increases brand visibility and audience engagement across digital platforms."
+    },
+    {
+      "id": "04",
+      "title": "BRANDING & DESIGN",
+      "description": "We develop strong brand identities through logo design, visual branding, and creative graphic designs that represent your business effectively."
+    },
+    {
+      "id": "05",
+      "title": "DIGITAL MARKETING",
+      "description": "We provide creative digital marketing solutions, including social media content and campaigns, to help brands reach and engage their target audience."
+    }
+  ],
+  "about": {
+    "headline": "WE ARE\nCREATIVEFX.",
+    "body": "A team of passionate creatives, storytellers, and technologists dedicated to crafting unforgettable visual experiences. We believe every brand has a unique story — our mission is to tell it beautifully.",
+    "stats": [
+      {
+        "value": "100+",
+        "label": "Projects Completed"
+      },
+      {
+        "value": "50+",
+        "label": "Happy Clients"
+      },
+      {
+        "value": "3+",
+        "label": "Years Experience"
+      }
+    ],
+    "lead": "CreativeFX is a creative agency focused on turning ideas into meaningful visual experiences.",
+    "body1": "We believe great content is more than beautiful visuals. It is about having the right idea, telling the right story, and making people feel something.",
+    "body2": "From businesses looking to build their online presence to individuals capturing important milestones, we bring creativity and professional production together to create content that stands out.",
+    "vision": "To become a leading creative design studio recognized for innovation, creativity, and impactful visual experiences that inspire brands and audiences.",
+    "mission": "To deliver high quality creative solutions that help businesses communicate their ideas effectively through design, digital media, and visual storytelling while maintaining professionalism, creativity, and client satisfaction."
+  },
+  "contact": {
+    "phone": "+94 77 754 8671",
+    "email": "hello@creativefx.lk",
+    "location": "Kaduwela, Sri Lanka",
+    "instagram": "https://instagram.com/creativefx.lk",
+    "facebook": "https://facebook.com/creativefx.lk",
+    "tiktok": "https://tiktok.com/@creativefx.lk",
+    "whatsapp": "+94777548671"
+  },
+  "weddings": {
+    "heroHeadline": "EVERY LOVE\nSTORY DESERVES\nA CINEMATIC BEGINNING.",
+    "heroSubtitle": "Wedding Photography & Cinematography",
+    "heroDescription": "We document the most meaningful day of your life with artistry, emotion, and cinematic precision.",
+    "heroImage": "/img/wedding/Ravindu & Malikshi/DSC09233.jpg",
+    "heroCaption": "RAVINDU & MALIKSHI // COLOMBO",
+    "heroReelLabel": "WATCH WEDDING CINEMA REEL",
+    "timelineHeadline": "EVERY UNFORGETTABLE\nCHAPTER OF YOUR DAY.",
+    "timelineIntro": "We capture the real smiles, spontaneous laughter, and heartwarming moments with natural elegance from start to finish.",
+    "storiesHeadline": "SELECTED\nSTORIES.",
+    "approachHeadline": "OUR APPROACH\n& PHILOSOPHY."
+  },
+  "projects": [
+    {
+      "id": "proj-01",
+      "code": "PROJECT / 001",
+      "slug": "neo-sphere-kinetic",
+      "title": "PRODUCTS",
+      "client": "VARIOUS",
+      "type": "video",
+      "featured": false,
+      "category": "COMMERCIAL",
+      "categoryLabel": "Product Videography",
+      "year": "2026",
+      "coverImage": "/img/poster/Sprite Shoot- Final.jpg",
+      "videoUrl": "/video/Products/Sprite Shoot- Final.mp4",
+      "aspectRatio": "landscape",
+      "summary": "High-end product videography featuring intricate macro shots, dynamic lighting, and cinematic motion.",
+      "challenge": "Capturing the essence and detail of physical products while maintaining brand identity.",
+      "solution": "Utilized precision robotic arms, custom lighting setups, and advanced color grading.",
+      "deliverables": [
+        "Commercial Videos",
+        "Social Media Reels",
+        "High-Res Stills"
+      ],
+      "gallery": [
+        "/video/Products/Chefa Official Video (1).mp4",
+        "/video/Products/Sprite Shoot- Final.mp4",
+        "/video/Products/TESTCOKENEWGRAINED.mp4"
+      ],
+      "tags": [
+        "Products",
+        "Commercial",
+        "Macro"
+      ],
+      "socialUrl": "https://www.facebook.com/creativefx.lk",
+      "socialLabel": "WATCH COMMERCIALS ON FACEBOOK",
+      "socialPosts": [
+        {
+          "name": "CreativeFX - Commercial Production Reel",
+          "url": "https://www.facebook.com/share/r/1Br1SqsowT/",
+          "type": "reel"
+        },
+        {
+          "name": "CreativeFX - Official Facebook Page",
+          "url": "https://www.facebook.com/creativefx.lk",
+          "type": "post"
+        }
+      ],
+      "status": "published"
+    },
+    {
+      "id": "proj-02",
+      "code": "PROJECT / 002",
+      "slug": "aura-sound-identity",
+      "title": "MARKETING",
+      "client": "VARIOUS",
+      "type": "video",
+      "featured": false,
+      "category": "COMMERCIAL",
+      "categoryLabel": "Marketing Campaigns",
+      "year": "2026",
+      "coverImage": "/img/poster/RentMasterFinal.jpg",
+      "videoUrl": "/video/Marketing/RentMasterFinal.mp4",
+      "aspectRatio": "portrait",
+      "summary": "Engaging marketing campaigns designed to captivate audiences and drive brand awareness.",
+      "challenge": "Creating scroll-stopping content in a saturated digital landscape.",
+      "solution": "Fast-paced editing, bold typography, and energetic sound design.",
+      "deliverables": [
+        "Campaign Videos",
+        "Promo Teasers"
+      ],
+      "gallery": [
+        "/video/Marketing/Ashan Glass FInal.mp4",
+        "/video/Marketing/GreenCosmoPromotion.mp4",
+        "/video/Marketing/HELAFITS - Final.mp4",
+        "/video/Marketing/Kowakka - Suwaprana.mp4",
+        "/video/Marketing/RentMasterFinal.mp4",
+        "/video/Marketing/Suwaprana Revised.mp4",
+        "/video/Marketing/Techubiz Final.mp4"
+      ],
+      "tags": [
+        "Marketing",
+        "Promo",
+        "Digital"
+      ],
+      "socialUrl": "https://www.facebook.com/creativefx.lk",
+      "socialLabel": "WATCH CAMPAIGNS ON FACEBOOK",
+      "socialPosts": [
+        {
+          "name": "CreativeFX - Marketing & Brand Campaigns",
+          "url": "https://www.facebook.com/share/r/1Br1SqsowT/",
+          "type": "reel"
+        },
+        {
+          "name": "CreativeFX - Official Facebook Page",
+          "url": "https://www.facebook.com/creativefx.lk",
+          "type": "post"
+        }
+      ],
+      "status": "published"
+    },
+    {
+      "id": "proj-03",
+      "code": "PROJECT / 003",
+      "slug": "vortex-titanium-stills",
+      "title": "GRADUATION",
+      "client": "GRADUATES",
+      "type": "video",
+      "featured": false,
+      "category": "EVENTS",
+      "categoryLabel": "Graduation Films",
+      "year": "2026",
+      "coverImage": "/img/poster/Pera Convocation - Full.jpg",
+      "videoUrl": "/video/Graduation/Pera Convocation - Full.mp4",
+      "aspectRatio": "landscape",
+      "summary": "Cinematic graduation films capturing the proudest moments and the journey of achievement.",
+      "challenge": "Documenting the emotion and scale of convocation ceremonies.",
+      "solution": "Multi-camera setups and intimate portrait sessions mixed with event coverage.",
+      "deliverables": [
+        "Highlight Reel",
+        "Portrait Videos"
+      ],
+      "gallery": [
+        "/video/Graduation/Couples.mp4",
+        "/video/Graduation/Dilki Final 02.mp4",
+        "/video/Graduation/Father final.mp4",
+        "/video/Graduation/Parents Final.mp4",
+        "/video/Graduation/Pera Convocation - Full.mp4",
+        "/video/Graduation/pink girl.mp4"
+      ],
+      "tags": [
+        "Graduation",
+        "Milestone",
+        "Event"
+      ],
+      "socialUrl": "https://www.facebook.com/share/r/1Ag6mekb7Y/",
+      "socialLabel": "WATCH CONVOCATION REELS ON FACEBOOK",
+      "socialPosts": [
+        {
+          "name": "Wayamba University - Convocation Reel",
+          "url": "https://www.facebook.com/share/r/1Ag6mekb7Y/",
+          "type": "reel"
+        },
+        {
+          "name": "Sabaragamuwa University - Couples Reel",
+          "url": "https://www.facebook.com/share/r/1DNVuBhp6T/",
+          "type": "reel"
+        },
+        {
+          "name": "Layani - Graduation Highlight",
+          "url": "https://www.facebook.com/share/r/1d4gxLvjg5/",
+          "type": "reel"
+        },
+        {
+          "name": "Peradeniya University - Parents Edition",
+          "url": "https://www.facebook.com/share/r/1C3QQpmcsq/",
+          "type": "reel"
+        },
+        {
+          "name": "Peradeniya University - Main Convocation Film",
+          "url": "https://www.facebook.com/share/r/18otAnFbdS/",
+          "type": "reel"
+        },
+        {
+          "name": "Peradeniya University - Couples Highlight",
+          "url": "https://www.facebook.com/share/r/1BLza21hhZ/",
+          "type": "reel"
+        },
+        {
+          "name": "Dilki - Graduation Reel",
+          "url": "https://www.facebook.com/share/r/1BksPD3i7o/",
+          "type": "reel"
+        },
+        {
+          "name": "SLIIT - Parents Edition",
+          "url": "https://www.facebook.com/share/r/14ifxdhdF1V/",
+          "type": "reel"
+        },
+        {
+          "name": "Kaveen & Sanuri - Convocation Photo Shoot",
+          "url": "https://www.facebook.com/share/p/1QCxTqzgxv/",
+          "type": "post"
+        },
+        {
+          "name": "Nadeeka - Convocation Album",
+          "url": "https://www.facebook.com/share/p/1GqnJqqrBq/",
+          "type": "post"
+        },
+        {
+          "name": "Anupama - Graduation Portrait Session",
+          "url": "https://www.facebook.com/share/p/1Bizpe11G1/",
+          "type": "post"
+        },
+        {
+          "name": "Madukanka - Convocation Album",
+          "url": "https://www.facebook.com/share/p/1C2h4LEfW6/",
+          "type": "post"
+        },
+        {
+          "name": "Samudi - Convocation Album",
+          "url": "https://www.facebook.com/share/p/1D3Wo59pSv/",
+          "type": "post"
+        },
+        {
+          "name": "Vaichaly - Graduation Album",
+          "url": "https://www.facebook.com/share/p/1LVhJb5seU/",
+          "type": "post"
+        }
+      ],
+      "status": "published"
+    },
+    {
+      "id": "story-meera-arjun",
+      "code": "PROJECT / 004",
+      "slug": "meera-and-arjun-kandy",
+      "title": "EVENTS",
+      "client": "VARIOUS",
+      "type": "video",
+      "featured": false,
+      "category": "EVENTS",
+      "categoryLabel": "Event Cinematography",
+      "year": "2026",
+      "coverImage": "/img/poster/finalWasthi.jpg",
+      "videoUrl": "/video/Events/finalWasthi.mp4",
+      "aspectRatio": "landscape",
+      "summary": "Dynamic event coverage that encapsulates the energy, scale, and atmosphere of live experiences.",
+      "challenge": "Adapting to unpredictable lighting and fast-paced environments.",
+      "solution": "Run-and-gun cinematography with stabilized rigs and low-light capable lenses.",
+      "deliverables": [
+        "Event Aftermovies",
+        "Social Snippets"
+      ],
+      "gallery": [
+        "/video/Events/ColoredFinalEuphoria (1).mp4",
+        "/video/Events/finalWasthi.mp4"
+      ],
+      "tags": [
+        "Events",
+        "Live",
+        "Aftermovie"
+      ],
+      "socialUrl": "https://www.facebook.com/share/r/1HVQWa5Lru/",
+      "socialLabel": "WATCH EVENT REELS & FILMS ON FACEBOOK",
+      "socialPosts": [
+        {
+          "name": "Sankalana Concert Film",
+          "url": "https://www.facebook.com/share/r/1HVQWa5Lru/",
+          "type": "reel"
+        },
+        {
+          "name": "Euphoria Concert - Film 1",
+          "url": "https://www.facebook.com/share/r/1DuRKmj15y/",
+          "type": "reel"
+        },
+        {
+          "name": "Euphoria Concert - Film 2",
+          "url": "https://www.facebook.com/share/r/1EqipAzzAL/",
+          "type": "reel"
+        },
+        {
+          "name": "Sankalana Concert - Photo Album",
+          "url": "https://www.facebook.com/share/p/198XMTJp5C/",
+          "type": "post"
+        },
+        {
+          "name": "Euphoria Concert - Photo Album",
+          "url": "https://www.facebook.com/share/p/1JmpDsJ1mG/",
+          "type": "post"
+        },
+        {
+          "name": "25th Anniversary Milestone Album",
+          "url": "https://www.facebook.com/share/p/1E9tWW6g5i/",
+          "type": "post"
+        },
+        {
+          "name": "Bhadrakali Amman Temple Maha Kumbhabhishekam",
+          "url": "https://www.facebook.com/share/v/1CxME63StG/",
+          "type": "video"
+        },
+        {
+          "name": "Tezlaa - Opening Ceremony",
+          "url": "https://www.facebook.com/share/v/1TXyVzNfTR/",
+          "type": "video"
+        },
+        {
+          "name": "SLIIT Wasantha Muwadora - Awurudu Film 1",
+          "url": "https://www.facebook.com/share/r/1ZACAkZhxo/",
+          "type": "reel"
+        },
+        {
+          "name": "SLIIT Wasantha Muwadora - Awurudu Film 2",
+          "url": "https://www.facebook.com/share/r/1LQJFdXx8B/",
+          "type": "reel"
+        }
+      ],
+      "status": "published"
+    },
+    {
+      "id": "proj-05",
+      "code": "PROJECT / 005",
+      "slug": "birthday-films",
+      "title": "BIRTHDAY FILMS",
+      "client": "VARIOUS",
+      "type": "video",
+      "featured": false,
+      "category": "CELEBRATIONS",
+      "categoryLabel": "Birthday Celebrations",
+      "year": "2026",
+      "coverImage": "/img/poster/FINAL AYODYA REEL .jpg",
+      "videoUrl": "/video/Birthdays/FINAL AYODYA REEL .MP4",
+      "aspectRatio": "portrait",
+      "summary": "Joyful and cinematic birthday films that preserve beautiful memories with family and friends.",
+      "challenge": "Capturing candid emotions without interrupting the celebration.",
+      "solution": "Unobtrusive shooting style with a focus on genuine interactions and atmospheric details.",
+      "deliverables": [
+        "Birthday Film",
+        "Teaser Reels"
+      ],
+      "gallery": [
+        "/video/Birthdays/FINAL AYODYA REEL .MP4",
+        "/video/Birthdays/Final Wageesha Horton.mp4",
+        "/video/Birthdays/Githmi Final Video.mp4",
+        "/video/Birthdays/dinara final edit new 1.MP4",
+        "/video/Birthdays/sakuniflowedit.mp4"
+      ],
+      "tags": [
+        "Birthdays",
+        "Celebration",
+        "Candid"
+      ],
+      "socialUrl": "https://www.facebook.com/share/r/19RQnN5yrG/",
+      "socialLabel": "WATCH BIRTHDAY FILMS ON FACEBOOK",
+      "socialPosts": [
+        {
+          "name": "Ayodya - Birthday Reel",
+          "url": "https://www.facebook.com/share/r/19RQnN5yrG/",
+          "type": "reel"
+        },
+        {
+          "name": "Dinara - Birthday Film",
+          "url": "https://www.facebook.com/share/r/1bmbVuQEmZ/",
+          "type": "reel"
+        },
+        {
+          "name": "Wageesha - Birthday Reel",
+          "url": "https://www.facebook.com/share/r/1EseuUkCZe/",
+          "type": "reel"
+        },
+        {
+          "name": "Samara - Birthday Film",
+          "url": "https://www.facebook.com/share/r/14otwB5BTGd/",
+          "type": "reel"
+        },
+        {
+          "name": "Githmi - Birthday Reel",
+          "url": "https://www.facebook.com/share/r/19KLF3wjxF/",
+          "type": "reel"
+        },
+        {
+          "name": "Chamudi - Birthday Photo Album",
+          "url": "https://www.facebook.com/share/p/1Cxv6RXmgj/",
+          "type": "post"
+        },
+        {
+          "name": "Sachini - Birthday Photo Album",
+          "url": "https://www.facebook.com/share/p/17uW8grJ3S/",
+          "type": "post"
+        },
+        {
+          "name": "Dinara - Birthday Photo Album",
+          "url": "https://www.facebook.com/share/p/19TUTdicZs/",
+          "type": "post"
+        }
+      ],
+      "status": "published"
+    },
+    {
+      "id": "story-divya-rohan",
+      "code": "PROJECT / 006",
+      "slug": "divya-and-rohan-colombo",
+      "title": "DIVYA & ROHAN",
+      "client": "DIVYA & ROHAN",
+      "type": "video",
+      "featured": false,
+      "category": "WEDDING FILMS",
+      "categoryLabel": "Wedding Cinematography",
+      "year": "2025",
+      "coverImage": "https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1400&auto=format&fit=crop",
+      "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+      "aspectRatio": "landscape",
+      "summary": "A cinematic wedding film blending architectural heritage with contemporary romance.",
+      "challenge": "Capturing multiple days of celebration while maintaining a cohesive, documentary-style narrative flow.",
+      "solution": "Utilized discrete cinema rigs and natural lighting to preserve the authenticity of every moment.",
+      "deliverables": [
+        "Highlight Film",
+        "Documentary Edit",
+        "Social Teasers"
+      ],
+      "gallery": [
+        "https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1200&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop"
+      ],
+      "tags": [
+        "Cinematography",
+        "Wedding",
+        "Documentary"
+      ],
+      "status": "published"
+    },
+    {
+      "id": "photo-01",
+      "code": "PHOTO / 001",
+      "slug": "zova-clothing",
+      "title": "ZOVA CLOTHING",
+      "client": "ZOVA",
+      "type": "photography",
+      "featured": true,
+      "category": "FASHION",
+      "categoryLabel": "Fashion Editorial",
+      "year": "2026",
+      "coverImage": "/img/Products/Zova Clothing/DSC06306.jpg",
+      "aspectRatio": "portrait",
+      "summary": "High-end fashion photography showcasing the latest collection with striking poses and moody lighting.",
+      "challenge": "Highlighting fabric textures while maintaining an editorial vibe.",
+      "solution": "Used specialized strobe lighting and a neutral background.",
+      "deliverables": [
+        "Lookbook",
+        "Social Media Assets"
+      ],
+      "gallery": [
+        "/img/Products/Zova Clothing/DSC06306.jpg",
+        "/img/Products/Zova Clothing/DSC06381.jpg",
+        "/img/Products/Zova Clothing/DSC06409.jpg",
+        "/img/Products/Zova Clothing/DSC06418.jpg",
+        "/img/Products/Zova Clothing/DSC06449.jpg",
+        "/img/Products/Zova Clothing/DSC06460.jpg",
+        "/img/Products/Zova Clothing/DSC06493.jpg"
+      ],
+      "tags": [
+        "Fashion",
+        "Editorial",
+        "Clothing"
+      ],
+      "socialUrl": "https://www.facebook.com/creativefx.lk",
+      "socialLabel": "VIEW FASHION ON FACEBOOK",
+      "socialPosts": [
+        {
+          "name": "Zova Clothing - Fashion Editorial Lookbook",
+          "url": "https://www.facebook.com/creativefx.lk",
+          "type": "post"
+        },
+        {
+          "name": "CreativeFX - Official Facebook Page",
+          "url": "https://www.facebook.com/creativefx.lk",
+          "type": "post"
+        }
+      ],
+      "status": "published"
+    },
+    {
+      "id": "photo-02",
+      "code": "PHOTO / 002",
+      "slug": "ceylon-gems",
+      "title": "CEYLON GEMS",
+      "client": "JEWELRY",
+      "type": "photography",
+      "featured": true,
+      "category": "COMMERCIAL",
+      "categoryLabel": "Product Photography",
+      "year": "2026",
+      "coverImage": "/img/Products/Gems/DSC01031.jpg",
+      "aspectRatio": "portrait",
+      "summary": "Macro product photography capturing the brilliance, cut, and clarity of premium gemstones.",
+      "challenge": "Managing reflections and highlighting the internal facets of the gems.",
+      "solution": "Focus stacking and polarized lighting techniques.",
+      "deliverables": [
+        "E-Commerce Stills",
+        "Macro Details"
+      ],
+      "gallery": [
+        "/img/Products/Gems/DSC00813.jpg",
+        "/img/Products/Gems/DSC00837.jpg",
+        "/img/Products/Gems/DSC00851.jpg",
+        "/img/Products/Gems/DSC00892.jpg",
+        "/img/Products/Gems/DSC00986.jpg",
+        "/img/Products/Gems/DSC01012.jpg",
+        "/img/Products/Gems/DSC01031.jpg",
+        "/img/Products/Gems/DSC01063.jpg"
+      ],
+      "tags": [
+        "Product",
+        "Macro",
+        "Jewelry"
+      ],
+      "socialUrl": "https://www.facebook.com/creativefx.lk",
+      "socialLabel": "VIEW PRODUCT STILLS ON FACEBOOK",
+      "socialPosts": [
+        {
+          "name": "Ceylon Gems - Macro Product Photography",
+          "url": "https://www.facebook.com/creativefx.lk",
+          "type": "post"
+        },
+        {
+          "name": "CreativeFX - Official Facebook Page",
+          "url": "https://www.facebook.com/creativefx.lk",
+          "type": "post"
+        }
+      ],
+      "status": "published"
+    },
+    {
+      "id": "photo-03",
+      "code": "PHOTO / 003",
+      "slug": "25th-anniversary",
+      "title": "25TH ANNIVERSARY",
+      "client": "PRIVATE",
+      "type": "photography",
+      "featured": true,
+      "category": "EVENTS",
+      "categoryLabel": "Event Photography",
+      "year": "2026",
+      "coverImage": "/img/Events/25th Annivesary/DSC01701.jpg",
+      "aspectRatio": "landscape",
+      "summary": "Capturing the beautiful milestone of a 25th anniversary celebration.",
+      "challenge": "Documenting candid moments in a dimly lit banquet hall.",
+      "solution": "Fast prime lenses and discreet off-camera flashes.",
+      "deliverables": [
+        "Event Album",
+        "Print Frames"
+      ],
+      "gallery": [
+        "/img/Events/25th Annivesary/DSC01188.jpg",
+        "/img/Events/25th Annivesary/DSC01198.jpg",
+        "/img/Events/25th Annivesary/DSC01218.jpg",
+        "/img/Events/25th Annivesary/DSC01353.jpg",
+        "/img/Events/25th Annivesary/DSC01457.jpg",
+        "/img/Events/25th Annivesary/DSC01514.jpg",
+        "/img/Events/25th Annivesary/DSC01526.jpg",
+        "/img/Events/25th Annivesary/DSC01632.jpg",
+        "/img/Events/25th Annivesary/DSC01701.jpg",
+        "/img/Events/25th Annivesary/DSC01750.jpg"
+      ],
+      "tags": [
+        "Event",
+        "Anniversary",
+        "Celebration"
+      ],
+      "socialUrl": "https://www.facebook.com/share/p/1E9tWW6g5i/",
+      "socialLabel": "VIEW 25TH ANNIVERSARY ON FACEBOOK",
+      "socialPosts": [
+        {
+          "name": "25th Anniversary Milestone Album",
+          "url": "https://www.facebook.com/share/p/1E9tWW6g5i/",
+          "type": "post"
+        }
+      ],
+      "status": "published"
+    },
+    {
+      "id": "photo-04",
+      "code": "PHOTO / 004",
+      "slug": "gender-reveal",
+      "title": "GENDER REVEAL",
+      "client": "PRIVATE",
+      "type": "photography",
+      "featured": true,
+      "category": "EVENTS",
+      "categoryLabel": "Event Photography",
+      "year": "2026",
+      "coverImage": "/img/Events/Gender Reveal/DSC09306.jpg",
+      "aspectRatio": "portrait",
+      "summary": "A joyous gender reveal party filled with emotion and surprise.",
+      "challenge": "Capturing the exact split-second of the reveal reaction.",
+      "solution": "High-speed continuous shooting mode and multiple angles.",
+      "deliverables": [
+        "Highlight Gallery",
+        "Social Media Snaps"
+      ],
+      "gallery": [
+        "/img/Events/Gender Reveal/DSC09294.jpg",
+        "/img/Events/Gender Reveal/DSC09298.jpg",
+        "/img/Events/Gender Reveal/DSC09306.jpg",
+        "/img/Events/Gender Reveal/DSC09315.jpg",
+        "/img/Events/Gender Reveal/DSC09333.jpg",
+        "/img/Events/Gender Reveal/DSC09391.jpg",
+        "/img/Events/Gender Reveal/DSC09400.jpg",
+        "/img/Events/Gender Reveal/DSC09418.jpg",
+        "/img/Events/Gender Reveal/DSC09470.jpg",
+        "/img/Events/Gender Reveal/DSC09543.jpg",
+        "/img/Events/Gender Reveal/DSC09621.jpg"
+      ],
+      "tags": [
+        "Event",
+        "Gender Reveal",
+        "Candid"
+      ],
+      "socialUrl": "https://www.facebook.com/creativefx.lk",
+      "socialLabel": "VIEW GENDER REVEAL ON FACEBOOK",
+      "socialPosts": [
+        {
+          "name": "Gender Reveal Celebration Photo Session",
+          "url": "https://www.facebook.com/creativefx.lk",
+          "type": "post"
+        },
+        {
+          "name": "CreativeFX - Official Facebook Page",
+          "url": "https://www.facebook.com/creativefx.lk",
+          "type": "post"
+        }
+      ],
+      "status": "published"
+    },
+    {
+      "id": "photo-05",
+      "code": "PHOTO / 005",
+      "slug": "jana-birthday",
+      "title": "JANA'S BIRTHDAY",
+      "client": "PRIVATE",
+      "type": "photography",
+      "featured": true,
+      "category": "PORTRAIT",
+      "categoryLabel": "Birthday Photography",
+      "year": "2026",
+      "coverImage": "/img/Birthdays/Jana/DSC08039.jpg",
+      "aspectRatio": "portrait",
+      "summary": "A beautiful birthday portrait session capturing joy and personality.",
+      "challenge": "Creating a relaxed and fun atmosphere for the subject.",
+      "solution": "Used natural daylight and interactive prompts.",
+      "deliverables": [
+        "Portrait Gallery"
+      ],
+      "gallery": [
+        "/img/Birthdays/Jana/DSC08039.jpg",
+        "/img/Birthdays/Jana/DSC08168.jpg",
+        "/img/Birthdays/Jana/DSC08198.jpg",
+        "/img/Birthdays/Jana/Untitled-1.jpg"
+      ],
+      "tags": [
+        "Birthday",
+        "Portrait"
+      ],
+      "socialUrl": "https://www.facebook.com/share/p/1GqKQqchBx/",
+      "socialLabel": "VIEW JANAKALANI CASUAL SHOOT ON FACEBOOK",
+      "socialPosts": [
+        {
+          "name": "Janakalani - Casual Shoot Album",
+          "url": "https://www.facebook.com/share/p/1GqKQqchBx/",
+          "type": "post"
+        },
+        {
+          "name": "Githmi - Casual Portrait Album",
+          "url": "https://www.facebook.com/share/p/197ZHfJjdw/",
+          "type": "post"
+        }
+      ],
+      "status": "published"
+    },
+    {
+      "id": "photo-06",
+      "code": "PHOTO / 006",
+      "slug": "thathsarani-birthday",
+      "title": "THATHSARANI",
+      "client": "PRIVATE",
+      "type": "photography",
+      "featured": true,
+      "category": "PORTRAIT",
+      "categoryLabel": "Birthday Photography",
+      "year": "2026",
+      "coverImage": "/img/Birthdays/Thathsarani/1st copy.jpg",
+      "aspectRatio": "portrait",
+      "summary": "Stunning outdoor birthday portraits focusing on natural beauty.",
+      "challenge": "Balancing harsh sunlight during the outdoor shoot.",
+      "solution": "Used diffusers and shot during the golden hour.",
+      "deliverables": [
+        "Retouched Portraits"
+      ],
+      "gallery": [
+        "/img/Birthdays/Thathsarani/1st copy.jpg",
+        "/img/Birthdays/Thathsarani/DSC00140 copy.jpg",
+        "/img/Birthdays/Thathsarani/DSC00258 copy.jpg",
+        "/img/Birthdays/Thathsarani/DSC00323 copy.jpg"
+      ],
+      "tags": [
+        "Birthday",
+        "Portrait",
+        "Outdoor"
+      ],
+      "socialUrl": "https://www.facebook.com/share/p/1GqKQqchBx/",
+      "socialLabel": "VIEW BIRTHDAY ALBUM ON FACEBOOK",
+      "socialPosts": [
+        {
+          "name": "Thathsarani - Birthday Portrait Album",
+          "url": "https://www.facebook.com/share/p/1GqKQqchBx/",
+          "type": "post"
+        },
+        {
+          "name": "CreativeFX - Official Facebook Page",
+          "url": "https://www.facebook.com/creativefx.lk",
+          "type": "post"
+        }
+      ],
+      "status": "published"
+    },
+    {
+      "id": "video-graduation",
+      "code": "PROJECT / 007",
+      "slug": "graduation-films",
+      "title": "GRADUATION FILMS",
+      "client": "VARIOUS",
+      "type": "video",
+      "featured": false,
+      "category": "EVENTS",
+      "categoryLabel": "Graduation Cinematography",
+      "year": "2026",
+      "coverImage": "/img/poster/Pera Convocation - Full.jpg",
+      "videoUrl": "/video/Graduation/Pera Convocation - Full.mp4",
+      "aspectRatio": "landscape",
+      "summary": "Cinematic graduation films that preserve one of life's most cherished milestones with emotional depth and visual beauty.",
+      "challenge": "Capturing raw emotion across a large venue with hundreds of graduates while maintaining storytelling cohesion.",
+      "solution": "Multi-camera coverage with handheld cinema rigs and telephoto lenses for intimate close-ups.",
+      "deliverables": [
+        "Feature Film",
+        "Highlight Reels",
+        "Social Clips"
+      ],
+      "gallery": [
+        "/video/Graduation/Pera Convocation - Full.mp4",
+        "/video/Graduation/Dilki Final 02.mp4",
+        "/video/Graduation/Couples.mp4",
+        "/video/Graduation/Father final.mp4",
+        "/video/Graduation/Parents Final.mp4",
+        "/video/Graduation/pink girl.mp4"
+      ],
+      "tags": [
+        "Graduation",
+        "Events",
+        "Cinematography"
+      ],
+      "socialUrl": "https://www.facebook.com/share/r/1Ag6mekb7Y/",
+      "socialLabel": "WATCH CONVOCATION FILMS ON FACEBOOK",
+      "socialPosts": [
+        {
+          "name": "Wayamba University - Convocation Reel",
+          "url": "https://www.facebook.com/share/r/1Ag6mekb7Y/",
+          "type": "reel"
+        },
+        {
+          "name": "Sabaragamuwa University - Couples Reel",
+          "url": "https://www.facebook.com/share/r/1DNVuBhp6T/",
+          "type": "reel"
+        },
+        {
+          "name": "Layani - Graduation Highlight",
+          "url": "https://www.facebook.com/share/r/1d4gxLvjg5/",
+          "type": "reel"
+        },
+        {
+          "name": "Peradeniya University - Parents Edition",
+          "url": "https://www.facebook.com/share/r/1C3QQpmcsq/",
+          "type": "reel"
+        },
+        {
+          "name": "Peradeniya University - Main Convocation Film",
+          "url": "https://www.facebook.com/share/r/18otAnFbdS/",
+          "type": "reel"
+        },
+        {
+          "name": "Peradeniya University - Couples Highlight",
+          "url": "https://www.facebook.com/share/r/1BLza21hhZ/",
+          "type": "reel"
+        },
+        {
+          "name": "Dilki - Graduation Reel",
+          "url": "https://www.facebook.com/share/r/1BksPD3i7o/",
+          "type": "reel"
+        },
+        {
+          "name": "SLIIT - Parents Edition",
+          "url": "https://www.facebook.com/share/r/14ifxdhdF1V/",
+          "type": "reel"
+        }
+      ],
+      "status": "published"
+    },
+    {
+      "id": "photo-casual",
+      "code": "PHOTO / 007",
+      "slug": "casual-shoot",
+      "title": "CASUAL SHOOT",
+      "client": "PRIVATE",
+      "type": "photography",
+      "featured": false,
+      "category": "PORTRAIT",
+      "categoryLabel": "Casual Portrait Shoot",
+      "year": "2026",
+      "coverImage": "/img/N_Shoots/FB_IMG_1786940354705.jpg.jpeg",
+      "aspectRatio": "portrait",
+      "summary": "Relaxed, candid portrait sessions that bring out natural personality and genuine emotion.",
+      "challenge": "Creating comfortable, authentic moments without the stiffness of a traditional studio shoot.",
+      "solution": "Shot in natural environments with lifestyle prompts and minimal direction.",
+      "deliverables": [
+        "Portrait Gallery",
+        "Social Media Edits"
+      ],
+      "gallery": [
+        "/img/N_Shoots/FB_IMG_1786940354705.jpg.jpeg",
+        "/img/N_Shoots/FB_IMG_1786940366722.jpg.jpeg",
+        "/img/N_Shoots/FB_IMG_1786940374047.jpg.jpeg",
+        "/img/N_Shoots/FB_IMG_1786940381518.jpg.jpeg",
+        "/img/N_Shoots/FB_IMG_1786940490646.jpg.jpeg",
+        "/img/N_Shoots/FB_IMG_1786940501967.jpg.jpeg",
+        "/img/N_Shoots/FB_IMG_1786940512573.jpg.jpeg"
+      ],
+      "tags": [
+        "Casual",
+        "Portrait",
+        "Natural"
+      ],
+      "socialUrl": "https://www.facebook.com/share/p/1GqKQqchBx/",
+      "socialLabel": "VIEW CASUAL SHOOTS ON FACEBOOK",
+      "socialPosts": [
+        {
+          "name": "Janakalani - Casual Shoot Album",
+          "url": "https://www.facebook.com/share/p/1GqKQqchBx/",
+          "type": "post"
+        },
+        {
+          "name": "Githmi - Casual Portrait Album",
+          "url": "https://www.facebook.com/share/p/197ZHfJjdw/",
+          "type": "post"
+        }
+      ],
+      "status": "published"
+    },
+    {
+      "id": "photo-wedding-ravindu",
+      "code": "PHOTO / 008",
+      "slug": "ravindu-malikshi-wedding",
+      "title": "RAVINDU & MALIKSHI",
+      "client": "RAVINDU & MALIKSHI",
+      "type": "photography",
+      "featured": false,
+      "category": "WEDDINGS",
+      "categoryLabel": "Wedding Photography",
+      "year": "2026",
+      "coverImage": "/img/wedding/Ravindu & Malikshi/DSC09233.jpg",
+      "aspectRatio": "landscape",
+      "summary": "A beautiful wedding story told through intimate photography — from the pre-dawn preparations to the final dance.",
+      "challenge": "Balancing grand ceremony scale with intimate, emotional micro-moments throughout the day.",
+      "solution": "Two-photographer approach with prime lenses for low-light ceremony coverage and wide angles for grand venue shots.",
+      "deliverables": [
+        "Full Wedding Album",
+        "Highlight Gallery",
+        "Fine Art Prints"
+      ],
+      "gallery": [
+        "/img/wedding/Ravindu & Malikshi/DSC09088.jpg",
+        "/img/wedding/Ravindu & Malikshi/DSC09201.jpg",
+        "/img/wedding/Ravindu & Malikshi/DSC09225.jpg",
+        "/img/wedding/Ravindu & Malikshi/DSC09233.jpg",
+        "/img/wedding/Ravindu & Malikshi/DSC09271.jpg",
+        "/img/wedding/Ravindu & Malikshi/DSC09275.jpg",
+        "/img/wedding/Ravindu & Malikshi/DSC09295.jpg",
+        "/img/wedding/Ravindu & Malikshi/DSC09312.jpg"
+      ],
+      "tags": [
+        "Wedding",
+        "Photography",
+        "Ceremony"
+      ],
+      "status": "published"
+    },
+    {
+      "id": "video-events",
+      "code": "PROJECT / 008",
+      "slug": "events-cinematography",
+      "title": "EVENTS & CELEBRATIONS",
+      "client": "VARIOUS",
+      "type": "video",
+      "featured": false,
+      "category": "EVENTS",
+      "categoryLabel": "Event Cinematography",
+      "year": "2026",
+      "coverImage": "/img/poster/ColoredFinalEuphoria (1).jpg",
+      "videoUrl": "/video/Events/ColoredFinalEuphoria (1).mp4",
+      "aspectRatio": "landscape",
+      "summary": "High-energy event films for corporate celebrations, private parties, and milestone events across Sri Lanka.",
+      "challenge": "Maintaining narrative structure and visual consistency across unpredictable, dynamic events.",
+      "solution": "Pre-event planning sessions with clients and multi-camera setups with dedicated audio capture.",
+      "deliverables": [
+        "Event Highlight Film",
+        "Same-Day Edit",
+        "Teaser Reel"
+      ],
+      "gallery": [
+        "/video/Events/ColoredFinalEuphoria (1).mp4",
+        "/video/Events/finalWasthi.mp4"
+      ],
+      "tags": [
+        "Events",
+        "Celebration",
+        "Corporate"
+      ],
+      "socialUrl": "https://www.facebook.com/share/r/1HVQWa5Lru/",
+      "socialLabel": "WATCH EVENT FILMS ON FACEBOOK",
+      "socialPosts": [
+        {
+          "name": "Sankalana Concert Film",
+          "url": "https://www.facebook.com/share/r/1HVQWa5Lru/",
+          "type": "reel"
+        },
+        {
+          "name": "Euphoria Concert - Film 1",
+          "url": "https://www.facebook.com/share/r/1DuRKmj15y/",
+          "type": "reel"
+        },
+        {
+          "name": "Euphoria Concert - Film 2",
+          "url": "https://www.facebook.com/share/r/1EqipAzzAL/",
+          "type": "reel"
+        },
+        {
+          "name": "Sankalana Concert - Photo Album",
+          "url": "https://www.facebook.com/share/p/198XMTJp5C/",
+          "type": "post"
+        },
+        {
+          "name": "Euphoria Concert - Photo Album",
+          "url": "https://www.facebook.com/share/p/1JmpDsJ1mG/",
+          "type": "post"
+        },
+        {
+          "name": "25th Anniversary Milestone Album",
+          "url": "https://www.facebook.com/share/p/1E9tWW6g5i/",
+          "type": "post"
+        },
+        {
+          "name": "Bhadrakali Amman Temple Maha Kumbhabhishekam",
+          "url": "https://www.facebook.com/share/v/1CxME63StG/",
+          "type": "video"
+        },
+        {
+          "name": "Tezlaa - Opening Ceremony",
+          "url": "https://www.facebook.com/share/v/1TXyVzNfTR/",
+          "type": "video"
+        },
+        {
+          "name": "SLIIT Wasantha Muwadora - Awurudu Film 1",
+          "url": "https://www.facebook.com/share/r/1ZACAkZhxo/",
+          "type": "reel"
+        },
+        {
+          "name": "SLIIT Wasantha Muwadora - Awurudu Film 2",
+          "url": "https://www.facebook.com/share/r/1LQJFdXx8B/",
+          "type": "reel"
+        }
+      ],
+      "status": "published"
+    },
+    {
+      "id": "video-dance-covers",
+      "code": "PROJECT / 009",
+      "slug": "dance-covers",
+      "title": "DANCE COVERS",
+      "client": "CREATIVE VISUALS",
+      "type": "video",
+      "featured": false,
+      "status": "published",
+      "category": "COMMERCIAL",
+      "categoryLabel": "Dance & Choreography Visuals",
+      "year": "2026",
+      "coverImage": "/img/poster/FINAL AYODYA REEL .jpg",
+      "videoUrl": "/video/Birthdays/FINAL AYODYA REEL .MP4",
+      "aspectRatio": "portrait",
+      "summary": "Energetic and rhythmic dance cover video productions with dynamic lighting and camera movement.",
+      "challenge": "Synchronizing camera movement and edits with complex choreography and rhythm.",
+      "solution": "Custom gimbal moves, speed ramping, and beat-matched cuts.",
+      "deliverables": [
+        "Dance Film",
+        "Instagram Reels",
+        "TikTok Cuts"
+      ],
+      "gallery": [
+        "/video/Birthdays/FINAL AYODYA REEL .MP4",
+        "/video/Birthdays/Githmi Final Video.mp4"
+      ],
+      "tags": [
+        "Dance",
+        "Music Video",
+        "Choreography"
+      ]
+    },
+    {
+      "id": "photo-wedding-preshoot",
+      "code": "PHOTO / 014",
+      "slug": "ravindu-malikshi-pre-shoot",
+      "title": "RAVINDU & MALIKSHI PRE-SHOOT",
+      "client": "RAVINDU & MALIKSHI",
+      "type": "photography",
+      "featured": false,
+      "category": "WEDDINGS",
+      "categoryLabel": "Wedding Pre-Shoot",
+      "year": "2026",
+      "coverImage": "/img/Weddings/Ravindu & Malikshi PreShoot/DSC09498.jpg",
+      "aspectRatio": "portrait",
+      "summary": "An intimate pre-wedding shoot ahead of the big day — relaxed moments, chemistry and anticipation.",
+      "challenge": "Helping a couple feel natural on camera before their wedding day.",
+      "solution": "A pressure-free location session that doubles as a comfort-building experience.",
+      "deliverables": [
+        "Pre-Shoot Gallery",
+        "Save-the-Date Frames"
+      ],
+      "gallery": [
+        "/img/Weddings/Ravindu & Malikshi PreShoot/DSC09088.jpg",
+        "/img/Weddings/Ravindu & Malikshi PreShoot/DSC09201.jpg",
+        "/img/Weddings/Ravindu & Malikshi PreShoot/DSC09225.jpg",
+        "/img/Weddings/Ravindu & Malikshi PreShoot/DSC09233.jpg",
+        "/img/Weddings/Ravindu & Malikshi PreShoot/DSC09271.jpg",
+        "/img/Weddings/Ravindu & Malikshi PreShoot/DSC09275.jpg",
+        "/img/Weddings/Ravindu & Malikshi PreShoot/DSC09295.jpg",
+        "/img/Weddings/Ravindu & Malikshi PreShoot/DSC09312.jpg",
+        "/img/Weddings/Ravindu & Malikshi PreShoot/DSC09498.jpg",
+        "/img/o/Weddings/Ravindu & Malikshi PreShoot/DSC09547.jpg",
+        "/img/Weddings/Ravindu & Malikshi PreShoot/DSC09583.jpg"
+      ],
+      "tags": [
+        "Wedding",
+        "Pre-Shoot",
+        "Couple"
+      ],
+      "status": "published"
+    },
+    {
+      "id": "photo-graduation",
+      "code": "PHOTO / 011",
+      "slug": "graduation-photo",
+      "title": "GRADUATION PHOTOGRAPHY",
+      "client": "VARIOUS",
+      "type": "photography",
+      "featured": false,
+      "category": "EVENTS",
+      "categoryLabel": "Graduation Photography",
+      "year": "2026",
+      "coverImage": "/img/Graduation/IIT/DSC02671.jpg",
+      "aspectRatio": "landscape",
+      "summary": "Convocation and graduation portrait sessions — robes, diplomas and proud smiles captured across IIT, Sabaragamuwa, Peradeniya and private sittings.",
+      "challenge": "Compressing individual portraits and ceremony energy into fast-moving schedules across venues.",
+      "solution": "Dedicated portrait stations paired with roaming candid coverage and scouted campus backdrops.",
+      "deliverables": [
+        "Graduation Albums",
+        "Individual Portraits",
+        "Group Photos",
+        "Framed Prints"
+      ],
+      "gallery": [
+        "/img/Graduation/IIT/DSC02657.jpg",
+        "/img/Graduation/IIT/DSC02671.jpg",
+        "/img/Graduation/IIT/DSC02681.jpg",
+        "/img/Graduation/IIT/DSC02682.jpg",
+        "/img/Graduation/IIT/DSC02751.jpg",
+        "/img/Graduation/IIT/DSC02757 (1).jpg",
+        "/img/Graduation/IIT/DSC02795.jpg",
+        "/img/Graduation/IIT/DSC02816.jpg",
+        "/img/Graduation/IIT/DSC02856 (1).jpg",
+        "/img/Graduation/IIT/DSC02950.jpg",
+        "/img/Graduation/Sabaragamu/DSC08712.jpg",
+        "/img/Graduation/Sabaragamu/DSC08739.jpg",
+        "/img/Graduation/Sabaragamu/DSC08751.jpg",
+        "/img/Graduation/Sabaragamu/DSC0875133.jpg",
+        "/img/Graduation/Sabaragamu/DSC08797.jpg",
+        "/img/Graduation/Sabaragamu/DSC08817.jpg",
+        "/img/Graduation/Sabaragamu/DSC08823.jpg",
+        "/img/Graduation/Sabaragamu/Untitled-3.jpg",
+        "/img/Graduation/Samudi/DSC00001.jpg",
+        "/img/Graduation/Samudi/DSC00131.jpg",
+        "/img/Graduation/Samudi/DSC00176.jpg",
+        "/img/Graduation/Samudi/DSC09878.jpg",
+        "/img/Graduation/Samudi/DSC09905.jpg",
+        "/img/Graduation/Samudi/DSC09907.jpg",
+        "/img/Graduation/Samudi/DSC09917.jpg",
+        "/img/Graduation/Samudi/DSC09950.jpg",
+        "/img/Graduation/Samudi/DSC09994.jpg"
+      ],
+      "tags": [
+        "Graduation",
+        "Photography",
+        "Milestone"
+      ],
+      "socialUrl": "https://www.facebook.com/share/p/1QCxTqzgxv/",
+      "socialLabel": "VIEW CONVOCATION ALBUMS ON FACEBOOK",
+      "socialPosts": [
+        {
+          "name": "Kaveen & Sanuri - Convocation Shoot",
+          "url": "https://www.facebook.com/share/p/1QCxTqzgxv/",
+          "type": "post"
+        },
+        {
+          "name": "Nadeeka - Convocation Album",
+          "url": "https://www.facebook.com/share/p/1GqnJqqrBq/",
+          "type": "post"
+        },
+        {
+          "name": "Anupama - Graduation Portrait Session",
+          "url": "https://www.facebook.com/share/p/1Bizpe11G1/",
+          "type": "post"
+        },
+        {
+          "name": "Madukanka - Convocation Album",
+          "url": "https://www.facebook.com/share/p/1C2h4LEfW6/",
+          "type": "post"
+        },
+        {
+          "name": "Samudi - Convocation Album",
+          "url": "https://www.facebook.com/share/p/1D3Wo59pSv/",
+          "type": "post"
+        },
+        {
+          "name": "Vaichaly - Graduation Album",
+          "url": "https://www.facebook.com/share/p/1LVhJb5seU/",
+          "type": "post"
+        }
+      ],
+      "status": "published"
+    }
+  ],
+  "home": {
+    "featuredLabel": "A curated selection of CreativeFX stories, captured with intention.",
+    "featuredProjectIds": [
+      "photo-01",
+      "photo-02",
+      "photo-03",
+      "photo-04",
+      "photo-05",
+      "photo-06"
+    ],
+    "selectedWorkIds": [
+      "proj-01",
+      "proj-02",
+      "__weddings__",
+      "video-graduation",
+      "video-events",
+      "photo-casual",
+      "photo-02",
+      "proj-05"
+    ],
+    "showWeddingsTile": true
+  },
+  "cta": {
+    "tagline": "START A COLLABORATION",
+    "headline": "WANT YOUR BRAND\nTO BE OUR NEXT\nPROJECT?",
+    "subHeadline": "NEED SOMETHING CUSTOM?",
+    "body": "Don't see exactly what you're looking for? Tell us what you have in mind. We'll work with you to create a bespoke visual solution that fits your exact goals.",
+    "buttonLabel": "START A PROJECT"
+  },
+  "testimonials": [
+    {
+      "quote": "Our wedding film feels like an international cinema production. The reaction shots and color grading made our memories completely timeless.",
+      "author": "Ravindu & Malikshi",
+      "role": "Wedding Story Commission",
+      "avatar": "/img/wedding/Ravindu & Malikshi/DSC09233.jpg"
+    },
+    {
+      "quote": "CreativeFX redefined how our brand communicates. The social video reels drove a 240% engagement surge in under three weeks.",
+      "author": "Zova Clothing",
+      "role": "Commercial Fashion Campaign",
+      "avatar": "/img/Products/Zova Clothing/DSC06306.jpg"
+    },
+    {
+      "quote": "Unmatched artistic vision. From high-speed product visuals to crisp audio identity, their team operates at the bleeding edge.",
+      "author": "Ceylon Gems Studio",
+      "role": "Product Photography & Cinema",
+      "avatar": "/img/Products/Gems/DSC01031.jpg"
+    },
+    {
+      "quote": "The graduation coverage was beyond expectations. Every emotional detail was preserved with cinematic finesse.",
+      "author": "University Graduation",
+      "role": "Documentary Milestone",
+      "avatar": "/img/Graduation/Samudi/DSC00131.jpg"
+    }
+  ],
+  "weddingTimeline": [
+    {
+      "id": "stage-beginning",
+      "stageNumber": "01",
+      "title": "THE MORNING PREPARATION",
+      "shortDesc": "The quiet anticipation. Getting ready with loved ones.",
+      "fullDesc": "The calm before the celebration begins. Hair, makeup, traditional jewelry, family blessings, and the emotional, heartfelt moments before you step out to say \"I do\".",
+      "image": "/img/wedding/Ravindu & Malikshi/DSC09088.jpg",
+      "moodNote": "BRIDAL PREPARATION / CANDID EMOTIONS / FAMILY BLESSINGS",
+      "moments": [
+        "Bridal & Groom getting ready details",
+        "Mother & Father blessings and happy tears",
+        "The intimate first look with parents & bridal party",
+        "Relaxed, natural portraits before the ceremony"
+      ]
+    },
+    {
+      "id": "stage-ceremony",
+      "stageNumber": "02",
+      "title": "THE SACRED CEREMONY",
+      "shortDesc": "The exchange of vows, traditions, and timeless promises.",
+      "fullDesc": "The heart of your wedding day. From the walk down the aisle and the traditional Poruwa rituals to the exchanging of rings and blessings from family and friends.",
+      "image": "/img/wedding/Ravindu & Malikshi/DSC09201.jpg",
+      "moodNote": "TRADITIONAL CUSTOMS / SACRED VOWS / UNFILTERED JOY",
+      "moments": [
+        "Aisle entrance & emotional first look",
+        "Traditional Poruwa ceremony & customs",
+        "Vow & ring exchange witnessed by loved ones",
+        "The joyous walk out as newlyweds to roaring cheers"
+      ]
+    },
+    {
+      "id": "stage-celebration",
+      "stageNumber": "03",
+      "title": "THE RECEPTION & FIRST DANCE",
+      "shortDesc": "Laughter, heartfelt speeches, and unforgettable celebrations.",
+      "fullDesc": "The energy and happiness of celebrating with everyone you love. Champagne toasts, moving speeches, your romantic first dance under warm lights, and an electric dance floor.",
+      "image": "/img/wedding/Ravindu & Malikshi/DSC09225.jpg",
+      "moodNote": "LIVE CELEBRATION / FIRST DANCE / DANCE FLOOR ENERGY",
+      "moments": [
+        "Romantic first dance under ambient lights",
+        "Heartfelt toasts, cheers, and laughs",
+        "Cake cutting & celebratory champagne toast",
+        "High-energy party moments on the dance floor"
+      ]
+    },
+    {
+      "id": "stage-farewell",
+      "stageNumber": "04",
+      "title": "COUPLE PORTRAITS & FAREWELL",
+      "shortDesc": "Golden hour sunset frames and the midnight send-off.",
+      "fullDesc": "Taking a quiet breath together during sunset for stunning couple portraits, followed by a sparkling night send-off into your new journey together.",
+      "image": "/img/wedding/Ravindu & Malikshi/DSC09233.jpg",
+      "moodNote": "GOLDEN HOUR / ROMANTIC PORTRAITS / MEMORABLE SEND-OFF",
+      "moments": [
+        "Golden hour romantic couple portraits",
+        "Warm hugs & emotional goodbyes with closest friends",
+        "Sparkler tunnel & night farewell departure",
+        "Timeless memories captured forever"
+      ]
+    }
+  ],
+  "weddingStories": [
+    {
+      "id": "story-ravindu-malikshi",
+      "slug": "ravindu-and-malikshi",
+      "storyNumber": "01",
+      "couple": "RAVINDU & MALIKSHI",
+      "location": "COLOMBO, SRI LANKA",
+      "venue": "Galle Face Heritage & Ocean Lawn",
+      "date": "JANUARY 2026",
+      "coverImage": "/img/wedding/Ravindu & Malikshi/DSC09233.jpg",
+      "heroImage": "/img/wedding/Ravindu & Malikshi/DSC09233.jpg",
+      "thumbnail": "/img/wedding/Ravindu & Malikshi/DSC09088.jpg",
+      "storyQuote": "Not a single moment felt forced or uncomfortable. CreativeFX captured the true emotions, the laughter, and every tear so beautifully.",
+      "storyParagraphs": [
+        "Set against the historic oceanfront backdrop of Colombo, Ravindu and Malikshi wanted their wedding documented authentically—focusing on genuine emotions rather than stiff poses.",
+        "Our team covered every chapter of their special day with multi-camera 4K cinema coverage and high-resolution photography, preserving the colors, the joy, and the intimate memories for a lifetime."
+      ],
+      "gallery": [
+        {
+          "url": "/img/wedding/Ravindu & Malikshi/DSC09088.jpg",
+          "caption": "Bridal morning preparation and quiet anticipation",
+          "aspect": "portrait"
+        },
+        {
+          "url": "/img/wedding/Ravindu & Malikshi/DSC09201.jpg",
+          "caption": "Sacred wedding ceremony and exchanging promises",
+          "aspect": "landscape"
+        },
+        {
+          "url": "/img/wedding/Ravindu & Malikshi/DSC09225.jpg",
+          "caption": "Evening reception and celebrating with family",
+          "aspect": "landscape"
+        },
+        {
+          "url": "/img/wedding/Ravindu & Malikshi/DSC09233.jpg",
+          "caption": "Iconic couple portraits by the ocean lawn",
+          "aspect": "portrait"
+        },
+        {
+          "url": "/img/wedding/Ravindu & Malikshi/DSC09271.jpg",
+          "caption": "Spontaneous candid laughter and happy moments",
+          "aspect": "portrait"
+        },
+        {
+          "url": "/img/wedding/Ravindu & Malikshi/DSC09275.jpg",
+          "caption": "Romantic night portrait under ambient lights",
+          "aspect": "portrait"
+        },
+        {
+          "url": "/img/wedding/Ravindu & Malikshi/DSC09295.jpg",
+          "caption": "Elegant bridal detail and architectural lighting",
+          "aspect": "portrait"
+        },
+        {
+          "url": "/img/wedding/Ravindu & Malikshi/DSC09312.jpg",
+          "caption": "Enduring memories of an unforgettable wedding",
+          "aspect": "landscape"
+        }
+      ],
+      "videoUrl": "/video/Malikshi_Ravindu_Wedding.mp4",
+      "videoPoster": "/img/wedding/Ravindu & Malikshi/DSC09233.jpg",
+      "highlights": [
+        {
+          "title": "COVERAGE STYLE",
+          "desc": "Natural, candid, and cinematic storytelling"
+        },
+        {
+          "title": "LIGHTING",
+          "desc": "Warm natural light and elegant ambient lighting"
+        },
+        {
+          "title": "EXPERIENCE",
+          "desc": "Relaxed, unobtrusive, and genuinely fun"
+        }
+      ],
+      "details": {
+        "photographer": "CreativeFX Wedding Photography Team",
+        "cinematographer": "CreativeFX Cinema & Drone Crew",
+        "cameraFormat": "Full Frame Sony 4K & Prime Lenses",
+        "deliveredFrames": "800+ Edited High-Res Photos & 4K Cinema Reel"
+      }
+    }
+  ],
+  "weddingApproach": [
+    {
+      "number": "01",
+      "title": "NATURAL & CANDID MOMENTS",
+      "desc": "No awkward posing or forced smiles. We blend in seamlessly to capture genuine laughter, happy tears, and real emotions as they happen naturally."
+    },
+    {
+      "number": "02",
+      "title": "WARM & TIMELESS COLORS",
+      "desc": "We craft rich, true-to-life tones that never go out of style. Years from now, your photos will look just as stunning and vibrant as they felt on your wedding day."
+    },
+    {
+      "number": "03",
+      "title": "ALL-DAY DEDICATED TEAM",
+      "desc": "From early morning dressing to the final farewell dance, our passionate photographers and videographers are by your side to make sure not a single moment is missed."
+    }
+  ],
+  "contactPage": {
+    "label": "07 / CONTACT",
+    "headline": "Contact Us",
+    "description": "Please reach out to us and we will get back to you at the speed of light.",
+    "whatsappCta": "QUICK CHAT ON WHATSAPP",
+    "ctaText": "SEND MESSAGE",
+    "successTitle": "MESSAGE RECEIVED.",
+    "successBody": "Thank you for reaching out. We'll be in touch soon."
+  },
+  "seo": {
+    "title": "CreativeFX — Photography, Videography & Digital Marketing | Sri Lanka",
+    "description": "CreativeFX is a Sri Lanka-based premier creative agency specializing in photography, videography, video editing, social media content, branding, and digital marketing.",
+    "keywords": "photography sri lanka, videography, creative agency, wedding photography, product photography, video editing, branding, colombo",
+    "canonicalUrl": "https://creativefx.lk",
+    "ogImage": "/img/wedding/Ravindu & Malikshi/DSC09233.jpg",
+    "analyticsId": "",
+    "searchConsoleId": "",
+    "allowIndexing": true
+  },
+  "theme": {
+    "accentColor": "#fcbf13",
+    "logoUrl": "/img/creativefx-bgr-logo.png"
+  },
+  "nav": {
+    "work": "WORK",
+    "services": "SERVICES",
+    "weddings": "WEDDINGS",
+    "about": "ABOUT",
+    "cta": "INQUIRE"
+  },
+  "footer": {
+    "tagline": "LET'S CREATE WHAT PEOPLE REMEMBER.",
+    "copyright": "CREATIVEFX STUDIO. ALL RIGHTS RESERVED."
+  },
+  "settings": {
+    "showWeddings": true,
+    "showWorks": true,
+    "customCursor": true,
+    "maintenanceMode": false,
+    "announcementEnabled": false,
+    "announcementText": "NOW BOOKING COMMERCIALS & WEDDING DATES FOR 2026 / 2027",
+    "rateCardEnabled": false,
+    "rateCardUrl": "",
+    "bookingPolicy": "",
+    "identity": {
+      "brandName": "CreativeFX Studio",
+      "timezone": "Asia/Colombo (GMT+5:30)",
+      "currency": "LKR (Rs)",
+      "language": "English"
+    }
+  },
+  "pages": {
+    "worksTitle": "WORKS /\nPROJECTS",
+    "worksIntro": "A curated selection of our commercial, editorial, and documentary commissions spanning photography and cinema."
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "CreativeFX — Futuristic Creative Agency",
+  "description": "Futuristic interactive editorial creative agency experience and dedicated cinematic wedding photography & filmmaking archive for CreativeFX.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
