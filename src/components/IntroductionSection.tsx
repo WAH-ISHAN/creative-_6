@@ -127,7 +127,7 @@ export const IntroductionSection: React.FC = () => {
             {intro.image && (
               <div ref={imageRef} className="relative w-full max-w-[280px] sm:max-w-[320px] aspect-[4/5] bg-black border border-[var(--fx-border-light)] overflow-hidden fx-media">
                 <img
-                  src={intro.image}
+                  src={intro.image || '/img/studio-workflow.jpeg'}
                   alt="Studio Workflow"
                   className="w-full h-full object-cover object-center filter grayscale opacity-90 transition-all duration-700 hover:scale-105 hover:grayscale-0"
                   loading="lazy"

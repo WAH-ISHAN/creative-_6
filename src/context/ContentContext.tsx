@@ -17,7 +17,7 @@ export const DEFAULT_CONTENT = {
     headline: 'WE CREATE\nWHAT PEOPLE\nREMEMBER.',
     body: 'CreativeFX is a creative agency specializing in photography, videography, content creation, and digital marketing — built to make modern brands stand out.',
     bodyLine2: 'Based in Sri Lanka. Working globally.',
-    image: '/img/Products/Zova Clothing/DSC06381.jpg',
+    image: '/img/studio-workflow.jpeg',
   },
   // Master services list — rendered by ServicesSection & ServiceDetailModal
   services: [
