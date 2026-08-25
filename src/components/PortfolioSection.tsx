@@ -1,7 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { ProjectCase } from '../types';
 import { resolveSelectedWork, useContent } from '../context/ContentContext';
-import { ArrowRight, Heart } from 'lucide-react';
+import { ArrowRight, Heart, Play } from 'lucide-react';
 
 interface PortfolioSectionProps {
   onSelectProject?: (project: ProjectCase) => void;
@@ -14,17 +14,43 @@ const ProjectCard = ({ project, onSelectProject, onSwitchToWeddings }: {
   onSelectProject?: (project: ProjectCase) => void;
   onSwitchToWeddings?: () => void;
 }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  // In-View Autoplay Engine using IntersectionObserver
+  useEffect(() => {
+    if (!project.videoUrl || !containerRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (videoRef.current) {
+              videoRef.current.play().then(() => {
+                setIsPlaying(true);
+              }).catch(() => {
+                // Silently fallback if browser blocks
+              });
+            }
+          } else {
+            if (videoRef.current) {
+              videoRef.current.pause();
+              setIsPlaying(false);
+            }
+          }
+        });
+      },
+      { threshold: 0.25, rootMargin: '50px 0px' }
+    );
+
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, [project.videoUrl]);
 
   const handleMouseEnter = () => {
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {});
-    }
-  };
-
-  const handleMouseLeave = () => {
-    if (videoRef.current) {
-      videoRef.current.pause();
+    if (videoRef.current && videoRef.current.paused) {
+      videoRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
     }
   };
 
@@ -38,25 +64,27 @@ const ProjectCard = ({ project, onSelectProject, onSwitchToWeddings }: {
 
   return (
     <div
+      ref={containerRef}
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
       className="group cursor-pointer flex flex-col items-center text-center gap-4"
     >
-      <div className="relative w-full aspect-[4/5] bg-black border border-[var(--fx-border-dark)] overflow-hidden">
+      <div className="relative w-full aspect-[4/5] bg-[#0c0c0c] border border-[var(--fx-border-dark)] overflow-hidden rounded-sm">
+        {/* Cover Image (Always present as fallback & instant poster) */}
         <img
           src={project.coverImage || 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=1000&auto=format&fit=crop'}
           alt={project.title}
           loading="lazy"
           decoding="async"
           className={`absolute inset-0 w-full h-full object-cover object-top transition-all duration-700 ease-out group-hover:scale-105 ${
-            project.videoUrl
-              ? 'filter grayscale group-hover:opacity-0'
-              : 'filter grayscale group-hover:grayscale-0'
+            project.videoUrl && isPlaying
+              ? 'opacity-0'
+              : 'opacity-100 filter grayscale group-hover:grayscale-0'
           }`}
           referrerPolicy="no-referrer"
         />
 
+        {/* High-Performance In-View Video */}
         {project.videoUrl && (
           <video
             ref={videoRef}
@@ -65,15 +93,25 @@ const ProjectCard = ({ project, onSelectProject, onSwitchToWeddings }: {
             muted
             loop
             playsInline
-            preload="none"
-            className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700 ease-out group-hover:opacity-100 group-hover:scale-105"
+            preload="metadata"
+            className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105 ${
+              isPlaying ? 'opacity-100' : 'opacity-0'
+            }`}
           />
         )}
 
+        {/* Video Badge */}
+        {project.videoUrl && (
+          <div className="absolute top-3 right-3 z-10 bg-black/70 backdrop-blur-md px-2 py-0.5 rounded-sm border border-white/20 text-[9px] font-mono-tech text-[var(--fx-yellow)] tracking-widest uppercase flex items-center gap-1 pointer-events-none">
+            <Play className="w-2.5 h-2.5 fill-[var(--fx-yellow)]" />
+            <span>4K REEL</span>
+          </div>
+        )}
+
         {/* Hover overlay indicator */}
-        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
-          <div className="text-[10px] font-mono-tech tracking-widest text-[var(--fx-white)] flex items-center gap-2 px-6 py-3 border border-[var(--fx-white)] backdrop-blur-sm">
-            <span className="w-1.5 h-1.5 bg-[var(--fx-white)] rounded-full animate-pulse-subtle" />
+        <div className="absolute inset-0 bg-black/35 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none z-20">
+          <div className="text-[10px] font-mono-tech tracking-widest text-[var(--fx-white)] flex items-center gap-2 px-6 py-3 border border-[var(--fx-white)] backdrop-blur-sm shadow-2xl">
+            <span className="w-1.5 h-1.5 bg-[var(--fx-yellow)] rounded-full animate-pulse-subtle" />
             {project.isWedding ? 'VIEW WEDDINGS' : 'VIEW PROJECT'}
           </div>
         </div>
@@ -83,7 +121,7 @@ const ProjectCard = ({ project, onSelectProject, onSwitchToWeddings }: {
         <span className="text-[10px] font-mono-tech tracking-widest text-[var(--fx-gray)] uppercase">
           {project.categoryLabel || ''}
         </span>
-        <h3 className="text-lg sm:text-xl md:text-2xl font-editorial tracking-wide uppercase text-[var(--fx-white)] group-hover:text-[var(--fx-white)] transition-colors duration-300 flex items-center gap-2">
+        <h3 className="text-lg sm:text-xl md:text-2xl font-editorial tracking-wide uppercase text-[var(--fx-white)] group-hover:text-[var(--fx-yellow)] transition-colors duration-300 flex items-center gap-2">
           {project.isWedding && <Heart className="w-4 h-4 text-[var(--fx-yellow)]" />}
           {project.title}
         </h3>
@@ -94,8 +132,6 @@ const ProjectCard = ({ project, onSelectProject, onSwitchToWeddings }: {
 
 /**
  * Homepage "Selected Work" grid.
- * Cards are picked from the MASTER PROJECT DATABASE via Admin → Homepage →
- * Selected Work — no duplicated content, no broken slugs.
  */
 export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ onSelectProject, onViewAllWork, onSwitchToWeddings }) => {
   const { content } = useContent();
@@ -133,7 +169,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ onSelectProj
           <div className="flex items-center pb-2">
              <button
               onClick={onViewAllWork}
-              className="flex items-center gap-4 text-xs font-mono-tech tracking-widest uppercase text-[var(--fx-white)] hover:text-[var(--fx-white)] transition-colors group cursor-pointer"
+              className="flex items-center gap-4 text-xs font-mono-tech tracking-widest uppercase text-[var(--fx-white)] hover:text-[var(--fx-yellow)] transition-colors group cursor-pointer"
              >
                VIEW ALL WORK
                <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />

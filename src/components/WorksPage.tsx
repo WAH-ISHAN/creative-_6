@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { smoothScrollTo, resetGlobalScroll } from '../utils/scrollManager';
 import { usePublishedProjects, useContent } from '../context/ContentContext';
 import { ProjectCase } from '../types';
@@ -24,6 +24,146 @@ const CATEGORY_LABELS: Record<string, string> = {
   PORTRAIT: 'PORTRAITS & CASUAL',
   CELEBRATIONS: 'CELEBRATIONS',
   WEDDINGS: 'WEDDINGS',
+};
+
+/**
+ * High-performance, viewport-aware Work Card with In-View Autoplay
+ */
+const WorkCardItem: React.FC<{
+  project: ProjectCase;
+  idx: number;
+  total: number;
+  onSelect: (project: ProjectCase) => void;
+}> = ({ project, idx, total, onSelect }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const isVideo = project.type === 'video' || !!project.videoUrl;
+
+  useEffect(() => {
+    if (!isVideo || !project.videoUrl || !containerRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (videoRef.current) {
+              videoRef.current.play().then(() => {
+                setIsPlaying(true);
+              }).catch(() => {});
+            }
+          } else {
+            if (videoRef.current) {
+              videoRef.current.pause();
+              setIsPlaying(false);
+            }
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: '60px 0px' }
+    );
+
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, [isVideo, project.videoUrl]);
+
+  const handleMouseEnter = () => {
+    if (videoRef.current && videoRef.current.paused) {
+      videoRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
+    }
+  };
+
+  return (
+    <div
+      ref={containerRef}
+      onClick={() => onSelect(project)}
+      onMouseEnter={handleMouseEnter}
+      className="works-card group cursor-pointer flex flex-col gap-4 bg-[#0a0a0a] border border-white/10 hover:border-[var(--fx-yellow)]/60 p-3 sm:p-4 rounded-sm transition-all duration-300 hover:shadow-[0_12px_36px_rgba(0,0,0,0.9)]"
+    >
+      {/* Media Wrapper */}
+      <div className="relative w-full aspect-[4/5] overflow-hidden bg-black rounded-sm border border-white/10 group-hover:border-white/30 transition-colors fx-media--fill">
+        {/* Index Tag */}
+        <div className="absolute top-3 left-3 z-20 px-2.5 py-1 bg-black/80 backdrop-blur-md border border-white/15 text-[11px] font-mono-tech tracking-widest text-white/90 rounded-sm">
+          {String(idx + 1).padStart(2, '0')} // {String(total).padStart(2, '0')}
+        </div>
+
+        {/* Type Badge */}
+        <div className="absolute top-3 right-3 z-20 px-2.5 py-1 bg-black/80 backdrop-blur-md border border-white/15 text-[11px] font-mono-tech tracking-widest rounded-sm flex items-center gap-1.5">
+          {isVideo ? (
+            <>
+              <Film className="w-3 h-3 text-[var(--fx-yellow)]" />
+              <span className="text-[var(--fx-yellow)] font-semibold">CINEMA 4K</span>
+            </>
+          ) : (
+            <>
+              <Camera className="w-3 h-3 text-white/90" />
+              <span className="text-white/90 font-semibold">PHOTO</span>
+            </>
+          )}
+        </div>
+
+        {/* Cover Image (Always present as instant poster) */}
+        <img
+          src={project.coverImage || 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=800'}
+          alt={project.title}
+          loading={idx < PAGE_SIZE ? 'eager' : 'lazy'}
+          decoding="async"
+          className={`absolute inset-0 w-full h-full object-cover object-top transition-all duration-700 ease-out group-hover:scale-105 ${
+            isVideo && isPlaying
+              ? 'opacity-0'
+              : 'opacity-100 filter grayscale contrast-[1.05] group-hover:grayscale-0'
+          }`}
+          referrerPolicy="no-referrer"
+        />
+
+        {/* In-View Autoplay Video Stream */}
+        {isVideo && project.videoUrl && (
+          <video
+            ref={videoRef}
+            src={project.videoUrl}
+            poster={project.videoPoster || project.coverImage}
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105 ${
+              isPlaying ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
+        )}
+
+        {/* Corner Markers */}
+        <div className="absolute bottom-2 left-2 w-2 h-2 border-l border-b border-white/40 pointer-events-none group-hover:border-[var(--fx-yellow)] transition-colors" />
+        <div className="absolute bottom-2 right-2 w-2 h-2 border-r border-b border-white/40 pointer-events-none group-hover:border-[var(--fx-yellow)] transition-colors" />
+
+        {/* Hover Overlay Button */}
+        <div className="pointer-events-none absolute inset-0 bg-black/35 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20">
+          <div className="text-xs font-mono-tech tracking-widest text-black bg-[var(--fx-yellow)] font-bold flex items-center gap-2 px-5 py-2.5 shadow-2xl transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+            <span>EXPLORE PROJECT</span>
+            <ArrowUpRight className="w-3.5 h-3.5" />
+          </div>
+        </div>
+      </div>
+
+      {/* Metadata Info */}
+      <div className="flex flex-col gap-1.5 px-1 py-1">
+        <div className="flex justify-between items-center text-[10px] font-mono-tech tracking-widest text-[var(--fx-gray)] uppercase">
+          <span>{project.categoryLabel || project.category}</span>
+          <span>{project.year || ''}</span>
+        </div>
+
+        <h3 className="works-card-title text-lg sm:text-xl font-editorial tracking-wide uppercase text-[var(--fx-white)] group-hover:text-[var(--fx-yellow)] transition-colors duration-300 leading-tight">
+          {project.title}
+        </h3>
+
+        {project.client && (
+          <p className="text-[11px] font-mono-tech tracking-wider text-gray-500 uppercase">
+            CLIENT // {project.client}
+          </p>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export const WorksPage: React.FC<WorksPageProps> = ({ initialFilter, onSwitchToStudio, onSwitchToWeddings }) => {
@@ -98,145 +238,155 @@ export const WorksPage: React.FC<WorksPageProps> = ({ initialFilter, onSwitchToS
       return cat.includes('PORTRAIT') || cat.includes('CELEBRATION') || catLabel.includes('PORTRAIT') || catLabel.includes('BIRTHDAY') || catLabel.includes('CASUAL') || tags.some(t => t.includes('PORTRAIT') || t.includes('CASUAL') || t.includes('BIRTHDAY'));
     }
     if (catId === 'FASHION') {
-      return cat.includes('FASHION') || catLabel.includes('FASHION') || tags.some(t => t.includes('FASHION') || t.includes('CLOTHING'));
+      return cat.includes('FASHION') || catLabel.includes('FASHION') || tags.some(t => t.includes('FASHION'));
     }
-    return cat === catId;
+    if (catId === 'CELEBRATIONS') {
+      return cat.includes('CELEBRATION') || catLabel.includes('CELEBRATION') || catLabel.includes('BIRTHDAY') || tags.some(t => t.includes('CELEBRATION') || t.includes('BIRTHDAY'));
+    }
+
+    return cat === catId || catLabel === catId || tags.includes(catId);
   };
 
   const filteredProjects = useMemo(() => {
     return allProjects.filter((p) => {
-      if (!matchesCategory(p, activeCategory)) return false;
-
-      if (searchQuery.trim()) {
-        const q = searchQuery.toLowerCase().trim();
-        const titleMatch = p.title?.toLowerCase().includes(q);
-        const clientMatch = p.client?.toLowerCase().includes(q);
-        const catMatch = p.categoryLabel?.toLowerCase().includes(q) || p.category?.toLowerCase().includes(q);
-        const tagMatch = (p.tags || []).some(t => t.toLowerCase().includes(q));
-        return titleMatch || clientMatch || catMatch || tagMatch;
-      }
-      return true;
+      const matchCat = matchesCategory(p, activeCategory);
+      if (!matchCat) return false;
+      if (!searchQuery.trim()) return true;
+      const q = searchQuery.toLowerCase();
+      return (
+        p.title.toLowerCase().includes(q) ||
+        (p.client || '').toLowerCase().includes(q) ||
+        (p.category || '').toLowerCase().includes(q) ||
+        (p.categoryLabel || '').toLowerCase().includes(q) ||
+        (p.tags || []).some(t => t.toLowerCase().includes(q))
+      );
     });
   }, [allProjects, activeCategory, searchQuery]);
 
   const visibleProjects = filteredProjects.slice(0, visibleCount);
 
-  const handleFilterChange = (filterId: string) => {
-    if (filterId === activeCategory) return;
-    soundEngine.playClick();
-    setActiveCategory(filterId);
-  };
-
   const handleSelectProject = (project: ProjectCase) => {
-    soundEngine.playClick();
-    window.history.pushState(null, '', `/works/${project.slug}`);
-    window.dispatchEvent(new Event('popstate'));
+    soundEngine.playSwoosh();
+    window.location.hash = `#project-${project.slug || project.id}`;
   };
 
   return (
-    <div className="min-h-screen bg-[var(--fx-black)] text-[var(--fx-white)] flex flex-col selection:bg-[var(--fx-yellow)] selection:text-black">
+    <div className="w-full min-h-screen bg-[var(--fx-black)] text-[var(--fx-white)] flex flex-col selection:bg-[var(--fx-yellow)] selection:text-black">
+      {/* Universal Header */}
       <Header
-        activeView="work"
-        onLogoClick={onSwitchToStudio}
-        onOpenWork={() => smoothScrollTo(0)}
-        onOpenServices={() => { onSwitchToStudio(); setTimeout(() => smoothScrollTo(document.getElementById('section-services')), 100); }}
-        onOpenAbout={() => { onSwitchToStudio(); setTimeout(() => smoothScrollTo(document.getElementById('section-about')), 100); }}
-        onOpenContact={() => { onSwitchToStudio(); setTimeout(() => smoothScrollTo(document.getElementById('section-contact')), 100); }}
-        onOpenWeddings={onSwitchToWeddings}
+        activeTab="work"
+        onNavigateHome={onSwitchToStudio}
+        onNavigateWorks={() => smoothScrollTo(0)}
+        onNavigateWeddings={onSwitchToWeddings}
+        onNavigateSection={(sectionId) => {
+          onSwitchToStudio();
+          setTimeout(() => {
+            const el = document.getElementById(sectionId);
+            if (el) smoothScrollTo(el);
+          }, 150);
+        }}
       />
 
-      <main className="flex-1 w-full pt-24 sm:pt-28 pb-24 sm:pb-32 px-5 sm:px-8 md:px-12 lg:px-16">
-        <div className="max-w-[1650px] mx-auto">
-          {/* Back button */}
-          <button
-            onClick={onSwitchToStudio}
-            className="group inline-flex items-center gap-3 text-xs font-mono-tech tracking-widest uppercase text-[var(--fx-gray)] hover:text-[var(--fx-white)] transition-colors mb-6 sm:mb-8 cursor-pointer"
-          >
-            <ArrowLeft className="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" />
-            BACK TO HOME
-          </button>
-
-          {/* Header Section */}
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-8 lg:mb-10 border-b border-[var(--fx-border-dark)] pb-8">
-            <div className="space-y-4 max-w-2xl">
-              <div className="flex items-center gap-2 text-xs font-mono-tech tracking-[0.3em] text-[var(--fx-yellow)] uppercase">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>INDEXED PORTFOLIO</span>
-              </div>
-              <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-editorial font-normal uppercase tracking-tight text-[var(--fx-white)] leading-[0.92]">
-                {worksTitle.map((line, i) => (
-                  <React.Fragment key={i}>
-                    {line}
-                    {i < worksTitle.length - 1 && <br />}
-                  </React.Fragment>
-                ))}
-              </h1>
-              <p className="text-sm sm:text-base font-tech text-[var(--fx-gray)] leading-relaxed max-w-lg">
-                {worksIntro}
-              </p>
+      <main className="flex-1 max-w-7xl w-full mx-auto px-6 sm:px-8 md:px-12 pt-32 sm:pt-40 pb-24">
+        {/* Page Top Bar */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-10 border-b border-[var(--fx-border-dark)]">
+          <div className="space-y-4">
+            <button
+              onClick={onSwitchToStudio}
+              className="inline-flex items-center gap-2 text-xs font-mono-tech tracking-widest text-[var(--fx-gray)] hover:text-[var(--fx-white)] transition-colors cursor-pointer group"
+            >
+              <ArrowLeft className="w-3.5 h-3.5 transform group-hover:-translate-x-1 transition-transform" />
+              BACK TO HOME
+            </button>
+            <div className="text-xs font-mono-tech tracking-[0.28em] text-[var(--fx-gray)] uppercase">
+              INDEXED PORTFOLIO
             </div>
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-editorial font-normal uppercase tracking-tight text-[var(--fx-white)] leading-[0.9]">
+              {worksTitle[0]}<br />
+              <span className="text-[var(--fx-yellow)]">{worksTitle[1] || ''}</span>
+            </h1>
+          </div>
 
-            {/* Quick Search Bar */}
-            <div className="relative w-full lg:w-80">
-              <Search className="w-4 h-4 text-gray-500 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="SEARCH PROJECTS..."
-                aria-label="Search projects"
-                className="w-full bg-white/5 border border-[var(--fx-border-dark)] rounded-full pl-10 pr-10 py-3 text-sm font-mono-tech tracking-wider text-white placeholder:text-gray-600 focus:outline-none focus:border-[var(--fx-yellow)] transition-colors"
-              />
-              {searchQuery && (
+          <div className="max-w-md">
+            <p className="text-sm sm:text-base font-tech text-[var(--fx-gray)] leading-relaxed">
+              {worksIntro || 'A curated selection of our commercial, editorial, and documentary commissions spanning photography and cinema.'}
+            </p>
+          </div>
+        </div>
+
+        {/* Filter Controls & Search */}
+        <div className="py-8 flex flex-col lg:flex-row gap-6 lg:items-center justify-between border-b border-[var(--fx-border-dark)]">
+          {/* Category Chips */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 lg:pb-0 no-scrollbar">
+            {categories.map(cat => {
+              const count = cat.id === 'ALL'
+                ? allProjects.length
+                : allProjects.filter(p => matchesCategory(p, cat.id)).length;
+              const isActive = activeCategory === cat.id;
+
+              if (count === 0 && cat.id !== 'ALL') return null;
+
+              return (
                 <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white p-0.5 cursor-pointer"
-                  aria-label="Clear search"
+                  key={cat.id}
+                  onClick={() => { soundEngine.playClick(); setActiveCategory(cat.id); }}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-mono-tech tracking-wider uppercase whitespace-nowrap transition-all duration-300 cursor-pointer flex items-center gap-1.5 ${
+                    isActive
+                      ? 'bg-[var(--fx-yellow)] text-black font-semibold shadow-[0_0_12px_rgba(252,191,19,0.35)]'
+                      : 'bg-white/5 text-[var(--fx-gray)] hover:bg-white/10 hover:text-white border border-white/5'
+                  }`}
                 >
-                  <X className="w-3.5 h-3.5" />
+                  <span>{cat.label}</span>
+                  <span className={`text-[10px] ${isActive ? 'text-black/70' : 'text-gray-500'}`}>
+                    {count}
+                  </span>
                 </button>
-              )}
-            </div>
+              );
+            })}
           </div>
 
-          {/* Sticky Category Filter Bar — Always visible at top while scrolling */}
-          <div className="sticky top-[68px] sm:top-[74px] z-30 bg-[#050505]/95 backdrop-blur-md py-3.5 -mx-5 sm:-mx-8 md:-mx-12 lg:-mx-16 px-5 sm:px-8 md:px-12 lg:px-16 border-y border-white/10 mb-8 sm:mb-12 shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
-              <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
-                {categories.map((cat) => {
-                  const count = allProjects.filter(p => matchesCategory(p, cat.id)).length;
-                  if (count === 0 && cat.id !== 'ALL') return null; // hide empty categories
-                  const isActive = activeCategory === cat.id;
-                  return (
-                    <button
-                      key={cat.id}
-                      onClick={() => handleFilterChange(cat.id)}
-                      aria-pressed={isActive}
-                      className={`group relative flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium tracking-wider uppercase transition-all duration-200 border cursor-pointer ${
-                        isActive
-                          ? 'border-[var(--fx-yellow)] bg-[var(--fx-yellow)] text-black font-semibold shadow-[0_0_20px_rgba(252,191,19,0.35)]'
-                          : 'border-[var(--fx-border-dark)] bg-white/5 text-[var(--fx-gray)] hover:border-white/40 hover:text-white'
-                      }`}
-                    >
-                      <span>{cat.label}</span>
-                      <span className={`text-[11px] px-2 py-0.5 rounded-full font-mono ${isActive ? 'bg-black/20 text-black font-bold' : 'bg-white/10 text-gray-400'}`}>
-                        {count}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-
-              <div className="text-xs font-mono-tech tracking-[0.25em] text-[var(--fx-gray)] uppercase flex-shrink-0 hidden lg:block">
-                SHOWING <span className="text-[var(--fx-yellow)] font-bold">{filteredProjects.length}</span> OF {allProjects.length}
-              </div>
-            </div>
+          {/* Search Box */}
+          <div className="relative min-w-[240px] max-w-xs">
+            <Search className="w-3.5 h-3.5 text-gray-500 absolute left-3 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search by client, title, tag..."
+              className="w-full pl-9 pr-8 py-2 bg-white/5 border border-white/10 rounded-sm text-xs font-mono-tech text-white placeholder:text-gray-500 focus:outline-none focus:border-[var(--fx-yellow)] transition-colors"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white cursor-pointer"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            )}
           </div>
+        </div>
 
-          {/* Projects Grid */}
+        {/* Counter */}
+        <div className="py-6 flex justify-between items-center text-[11px] font-mono-tech tracking-widest text-[var(--fx-gray)] uppercase">
+          <span>
+            SHOWING {visibleProjects.length} OF {filteredProjects.length}
+          </span>
+          {activeCategory !== 'ALL' && (
+            <button
+              onClick={() => setActiveCategory('ALL')}
+              className="text-[var(--fx-yellow)] hover:underline cursor-pointer"
+            >
+              CLEAR FILTER
+            </button>
+          )}
+        </div>
+
+        {/* Projects Grid */}
+        <div className="pt-4">
           {filteredProjects.length === 0 ? (
             <div className="py-24 text-center border border-dashed border-white/10 rounded-sm">
-              <p className="text-lg font-editorial text-gray-400 uppercase">NO PROJECTS FOUND</p>
+              <Sparkles className="w-8 h-8 text-gray-600 mx-auto mb-4" />
+              <p className="text-xl font-editorial uppercase text-gray-400">NO PROJECTS FOUND</p>
               <p className="text-xs font-mono-tech text-gray-600 mt-2">TRY CLEARING YOUR SEARCH OR CHOOSING ANOTHER CATEGORY</p>
               <button
                 onClick={() => { setActiveCategory('ALL'); setSearchQuery(''); }}
@@ -248,98 +398,15 @@ export const WorksPage: React.FC<WorksPageProps> = ({ initialFilter, onSwitchToS
           ) : (
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
-                {visibleProjects.map((project, idx) => {
-                  const isVideo = project.type === 'video' || !!project.videoUrl;
-                  return (
-                    <div
-                      key={project.id || idx}
-                      onClick={() => handleSelectProject(project)}
-                      className="works-card group cursor-pointer flex flex-col gap-4 bg-[#0a0a0a] border border-white/10 hover:border-[var(--fx-yellow)]/60 p-3 sm:p-4 rounded-sm transition-all duration-300 hover:shadow-[0_12px_36px_rgba(0,0,0,0.9)]"
-                    >
-                      {/* Media Wrapper */}
-                      <div className="relative w-full aspect-[4/5] overflow-hidden bg-black rounded-sm border border-white/10 group-hover:border-white/30 transition-colors fx-media--fill">
-                        {/* Index Tag */}
-                        <div className="absolute top-3 left-3 z-20 px-2.5 py-1 bg-black/80 backdrop-blur-md border border-white/15 text-[11px] font-mono-tech tracking-widest text-white/90 rounded-sm">
-                          {String(idx + 1).padStart(2, '0')} // {String(filteredProjects.length).padStart(2, '0')}
-                        </div>
-
-                        {/* Type Badge */}
-                        <div className="absolute top-3 right-3 z-20 px-2.5 py-1 bg-black/80 backdrop-blur-md border border-white/15 text-[11px] font-mono-tech tracking-widest rounded-sm flex items-center gap-1.5">
-                          {isVideo ? (
-                            <>
-                              <Film className="w-3 h-3 text-[var(--fx-yellow)]" />
-                              <span className="text-[var(--fx-yellow)] font-semibold">CINEMA 4K</span>
-                            </>
-                          ) : (
-                            <>
-                              <Camera className="w-3 h-3 text-white/90" />
-                              <span className="text-white/90 font-semibold">PHOTO</span>
-                            </>
-                          )}
-                        </div>
-
-                        {/* Cover Image */}
-                        <img
-                          src={project.coverImage || 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=800'}
-                          alt={project.title}
-                          loading={idx < PAGE_SIZE ? 'eager' : 'lazy'}
-                          decoding="async"
-                          className={`absolute inset-0 w-full h-full object-cover object-top transition-all duration-700 ease-out group-hover:scale-105 ${
-                            isVideo
-                              ? 'filter grayscale group-hover:opacity-0'
-                              : 'filter grayscale contrast-[1.05] group-hover:grayscale-0 group-hover:opacity-100'
-                          }`}
-                          referrerPolicy="no-referrer"
-                        />
-
-                        {/* Hover Video Stream */}
-                        {isVideo && project.videoUrl && (
-                          <video
-                            src={project.videoUrl}
-                            poster={project.videoPoster || project.coverImage}
-                            muted
-                            loop
-                            playsInline
-                            preload="none"
-                            onMouseEnter={(e) => e.currentTarget.play().catch(() => {})}
-                            onMouseLeave={(e) => e.currentTarget.pause()}
-                            className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100 group-hover:scale-105"
-                          />
-                        )}
-
-                        {/* Corner Markers */}
-                        <div className="absolute bottom-2 left-2 w-2 h-2 border-l border-b border-white/40 pointer-events-none group-hover:border-[var(--fx-yellow)] transition-colors" />
-                        <div className="absolute bottom-2 right-2 w-2 h-2 border-r border-b border-white/40 pointer-events-none group-hover:border-[var(--fx-yellow)] transition-colors" />
-
-                        {/* Hover Overlay Button */}
-                        <div className="pointer-events-none absolute inset-0 bg-black/35 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                          <div className="text-xs font-mono-tech tracking-widest text-black bg-[var(--fx-yellow)] font-bold flex items-center gap-2 px-5 py-2.5 shadow-2xl transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                            <span>EXPLORE PROJECT</span>
-                            <ArrowUpRight className="w-3.5 h-3.5" />
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Metadata Info */}
-                      <div className="flex flex-col gap-1.5 px-1 py-1">
-                        <div className="flex justify-between items-center text-[10px] font-mono-tech tracking-widest text-[var(--fx-gray)] uppercase">
-                          <span>{project.categoryLabel || project.category}</span>
-                          <span>{project.year || ''}</span>
-                        </div>
-
-                        <h3 className="works-card-title text-lg sm:text-xl font-editorial tracking-wide uppercase text-[var(--fx-white)] group-hover:text-[var(--fx-yellow)] transition-colors duration-300 leading-tight">
-                          {project.title}
-                        </h3>
-
-                        {project.client && (
-                          <p className="text-[11px] font-mono-tech tracking-wider text-gray-500 uppercase">
-                            CLIENT // {project.client}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
+                {visibleProjects.map((project, idx) => (
+                  <WorkCardItem
+                    key={project.id || idx}
+                    project={project}
+                    idx={idx}
+                    total={filteredProjects.length}
+                    onSelect={handleSelectProject}
+                  />
+                ))}
               </div>
 
               {/* Load more */}

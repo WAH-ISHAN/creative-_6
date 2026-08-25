@@ -120,7 +120,11 @@ const GalleryGrid: React.FC<{ project: ProjectCase }> = ({ project }) => {
                 <video
                   src={media.url}
                   poster={media.poster}
-                  loop muted playsInline preload="metadata"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
                   className="w-full h-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-500"
                 />
               ) : media.kind === 'embed' ? (
@@ -185,9 +189,12 @@ const GalleryGrid: React.FC<{ project: ProjectCase }> = ({ project }) => {
                 <video
                   src={media.url}
                   poster={media.poster}
-                  loop muted playsInline preload="metadata"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
                   onMouseEnter={(e) => e.currentTarget.play().catch(() => {})}
-                  onMouseLeave={(e) => e.currentTarget.pause()}
                   style={{ objectPosition: isPortraitProject ? 'center 20%' : 'center center' }}
                   className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105"
                 />
