@@ -189,7 +189,7 @@ export const DEFAULT_CONTENT = {
     borderColor: 'rgba(255, 255, 255, 0.16)',
     logoUrl: '/img/creativefx-bgr-logo.png',
     fontDisplay: 'Forum',
-    fontBody: 'Inter',
+    fontBody: 'JetBrains Mono',
     fontMono: 'JetBrains Mono',
     customGoogleFontUrl: '',
   },
@@ -437,7 +437,9 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
       root.style.setProperty('--fx-font-display', `'Forum', 'Cinzel', serif`);
     }
     if (theme.fontBody) {
-      root.style.setProperty('--fx-font-body', `'${theme.fontBody}', 'Inter', sans-serif`);
+      root.style.setProperty('--fx-font-body', `'${theme.fontBody}', 'JetBrains Mono', monospace`);
+    } else {
+      root.style.setProperty('--fx-font-body', `'JetBrains Mono', monospace`);
     }
     if (theme.fontMono) {
       root.style.setProperty('--fx-font-mono', `'${theme.fontMono}', 'JetBrains Mono', monospace`);
