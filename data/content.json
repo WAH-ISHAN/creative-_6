@@ -347,7 +347,7 @@
       "categoryLabel": "Events",
       "year": "2026",
       "coverImage": "/img/poster/finalWasthi.jpg",
-      "videoUrl": "/video/Marketing/Ashan Glass FInal.mp4",
+      "videoUrl": "/video/Events/finalWasthi.mp4",
       "aspectRatio": "landscape",
       "summary": "Dynamic event coverage that encapsulates the energy, scale, and atmosphere of live experiences.",
       "challenge": "Adapting to unpredictable lighting and fast-paced environments.",
@@ -429,7 +429,8 @@
           "type": "album"
         }
       ],
-      "status": "published"
+      "status": "published",
+      "videoPoster": "/img/poster/finalWasthi.jpg"
     },
     {
       "id": "proj-05",
@@ -1223,7 +1224,7 @@
       "categoryLabel": "Events",
       "year": "2026",
       "coverImage": "/img/poster/ColoredFinalEuphoria (1).jpg",
-      "videoUrl": "/video/Marketing/Ashan Glass FInal.mp4",
+      "videoUrl": "/video/Events/ColoredFinalEuphoria (1).mp4",
       "aspectRatio": "landscape",
       "summary": "High-energy event films for corporate celebrations, private parties, and milestone events across Sri Lanka.",
       "challenge": "Maintaining narrative structure and visual consistency across unpredictable, dynamic events.",
@@ -1306,7 +1307,8 @@
           "type": "album"
         }
       ],
-      "status": "published"
+      "status": "published",
+      "videoPoster": "/img/poster/ColoredFinalEuphoria (1).jpg"
     },
     {
       "id": "video-dance-covers",
