@@ -85,7 +85,7 @@ export const FeaturedWorkSection: React.FC<FeaturedWorkSectionProps> = ({ onSele
         { x: 300,  y: 950,  scale: 0.55, rot: 0,   op: 0,   z: 5 }   // 6: Hidden
       ];
 
-      // Set initial state based on slots
+      // Set initial state based on slots & initial grayscale (Slot 1 is COLOR, all other slots are Black & White)
       images.forEach((img, i) => {
         const startSlot = Math.min(slots.length - 1, i + 1);
         gsap.set(img, {
@@ -96,6 +96,13 @@ export const FeaturedWorkSection: React.FC<FeaturedWorkSectionProps> = ({ onSele
           opacity: slots[startSlot].op,
           zIndex: slots[startSlot].z,
         });
+
+        const imgElement = img.querySelector('img');
+        if (imgElement) {
+          gsap.set(imgElement, {
+            filter: startSlot === 1 ? 'grayscale(0%)' : 'grayscale(100%)'
+          });
+        }
       });
 
       // Build continuous transition sequence
@@ -117,6 +124,15 @@ export const FeaturedWorkSection: React.FC<FeaturedWorkSectionProps> = ({ onSele
             duration: 1,
             ease: 'none' // Linear easing is required for smooth scrolling!
           }, 0);
+
+          const imgElement = img.querySelector('img');
+          if (imgElement) {
+            stepTl.to(imgElement, {
+              filter: safeNext === 1 ? 'grayscale(0%)' : 'grayscale(100%)',
+              duration: 1,
+              ease: 'none'
+            }, 0);
+          }
         });
         tl.add(stepTl);
       }
@@ -133,6 +149,23 @@ export const FeaturedWorkSection: React.FC<FeaturedWorkSectionProps> = ({ onSele
     mm.add('(max-width: 767px)', () => {
       // Mobile fallback animation
       gsap.utils.toArray<HTMLElement>('.fw-mobile-item').forEach((item) => {
+        const img = item.querySelector('img');
+        if (img) {
+          gsap.fromTo(
+            img,
+            { filter: 'grayscale(100%)' },
+            {
+              filter: 'grayscale(0%)',
+              ease: 'none',
+              scrollTrigger: {
+                trigger: item,
+                start: 'top 65%',
+                end: 'bottom 35%',
+                toggleActions: 'play reverse play reverse',
+              }
+            }
+          );
+        }
         gsap.from(item, {
           y: 50, opacity: 0, duration: 1, ease: 'power3.out',
           scrollTrigger: { trigger: item, start: 'top 85%' }
@@ -151,7 +184,7 @@ export const FeaturedWorkSection: React.FC<FeaturedWorkSectionProps> = ({ onSele
       {/* DESKTOP PINNED EXPERIENCE */}
       <div className="hidden md:block h-screen supports-[height:100svh]:h-[100svh] w-full relative overflow-hidden">
 
-        {/* Massive White Circular Curve starting from Studio panel */}
+        {/* Massive White Curve masking the photos */}
         <div className="fw-curve absolute left-[-45vw] top-[-35vh] w-[95vw] h-[170vh] bg-white rounded-r-full z-20 shadow-[40px_0_60px_rgba(0,0,0,0.06)] pointer-events-none" />
 
         {/* Left Side: Typography (Z-30 above curve) */}
@@ -196,7 +229,7 @@ export const FeaturedWorkSection: React.FC<FeaturedWorkSectionProps> = ({ onSele
                   <img
                     src={work.coverImage}
                     alt={work.title}
-                    className="scroll-color-reveal w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out"
                     referrerPolicy="no-referrer"
                   />
                 </div>
@@ -228,7 +261,7 @@ export const FeaturedWorkSection: React.FC<FeaturedWorkSectionProps> = ({ onSele
                 <img
                   src={work.coverImage}
                   alt={work.title}
-                  className="scroll-color-reveal w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700"
+                  className="w-full h-full object-cover transition-all duration-700"
                   referrerPolicy="no-referrer"
                 />
               </div>
