@@ -85,19 +85,19 @@ export const HeroSection: React.FC = () => {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.6)_70%,rgba(0,0,0,0.95)_100%)] pointer-events-none" />
       </div>
 
-      {/* ─── FOREGROUND: HERO HEADLINE & NARRATIVE (SCALED TO ~75%) ─── */}
+      {/* ─── FOREGROUND: HERO HEADLINE & NARRATIVE ─── */}
       <div ref={bgTitleRef} className="relative z-20 pointer-events-none flex flex-col items-center justify-center px-6 text-center">
-        <div ref={subTextRef} className="flex flex-col items-center gap-4 sm:gap-5 md:gap-6 max-w-3xl mx-auto drop-shadow-2xl">
+        <div ref={subTextRef} className="flex flex-col items-center gap-5 md:gap-7 max-w-4xl mx-auto drop-shadow-2xl">
           <h1
             ref={mainTitleRef}
-            className="will-change-transform font-editorial uppercase tracking-tight font-normal select-none leading-[0.9] text-white"
-            style={{ fontSize: 'clamp(3.15rem, 9.4vw, 8.6rem)' }}
+            className="will-change-transform font-editorial uppercase tracking-tight font-normal select-none leading-[0.88] text-white"
+            style={{ fontSize: 'clamp(4.2rem, 12.5vw, 11.5rem)' }}
           >
             BEYOND<br />
             <span className="text-[var(--fx-yellow)]">CREATIVITY</span>
           </h1>
           
-          <p className="font-tech text-sm sm:text-base md:text-lg lg:text-xl text-white/90 leading-relaxed font-normal max-w-2xl drop-shadow-md">
+          <p className="font-tech text-xs sm:text-sm md:text-base text-white/80 leading-relaxed font-normal max-w-xl md:max-w-2xl drop-shadow-md tracking-wide">
             {content.hero?.description || 'CreativeFX is a creative agency specializing in photography, videography, content creation, and digital marketing solutions for modern brands.'}
           </p>
         </div>
