@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useContent } from '../context/ContentContext';
+import { useContent, API_BASE } from '../context/ContentContext';
 import { MessageCircle, CheckCircle2, Quote } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -96,7 +96,7 @@ export const ContactSection: React.FC = () => {
     setIsSubmitting(true);
     try {
       // Persist the inquiry so it appears in Admin → Contact / Inquiries
-      await fetch('/api/inquiries', {
+      await fetch(`${API_BASE}/api/inquiries`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

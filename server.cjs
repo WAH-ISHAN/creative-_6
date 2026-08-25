@@ -134,6 +134,16 @@ function authMiddleware(req, res, next) {
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
 
+// GET /api/health — healthcheck endpoint for Render / monitoring
+app.get('/api/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    uptime: process.uptime(),
+    timestamp: new Date().toISOString(),
+    service: 'CreativeFX API Server',
+  });
+});
+
 // GET /api/content
 app.get('/api/content', (req, res) => {
   try {

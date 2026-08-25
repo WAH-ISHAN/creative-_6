@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Check, ArrowRight, Calendar, MapPin, Sparkles } from 'lucide-react';
 import { soundEngine } from '../../utils/audio';
+import { API_BASE } from '../../context/ContentContext';
 
 interface WeddingInquiryModalProps {
   onClose: () => void;
@@ -43,7 +44,7 @@ export const WeddingInquiryModal: React.FC<WeddingInquiryModalProps> = ({ onClos
     setSubmitting(true);
     try {
       // Persist the wedding inquiry so it appears in Admin → Contact / Inquiries
-      await fetch('/api/inquiries', {
+      await fetch(`${API_BASE}/api/inquiries`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
