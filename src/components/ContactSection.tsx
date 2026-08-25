@@ -127,63 +127,55 @@ export const ContactSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="section-contact"
-      className="no-parallax relative w-full bg-white text-black py-20 sm:py-28 md:py-36 px-6 sm:px-8 md:px-12 lg:px-16 border-t border-neutral-200 overflow-hidden select-none"
+      className="no-parallax relative w-full bg-white text-black py-10 sm:py-14 md:py-16 px-6 sm:px-8 md:px-12 lg:px-16 border-t border-neutral-200 overflow-hidden select-none"
     >
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-20 items-stretch">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-stretch">
 
         {/* ════════════════ LEFT: RADIANT PURE WHITE FROSTED TESTIMONIAL CARD ════════════════ */}
         {currentTestimonial && (
         <div className="contact-left-card lg:col-span-6 w-full flex flex-col h-full">
-          <div className="relative overflow-hidden rounded-[36px] sm:rounded-[44px] bg-[#f9f9fb] border border-neutral-200/70 text-black p-7 sm:p-10 w-full h-full flex flex-col justify-between shadow-[0_20px_60px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.02)] group">
+          <div className="relative overflow-hidden rounded-[28px] sm:rounded-[32px] bg-[#f9f9fb] border border-neutral-200/70 text-black p-6 sm:p-8 w-full h-full flex flex-col justify-between shadow-[0_15px_45px_rgba(0,0,0,0.04),0_1px_3px_rgba(0,0,0,0.02)] group">
 
             {/* Pure white ambient glows */}
             <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-white to-transparent pointer-events-none" />
-            <div className="absolute -top-16 -right-16 w-80 h-80 bg-white rounded-full blur-[50px] pointer-events-none" />
-            <div className="absolute -bottom-16 -left-16 w-72 h-72 bg-white rounded-full blur-[50px] pointer-events-none" />
 
-            {/* Top Label */}
-            <div className="relative z-10 flex items-center justify-between">
-              <span className="text-xs font-mono-tech tracking-[0.25em] text-black uppercase font-bold flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[var(--fx-yellow)] shadow-[0_0_8px_rgba(252,191,19,0.8)]" />
-                CLIENT EXPERIENCES
-              </span>
-              <span className="text-xs font-mono-tech tracking-widest text-neutral-500 font-bold">
-                0{activeTestimonial + 1} / 0{testimonials.length}
+            {/* Header / Sub-label with high contrast badge */}
+            <div className="relative z-10 flex items-center justify-between border-b border-neutral-200/60 pb-3">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-[10px] sm:text-xs font-mono-tech tracking-[0.25em] text-neutral-600 uppercase font-bold">
+                  CLIENT EXPERIENCES
+                </span>
+              </div>
+              <span className="text-[10px] font-mono-tech tracking-widest text-neutral-400 font-semibold uppercase">
+                {String(activeTestimonial + 1).padStart(2, '0')} / {String(testimonials.length).padStart(2, '0')}
               </span>
             </div>
 
-            {/* Center Floating Pure White Testimonial Box (Full Height) */}
-            <div className="relative z-10 my-auto py-6 flex-1 flex flex-col justify-center">
-              <div className="relative overflow-hidden bg-white border border-neutral-100 rounded-3xl p-7 sm:p-9 text-neutral-900 shadow-[0_15px_40px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.03)] transition-all duration-500 flex flex-col justify-between h-full min-h-[320px]">
+            {/* Massive Pure White Accent Watermark Quote */}
+            <div className="relative z-10 my-auto py-3">
+              <Quote className="w-7 h-7 sm:w-8 sm:h-8 text-neutral-300 mb-2 transform -scale-x-100" />
+              
+              <div className="min-h-[110px] sm:min-h-[130px] flex flex-col justify-center">
+                <p className="font-editorial text-xl sm:text-2xl md:text-3xl text-neutral-900 leading-snug tracking-tight">
+                  "{currentTestimonial.quote}"
+                </p>
+              </div>
 
-                {/* Gloss Reflection Highlight */}
-                <div className="absolute top-0 inset-x-0 h-[1.5px] bg-gradient-to-r from-transparent via-neutral-100 to-transparent pointer-events-none" />
-
-                <div>
-                  {/* Quote Icon */}
-                  <div className="w-12 h-12 rounded-2xl bg-black text-[var(--fx-yellow)] flex items-center justify-center mb-6 shadow-sm">
-                    <Quote className="w-5 h-5 fill-[var(--fx-yellow)]" />
-                  </div>
-
-                  {/* Quote Text */}
-                  <p className="text-base sm:text-[17px] font-tech text-neutral-900 leading-relaxed font-normal mb-7">
-                    "{currentTestimonial.quote}"
-                  </p>
-                </div>
-
-                {/* Author Info */}
-                <div className="flex items-center gap-4 pt-5 border-t border-neutral-100 mt-auto">
+              {/* Author & Metric Footer */}
+              <div className="flex items-center justify-between pt-3 border-t border-neutral-200/60 mt-3">
+                <div className="flex items-center gap-3">
                   <img
                     src={currentTestimonial.avatar}
                     alt={currentTestimonial.author}
-                    className="w-12 h-12 rounded-full object-cover border-2 border-neutral-100 shadow-sm flex-shrink-0"
+                    className="w-10 h-10 rounded-full object-cover border border-neutral-300 shadow-sm"
                     loading="lazy"
                   />
                   <div>
-                    <h4 className="text-base font-tech font-bold text-black leading-tight">
+                    <h4 className="text-sm sm:text-base font-tech font-bold text-black leading-tight">
                       {currentTestimonial.author}
                     </h4>
-                    <p className="text-xs font-mono-tech text-neutral-500 uppercase tracking-wider mt-1 font-semibold">
+                    <p className="text-[11px] font-mono-tech text-neutral-500 uppercase tracking-wider mt-0.5 font-semibold">
                       {currentTestimonial.role}
                     </p>
                   </div>
@@ -192,16 +184,16 @@ export const ContactSection: React.FC = () => {
             </div>
 
             {/* Bottom Pagination Dots */}
-            <div className="relative z-10 flex justify-center items-center gap-2.5 pt-2">
+            <div className="relative z-10 flex justify-center items-center gap-2 pt-1">
               {testimonials.map((_, idx) => (
                 <button
                   key={idx}
                   onClick={() => setActiveTestimonial(idx)}
                   aria-label={`Testimonial ${idx + 1}`}
-                  className={`h-2 transition-all duration-300 rounded-full cursor-pointer ${
+                  className={`h-1.5 transition-all duration-300 rounded-full cursor-pointer ${
                     activeTestimonial === idx
-                      ? 'w-8 bg-black shadow-[0_0_8px_rgba(0,0,0,0.2)]'
-                      : 'w-2 bg-neutral-300 hover:bg-neutral-500'
+                      ? 'w-6 bg-black shadow-[0_0_8px_rgba(0,0,0,0.2)]'
+                      : 'w-1.5 bg-neutral-300 hover:bg-neutral-500'
                   }`}
                 />
               ))}
@@ -213,50 +205,50 @@ export const ContactSection: React.FC = () => {
 
         {/* ════════════════ RIGHT: EDITORIAL CONTACT FORM ════════════════ */}
         <div className={`contact-right-form w-full max-w-xl flex flex-col justify-between ${currentTestimonial ? 'lg:col-span-6' : 'lg:col-span-12 mx-auto'}`}>
-          <div className="space-y-3 mb-8">
+          <div className="space-y-1.5 mb-4">
             {pageCopy.label && (
-              <span className="text-xs font-mono-tech tracking-[0.25em] text-neutral-500 uppercase font-bold">{pageCopy.label}</span>
+              <span className="text-[11px] font-mono-tech tracking-[0.25em] text-neutral-500 uppercase font-bold">{pageCopy.label}</span>
             )}
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-editorial tracking-tight text-black uppercase leading-none whitespace-pre-line">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-editorial tracking-tight text-black uppercase leading-none whitespace-pre-line">
               {pageCopy.headline || 'Contact Us'}
             </h2>
-            <p className="text-sm sm:text-base font-tech text-neutral-600 leading-relaxed max-w-md">
+            <p className="text-xs sm:text-sm font-tech text-neutral-600 leading-relaxed max-w-md">
               {pageCopy.description || "Please reach out to us and we will get back to you at the speed of light."}
             </p>
           </div>
 
           {submitted ? (
-            <div className="p-8 bg-neutral-50 border border-neutral-200 rounded-2xl text-center space-y-4 animate-fadeIn shadow-sm">
-              <div className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
-                <CheckCircle2 className="w-8 h-8" />
+            <div className="p-6 bg-neutral-50 border border-neutral-200 rounded-2xl text-center space-y-3 animate-fadeIn shadow-sm">
+              <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
+                <CheckCircle2 className="w-7 h-7" />
               </div>
-              <h3 className="text-2xl font-editorial uppercase text-black tracking-wide">
+              <h3 className="text-xl font-editorial uppercase text-black tracking-wide">
                 Connecting on WhatsApp!
               </h3>
-              <p className="text-xs sm:text-sm font-tech text-neutral-600 max-w-xs mx-auto leading-relaxed">
+              <p className="text-xs font-tech text-neutral-600 max-w-xs mx-auto leading-relaxed">
                 Your inquiry has been formatted. If WhatsApp didn't open automatically, click the button below.
               </p>
-              <div className="pt-2 flex flex-col sm:flex-row gap-3 justify-center">
+              <div className="pt-2 flex flex-col sm:flex-row gap-2.5 justify-center">
                 <button
                   onClick={handleSubmit}
-                  className="px-6 py-3 bg-black text-white font-mono-tech text-xs font-bold uppercase rounded-full hover:bg-[var(--fx-yellow)] hover:text-black transition-colors cursor-pointer"
+                  className="px-5 py-2.5 bg-black text-white font-mono-tech text-xs font-bold uppercase rounded-full hover:bg-[var(--fx-yellow)] hover:text-black transition-colors cursor-pointer"
                 >
                   Re-Open WhatsApp
                 </button>
                 <button
                   onClick={() => setSubmitted(false)}
-                  className="px-6 py-3 border border-neutral-300 text-black font-mono-tech text-xs uppercase rounded-full hover:bg-neutral-100 transition-colors cursor-pointer"
+                  className="px-5 py-2.5 border border-neutral-300 text-black font-mono-tech text-xs uppercase rounded-full hover:bg-neutral-100 transition-colors cursor-pointer"
                 >
                   Send Another
                 </button>
               </div>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-5" noValidate={false}>
+            <form onSubmit={handleSubmit} className="space-y-3" noValidate={false}>
 
               {/* Name */}
-              <div className="space-y-2">
-                <label htmlFor="cfx-name" className="block text-xs font-mono-tech tracking-wider text-neutral-800 uppercase font-semibold">
+              <div className="space-y-1">
+                <label htmlFor="cfx-name" className="block text-[11px] font-mono-tech tracking-wider text-neutral-800 uppercase font-semibold">
                   Full Name <span className="text-amber-500">*</span>
                 </label>
                 <input
@@ -266,43 +258,46 @@ export const ContactSection: React.FC = () => {
                   value={formData.name}
                   onChange={(e) => setFormData(p => ({ ...p, name: e.target.value }))}
                   placeholder="e.g. Ruwan Perera"
-                  className="w-full bg-[#f8f8f8] border border-neutral-300 rounded-xl px-4 py-3.5 text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech"
+                  className="w-full bg-[#f8f8f8] border border-neutral-300 rounded-lg px-3.5 py-2.5 text-xs sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech"
                 />
               </div>
 
-              {/* Email */}
-              <div className="space-y-2">
-                <label htmlFor="cfx-email" className="block text-xs font-mono-tech tracking-wider text-neutral-800 uppercase font-semibold">
-                  Email Address
-                </label>
-                <input
-                  id="cfx-email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData(p => ({ ...p, email: e.target.value }))}
-                  placeholder="you@example.com"
-                  className="w-full bg-[#f8f8f8] border border-neutral-300 rounded-xl px-4 py-3.5 text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech"
-                />
-              </div>
+              {/* Email & Phone in responsive row to save vertical space */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {/* Email */}
+                <div className="space-y-1">
+                  <label htmlFor="cfx-email" className="block text-[11px] font-mono-tech tracking-wider text-neutral-800 uppercase font-semibold">
+                    Email Address
+                  </label>
+                  <input
+                    id="cfx-email"
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => setFormData(p => ({ ...p, email: e.target.value }))}
+                    placeholder="you@example.com"
+                    className="w-full bg-[#f8f8f8] border border-neutral-300 rounded-lg px-3.5 py-2.5 text-xs sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech"
+                  />
+                </div>
 
-              {/* Phone / WhatsApp */}
-              <div className="space-y-2">
-                <label htmlFor="cfx-phone" className="block text-xs font-mono-tech tracking-wider text-neutral-800 uppercase font-semibold">
-                  WhatsApp / Phone Number
-                </label>
-                <input
-                  id="cfx-phone"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => setFormData(p => ({ ...p, phone: e.target.value }))}
-                  placeholder="+94 77 123 4567"
-                  className="w-full bg-[#f8f8f8] border border-neutral-300 rounded-xl px-4 py-3.5 text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech"
-                />
+                {/* Phone / WhatsApp */}
+                <div className="space-y-1">
+                  <label htmlFor="cfx-phone" className="block text-[11px] font-mono-tech tracking-wider text-neutral-800 uppercase font-semibold">
+                    WhatsApp / Phone Number
+                  </label>
+                  <input
+                    id="cfx-phone"
+                    type="tel"
+                    value={formData.phone}
+                    onChange={(e) => setFormData(p => ({ ...p, phone: e.target.value }))}
+                    placeholder="+94 77 123 4567"
+                    className="w-full bg-[#f8f8f8] border border-neutral-300 rounded-lg px-3.5 py-2.5 text-xs sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech"
+                  />
+                </div>
               </div>
 
               {/* Service / Company */}
-              <div className="space-y-2">
-                <label htmlFor="cfx-service" className="block text-xs font-mono-tech tracking-wider text-neutral-800 uppercase font-semibold">
+              <div className="space-y-1">
+                <label htmlFor="cfx-service" className="block text-[11px] font-mono-tech tracking-wider text-neutral-800 uppercase font-semibold">
                   Company / Service Needed
                 </label>
                 <input
@@ -312,7 +307,7 @@ export const ContactSection: React.FC = () => {
                   value={formData.service}
                   onChange={(e) => setFormData(p => ({ ...p, service: e.target.value }))}
                   placeholder="Wedding Film / Commercial Shoot / Branding"
-                  className="w-full bg-[#f8f8f8] border border-neutral-300 rounded-xl px-4 py-3.5 text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech"
+                  className="w-full bg-[#f8f8f8] border border-neutral-300 rounded-lg px-3.5 py-2.5 text-xs sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech"
                 />
                 <datalist id="cfx-service-options">
                   {(content.services || []).map(s => (
@@ -322,17 +317,17 @@ export const ContactSection: React.FC = () => {
               </div>
 
               {/* Message */}
-              <div className="space-y-2">
-                <label htmlFor="cfx-message" className="block text-xs font-mono-tech tracking-wider text-neutral-800 uppercase font-semibold">
+              <div className="space-y-1">
+                <label htmlFor="cfx-message" className="block text-[11px] font-mono-tech tracking-wider text-neutral-800 uppercase font-semibold">
                   Message
                 </label>
                 <textarea
                   id="cfx-message"
-                  rows={4}
+                  rows={2}
                   value={formData.message}
                   onChange={(e) => setFormData(p => ({ ...p, message: e.target.value }))}
                   placeholder="Tell us about your project or event date..."
-                  className="w-full bg-[#f8f8f8] border border-neutral-300 rounded-xl px-4 py-3.5 text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech resize-none"
+                  className="w-full bg-[#f8f8f8] border border-neutral-300 rounded-lg px-3.5 py-2.5 text-xs sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech resize-none h-16 sm:h-20"
                 />
               </div>
 
@@ -341,11 +336,11 @@ export const ContactSection: React.FC = () => {
               )}
 
               {/* Direct Submit Pill Button */}
-              <div className="pt-2">
+              <div className="pt-1">
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-black text-white font-tech font-bold text-sm tracking-wider uppercase py-4 rounded-full hover:bg-[var(--fx-yellow)] hover:text-black transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_10px_25px_rgba(0,0,0,0.15)] hover:shadow-[0_10px_30px_rgba(252,191,19,0.3)] disabled:opacity-50 active:scale-[0.99] cursor-pointer"
+                  className="w-full bg-black text-white font-tech font-bold text-xs sm:text-sm tracking-wider uppercase py-3.5 rounded-full hover:bg-[var(--fx-yellow)] hover:text-black transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_8px_20px_rgba(0,0,0,0.12)] hover:shadow-[0_8px_24px_rgba(252,191,19,0.3)] disabled:opacity-50 active:scale-[0.99] cursor-pointer"
                 >
                   <MessageCircle className="w-4 h-4 fill-current" />
                   <span>{isSubmitting ? 'Opening WhatsApp...' : 'Submit via WhatsApp'}</span>
@@ -353,7 +348,7 @@ export const ContactSection: React.FC = () => {
               </div>
 
               {/* Studio Info Footnote */}
-              <div className="pt-4 flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm font-mono-tech text-neutral-700 border-t border-neutral-200">
+              <div className="pt-2.5 flex flex-wrap items-center justify-between gap-2 text-[11px] sm:text-xs font-mono-tech text-neutral-700 border-t border-neutral-200">
                 <span className="flex items-center gap-1.5"><strong className="text-black font-bold">DIRECT LINE:</strong> {contact.phone || '+94 77 754 8671'}</span>
                 <span className="flex items-center gap-1.5"><strong className="text-black font-bold">STUDIO:</strong> {(contact.location || 'Kaduwela, Sri Lanka').toUpperCase()}</span>
               </div>
