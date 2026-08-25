@@ -3,6 +3,7 @@ import { smoothScrollTo } from '../utils/smoothScroll';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useContent } from '../context/ContentContext';
+import { ArrowUpRight } from 'lucide-react';
 
 // Served statically from /public/video
 const HERO_VIDEO_URL = '/video/intro-hero.mp4';
@@ -188,6 +189,22 @@ export const HeroSection: React.FC = () => {
           <p className="font-tech text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 leading-relaxed font-normal max-w-3xl drop-shadow-md">
             {content.hero?.description || 'CreativeFX is a creative agency specializing in photography, videography, content creation, and digital marketing solutions for modern brands.'}
           </p>
+
+          {/* Hero Action: Watch 4K Cinema Reel on Facebook */}
+          <div className="pointer-events-auto mt-2">
+            <a
+              href={content.hero?.socialUrl || "https://www.facebook.com/share/r/1Br1SqsowT/"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 px-6 py-3 bg-[#1877F2]/90 hover:bg-[#1877F2] text-white rounded-full text-xs font-mono-tech tracking-widest uppercase transition-all duration-300 shadow-[0_0_24px_rgba(24,119,242,0.4)] hover:shadow-[0_0_36px_rgba(24,119,242,0.7)] font-bold cursor-pointer backdrop-blur-md border border-white/20 hover:scale-105"
+            >
+              <svg className="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+              <span>{content.hero?.socialLabel || 'WATCH 4K HERO REEL'}</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </a>
+          </div>
         </div>
       </div>
 

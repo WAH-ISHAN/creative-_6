@@ -2,7 +2,9 @@
   "hero": {
     "title": "CREATIVEFX",
     "subtitle": "CREATE. CAPTURE. CONNECT.",
-    "description": "CreativeFX is a creative agency specializing in photography, videography, content creation, and digital marketing solutions for modern brands."
+    "description": "CreativeFX is a creative agency specializing in photography, videography, content creation, and digital marketing solutions for modern brands.",
+    "socialUrl": "https://www.facebook.com/share/r/1Br1SqsowT/",
+    "socialLabel": "WATCH 4K HERO REEL"
   },
   "intro": {
     "sectionNumber": "01",
@@ -116,11 +118,11 @@
         "Commercial",
         "Macro"
       ],
-      "socialUrl": "https://www.facebook.com/creativefx.lk",
-      "socialLabel": "WATCH COMMERCIALS ON FACEBOOK",
+      "socialUrl": "https://www.facebook.com/share/r/1Br1SqsowT/",
+      "socialLabel": "WATCH COMMERCIAL REEL",
       "socialPosts": [
         {
-          "name": "CreativeFX - Commercial Production Reel",
+          "name": "CreativeFX - Commercial Production Reel (Facebook)",
           "url": "https://www.facebook.com/share/r/1Br1SqsowT/",
           "type": "reel"
         },
@@ -218,7 +220,7 @@
         "Event"
       ],
       "socialUrl": "https://www.facebook.com/share/r/1Ag6mekb7Y/",
-      "socialLabel": "WATCH CONVOCATION REELS ON FACEBOOK",
+      "socialLabel": "EXPLORE GRADUATION ARCHIVE",
       "socialPosts": [
         {
           "name": "Wayamba University - Convocation Reel",
@@ -231,64 +233,104 @@
           "type": "reel"
         },
         {
-          "name": "Layani - Graduation Highlight",
+          "name": "Layani - Graduation Highlight (Facebook)",
           "url": "https://www.facebook.com/share/r/1d4gxLvjg5/",
           "type": "reel"
         },
         {
-          "name": "Peradeniya University - Parents Edition",
+          "name": "Layani - Graduation Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DbDgsELP4Ty/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "Peradeniya University - Parents Edition (Facebook)",
           "url": "https://www.facebook.com/share/r/1C3QQpmcsq/",
           "type": "reel"
         },
         {
-          "name": "Peradeniya University - Main Convocation Film",
+          "name": "Peradeniya University - Parents Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/Daw7mN2v_eZ/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "Peradeniya University - Main Convocation Film (Facebook)",
           "url": "https://www.facebook.com/share/r/18otAnFbdS/",
           "type": "reel"
         },
         {
-          "name": "Peradeniya University - Couples Highlight",
+          "name": "Peradeniya University - Main Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DaPU_YkCgFp/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "Peradeniya University - Couples Highlight (Facebook)",
           "url": "https://www.facebook.com/share/r/1BLza21hhZ/",
           "type": "reel"
         },
         {
-          "name": "Dilki - Graduation Reel",
+          "name": "Peradeniya University - Couples Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DaDHvScSqjh/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "Dilki - Graduation Reel (Facebook)",
           "url": "https://www.facebook.com/share/r/1BksPD3i7o/",
           "type": "reel"
         },
         {
-          "name": "SLIIT - Parents Edition",
+          "name": "Dilki - Graduation Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DVi1w2eDyyW/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "SLIIT - Parents Edition (Facebook)",
           "url": "https://www.facebook.com/share/r/14ifxdhdF1V/",
           "type": "reel"
         },
         {
-          "name": "Kaveen & Sanuri - Convocation Photo Shoot",
+          "name": "SLIIT - Parents Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DVdkcc9DwIS/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "Kaveen & Sanuri - Convocation Shoot (Facebook)",
           "url": "https://www.facebook.com/share/p/1QCxTqzgxv/",
-          "type": "post"
+          "type": "album"
         },
         {
-          "name": "Nadeeka - Convocation Album",
+          "name": "Kaveen & Sanuri - Convocation Album (Instagram)",
+          "url": "https://www.instagram.com/p/Da2yITZD01b/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "album"
+        },
+        {
+          "name": "Nadeeka - Convocation Album (Facebook)",
           "url": "https://www.facebook.com/share/p/1GqnJqqrBq/",
-          "type": "post"
+          "type": "album"
         },
         {
-          "name": "Anupama - Graduation Portrait Session",
+          "name": "Anupama - Graduation Portrait Session (Facebook)",
           "url": "https://www.facebook.com/share/p/1Bizpe11G1/",
-          "type": "post"
+          "type": "album"
         },
         {
-          "name": "Madukanka - Convocation Album",
+          "name": "Madukanka - Convocation Album (Facebook)",
           "url": "https://www.facebook.com/share/p/1C2h4LEfW6/",
-          "type": "post"
+          "type": "album"
         },
         {
-          "name": "Samudi - Convocation Album",
+          "name": "Samudi - Convocation Album (Facebook)",
           "url": "https://www.facebook.com/share/p/1D3Wo59pSv/",
-          "type": "post"
+          "type": "album"
         },
         {
-          "name": "Vaichaly - Graduation Album",
+          "name": "Vaichaly - Graduation Album (Facebook)",
           "url": "https://www.facebook.com/share/p/1LVhJb5seU/",
-          "type": "post"
+          "type": "album"
+        },
+        {
+          "name": "Vaichaly - Graduation Album (Instagram)",
+          "url": "https://www.instagram.com/p/DRHF34Oj_QH/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "album"
         }
       ],
       "status": "published"
@@ -324,37 +366,27 @@
         "Aftermovie"
       ],
       "socialUrl": "https://www.facebook.com/share/r/1HVQWa5Lru/",
-      "socialLabel": "WATCH EVENT REELS & FILMS ON FACEBOOK",
+      "socialLabel": "WATCH EVENT REELS & ALBUMS",
       "socialPosts": [
         {
-          "name": "Sankalana Concert Film",
+          "name": "Sankalana Concert Film (Facebook)",
           "url": "https://www.facebook.com/share/r/1HVQWa5Lru/",
           "type": "reel"
         },
         {
-          "name": "Euphoria Concert - Film 1",
+          "name": "Sankalana Concert Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DcV75uAAj4U/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "Euphoria Concert Film (Facebook)",
           "url": "https://www.facebook.com/share/r/1DuRKmj15y/",
           "type": "reel"
         },
         {
-          "name": "Euphoria Concert - Film 2",
-          "url": "https://www.facebook.com/share/r/1EqipAzzAL/",
+          "name": "Euphoria Concert Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DXlVVaRAJAR/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
           "type": "reel"
-        },
-        {
-          "name": "Sankalana Concert - Photo Album",
-          "url": "https://www.facebook.com/share/p/198XMTJp5C/",
-          "type": "post"
-        },
-        {
-          "name": "Euphoria Concert - Photo Album",
-          "url": "https://www.facebook.com/share/p/1JmpDsJ1mG/",
-          "type": "post"
-        },
-        {
-          "name": "25th Anniversary Milestone Album",
-          "url": "https://www.facebook.com/share/p/1E9tWW6g5i/",
-          "type": "post"
         },
         {
           "name": "Bhadrakali Amman Temple Maha Kumbhabhishekam",
@@ -362,19 +394,39 @@
           "type": "video"
         },
         {
-          "name": "Tezlaa - Opening Ceremony",
+          "name": "Tezlaa - Opening Ceremony Film",
           "url": "https://www.facebook.com/share/v/1TXyVzNfTR/",
           "type": "video"
         },
         {
-          "name": "SLIIT Wasantha Muwadora - Awurudu Film 1",
+          "name": "SLIIT Wasantha Muwadora - Awurudu Film (Facebook)",
           "url": "https://www.facebook.com/share/r/1ZACAkZhxo/",
           "type": "reel"
         },
         {
-          "name": "SLIIT Wasantha Muwadora - Awurudu Film 2",
-          "url": "https://www.facebook.com/share/r/1LQJFdXx8B/",
+          "name": "SLIIT Wasantha Muwadora - Awurudu Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DX540RHATGD/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
           "type": "reel"
+        },
+        {
+          "name": "Sankalana Concert - Photo Album (Facebook)",
+          "url": "https://www.facebook.com/share/p/198XMTJp5C/",
+          "type": "album"
+        },
+        {
+          "name": "Euphoria Concert - Photo Album (Facebook)",
+          "url": "https://www.facebook.com/share/p/1JmpDsJ1mG/",
+          "type": "album"
+        },
+        {
+          "name": "Euphoria Concert - Photo Album (Instagram)",
+          "url": "https://www.instagram.com/p/DXrH1s7D3Lm/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "album"
+        },
+        {
+          "name": "25th Anniversary Milestone Album (Facebook)",
+          "url": "https://www.facebook.com/share/p/1E9tWW6g5i/",
+          "type": "album"
         }
       ],
       "status": "published"
@@ -413,47 +465,77 @@
         "Candid"
       ],
       "socialUrl": "https://www.facebook.com/share/r/19RQnN5yrG/",
-      "socialLabel": "WATCH BIRTHDAY FILMS ON FACEBOOK",
+      "socialLabel": "WATCH CONCEPTUAL REELS & FILMS",
       "socialPosts": [
         {
-          "name": "Ayodya - Birthday Reel",
+          "name": "Ayodya - Conceptual Reel (Facebook)",
           "url": "https://www.facebook.com/share/r/19RQnN5yrG/",
           "type": "reel"
         },
         {
-          "name": "Dinara - Birthday Film",
+          "name": "Ayodya - Conceptual Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DZxJOWsv9eo/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "වරාමලී - Conceptual Reel (Facebook)",
           "url": "https://www.facebook.com/share/r/1bmbVuQEmZ/",
           "type": "reel"
         },
         {
-          "name": "Wageesha - Birthday Reel",
+          "name": "වරාමලී - Conceptual Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DZmyOECvjiF/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "Wageesha - Conceptual Reel (Facebook)",
           "url": "https://www.facebook.com/share/r/1EseuUkCZe/",
           "type": "reel"
         },
         {
-          "name": "Samara - Birthday Film",
+          "name": "Wageesha - Conceptual Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DY3uT--vnSv/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "Samara - Conceptual Reel (Facebook)",
           "url": "https://www.facebook.com/share/r/14otwB5BTGd/",
           "type": "reel"
         },
         {
-          "name": "Githmi - Birthday Reel",
+          "name": "Samara - Conceptual Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DYhaix1vcEB/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "සඳවති - Conceptual Reel (Facebook)",
           "url": "https://www.facebook.com/share/r/19KLF3wjxF/",
           "type": "reel"
         },
         {
-          "name": "Chamudi - Birthday Photo Album",
+          "name": "සඳවති - Conceptual Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DYPRgAYPNjs/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "Mi Chico - Dance Cover Reel (Facebook)",
+          "url": "https://www.facebook.com/share/r/19aBu38Jr1/",
+          "type": "reel"
+        },
+        {
+          "name": "Kavkaz - Conceptual Reel (Facebook)",
+          "url": "https://www.facebook.com/share/r/1DSUj7yzAE/",
+          "type": "reel"
+        },
+        {
+          "name": "Kavkaz - Conceptual Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DYMr964v98T/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "Chamudi - Birthday Photo Album (Facebook)",
           "url": "https://www.facebook.com/share/p/1Cxv6RXmgj/",
-          "type": "post"
-        },
-        {
-          "name": "Sachini - Birthday Photo Album",
-          "url": "https://www.facebook.com/share/p/17uW8grJ3S/",
-          "type": "post"
-        },
-        {
-          "name": "Dinara - Birthday Photo Album",
-          "url": "https://www.facebook.com/share/p/19TUTdicZs/",
-          "type": "post"
+          "type": "album"
         }
       ],
       "status": "published"
@@ -630,12 +712,12 @@
         "Celebration"
       ],
       "socialUrl": "https://www.facebook.com/share/p/1E9tWW6g5i/",
-      "socialLabel": "VIEW 25TH ANNIVERSARY ON FACEBOOK",
+      "socialLabel": "VIEW ANNIVERSARY ALBUM",
       "socialPosts": [
         {
-          "name": "25th Anniversary Milestone Album",
+          "name": "25th Anniversary Milestone Album (Facebook)",
           "url": "https://www.facebook.com/share/p/1E9tWW6g5i/",
-          "type": "post"
+          "type": "album"
         }
       ],
       "status": "published"
@@ -724,17 +806,52 @@
         "Portrait"
       ],
       "socialUrl": "https://www.facebook.com/share/p/1GqKQqchBx/",
-      "socialLabel": "VIEW JANAKALANI CASUAL SHOOT ON FACEBOOK",
+      "socialLabel": "VIEW CASUAL & PORTRAIT SHOOTS",
       "socialPosts": [
         {
-          "name": "Janakalani - Casual Shoot Album",
+          "name": "Janakalani - Casual Shoot (Facebook)",
           "url": "https://www.facebook.com/share/p/1GqKQqchBx/",
-          "type": "post"
+          "type": "album"
         },
         {
-          "name": "Githmi - Casual Portrait Album",
+          "name": "Janakalani - Casual Shoot (Instagram)",
+          "url": "https://www.instagram.com/p/DZPzSPMjzrP/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "album"
+        },
+        {
+          "name": "Githmi - Casual Shoot (Facebook)",
           "url": "https://www.facebook.com/share/p/197ZHfJjdw/",
-          "type": "post"
+          "type": "album"
+        },
+        {
+          "name": "Githmi - Casual Shoot (Instagram)",
+          "url": "https://www.instagram.com/p/DYXI32nj5ri/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "album"
+        },
+        {
+          "name": "Dewmini - Casual Shoot (Facebook)",
+          "url": "https://www.facebook.com/share/p/1Dg1TYJARY/",
+          "type": "album"
+        },
+        {
+          "name": "Dewmini - Casual Shoot (Instagram)",
+          "url": "https://www.instagram.com/p/DH_ExQgvWpm/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "album"
+        },
+        {
+          "name": "Dinara - Casual Shoot (Instagram)",
+          "url": "https://www.instagram.com/p/DcYoz_-D2yz/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "album"
+        },
+        {
+          "name": "Thathsarani - Birthday & Casual (Facebook)",
+          "url": "https://www.facebook.com/share/p/1EJ3YrVdoc/",
+          "type": "album"
+        },
+        {
+          "name": "Thathsarani - Birthday & Casual (Instagram)",
+          "url": "https://www.instagram.com/p/DGdTRmbviRM/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "album"
         }
       ],
       "status": "published"
@@ -770,17 +887,52 @@
         "Outdoor"
       ],
       "socialUrl": "https://www.facebook.com/share/p/1GqKQqchBx/",
-      "socialLabel": "VIEW BIRTHDAY ALBUM ON FACEBOOK",
+      "socialLabel": "VIEW CASUAL & PORTRAIT SHOOTS",
       "socialPosts": [
         {
-          "name": "Thathsarani - Birthday Portrait Album",
+          "name": "Janakalani - Casual Shoot (Facebook)",
           "url": "https://www.facebook.com/share/p/1GqKQqchBx/",
-          "type": "post"
+          "type": "album"
         },
         {
-          "name": "CreativeFX - Official Facebook Page",
-          "url": "https://www.facebook.com/creativefx.lk",
-          "type": "post"
+          "name": "Janakalani - Casual Shoot (Instagram)",
+          "url": "https://www.instagram.com/p/DZPzSPMjzrP/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "album"
+        },
+        {
+          "name": "Githmi - Casual Shoot (Facebook)",
+          "url": "https://www.facebook.com/share/p/197ZHfJjdw/",
+          "type": "album"
+        },
+        {
+          "name": "Githmi - Casual Shoot (Instagram)",
+          "url": "https://www.instagram.com/p/DYXI32nj5ri/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "album"
+        },
+        {
+          "name": "Dewmini - Casual Shoot (Facebook)",
+          "url": "https://www.facebook.com/share/p/1Dg1TYJARY/",
+          "type": "album"
+        },
+        {
+          "name": "Dewmini - Casual Shoot (Instagram)",
+          "url": "https://www.instagram.com/p/DH_ExQgvWpm/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "album"
+        },
+        {
+          "name": "Dinara - Casual Shoot (Instagram)",
+          "url": "https://www.instagram.com/p/DcYoz_-D2yz/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "album"
+        },
+        {
+          "name": "Thathsarani - Birthday & Casual (Facebook)",
+          "url": "https://www.facebook.com/share/p/1EJ3YrVdoc/",
+          "type": "album"
+        },
+        {
+          "name": "Thathsarani - Birthday & Casual (Instagram)",
+          "url": "https://www.instagram.com/p/DGdTRmbviRM/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "album"
         }
       ],
       "status": "published"
@@ -821,7 +973,7 @@
         "Cinematography"
       ],
       "socialUrl": "https://www.facebook.com/share/r/1Ag6mekb7Y/",
-      "socialLabel": "WATCH CONVOCATION FILMS ON FACEBOOK",
+      "socialLabel": "EXPLORE GRADUATION ARCHIVE",
       "socialPosts": [
         {
           "name": "Wayamba University - Convocation Reel",
@@ -834,34 +986,104 @@
           "type": "reel"
         },
         {
-          "name": "Layani - Graduation Highlight",
+          "name": "Layani - Graduation Highlight (Facebook)",
           "url": "https://www.facebook.com/share/r/1d4gxLvjg5/",
           "type": "reel"
         },
         {
-          "name": "Peradeniya University - Parents Edition",
+          "name": "Layani - Graduation Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DbDgsELP4Ty/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "Peradeniya University - Parents Edition (Facebook)",
           "url": "https://www.facebook.com/share/r/1C3QQpmcsq/",
           "type": "reel"
         },
         {
-          "name": "Peradeniya University - Main Convocation Film",
+          "name": "Peradeniya University - Parents Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/Daw7mN2v_eZ/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "Peradeniya University - Main Convocation Film (Facebook)",
           "url": "https://www.facebook.com/share/r/18otAnFbdS/",
           "type": "reel"
         },
         {
-          "name": "Peradeniya University - Couples Highlight",
+          "name": "Peradeniya University - Main Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DaPU_YkCgFp/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "Peradeniya University - Couples Highlight (Facebook)",
           "url": "https://www.facebook.com/share/r/1BLza21hhZ/",
           "type": "reel"
         },
         {
-          "name": "Dilki - Graduation Reel",
+          "name": "Peradeniya University - Couples Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DaDHvScSqjh/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "Dilki - Graduation Reel (Facebook)",
           "url": "https://www.facebook.com/share/r/1BksPD3i7o/",
           "type": "reel"
         },
         {
-          "name": "SLIIT - Parents Edition",
+          "name": "Dilki - Graduation Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DVi1w2eDyyW/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "SLIIT - Parents Edition (Facebook)",
           "url": "https://www.facebook.com/share/r/14ifxdhdF1V/",
           "type": "reel"
+        },
+        {
+          "name": "SLIIT - Parents Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DVdkcc9DwIS/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "Kaveen & Sanuri - Convocation Shoot (Facebook)",
+          "url": "https://www.facebook.com/share/p/1QCxTqzgxv/",
+          "type": "album"
+        },
+        {
+          "name": "Kaveen & Sanuri - Convocation Album (Instagram)",
+          "url": "https://www.instagram.com/p/Da2yITZD01b/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "album"
+        },
+        {
+          "name": "Nadeeka - Convocation Album (Facebook)",
+          "url": "https://www.facebook.com/share/p/1GqnJqqrBq/",
+          "type": "album"
+        },
+        {
+          "name": "Anupama - Graduation Portrait Session (Facebook)",
+          "url": "https://www.facebook.com/share/p/1Bizpe11G1/",
+          "type": "album"
+        },
+        {
+          "name": "Madukanka - Convocation Album (Facebook)",
+          "url": "https://www.facebook.com/share/p/1C2h4LEfW6/",
+          "type": "album"
+        },
+        {
+          "name": "Samudi - Convocation Album (Facebook)",
+          "url": "https://www.facebook.com/share/p/1D3Wo59pSv/",
+          "type": "album"
+        },
+        {
+          "name": "Vaichaly - Graduation Album (Facebook)",
+          "url": "https://www.facebook.com/share/p/1LVhJb5seU/",
+          "type": "album"
+        },
+        {
+          "name": "Vaichaly - Graduation Album (Instagram)",
+          "url": "https://www.instagram.com/p/DRHF34Oj_QH/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "album"
         }
       ],
       "status": "published"
@@ -901,17 +1123,52 @@
         "Natural"
       ],
       "socialUrl": "https://www.facebook.com/share/p/1GqKQqchBx/",
-      "socialLabel": "VIEW CASUAL SHOOTS ON FACEBOOK",
+      "socialLabel": "VIEW CASUAL & PORTRAIT SHOOTS",
       "socialPosts": [
         {
-          "name": "Janakalani - Casual Shoot Album",
+          "name": "Janakalani - Casual Shoot (Facebook)",
           "url": "https://www.facebook.com/share/p/1GqKQqchBx/",
-          "type": "post"
+          "type": "album"
         },
         {
-          "name": "Githmi - Casual Portrait Album",
+          "name": "Janakalani - Casual Shoot (Instagram)",
+          "url": "https://www.instagram.com/p/DZPzSPMjzrP/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "album"
+        },
+        {
+          "name": "Githmi - Casual Shoot (Facebook)",
           "url": "https://www.facebook.com/share/p/197ZHfJjdw/",
-          "type": "post"
+          "type": "album"
+        },
+        {
+          "name": "Githmi - Casual Shoot (Instagram)",
+          "url": "https://www.instagram.com/p/DYXI32nj5ri/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "album"
+        },
+        {
+          "name": "Dewmini - Casual Shoot (Facebook)",
+          "url": "https://www.facebook.com/share/p/1Dg1TYJARY/",
+          "type": "album"
+        },
+        {
+          "name": "Dewmini - Casual Shoot (Instagram)",
+          "url": "https://www.instagram.com/p/DH_ExQgvWpm/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "album"
+        },
+        {
+          "name": "Dinara - Casual Shoot (Instagram)",
+          "url": "https://www.instagram.com/p/DcYoz_-D2yz/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "album"
+        },
+        {
+          "name": "Thathsarani - Birthday & Casual (Facebook)",
+          "url": "https://www.facebook.com/share/p/1EJ3YrVdoc/",
+          "type": "album"
+        },
+        {
+          "name": "Thathsarani - Birthday & Casual (Instagram)",
+          "url": "https://www.instagram.com/p/DGdTRmbviRM/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "album"
         }
       ],
       "status": "published"
@@ -986,37 +1243,27 @@
         "Corporate"
       ],
       "socialUrl": "https://www.facebook.com/share/r/1HVQWa5Lru/",
-      "socialLabel": "WATCH EVENT FILMS ON FACEBOOK",
+      "socialLabel": "WATCH EVENT REELS & ALBUMS",
       "socialPosts": [
         {
-          "name": "Sankalana Concert Film",
+          "name": "Sankalana Concert Film (Facebook)",
           "url": "https://www.facebook.com/share/r/1HVQWa5Lru/",
           "type": "reel"
         },
         {
-          "name": "Euphoria Concert - Film 1",
+          "name": "Sankalana Concert Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DcV75uAAj4U/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "Euphoria Concert Film (Facebook)",
           "url": "https://www.facebook.com/share/r/1DuRKmj15y/",
           "type": "reel"
         },
         {
-          "name": "Euphoria Concert - Film 2",
-          "url": "https://www.facebook.com/share/r/1EqipAzzAL/",
+          "name": "Euphoria Concert Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DXlVVaRAJAR/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
           "type": "reel"
-        },
-        {
-          "name": "Sankalana Concert - Photo Album",
-          "url": "https://www.facebook.com/share/p/198XMTJp5C/",
-          "type": "post"
-        },
-        {
-          "name": "Euphoria Concert - Photo Album",
-          "url": "https://www.facebook.com/share/p/1JmpDsJ1mG/",
-          "type": "post"
-        },
-        {
-          "name": "25th Anniversary Milestone Album",
-          "url": "https://www.facebook.com/share/p/1E9tWW6g5i/",
-          "type": "post"
         },
         {
           "name": "Bhadrakali Amman Temple Maha Kumbhabhishekam",
@@ -1024,19 +1271,39 @@
           "type": "video"
         },
         {
-          "name": "Tezlaa - Opening Ceremony",
+          "name": "Tezlaa - Opening Ceremony Film",
           "url": "https://www.facebook.com/share/v/1TXyVzNfTR/",
           "type": "video"
         },
         {
-          "name": "SLIIT Wasantha Muwadora - Awurudu Film 1",
+          "name": "SLIIT Wasantha Muwadora - Awurudu Film (Facebook)",
           "url": "https://www.facebook.com/share/r/1ZACAkZhxo/",
           "type": "reel"
         },
         {
-          "name": "SLIIT Wasantha Muwadora - Awurudu Film 2",
-          "url": "https://www.facebook.com/share/r/1LQJFdXx8B/",
+          "name": "SLIIT Wasantha Muwadora - Awurudu Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DX540RHATGD/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
           "type": "reel"
+        },
+        {
+          "name": "Sankalana Concert - Photo Album (Facebook)",
+          "url": "https://www.facebook.com/share/p/198XMTJp5C/",
+          "type": "album"
+        },
+        {
+          "name": "Euphoria Concert - Photo Album (Facebook)",
+          "url": "https://www.facebook.com/share/p/1JmpDsJ1mG/",
+          "type": "album"
+        },
+        {
+          "name": "Euphoria Concert - Photo Album (Instagram)",
+          "url": "https://www.instagram.com/p/DXrH1s7D3Lm/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "album"
+        },
+        {
+          "name": "25th Anniversary Milestone Album (Facebook)",
+          "url": "https://www.facebook.com/share/p/1E9tWW6g5i/",
+          "type": "album"
         }
       ],
       "status": "published"
@@ -1072,6 +1339,80 @@
         "Dance",
         "Music Video",
         "Choreography"
+      ],
+      "socialUrl": "https://www.facebook.com/share/r/19RQnN5yrG/",
+      "socialLabel": "WATCH CONCEPTUAL REELS & FILMS",
+      "socialPosts": [
+        {
+          "name": "Ayodya - Conceptual Reel (Facebook)",
+          "url": "https://www.facebook.com/share/r/19RQnN5yrG/",
+          "type": "reel"
+        },
+        {
+          "name": "Ayodya - Conceptual Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DZxJOWsv9eo/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "වරාමලී - Conceptual Reel (Facebook)",
+          "url": "https://www.facebook.com/share/r/1bmbVuQEmZ/",
+          "type": "reel"
+        },
+        {
+          "name": "වරාමලී - Conceptual Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DZmyOECvjiF/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "Wageesha - Conceptual Reel (Facebook)",
+          "url": "https://www.facebook.com/share/r/1EseuUkCZe/",
+          "type": "reel"
+        },
+        {
+          "name": "Wageesha - Conceptual Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DY3uT--vnSv/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "Samara - Conceptual Reel (Facebook)",
+          "url": "https://www.facebook.com/share/r/14otwB5BTGd/",
+          "type": "reel"
+        },
+        {
+          "name": "Samara - Conceptual Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DYhaix1vcEB/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "සඳවති - Conceptual Reel (Facebook)",
+          "url": "https://www.facebook.com/share/r/19KLF3wjxF/",
+          "type": "reel"
+        },
+        {
+          "name": "සඳවති - Conceptual Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DYPRgAYPNjs/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "Mi Chico - Dance Cover Reel (Facebook)",
+          "url": "https://www.facebook.com/share/r/19aBu38Jr1/",
+          "type": "reel"
+        },
+        {
+          "name": "Kavkaz - Conceptual Reel (Facebook)",
+          "url": "https://www.facebook.com/share/r/1DSUj7yzAE/",
+          "type": "reel"
+        },
+        {
+          "name": "Kavkaz - Conceptual Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DYMr964v98T/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "Chamudi - Birthday Photo Album (Facebook)",
+          "url": "https://www.facebook.com/share/p/1Cxv6RXmgj/",
+          "type": "album"
+        }
       ]
     },
     {
@@ -1170,38 +1511,118 @@
         "Photography",
         "Milestone"
       ],
-      "socialUrl": "https://www.facebook.com/share/p/1QCxTqzgxv/",
-      "socialLabel": "VIEW CONVOCATION ALBUMS ON FACEBOOK",
+      "socialUrl": "https://www.facebook.com/share/r/1Ag6mekb7Y/",
+      "socialLabel": "EXPLORE GRADUATION ARCHIVE",
       "socialPosts": [
         {
-          "name": "Kaveen & Sanuri - Convocation Shoot",
+          "name": "Wayamba University - Convocation Reel",
+          "url": "https://www.facebook.com/share/r/1Ag6mekb7Y/",
+          "type": "reel"
+        },
+        {
+          "name": "Sabaragamuwa University - Couples Reel",
+          "url": "https://www.facebook.com/share/r/1DNVuBhp6T/",
+          "type": "reel"
+        },
+        {
+          "name": "Layani - Graduation Highlight (Facebook)",
+          "url": "https://www.facebook.com/share/r/1d4gxLvjg5/",
+          "type": "reel"
+        },
+        {
+          "name": "Layani - Graduation Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DbDgsELP4Ty/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "Peradeniya University - Parents Edition (Facebook)",
+          "url": "https://www.facebook.com/share/r/1C3QQpmcsq/",
+          "type": "reel"
+        },
+        {
+          "name": "Peradeniya University - Parents Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/Daw7mN2v_eZ/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "Peradeniya University - Main Convocation Film (Facebook)",
+          "url": "https://www.facebook.com/share/r/18otAnFbdS/",
+          "type": "reel"
+        },
+        {
+          "name": "Peradeniya University - Main Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DaPU_YkCgFp/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "Peradeniya University - Couples Highlight (Facebook)",
+          "url": "https://www.facebook.com/share/r/1BLza21hhZ/",
+          "type": "reel"
+        },
+        {
+          "name": "Peradeniya University - Couples Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DaDHvScSqjh/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "Dilki - Graduation Reel (Facebook)",
+          "url": "https://www.facebook.com/share/r/1BksPD3i7o/",
+          "type": "reel"
+        },
+        {
+          "name": "Dilki - Graduation Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DVi1w2eDyyW/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "SLIIT - Parents Edition (Facebook)",
+          "url": "https://www.facebook.com/share/r/14ifxdhdF1V/",
+          "type": "reel"
+        },
+        {
+          "name": "SLIIT - Parents Reel (Instagram)",
+          "url": "https://www.instagram.com/reel/DVdkcc9DwIS/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "reel"
+        },
+        {
+          "name": "Kaveen & Sanuri - Convocation Shoot (Facebook)",
           "url": "https://www.facebook.com/share/p/1QCxTqzgxv/",
-          "type": "post"
+          "type": "album"
         },
         {
-          "name": "Nadeeka - Convocation Album",
+          "name": "Kaveen & Sanuri - Convocation Album (Instagram)",
+          "url": "https://www.instagram.com/p/Da2yITZD01b/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "album"
+        },
+        {
+          "name": "Nadeeka - Convocation Album (Facebook)",
           "url": "https://www.facebook.com/share/p/1GqnJqqrBq/",
-          "type": "post"
+          "type": "album"
         },
         {
-          "name": "Anupama - Graduation Portrait Session",
+          "name": "Anupama - Graduation Portrait Session (Facebook)",
           "url": "https://www.facebook.com/share/p/1Bizpe11G1/",
-          "type": "post"
+          "type": "album"
         },
         {
-          "name": "Madukanka - Convocation Album",
+          "name": "Madukanka - Convocation Album (Facebook)",
           "url": "https://www.facebook.com/share/p/1C2h4LEfW6/",
-          "type": "post"
+          "type": "album"
         },
         {
-          "name": "Samudi - Convocation Album",
+          "name": "Samudi - Convocation Album (Facebook)",
           "url": "https://www.facebook.com/share/p/1D3Wo59pSv/",
-          "type": "post"
+          "type": "album"
         },
         {
-          "name": "Vaichaly - Graduation Album",
+          "name": "Vaichaly - Graduation Album (Facebook)",
           "url": "https://www.facebook.com/share/p/1LVhJb5seU/",
-          "type": "post"
+          "type": "album"
+        },
+        {
+          "name": "Vaichaly - Graduation Album (Instagram)",
+          "url": "https://www.instagram.com/p/DRHF34Oj_QH/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+          "type": "album"
         }
       ],
       "status": "published"
