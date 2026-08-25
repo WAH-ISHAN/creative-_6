@@ -80,11 +80,15 @@ export const AboutSection: React.FC = () => {
               <React.Fragment key={i}>
                 {line.includes('CREATIVEFX.') ? (
                   <>
-                    CREATIVE<span className="text-[var(--fx-yellow)]">FX</span>.
+                    CREATIVE<span className="text-[var(--fx-yellow)]">FX.</span>
                   </>
                 ) : line.includes('CREATIVEFX') ? (
                   <>
                     CREATIVE<span className="text-[var(--fx-yellow)]">FX</span>
+                  </>
+                ) : line.includes('FX.') ? (
+                  <>
+                    {line.split('FX.')[0]}<span className="text-[var(--fx-yellow)]">FX.</span>
                   </>
                 ) : line.includes('FX') ? (
                   <>
