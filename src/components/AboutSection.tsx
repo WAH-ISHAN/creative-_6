@@ -78,7 +78,21 @@ export const AboutSection: React.FC = () => {
           <h2 ref={titleRef} className="text-4xl sm:text-5xl md:text-6xl font-editorial font-normal uppercase tracking-tight text-[var(--fx-white)] leading-[0.95]">
             {headlineLines.map((line, i) => (
               <React.Fragment key={i}>
-                {line}
+                {line.includes('CREATIVEFX.') ? (
+                  <>
+                    CREATIVE<span className="text-[var(--fx-yellow)]">FX</span>.
+                  </>
+                ) : line.includes('CREATIVEFX') ? (
+                  <>
+                    CREATIVE<span className="text-[var(--fx-yellow)]">FX</span>
+                  </>
+                ) : line.includes('FX') ? (
+                  <>
+                    {line.split('FX')[0]}<span className="text-[var(--fx-yellow)]">FX</span>{line.split('FX')[1] || ''}
+                  </>
+                ) : (
+                  line
+                )}
                 {i < headlineLines.length - 1 && <br />}
               </React.Fragment>
             ))}
