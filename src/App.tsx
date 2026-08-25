@@ -18,6 +18,7 @@ import { ServiceDetailModal } from './components/ServiceDetailModal';
 import { WeddingExperiencePage } from './components/weddings/WeddingExperiencePage';
 import { WorksPage } from './components/WorksPage';
 import { ProjectDetailPage } from './components/ProjectDetailPage';
+import { ServicesPage } from './components/ServicesPage';
 import { AgencyService } from './types';
 import { soundEngine } from './utils/audio';
 import { useScrollReveal } from './utils/useScrollReveal';
@@ -27,7 +28,7 @@ import { AdminPanel } from './admin/AdminPanel';
 import { AdminLogin } from './admin/AdminLogin';
 import { TextSizeControl } from './components/TextSizeControl';
 
-type View = 'studio' | 'weddings' | 'works' | 'project';
+type View = 'studio' | 'weddings' | 'works' | 'project' | 'services';
 
 function parsePath(pathname: string): { view: View; slug: string | null; worksFilter: string | null } {
   const path = pathname.toLowerCase().replace(/\/+$/, '') || '/';
@@ -48,6 +49,10 @@ function parsePath(pathname: string): { view: View; slug: string | null; worksFi
   }
 
   if (path.includes('wedding')) return { view: 'weddings', slug: null, worksFilter: null };
+
+  if (path === '/services' || path.startsWith('/services')) {
+    return { view: 'services', slug: null, worksFilter: null };
+  }
 
   if (path === '/works' || path === '/projects' || path.startsWith('/works') || path.startsWith('/projects')) {
     const f = new URLSearchParams(window.location.search).get('f');
@@ -204,6 +209,15 @@ function App() {
     resetGlobalScroll();
   };
 
+  const handleSwitchToServices = () => {
+    soundEngine.playOpen();
+    setCurrentView('services');
+    setSelectedProjectSlug(null);
+    setWorksFilter(null);
+    window.history.pushState(null, '', '/services');
+    resetGlobalScroll();
+  };
+
   const handleSwitchToStudio = () => {
     soundEngine.playOpen();
     setCurrentView('studio');
@@ -263,6 +277,19 @@ function App() {
         </div>
       ) : currentView === 'weddings' ? (
         <WeddingExperiencePage onSwitchToStudio={handleSwitchToStudio} />
+      ) : currentView === 'services' ? (
+        <ServicesPage
+          onSwitchToStudio={handleSwitchToStudio}
+          onSwitchToWorks={handleSwitchToWorks}
+          onSwitchToWeddings={handleSwitchToWeddings}
+          onOpenInquiry={(_serviceName) => {
+            handleSwitchToStudio();
+            setTimeout(() => {
+              const el = document.getElementById('section-contact');
+              if (el) smoothScrollTo(el);
+            }, 150);
+          }}
+        />
       ) : currentView === 'works' ? (
         <WorksPage
           key={worksFilter || 'all'}
@@ -289,7 +316,7 @@ function App() {
                 activeView={activeSection}
                 onLogoClick={handleSwitchToStudio}
                 onOpenWork={() => handleSwitchToWorks()}
-                onOpenServices={() => scrollToSection('section-services')}
+                onOpenServices={handleSwitchToServices}
                 onOpenAbout={() => scrollToSection('section-about')}
                 onOpenContact={() => scrollToSection('section-contact')}
                 onOpenWeddings={handleSwitchToWeddings}
@@ -301,7 +328,7 @@ function App() {
                 <HeroSection
                   onExploreWork={() => scrollToSection('section-featured-work')}
                   onStartProject={handleStartProject}
-                  onOpenServices={() => scrollToSection('section-services')}
+                  onOpenServices={handleSwitchToServices}
                 />
 
                 {/* 02 — STUDIO / INTRO */}
@@ -336,6 +363,7 @@ function App() {
               <Footer
                 onNavigateHome={handleSwitchToStudio}
                 onNavigateWorks={() => handleSwitchToWorks()}
+                onNavigateServices={handleSwitchToServices}
                 onNavigateWeddings={handleSwitchToWeddings}
                 onNavigateSection={(sectionId) => scrollToSection(sectionId)}
               />

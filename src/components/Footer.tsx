@@ -5,6 +5,7 @@ import { resetGlobalScroll, smoothScrollTo } from '../utils/scrollManager';
 interface FooterProps {
   onNavigateHome?: () => void;
   onNavigateWorks?: () => void;
+  onNavigateServices?: () => void;
   onNavigateWeddings?: () => void;
   onNavigateSection?: (sectionId: string) => void;
 }
@@ -12,6 +13,7 @@ interface FooterProps {
 export const Footer: React.FC<FooterProps> = ({
   onNavigateHome,
   onNavigateWorks,
+  onNavigateServices,
   onNavigateWeddings: _onNavigateWeddings,
   onNavigateSection,
 }) => {
@@ -26,6 +28,17 @@ export const Footer: React.FC<FooterProps> = ({
       onNavigateHome();
     } else {
       window.history.pushState(null, '', '/');
+      window.dispatchEvent(new Event('popstate'));
+      resetGlobalScroll();
+    }
+  };
+
+  const handleServicesLink = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (onNavigateServices) {
+      onNavigateServices();
+    } else {
+      window.history.pushState(null, '', '/services');
       window.dispatchEvent(new Event('popstate'));
       resetGlobalScroll();
     }
@@ -137,7 +150,7 @@ export const Footer: React.FC<FooterProps> = ({
             </button>
             <button 
               type="button"
-              onClick={(e) => handleSectionLink(e, 'section-services')}
+              onClick={handleServicesLink}
               className="text-left text-sm sm:text-base text-gray-300 hover:text-[var(--fx-yellow)] hover:translate-x-1 transition-all cursor-pointer"
             >
               Services

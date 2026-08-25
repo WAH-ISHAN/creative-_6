@@ -127,37 +127,45 @@ export const Header: React.FC<HeaderProps> = ({
           {showWorks && (
             <button 
               onClick={() => scrollToSection('section-portfolio', onOpenWork)} 
-              className="px-2 py-1 text-xs sm:text-sm font-mono-tech tracking-[0.22em] text-[var(--fx-light-gray)] hover:text-[var(--fx-yellow)] transition-all duration-300 uppercase cursor-pointer relative group"
+              className={`px-2 py-1 text-xs sm:text-sm font-mono-tech tracking-[0.22em] ${
+                activeView === 'work' || activeView === 'works' ? 'text-[var(--fx-yellow)]' : 'text-[var(--fx-light-gray)] hover:text-[var(--fx-yellow)]'
+              } transition-all duration-300 uppercase cursor-pointer relative group`}
             >
               <span>{navLabels.work}</span>
-              <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-[var(--fx-yellow)] transition-all duration-300 group-hover:w-full" />
+              <span className={`absolute -bottom-1 left-0 ${activeView === 'work' || activeView === 'works' ? 'w-full' : 'w-0'} h-[1.5px] bg-[var(--fx-yellow)] transition-all duration-300 group-hover:w-full`} />
             </button>
           )}
           {showServices && (
             <button 
               onClick={() => scrollToSection('section-services', onOpenServices)} 
-              className="px-2 py-1 text-xs sm:text-sm font-mono-tech tracking-[0.22em] text-[var(--fx-light-gray)] hover:text-[var(--fx-yellow)] transition-all duration-300 uppercase cursor-pointer relative group"
+              className={`px-2 py-1 text-xs sm:text-sm font-mono-tech tracking-[0.22em] ${
+                activeView === 'services' ? 'text-[var(--fx-yellow)]' : 'text-[var(--fx-light-gray)] hover:text-[var(--fx-yellow)]'
+              } transition-all duration-300 uppercase cursor-pointer relative group`}
             >
               <span>{navLabels.services}</span>
-              <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-[var(--fx-yellow)] transition-all duration-300 group-hover:w-full" />
+              <span className={`absolute -bottom-1 left-0 ${activeView === 'services' ? 'w-full' : 'w-0'} h-[1.5px] bg-[var(--fx-yellow)] transition-all duration-300 group-hover:w-full`} />
             </button>
           )}
           {showWeddings && (
             <button 
               onClick={() => scrollToSection('weddings', onOpenWeddings)} 
-              className="px-2 py-1 text-xs sm:text-sm font-mono-tech tracking-[0.22em] text-[var(--fx-light-gray)] hover:text-[var(--fx-yellow)] transition-all duration-300 uppercase cursor-pointer relative group"
+              className={`px-2 py-1 text-xs sm:text-sm font-mono-tech tracking-[0.22em] ${
+                activeView === 'weddings' ? 'text-[var(--fx-yellow)]' : 'text-[var(--fx-light-gray)] hover:text-[var(--fx-yellow)]'
+              } transition-all duration-300 uppercase cursor-pointer relative group`}
             >
               <span>{navLabels.weddings}</span>
-              <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-[var(--fx-yellow)] transition-all duration-300 group-hover:w-full" />
+              <span className={`absolute -bottom-1 left-0 ${activeView === 'weddings' ? 'w-full' : 'w-0'} h-[1.5px] bg-[var(--fx-yellow)] transition-all duration-300 group-hover:w-full`} />
             </button>
           )}
           {showAbout && (
             <button 
               onClick={() => scrollToSection('section-about', onOpenAbout)} 
-              className="px-2 py-1 text-xs sm:text-sm font-mono-tech tracking-[0.22em] text-[var(--fx-light-gray)] hover:text-[var(--fx-yellow)] transition-all duration-300 uppercase cursor-pointer relative group"
+              className={`px-2 py-1 text-xs sm:text-sm font-mono-tech tracking-[0.22em] ${
+                activeView === 'about' ? 'text-[var(--fx-yellow)]' : 'text-[var(--fx-light-gray)] hover:text-[var(--fx-yellow)]'
+              } transition-all duration-300 uppercase cursor-pointer relative group`}
             >
               <span>{navLabels.about}</span>
-              <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-[var(--fx-yellow)] transition-all duration-300 group-hover:w-full" />
+              <span className={`absolute -bottom-1 left-0 ${activeView === 'about' ? 'w-full' : 'w-0'} h-[1.5px] bg-[var(--fx-yellow)] transition-all duration-300 group-hover:w-full`} />
             </button>
           )}
 
