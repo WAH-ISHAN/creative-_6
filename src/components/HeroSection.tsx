@@ -117,10 +117,12 @@ export const HeroSection: React.FC = () => {
           </h1>
           
           <p 
-            className="font-tech text-white/90 leading-relaxed font-normal max-w-xl mx-auto drop-shadow-md text-center mt-6 sm:mt-8"
-            style={{ fontSize: `clamp(${13 * sec.bodyScale}px, ${1.05 * sec.bodyScale}vw, ${16 * sec.bodyScale}px)` }}
+            className="font-mono-tech text-white/80 leading-relaxed font-normal max-w-md sm:max-w-lg mx-auto drop-shadow-md text-center mt-5 sm:mt-6 uppercase tracking-[0.2em]"
+            style={{ fontSize: `clamp(${8.5 * sec.bodyScale}px, ${0.85 * sec.bodyScale}vw, ${11 * sec.bodyScale}px)` }}
           >
-            {content.hero?.description || 'CreativeFX is a creative agency specializing in photography, videography, content creation, and digital marketing solutions for modern brands.'}
+            CREATIVEFX IS A CREATIVE AGENCY SPECIALIZING IN PHOTOGRAPHY,<br className="hidden sm:inline" />
+            VIDEOGRAPHY, CONTENT CREATION, AND DIGITAL MARKETING SOLUTIONS<br className="hidden sm:inline" />
+            FOR MODERN BRANDS.
           </p>
         </div>
       </div>
