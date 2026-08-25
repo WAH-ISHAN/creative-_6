@@ -110,20 +110,12 @@ export const Header: React.FC<HeaderProps> = ({
         
         {/* BRAND TITLE / LOGO */}
         <div 
-          className="cursor-pointer select-none relative group flex items-center gap-3"
+          className="cursor-pointer select-none relative group flex items-center flex-shrink-0"
           onClick={() => {
             if (onLogoClick) onLogoClick();
             else scrollToSection('hero');
           }}
         >
-          {theme.logoUrl && theme.logoUrl.trim() ? (
-            <img
-              src={theme.logoUrl}
-              alt="CreativeFX Logo"
-              className="h-8 md:h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-              onError={e => { (e.currentTarget as HTMLElement).style.display = 'none'; }}
-            />
-          ) : null}
           <span className="text-xl sm:text-2xl font-editorial font-normal tracking-[0.14em] text-[var(--fx-white)] uppercase transition-transform duration-300 group-hover:scale-[1.02]">
             CREATIVE<span className="text-[var(--fx-yellow)] font-bold">FX</span>
           </span>
@@ -131,7 +123,7 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* DESKTOP NAV */}
-        <nav className="hidden md:flex items-center gap-6 lg:gap-8 xl:gap-10">
+        <nav className="hidden md:flex items-center gap-4 lg:gap-8 xl:gap-10 flex-shrink-0">
           {showWorks && (
             <button 
               onClick={() => scrollToSection('section-portfolio', onOpenWork)} 

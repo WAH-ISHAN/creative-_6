@@ -110,10 +110,21 @@ export const HeroSection: React.FC = () => {
             className="will-change-transform font-editorial uppercase tracking-tight font-normal select-none leading-[0.92] text-white text-center"
             style={{ fontSize: `clamp(${heroHeadingBase}rem, ${heroHeadingVw}vw, ${heroHeadingMax}rem)` }}
           >
-            {content.hero?.title?.split('\n')[0] || 'BEYOND'}<br />
-            <span style={{ color: sec.accent || '#fcbf13' }}>
-              {content.hero?.title?.split('\n')[1] || 'CREATIVITY'}
-            </span>
+            {content.hero?.title && content.hero.title.includes('\n') ? (
+              <>
+                {content.hero.title.split('\n')[0]}<br />
+                <span style={{ color: sec.accent || '#fcbf13' }}>
+                  {content.hero.title.split('\n')[1]}
+                </span>
+              </>
+            ) : (
+              <>
+                BEYOND<br />
+                <span style={{ color: sec.accent || '#fcbf13' }}>
+                  CREATIVITY
+                </span>
+              </>
+            )}
           </h1>
           
           <p 
