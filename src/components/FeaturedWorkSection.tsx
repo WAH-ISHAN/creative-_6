@@ -151,16 +151,8 @@ export const FeaturedWorkSection: React.FC<FeaturedWorkSectionProps> = ({ onSele
       {/* DESKTOP PINNED EXPERIENCE */}
       <div className="hidden md:block h-screen supports-[height:100svh]:h-[100svh] w-full relative overflow-hidden">
 
-        {/* Continuous Elegant Geometric Arc Lines connecting Up and Down pages */}
-        <div className="absolute inset-0 pointer-events-none z-15 overflow-hidden">
-          {/* Main outer orbit arc line spanning up/down */}
-          <div className="fw-curve absolute left-[-48vw] top-[-35vh] w-[103vw] h-[170vh] rounded-r-full border-r border-black/10 pointer-events-none" />
-          {/* Secondary subtle orbital track */}
-          <div className="fw-curve absolute left-[-52vw] top-[-40vh] w-[110vw] h-[180vh] rounded-r-full border-r border-black/5 pointer-events-none" />
-        </div>
-
         {/* Massive White Curve masking the photos */}
-        <div className="fw-curve absolute left-[-45vw] top-[-20vh] w-[95vw] h-[140vh] bg-white rounded-r-full z-20 shadow-[40px_0_60px_rgba(0,0,0,0.08)] border-r border-black/10 pointer-events-none" />
+        <div className="fw-curve absolute left-[-45vw] top-[-20vh] w-[95vw] h-[140vh] bg-white rounded-r-full z-20 shadow-[40px_0_60px_rgba(0,0,0,0.06)] pointer-events-none" />
 
         {/* Left Side: Typography (Z-30 above curve) */}
         <div className="absolute left-0 top-0 w-[50vw] h-full z-30 flex flex-col justify-center pl-16 lg:pl-24 xl:pl-32">
