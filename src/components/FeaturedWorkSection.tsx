@@ -244,7 +244,7 @@ export const FeaturedWorkSection: React.FC<FeaturedWorkSectionProps> = ({ onSele
       </div>
 
       {/* MOBILE SCROLL EXPERIENCE */}
-      <div className="md:hidden w-full py-24 px-6 flex flex-col items-center">
+      <div className="md:hidden w-full pt-8 pb-24 px-6 flex flex-col items-center">
         <div className="w-full text-center mb-16">
           <h2 className="text-5xl font-editorial tracking-tight uppercase leading-none mb-6">
             Featured<br />Work

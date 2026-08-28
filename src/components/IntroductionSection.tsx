@@ -92,7 +92,7 @@ export const IntroductionSection: React.FC = () => {
       ref={sectionRef}
       id="section-introduction"
       style={sec.style}
-      className="relative w-full bg-[var(--fx-white)] text-[var(--fx-black)] py-16 sm:py-24 md:py-32 px-6 sm:px-8 md:px-12 select-none no-parallax"
+      className="relative w-full bg-[var(--fx-white)] text-[var(--fx-black)] pt-16 pb-4 sm:pt-24 sm:pb-8 md:pt-32 md:pb-8 px-6 sm:px-8 md:px-12 select-none no-parallax"
     >
       <div className="relative z-10 max-w-6xl mx-auto">
         <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
