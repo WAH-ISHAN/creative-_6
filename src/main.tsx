@@ -13,37 +13,33 @@ initScrollRestoration();
 function Root() {
   useEffect(() => {
     initScrollRestoration();
-    const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) || window.innerWidth < 768;
-    
-    // On mobile: use 100% native scroll — no Lenis overhead at all
-    if (isMobile) {
-      document.documentElement.style.scrollBehavior = 'smooth';
-      return;
-    }
 
-    // Desktop only: Lenis smooth scroll
+    // Universal Lenis smooth scroll with touch support
     const lenis = new Lenis({
-      duration: 0.85,
+      duration: 0.9,
       easing: (t) => 1 - Math.pow(1 - t, 4),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 0.85,
+      touchMultiplier: 1.2,
+      syncTouch: true,
     });
 
     lenis.on('scroll', ScrollTrigger.update);
 
-    gsap.ticker.add((time) => {
+    const updateTicker = (time: number) => {
       lenis.raf(time * 1000);
-    });
+    };
 
+    gsap.ticker.add(updateTicker);
     gsap.ticker.lagSmoothing(0);
 
     // Expose for utils/smoothScroll so all programmatic jumps use Lenis
     (window as unknown as { __lenis?: unknown }).__lenis = lenis;
 
     return () => {
-      gsap.ticker.remove(lenis.raf);
+      gsap.ticker.remove(updateTicker);
       (window as unknown as { __lenis?: unknown }).__lenis = undefined;
       lenis.destroy();
     };

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useContent, API_BASE, useSectionStyle } from '../context/ContentContext';
-import { MessageCircle, CheckCircle2, Quote } from 'lucide-react';
+import { MessageCircle, CheckCircle2, Quote, Phone, Mail, MapPin, Clock } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -26,7 +26,6 @@ export const ContactSection: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState('');
 
-  // Auto cycle testimonials every 6 seconds
   useEffect(() => {
     if (testimonials.length < 2) return;
     const timer = setInterval(() => {
@@ -35,7 +34,6 @@ export const ContactSection: React.FC = () => {
     return () => clearInterval(timer);
   }, [testimonials.length]);
 
-  // Entrance animations
   useEffect(() => {
     if (!sec.animationsEnabled) return;
 
@@ -79,7 +77,6 @@ export const ContactSection: React.FC = () => {
 
     const whatsappNumber = (contact.whatsapp || '94777548671').replace(/[^0-9]/g, '');
 
-    // Format the WhatsApp message text clearly
     const textLines = [
       `*✦ NEW PROJECT INQUIRY — CREATIVEFX ✦*`,
       ``,
@@ -98,7 +95,6 @@ export const ContactSection: React.FC = () => {
 
     setIsSubmitting(true);
     try {
-      // Persist the inquiry so it appears in Admin → Contact / Inquiries
       await fetch(`${API_BASE}/api/inquiries`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -112,12 +108,10 @@ export const ContactSection: React.FC = () => {
         }),
       });
     } catch {
-      // Server offline — WhatsApp fallback still works; inquiry not stored.
     }
 
     setIsSubmitting(false);
     setSubmitted(true);
-    // Immediate direct opening (prevents browser popup blocking)
     window.open(waUrl, '_blank');
   };
 
@@ -127,63 +121,71 @@ export const ContactSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="section-contact"
-      className="no-parallax relative w-full bg-white text-black py-20 sm:py-24 md:py-28 px-6 sm:px-8 md:px-12 lg:px-16 border-t border-neutral-200 overflow-hidden select-none"
+      className="no-parallax relative w-full bg-white text-black py-10 sm:py-24 md:py-28 px-4 sm:px-8 md:px-12 lg:px-16 border-t border-neutral-200 overflow-hidden select-none"
     >
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-20 items-start">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-16 xl:gap-20 items-start">
 
-        {/* ════════════════ LEFT COLUMN: STUDIO DETAILS & TESTIMONIAL ════════════════ */}
-        <div className="contact-left-card lg:col-span-5 w-full flex flex-col justify-between space-y-10">
+        {/* ════════════════ LEFT COLUMN ════════════════ */}
+        <div className="contact-left-card lg:col-span-5 w-full flex flex-col justify-between space-y-6 sm:space-y-10 order-1">
           
-          {/* Header & Sub-narrative */}
-          <div className="space-y-5">
-            <div className="flex items-center gap-2 text-xs font-mono-tech tracking-[0.28em] text-neutral-500 uppercase">
+          <div className="space-y-4 sm:space-y-5">
+            <div className="flex items-center gap-2 text-[11px] sm:text-xs font-mono-tech tracking-[0.28em] text-neutral-500 uppercase">
               <span className="text-black font-bold">07</span>
               <span>/ Contact</span>
             </div>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-editorial tracking-tight text-black uppercase leading-[0.95] whitespace-pre-line">
+            <h2 className="text-[32px] sm:text-5xl lg:text-6xl font-editorial tracking-tight text-black uppercase leading-[0.92] sm:leading-[0.95] whitespace-pre-line">
               {pageCopy.headline || "LET'S CREATE\nTOGETHER."}
             </h2>
-            <p className="text-base font-tech text-neutral-600 leading-relaxed max-w-md">
+            <p className="text-[14px] sm:text-base font-tech text-neutral-600 leading-relaxed max-w-md">
               {pageCopy.description || "Have a vision for your brand, film, or wedding? Reach out and let's craft something unforgettable."}
             </p>
+            {/* Mobile quick actions */}
+            <div className="sm:hidden flex gap-2 pt-1">
+              <a href={`tel:${(contact.phone||'+94777548671').replace(/\s/g,'')}`} className="flex-1 bg-black text-white font-mono-tech text-xs font-bold tracking-widest uppercase py-3.5 rounded-xl flex items-center justify-center gap-2 active:scale-[0.98] transition-transform">
+                <Phone className="w-4 h-4" /> CALL
+              </a>
+              <a href={`https://wa.me/${(contact.whatsapp||'94777548671').replace(/[^0-9]/g,'')}`} target="_blank" rel="noopener noreferrer" className="flex-1 bg-[#25D366] text-black font-mono-tech text-xs font-bold tracking-widest uppercase py-3.5 rounded-xl flex items-center justify-center gap-2 active:scale-[0.98] transition-transform">
+                <MessageCircle className="w-4 h-4" /> WHATSAPP
+              </a>
+            </div>
           </div>
 
-          {/* Studio Quick Info & Direct Access */}
-          <div className="space-y-5 pt-2 border-t border-neutral-200/80">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-xs font-mono-tech tracking-wider uppercase text-neutral-500">
-              <div>
-                <span className="block text-[10px] text-neutral-400 mb-1 font-semibold">DIRECT LINE</span>
-                <a href={`tel:${contact.phone || '+94777548671'}`} className="text-sm font-tech font-bold text-black hover:text-[var(--fx-yellow)] transition-colors normal-case">
+          {/* Studio Quick Info */}
+          <div className="space-y-4 sm:space-y-5 pt-4 sm:pt-2 border-t border-neutral-200">
+            <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 sm:gap-5">
+              <div className="bg-neutral-50 sm:bg-transparent border sm:border-0 border-neutral-200 rounded-xl sm:rounded-none p-3 sm:p-0">
+                <span className="flex items-center gap-1.5 text-[10px] text-neutral-400 mb-1 font-semibold tracking-widest uppercase"><Phone className="w-3 h-3 sm:hidden" /> DIRECT LINE</span>
+                <a href={`tel:${contact.phone || '+94777548671'}`} className="text-[13px] sm:text-sm font-tech font-bold text-black hover:text-[var(--fx-yellow)] transition-colors">
                   {contact.phone || '+94 77 754 8671'}
                 </a>
               </div>
-              <div>
-                <span className="block text-[10px] text-neutral-400 mb-1 font-semibold">EMAIL</span>
-                <a href={`mailto:${contact.email || 'hello@creativefx.lk'}`} className="text-sm font-tech font-bold text-black hover:text-[var(--fx-yellow)] transition-colors normal-case">
+              <div className="bg-neutral-50 sm:bg-transparent border sm:border-0 border-neutral-200 rounded-xl sm:rounded-none p-3 sm:p-0">
+                <span className="flex items-center gap-1.5 text-[10px] text-neutral-400 mb-1 font-semibold tracking-widest uppercase"><Mail className="w-3 h-3 sm:hidden" /> EMAIL</span>
+                <a href={`mailto:${contact.email || 'hello@creativefx.lk'}`} className="text-[13px] sm:text-sm font-tech font-bold text-black hover:text-[var(--fx-yellow)] transition-colors break-all">
                   {contact.email || 'hello@creativefx.lk'}
                 </a>
               </div>
-              <div>
-                <span className="block text-[10px] text-neutral-400 mb-1 font-semibold">STUDIO LOCATION</span>
-                <p className="text-sm font-tech font-bold text-black normal-case">
+              <div className="bg-neutral-50 sm:bg-transparent border sm:border-0 border-neutral-200 rounded-xl sm:rounded-none p-3 sm:p-0">
+                <span className="flex items-center gap-1.5 text-[10px] text-neutral-400 mb-1 font-semibold tracking-widest uppercase"><MapPin className="w-3 h-3 sm:hidden" /> STUDIO LOCATION</span>
+                <p className="text-[13px] sm:text-sm font-tech font-bold text-black">
                   {contact.location || 'Kaduwela, Sri Lanka'}
                 </p>
               </div>
-              <div>
-                <span className="block text-[10px] text-neutral-400 mb-1 font-semibold">WORKING HOURS</span>
-                <p className="text-sm font-tech font-bold text-black normal-case">
+              <div className="bg-neutral-50 sm:bg-transparent border sm:border-0 border-neutral-200 rounded-xl sm:rounded-none p-3 sm:p-0">
+                <span className="flex items-center gap-1.5 text-[10px] text-neutral-400 mb-1 font-semibold tracking-widest uppercase"><Clock className="w-3 h-3 sm:hidden" /> WORKING HOURS</span>
+                <p className="text-[13px] sm:text-sm font-tech font-bold text-black">
                   Mon – Sat / 9AM – 6PM
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Pure White Frosted Client Experience Card */}
+          {/* Testimonial - hidden on mobile after form? Keep but smaller on mobile */}
           {currentTestimonial && (
-            <div className="relative overflow-hidden rounded-3xl bg-[#f8f8fa] border border-neutral-200/80 p-7 shadow-[0_10px_35px_rgba(0,0,0,0.03)] space-y-5">
+            <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-[#f8f8fa] border border-neutral-200 p-5 sm:p-7 shadow-[0_10px_35px_rgba(0,0,0,0.03)] space-y-4 sm:space-y-5">
               <div className="flex items-center justify-between border-b border-neutral-200/60 pb-3">
                 <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-emerald-500 animate-pulse" />
                   <span className="text-[10px] font-mono-tech tracking-[0.25em] text-neutral-600 uppercase font-bold">
                     CLIENT EXPERIENCES
                   </span>
@@ -193,42 +195,41 @@ export const ContactSection: React.FC = () => {
                 </span>
               </div>
 
-              <div className="space-y-3">
-                <Quote className="w-6 h-6 text-neutral-300 transform -scale-x-100" />
-                <p className="font-editorial text-lg sm:text-xl text-neutral-900 leading-snug tracking-tight">
+              <div className="space-y-2 sm:space-y-3">
+                <Quote className="w-5 h-5 sm:w-6 sm:h-6 text-neutral-300 transform -scale-x-100" />
+                <p className="font-editorial text-[17px] sm:text-xl text-neutral-900 leading-snug tracking-tight">
                   "{currentTestimonial.quote}"
                 </p>
               </div>
 
               <div className="flex items-center justify-between pt-3 border-t border-neutral-200/60">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2.5 sm:gap-3">
                   <img
                     src={currentTestimonial.avatar}
                     alt={currentTestimonial.author}
-                    className="w-10 h-10 rounded-full object-cover border border-neutral-300 shadow-sm"
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover border border-neutral-300 shadow-sm"
                     loading="lazy"
                   />
                   <div>
-                    <h4 className="text-sm font-tech font-bold text-black leading-tight">
+                    <h4 className="text-[13px] sm:text-sm font-tech font-bold text-black leading-tight">
                       {currentTestimonial.author}
                     </h4>
-                    <p className="text-[11px] font-mono-tech text-neutral-500 uppercase tracking-wider mt-0.5">
+                    <p className="text-[10px] sm:text-[11px] font-mono-tech text-neutral-500 uppercase tracking-wider mt-0.5">
                       {currentTestimonial.role}
                     </p>
                   </div>
                 </div>
 
-                {/* Pagination Dots */}
                 <div className="flex items-center gap-1.5">
                   {testimonials.map((_, idx) => (
                     <button
                       key={idx}
                       onClick={() => setActiveTestimonial(idx)}
                       aria-label={`Testimonial ${idx + 1}`}
-                      className={`h-1.5 transition-all duration-300 rounded-full cursor-pointer ${
+                      className={`h-1.5 transition-all duration-300 rounded-full cursor-pointer min-h-0 min-w-0 ${
                         activeTestimonial === idx
                           ? 'w-5 bg-black'
-                          : 'w-1.5 bg-neutral-300 hover:bg-neutral-500'
+                          : 'w-1.5 bg-neutral-300'
                       }`}
                     />
                   ))}
@@ -239,51 +240,50 @@ export const ContactSection: React.FC = () => {
 
         </div>
 
-        {/* ════════════════ RIGHT COLUMN: EDITORIAL CONTACT FORM ════════════════ */}
-        <div className="contact-right-form lg:col-span-7 w-full">
-          <div className="bg-[#fafafa] border border-neutral-200 rounded-3xl p-8 sm:p-10 md:p-12 shadow-[0_15px_40px_rgba(0,0,0,0.03)]">
+        {/* ════════════════ RIGHT COLUMN: FORM ════════════════ */}
+        <div className="contact-right-form lg:col-span-7 w-full order-2 lg:order-2">
+          <div className="bg-[#fafafa] border border-neutral-200 rounded-2xl sm:rounded-3xl p-5 sm:p-10 md:p-12 shadow-[0_15px_40px_rgba(0,0,0,0.03)]">
             
-            <div className="mb-8">
-              <h3 className="text-2xl sm:text-3xl font-editorial uppercase tracking-tight text-black mb-2">
+            <div className="mb-6 sm:mb-8">
+              <h3 className="text-xl sm:text-3xl font-editorial uppercase tracking-tight text-black mb-1.5 sm:mb-2">
                 SEND AN INQUIRY
               </h3>
-              <p className="text-sm font-tech text-neutral-500">
-                Fill in your details below and connect with us directly on WhatsApp.
+              <p className="text-[13px] sm:text-sm font-tech text-neutral-500">
+                Fill in your details and connect directly on WhatsApp.
               </p>
             </div>
 
             {submitted ? (
-              <div className="p-8 bg-white border border-neutral-200 rounded-2xl text-center space-y-4 shadow-sm animate-fadeIn">
-                <div className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
-                  <CheckCircle2 className="w-8 h-8" />
+              <div className="p-6 sm:p-8 bg-white border border-neutral-200 rounded-2xl text-center space-y-4 shadow-sm">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
+                  <CheckCircle2 className="w-7 h-7 sm:w-8 sm:h-8" />
                 </div>
-                <h3 className="text-2xl font-editorial uppercase text-black tracking-wide">
+                <h3 className="text-xl sm:text-2xl font-editorial uppercase text-black tracking-wide">
                   Connecting on WhatsApp!
                 </h3>
-                <p className="text-sm font-tech text-neutral-600 max-w-sm mx-auto leading-relaxed">
-                  Your inquiry has been formatted. If WhatsApp didn't open automatically, click below.
+                <p className="text-[13px] sm:text-sm font-tech text-neutral-600 max-w-sm mx-auto leading-relaxed">
+                  Your inquiry has been formatted. If WhatsApp didn't open, tap below.
                 </p>
                 <div className="pt-3 flex flex-col sm:flex-row gap-3 justify-center">
                   <button
                     onClick={handleSubmit}
-                    className="px-6 py-3 bg-black text-white font-mono-tech text-xs font-bold uppercase rounded-full hover:bg-[var(--fx-yellow)] hover:text-black transition-colors cursor-pointer"
+                    className="w-full sm:w-auto px-6 py-3.5 bg-black text-white font-mono-tech text-xs font-bold uppercase rounded-xl hover:bg-[var(--fx-yellow)] hover:text-black transition-colors cursor-pointer"
                   >
                     Re-Open WhatsApp
                   </button>
                   <button
                     onClick={() => setSubmitted(false)}
-                    className="px-6 py-3 border border-neutral-300 text-black font-mono-tech text-xs uppercase rounded-full hover:bg-neutral-100 transition-colors cursor-pointer"
+                    className="w-full sm:w-auto px-6 py-3.5 border border-neutral-300 text-black font-mono-tech text-xs uppercase rounded-xl hover:bg-neutral-100 transition-colors cursor-pointer"
                   >
                     Send Another
                   </button>
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6" noValidate={false}>
+              <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6" noValidate={false}>
 
-                {/* Full Name */}
-                <div className="space-y-2">
-                  <label htmlFor="cfx-name" className="block text-xs font-mono-tech tracking-widest text-neutral-700 uppercase font-semibold">
+                <div className="space-y-1.5 sm:space-y-2">
+                  <label htmlFor="cfx-name" className="block text-[11px] sm:text-xs font-mono-tech tracking-widest text-neutral-700 uppercase font-semibold">
                     Full Name <span className="text-amber-500">*</span>
                   </label>
                   <input
@@ -293,45 +293,45 @@ export const ContactSection: React.FC = () => {
                     value={formData.name}
                     onChange={(e) => setFormData(p => ({ ...p, name: e.target.value }))}
                     placeholder="e.g. Ruwan Perera"
-                    className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech shadow-sm"
+                    className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-[15px] sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech shadow-sm"
                   />
                 </div>
 
-                {/* Email & Phone */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div className="space-y-2">
-                    <label htmlFor="cfx-email" className="block text-xs font-mono-tech tracking-widest text-neutral-700 uppercase font-semibold">
+                <div className="grid grid-cols-1 gap-5 sm:gap-5 sm:grid-cols-2">
+                  <div className="space-y-1.5 sm:space-y-2">
+                    <label htmlFor="cfx-email" className="block text-[11px] sm:text-xs font-mono-tech tracking-widest text-neutral-700 uppercase font-semibold">
                       Email Address
                     </label>
                     <input
                       id="cfx-email"
                       type="email"
+                      inputMode="email"
                       value={formData.email}
                       onChange={(e) => setFormData(p => ({ ...p, email: e.target.value }))}
                       placeholder="you@example.com"
-                      className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech shadow-sm"
+                      className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-[15px] sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech shadow-sm"
                     />
                   </div>
 
-                  <div className="space-y-2">
-                    <label htmlFor="cfx-phone" className="block text-xs font-mono-tech tracking-widest text-neutral-700 uppercase font-semibold">
+                  <div className="space-y-1.5 sm:space-y-2">
+                    <label htmlFor="cfx-phone" className="block text-[11px] sm:text-xs font-mono-tech tracking-widest text-neutral-700 uppercase font-semibold">
                       WhatsApp / Phone
                     </label>
                     <input
                       id="cfx-phone"
                       type="tel"
+                      inputMode="tel"
                       value={formData.phone}
                       onChange={(e) => setFormData(p => ({ ...p, phone: e.target.value }))}
                       placeholder="+94 77 123 4567"
-                      className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech shadow-sm"
+                      className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-[15px] sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech shadow-sm"
                     />
                   </div>
                 </div>
 
-                {/* Company / Service Needed */}
-                <div className="space-y-2">
-                  <label htmlFor="cfx-service" className="block text-xs font-mono-tech tracking-widest text-neutral-700 uppercase font-semibold">
-                    Service Needed / Category
+                <div className="space-y-1.5 sm:space-y-2">
+                  <label htmlFor="cfx-service" className="block text-[11px] sm:text-xs font-mono-tech tracking-widest text-neutral-700 uppercase font-semibold">
+                    Service Needed
                   </label>
                   <input
                     id="cfx-service"
@@ -339,8 +339,8 @@ export const ContactSection: React.FC = () => {
                     list="cfx-service-options"
                     value={formData.service}
                     onChange={(e) => setFormData(p => ({ ...p, service: e.target.value }))}
-                    placeholder="e.g. Wedding Film, Commercial Shoot, Brand Identity"
-                    className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech shadow-sm"
+                    placeholder="e.g. Wedding Film, Commercial Shoot"
+                    className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-[15px] sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech shadow-sm"
                   />
                   <datalist id="cfx-service-options">
                     {(content.services || []).map(s => (
@@ -349,9 +349,8 @@ export const ContactSection: React.FC = () => {
                   </datalist>
                 </div>
 
-                {/* Message */}
-                <div className="space-y-2">
-                  <label htmlFor="cfx-message" className="block text-xs font-mono-tech tracking-widest text-neutral-700 uppercase font-semibold">
+                <div className="space-y-1.5 sm:space-y-2">
+                  <label htmlFor="cfx-message" className="block text-[11px] sm:text-xs font-mono-tech tracking-widest text-neutral-700 uppercase font-semibold">
                     Message / Project Details
                   </label>
                   <textarea
@@ -359,25 +358,25 @@ export const ContactSection: React.FC = () => {
                     rows={4}
                     value={formData.message}
                     onChange={(e) => setFormData(p => ({ ...p, message: e.target.value }))}
-                    placeholder="Tell us about your project, timelines, location or vision..."
-                    className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech resize-none shadow-sm"
+                    placeholder="Tell us about your project, timelines, location..."
+                    className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-[15px] sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech resize-none shadow-sm"
                   />
                 </div>
 
                 {submitError && (
-                  <p className="text-red-600 text-xs font-medium" role="alert">{submitError}</p>
+                  <p className="text-red-600 text-xs font-medium bg-red-50 border border-red-200 rounded-lg px-3 py-2" role="alert">{submitError}</p>
                 )}
 
-                {/* Submit Pill CTA */}
-                <div className="pt-2">
+                <div className="pt-1 sm:pt-2">
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-black text-white font-tech font-bold text-sm tracking-wider uppercase py-4 rounded-xl hover:bg-[var(--fx-yellow)] hover:text-black transition-all duration-300 flex items-center justify-center gap-2.5 shadow-md hover:shadow-lg disabled:opacity-50 active:scale-[0.99] cursor-pointer"
+                    className="w-full bg-black text-white font-tech font-bold text-[13px] sm:text-sm tracking-wider uppercase py-4 rounded-xl hover:bg-[var(--fx-yellow)] hover:text-black transition-all duration-300 flex items-center justify-center gap-2.5 shadow-md hover:shadow-lg disabled:opacity-50 active:scale-[0.99] cursor-pointer"
                   >
                     <MessageCircle className="w-5 h-5 fill-current" />
                     <span>{isSubmitting ? 'Opening WhatsApp...' : 'Submit via WhatsApp'}</span>
                   </button>
+                  <p className="text-[11px] font-tech text-neutral-400 text-center mt-2.5">We reply within 2 hours • No spam</p>
                 </div>
 
               </form>

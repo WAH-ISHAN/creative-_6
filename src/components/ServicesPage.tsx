@@ -110,8 +110,8 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
         }}
       />
 
-      {/* ─── 1. HERO BANNER ─── */}
-      <section className="relative pt-36 sm:pt-44 md:pt-48 pb-20 sm:pb-24 px-6 sm:px-10 md:px-14 lg:px-16 border-b border-white/10 overflow-hidden bg-gradient-to-b from-neutral-950 via-[#060606] to-[#050505]">
+      {/* ─── 1. HERO BANNER - mobile optimized ─── */}
+      <section className="relative pt-28 sm:pt-44 md:pt-48 pb-12 sm:pb-24 px-4 sm:px-10 md:px-14 lg:px-16 border-b border-white/10 overflow-hidden bg-gradient-to-b from-neutral-950 via-[#060606] to-[#050505]">
         
         {/* Subtle decorative glow */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[var(--fx-yellow)]/5 rounded-full blur-3xl pointer-events-none" />
@@ -125,16 +125,16 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
             </span>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-end">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 lg:gap-16 items-end">
             <div className="lg:col-span-8">
-              <h1 className="font-editorial text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-normal uppercase tracking-tight text-white leading-[0.92]">
+              <h1 className="font-editorial text-[32px] sm:text-6xl md:text-7xl lg:text-8xl font-normal uppercase tracking-tight text-white leading-[0.92]">
                 FULL-SERVICE<br />
                 <span className="text-[var(--fx-yellow)]">CREATIVE PRODUCTION.</span>
               </h1>
             </div>
 
             <div className="lg:col-span-4">
-              <p className="font-tech text-base sm:text-lg text-white/80 leading-relaxed">
+              <p className="font-tech text-[14px] sm:text-lg text-white/80 leading-relaxed">
                 From high-fashion photography and 8K cinema to motion graphics, brand identity, and performance digital campaigns—we build visual assets that command attention.
               </p>
             </div>
@@ -144,7 +144,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
       </section>
 
       {/* ─── 2. SERVICES COMPREHENSIVE LIST ─── */}
-      <section className="py-20 sm:py-28 px-6 sm:px-10 md:px-14 lg:px-16 max-w-7xl mx-auto w-full space-y-24">
+      <section className="py-10 sm:py-28 px-4 sm:px-10 md:px-14 lg:px-16 max-w-7xl mx-auto w-full space-y-8 sm:space-y-24">
         
         {services.map((service, index) => {
           const isEven = index % 2 === 1;
@@ -154,11 +154,11 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
             <div 
               key={service.id || index}
               id={`service-${service.id}`}
-              className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center p-6 sm:p-10 lg:p-14 bg-[#0a0a0a] border border-white/10 hover:border-white/20 transition-all duration-300 rounded-lg shadow-2xl group"
+              className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10 lg:gap-16 items-center p-4 sm:p-10 lg:p-14 bg-[#0a0a0a] border border-white/10 hover:border-white/20 transition-all duration-300 rounded-xl sm:rounded-lg shadow-2xl group"
             >
               {/* Image / Media Column */}
               <div className={`lg:col-span-6 ${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
-                <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] overflow-hidden rounded-md bg-black border border-white/15 group-hover:border-[var(--fx-yellow)]/50 transition-colors shadow-2xl">
+                <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] overflow-hidden rounded-xl sm:rounded-md bg-black border border-white/15 group-hover:border-[var(--fx-yellow)]/50 transition-colors shadow-2xl">
                   <img
                     src={service.previewImage || '/img/Products/Zova Clothing/DSC06381.jpg'}
                     alt={service.title}

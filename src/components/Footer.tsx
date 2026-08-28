@@ -79,8 +79,8 @@ export const Footer: React.FC<FooterProps> = ({
   };
 
   return (
-    <footer style={sec.style} className="w-full bg-[#050505] text-[var(--fx-white)] py-14 sm:py-20 px-6 sm:px-8 md:px-12 lg:px-16 select-none border-t border-[var(--fx-border-dark)]">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12 md:gap-16">
+    <footer style={sec.style} className="w-full bg-[#050505] text-white py-10 sm:py-20 px-4 sm:px-8 md:px-12 lg:px-16 select-none border-t border-white/10">
+      <div className="max-w-7xl mx-auto flex flex-col gap-8 sm:gap-12 md:flex-row md:justify-between md:items-start md:gap-16">
         
         {/* Left: Brand */}
         <div className="flex flex-col gap-4 max-w-md">
@@ -90,20 +90,20 @@ export const Footer: React.FC<FooterProps> = ({
             className="text-left cursor-pointer group focus:outline-none w-fit"
             aria-label="CreativeFX Home"
           >
-            <span className="text-3xl sm:text-4xl font-editorial tracking-[0.08em] uppercase text-[var(--fx-white)] group-hover:text-[var(--fx-yellow)] transition-colors">
+            <span className="text-[28px] sm:text-4xl font-editorial tracking-[0.08em] uppercase text-white group-hover:text-[var(--fx-yellow)] transition-colors">
               CREATIVE<span className="text-[var(--fx-yellow)] font-bold">FX</span>
             </span>
           </button>
-          <p className="text-sm sm:text-base font-tech tracking-wide text-gray-300 uppercase leading-relaxed whitespace-pre-line font-medium">
+          <p className="text-[13px] sm:text-base font-tech tracking-wide text-white/60 sm:text-gray-300 uppercase leading-relaxed whitespace-pre-line font-medium">
             {tagline}
           </p>
-          <div className="flex flex-wrap gap-2.5 mt-2">
+          <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 sm:gap-2.5 mt-1 sm:mt-2">
             <a 
               href={contact.instagram || 'https://instagram.com/creativefx.lk'} 
               target="_blank" 
               rel="noopener noreferrer" 
               aria-label="Instagram" 
-              className="px-3.5 py-1.5 bg-white/5 hover:bg-[var(--fx-yellow)] hover:text-black border border-white/10 rounded-sm text-xs sm:text-sm font-mono-tech tracking-widest text-gray-300 transition-all uppercase"
+              className="px-3 py-3 sm:px-3.5 sm:py-1.5 bg-white/[0.06] sm:bg-white/5 hover:bg-[var(--fx-yellow)] hover:text-black border border-white/10 rounded-lg sm:rounded-sm text-[11px] sm:text-sm font-mono-tech tracking-widest text-white/70 sm:text-gray-300 transition-all uppercase text-center font-semibold min-h-[44px] flex items-center justify-center"
             >
               INSTAGRAM
             </a>
@@ -112,7 +112,7 @@ export const Footer: React.FC<FooterProps> = ({
               target="_blank" 
               rel="noopener noreferrer" 
               aria-label="Facebook" 
-              className="px-3.5 py-1.5 bg-white/5 hover:bg-[var(--fx-yellow)] hover:text-black border border-white/10 rounded-sm text-xs sm:text-sm font-mono-tech tracking-widest text-gray-300 transition-all uppercase"
+              className="px-3 py-3 sm:px-3.5 sm:py-1.5 bg-white/[0.06] sm:bg-white/5 hover:bg-[var(--fx-yellow)] hover:text-black border border-white/10 rounded-lg sm:rounded-sm text-[11px] sm:text-sm font-mono-tech tracking-widest text-white/70 sm:text-gray-300 transition-all uppercase text-center font-semibold min-h-[44px] flex items-center justify-center"
             >
               FACEBOOK
             </a>
@@ -121,7 +121,7 @@ export const Footer: React.FC<FooterProps> = ({
               target="_blank" 
               rel="noopener noreferrer" 
               aria-label="TikTok" 
-              className="px-3.5 py-1.5 bg-white/5 hover:bg-[var(--fx-yellow)] hover:text-black border border-white/10 rounded-sm text-xs sm:text-sm font-mono-tech tracking-widest text-gray-300 transition-all uppercase"
+              className="px-3 py-3 sm:px-3.5 sm:py-1.5 bg-white/[0.06] sm:bg-white/5 hover:bg-[var(--fx-yellow)] hover:text-black border border-white/10 rounded-lg sm:rounded-sm text-[11px] sm:text-sm font-mono-tech tracking-widest text-white/70 sm:text-gray-300 transition-all uppercase text-center font-semibold min-h-[44px] flex items-center justify-center"
             >
               TIKTOK
             </a>
@@ -130,59 +130,67 @@ export const Footer: React.FC<FooterProps> = ({
               target="_blank" 
               rel="noopener noreferrer" 
               aria-label="WhatsApp" 
-              className="px-3.5 py-1.5 bg-[#25D366]/10 hover:bg-[#25D366] hover:text-black border border-[#25D366]/30 rounded-sm text-xs sm:text-sm font-mono-tech tracking-widest text-[#25D366] transition-all uppercase font-semibold"
+              className="px-3 py-3 sm:px-3.5 sm:py-1.5 bg-[#25D366] hover:bg-[#20b858] text-black border border-[#25D366] rounded-lg sm:rounded-sm text-[11px] sm:text-sm font-mono-tech tracking-widest transition-all uppercase font-bold text-center min-h-[44px] flex items-center justify-center"
             >
               WHATSAPP
             </a>
           </div>
         </div>
 
-        {/* Right: Links */}
-        <div className="flex gap-14 sm:gap-24 font-tech tracking-wider">
-          <div className="flex flex-col gap-4">
-            <span className="text-xs sm:text-sm font-mono-tech tracking-[0.2em] text-[var(--fx-yellow)] font-bold uppercase">SERVICES</span>
+        {/* Right: Links - 2 columns on mobile with larger tap targets */}
+        <div className="flex gap-8 sm:gap-14 md:gap-24 font-tech tracking-wider w-full md:w-auto">
+          <div className="flex-1 sm:flex-none flex flex-col gap-3 sm:gap-4">
+            <span className="text-[11px] sm:text-sm font-mono-tech tracking-[0.2em] text-[var(--fx-yellow)] font-bold uppercase">SERVICES</span>
             <button 
               type="button"
               onClick={handleWorksLink}
-              className="text-left text-sm sm:text-base text-gray-300 hover:text-[var(--fx-yellow)] hover:translate-x-1 transition-all cursor-pointer"
+              className="text-left text-[14px] sm:text-base text-white/60 sm:text-gray-300 hover:text-[var(--fx-yellow)] transition-colors cursor-pointer min-h-[32px] sm:min-h-0 flex items-center"
             >
               Portfolio
             </button>
             <button 
               type="button"
               onClick={handleServicesLink}
-              className="text-left text-sm sm:text-base text-gray-300 hover:text-[var(--fx-yellow)] hover:translate-x-1 transition-all cursor-pointer"
+              className="text-left text-[14px] sm:text-base text-white/60 sm:text-gray-300 hover:text-[var(--fx-yellow)] transition-colors cursor-pointer min-h-[32px] sm:min-h-0 flex items-center"
             >
               Services
             </button>
             <button 
               type="button"
               onClick={(e) => handleSectionLink(e, 'section-about')}
-              className="text-left text-sm sm:text-base text-gray-300 hover:text-[var(--fx-yellow)] hover:translate-x-1 transition-all cursor-pointer"
+              className="text-left text-[14px] sm:text-base text-white/60 sm:text-gray-300 hover:text-[var(--fx-yellow)] transition-colors cursor-pointer min-h-[32px] sm:min-h-0 flex items-center"
             >
               About
             </button>
-          </div>
-          <div className="flex flex-col gap-4">
-            <span className="text-xs sm:text-sm font-mono-tech tracking-[0.2em] text-[var(--fx-yellow)] font-bold uppercase">CONNECT</span>
-            <a href={contact.instagram || 'https://instagram.com/creativefx.lk'} target="_blank" rel="noopener noreferrer" className="text-sm sm:text-base text-gray-300 hover:text-[var(--fx-yellow)] hover:translate-x-1 transition-all">Instagram</a>
-            <a href={contact.facebook || 'https://facebook.com/creativefx.lk'} target="_blank" rel="noopener noreferrer" className="text-sm sm:text-base text-gray-300 hover:text-[var(--fx-yellow)] hover:translate-x-1 transition-all">Facebook</a>
             <button 
               type="button"
               onClick={(e) => handleSectionLink(e, 'section-contact')}
-              className="text-left text-sm sm:text-base text-gray-300 hover:text-[var(--fx-yellow)] hover:translate-x-1 transition-all cursor-pointer"
+              className="sm:hidden text-left text-[14px] text-white/60 hover:text-[var(--fx-yellow)] transition-colors cursor-pointer min-h-[32px] flex items-center"
             >
               Contact
             </button>
+          </div>
+          <div className="flex-1 sm:flex-none flex flex-col gap-3 sm:gap-4">
+            <span className="text-[11px] sm:text-sm font-mono-tech tracking-[0.2em] text-[var(--fx-yellow)] font-bold uppercase">CONNECT</span>
+            <a href={contact.instagram || 'https://instagram.com/creativefx.lk'} target="_blank" rel="noopener noreferrer" className="text-[14px] sm:text-base text-white/60 sm:text-gray-300 hover:text-[var(--fx-yellow)] transition-colors min-h-[32px] sm:min-h-0 flex items-center">Instagram</a>
+            <a href={contact.facebook || 'https://facebook.com/creativefx.lk'} target="_blank" rel="noopener noreferrer" className="text-[14px] sm:text-base text-white/60 sm:text-gray-300 hover:text-[var(--fx-yellow)] transition-colors min-h-[32px] sm:min-h-0 flex items-center">Facebook</a>
+            <button 
+              type="button"
+              onClick={(e) => handleSectionLink(e, 'section-contact')}
+              className="hidden sm:flex text-left text-sm sm:text-base text-gray-300 hover:text-[var(--fx-yellow)] transition-colors cursor-pointer min-h-[32px] sm:min-h-0 items-center"
+            >
+              Contact
+            </button>
+            <a href={`mailto:${contact.email||'hello@creativefx.lk'}`} className="sm:hidden text-[14px] text-white/60 hover:text-[var(--fx-yellow)] transition-colors min-h-[32px] flex items-center break-all">Email Us</a>
           </div>
         </div>
       </div>
 
       {/* Bottom Copyright */}
-      <div className="max-w-7xl mx-auto mt-14 pt-8 border-t border-[var(--fx-border-dark)] flex flex-col sm:flex-row justify-between items-center gap-4 text-xs sm:text-sm font-mono-tech tracking-[0.2em] text-gray-400 uppercase">
-        <p>&copy; {new Date().getFullYear()} {copyright}</p>
-        <a href={`tel:${(contact.phone || '+94 77 754 8671').replace(/\s/g, '')}`} className="text-white hover:text-[var(--fx-yellow)] font-semibold transition-colors">
-          {contact.phone || '+94 77 754 8671'}
+      <div className="max-w-7xl mx-auto mt-10 sm:mt-14 pt-6 sm:pt-8 border-t border-white/10 flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center text-[11px] sm:text-sm font-mono-tech tracking-[0.14em] sm:tracking-[0.2em] text-white/30 sm:text-gray-400 uppercase text-center sm:text-left">
+        <p className="order-2 sm:order-1">&copy; {new Date().getFullYear()} {copyright}</p>
+        <a href={`tel:${(contact.phone || '+94 77 754 8671').replace(/\s/g, '')}`} className="order-1 sm:order-2 text-white hover:text-[var(--fx-yellow)] font-semibold transition-colors bg-white/[0.06] sm:bg-transparent border sm:border-0 border-white/10 rounded-full sm:rounded-none py-2.5 sm:py-0 flex items-center justify-center sm:justify-start gap-2">
+          <span className="sm:hidden w-2 h-2 bg-emerald-500 rounded-full animate-pulse" /> {contact.phone || '+94 77 754 8671'}
         </a>
       </div>
     </footer>

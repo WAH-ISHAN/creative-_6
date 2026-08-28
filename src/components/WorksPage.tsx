@@ -276,99 +276,99 @@ export const WorksPage: React.FC<WorksPageProps> = ({
         onOpenWeddings={onSwitchToWeddings}
       />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-6 sm:px-8 md:px-12 pt-32 sm:pt-40 pb-24">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-8 md:px-12 pt-24 sm:pt-40 pb-16 sm:pb-24">
         {/* Page Top Bar */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-10 border-b border-[var(--fx-border-dark)]">
-          <div className="space-y-4">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-5 sm:gap-6 pb-6 sm:pb-10 border-b border-white/10">
+          <div className="space-y-3 sm:space-y-4">
             <button
               onClick={onSwitchToStudio}
-              className="inline-flex items-center gap-2 text-xs font-mono-tech tracking-widest text-[var(--fx-gray)] hover:text-[var(--fx-white)] transition-colors cursor-pointer group"
+              className="inline-flex items-center gap-2 text-[11px] sm:text-xs font-mono-tech tracking-widest text-white/50 hover:text-white transition-colors cursor-pointer group min-h-[44px] sm:min-h-0"
             >
               <ArrowLeft className="w-3.5 h-3.5 transform group-hover:-translate-x-1 transition-transform" />
               BACK TO HOME
             </button>
-            <div className="text-xs font-mono-tech tracking-[0.28em] text-[var(--fx-gray)] uppercase">
+            <div className="text-[11px] sm:text-xs font-mono-tech tracking-[0.28em] text-white/40 uppercase">
               INDEXED PORTFOLIO
             </div>
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-editorial font-normal uppercase tracking-tight text-[var(--fx-white)] leading-[0.9]">
+            <h1 className="text-[36px] sm:text-6xl md:text-7xl lg:text-8xl font-editorial font-normal uppercase tracking-tight text-white leading-[0.9]">
               {worksTitle[0]}<br />
               <span className="text-[var(--fx-yellow)]">{worksTitle[1] || ''}</span>
             </h1>
           </div>
 
           <div className="max-w-md">
-            <p className="text-sm sm:text-base font-tech text-[var(--fx-gray)] leading-relaxed">
+            <p className="text-[13px] sm:text-base font-tech text-white/60 leading-relaxed">
               {worksIntro || 'A curated selection of our commercial, editorial, and documentary commissions spanning photography and cinema.'}
             </p>
           </div>
         </div>
 
-        {/* Modern High-Contrast Filter & Category Engine */}
-        <div className="my-8 p-4 sm:p-6 bg-[#0c0c0c] border border-white/20 rounded-md shadow-2xl space-y-5">
+        {/* Modern High-Contrast Filter & Category Engine - mobile optimized */}
+        <div className="my-6 sm:my-8 p-3 sm:p-6 bg-[#0c0c0c] border border-white/10 sm:border-white/20 rounded-xl sm:rounded-md shadow-2xl space-y-4 sm:space-y-5">
           {/* Row 1: Media Type Switcher & Search Bar */}
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-white/10 pb-5">
+          <div className="flex flex-col gap-4 border-b border-white/10 pb-4 sm:pb-5">
             {/* Primary Media Format Tabs */}
-            <div className="flex items-center gap-2.5 flex-wrap">
+            <div className="grid grid-cols-3 sm:flex sm:items-center gap-2 sm:gap-2.5 sm:flex-wrap">
               <button
                 onClick={() => { soundEngine.playClick(); setActiveType('ALL'); setActiveCategory('ALL'); }}
-                className={`px-4 sm:px-5 py-2 rounded-sm text-xs font-mono-tech tracking-wider uppercase transition-all duration-200 cursor-pointer flex items-center gap-2 ${
+                className={`px-2 sm:px-5 py-3 sm:py-2 rounded-xl sm:rounded-sm text-[11px] sm:text-xs font-mono-tech tracking-wider uppercase transition-all duration-200 cursor-pointer flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 min-h-[52px] sm:min-h-0 ${
                   activeType === 'ALL'
-                    ? 'bg-[var(--fx-yellow)] text-black font-bold border border-[var(--fx-yellow)] shadow-[0_0_18px_rgba(252,191,19,0.35)] scale-[1.02]'
-                    : 'bg-[#181818] text-white font-semibold border border-white/20 hover:border-white/60 hover:bg-[#222222]'
+                    ? 'bg-[var(--fx-yellow)] text-black font-bold border border-[var(--fx-yellow)] shadow-[0_0_18px_rgba(252,191,19,0.35)]'
+                    : 'bg-[#181818] text-white font-semibold border border-white/15 hover:border-white/40 hover:bg-[#222222]'
                 }`}
               >
-                <LayoutGrid className="w-3.5 h-3.5" />
-                <span>ALL COMMISSIONS</span>
+                <LayoutGrid className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
+                <span className="text-[10px] sm:text-xs leading-none">ALL</span>
               </button>
 
               <button
                 onClick={() => { soundEngine.playClick(); setActiveType('PHOTO'); setActiveCategory('ALL'); }}
-                className={`px-4 sm:px-5 py-2 rounded-sm text-xs font-mono-tech tracking-wider uppercase transition-all duration-200 cursor-pointer flex items-center gap-2 ${
+                className={`px-2 sm:px-5 py-3 sm:py-2 rounded-xl sm:rounded-sm text-[11px] sm:text-xs font-mono-tech tracking-wider uppercase transition-all duration-200 cursor-pointer flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 min-h-[52px] sm:min-h-0 ${
                   activeType === 'PHOTO'
-                    ? 'bg-[var(--fx-yellow)] text-black font-bold border border-[var(--fx-yellow)] shadow-[0_0_18px_rgba(252,191,19,0.35)] scale-[1.02]'
-                    : 'bg-[#181818] text-white font-semibold border border-white/20 hover:border-white/60 hover:bg-[#222222]'
+                    ? 'bg-[var(--fx-yellow)] text-black font-bold border border-[var(--fx-yellow)] shadow-[0_0_18px_rgba(252,191,19,0.35)]'
+                    : 'bg-[#181818] text-white font-semibold border border-white/15 hover:border-white/40 hover:bg-[#222222]'
                 }`}
               >
-                <Camera className="w-3.5 h-3.5" />
-                <span>PHOTO</span>
+                <Camera className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
+                <span className="text-[10px] sm:text-xs leading-none">PHOTO</span>
               </button>
 
               <button
                 onClick={() => { soundEngine.playClick(); setActiveType('VIDEO'); setActiveCategory('ALL'); }}
-                className={`px-4 sm:px-5 py-2 rounded-sm text-xs font-mono-tech tracking-wider uppercase transition-all duration-200 cursor-pointer flex items-center gap-2 ${
+                className={`px-2 sm:px-5 py-3 sm:py-2 rounded-xl sm:rounded-sm text-[11px] sm:text-xs font-mono-tech tracking-wider uppercase transition-all duration-200 cursor-pointer flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 min-h-[52px] sm:min-h-0 ${
                   activeType === 'VIDEO'
-                    ? 'bg-[var(--fx-yellow)] text-black font-bold border border-[var(--fx-yellow)] shadow-[0_0_18px_rgba(252,191,19,0.35)] scale-[1.02]'
-                    : 'bg-[#181818] text-white font-semibold border border-white/20 hover:border-white/60 hover:bg-[#222222]'
+                    ? 'bg-[var(--fx-yellow)] text-black font-bold border border-[var(--fx-yellow)] shadow-[0_0_18px_rgba(252,191,19,0.35)]'
+                    : 'bg-[#181818] text-white font-semibold border border-white/15 hover:border-white/40 hover:bg-[#222222]'
                 }`}
               >
-                <Film className="w-3.5 h-3.5" />
-                <span>VIDEO</span>
+                <Film className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
+                <span className="text-[10px] sm:text-xs leading-none">VIDEO</span>
               </button>
             </div>
 
-            {/* Search Box */}
-            <div className="relative w-full md:w-72">
-              <Search className="w-3.5 h-3.5 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            {/* Search Box - full width on mobile */}
+            <div className="relative w-full">
+              <Search className="w-4 h-4 sm:w-3.5 sm:h-3.5 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search title, category, tag..."
-                className="w-full pl-9 pr-8 py-2 bg-[#181818] border border-white/20 rounded-sm text-xs font-mono-tech text-white placeholder:text-gray-400 focus:outline-none focus:border-[var(--fx-yellow)] focus:ring-1 focus:ring-[var(--fx-yellow)] transition-all"
+                className="w-full pl-10 sm:pl-9 pr-8 py-3.5 sm:py-2.5 bg-[#181818] border border-white/15 sm:border-white/20 rounded-xl sm:rounded-sm text-[13px] sm:text-xs font-mono-tech text-white placeholder:text-gray-500 focus:outline-none focus:border-[var(--fx-yellow)] focus:ring-1 focus:ring-[var(--fx-yellow)] transition-all min-h-[48px] sm:min-h-0"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white cursor-pointer"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white cursor-pointer w-8 h-8 flex items-center justify-center"
                 >
-                  <X className="w-3.5 h-3.5" />
+                  <X className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
                 </button>
               )}
             </div>
           </div>
 
-          {/* Row 2: Crisp, High-Contrast Category Badges */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar flex-wrap sm:flex-nowrap">
+          {/* Row 2: Category Badges - wrap on mobile */}
+          <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto sm:overflow-visible pb-2 sm:pb-1 no-scrollbar flex-wrap">
             {categoryChips.map(cat => {
               const isActive = activeCategory === cat.id;
 
@@ -389,8 +389,8 @@ export const WorksPage: React.FC<WorksPageProps> = ({
           </div>
         </div>
 
-        {/* Counter Bar */}
-        <div className="pb-6 flex justify-between items-center text-xs font-mono-tech tracking-widest text-gray-400 uppercase">
+        {/* Counter Bar - stacked on mobile */}
+        <div className="pb-4 sm:pb-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0 text-[11px] sm:text-xs font-mono-tech tracking-widest text-gray-400 uppercase">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[var(--fx-yellow)] animate-pulse-subtle" />
             <span>
@@ -400,30 +400,30 @@ export const WorksPage: React.FC<WorksPageProps> = ({
           {(activeCategory !== 'ALL' || activeType !== 'ALL' || searchQuery) && (
             <button
               onClick={() => { setActiveType('ALL'); setActiveCategory('ALL'); setSearchQuery(''); }}
-              className="text-[var(--fx-yellow)] hover:text-white font-bold transition-colors cursor-pointer flex items-center gap-1"
+              className="text-[var(--fx-yellow)] hover:text-white font-bold transition-colors cursor-pointer flex items-center gap-1 self-start sm:self-auto text-[11px] sm:text-xs min-h-0 py-1"
             >
-              <span>✕ RESET ALL FILTERS</span>
+              <span>✕ RESET FILTERS</span>
             </button>
           )}
         </div>
 
         {/* Projects Grid */}
-        <div className="pt-4">
+        <div className="pt-2 sm:pt-4">
           {filteredProjects.length === 0 ? (
-            <div className="py-24 text-center border border-dashed border-white/10 rounded-sm">
+            <div className="py-16 sm:py-24 text-center border border-dashed border-white/10 rounded-xl sm:rounded-sm px-4">
               <Sparkles className="w-8 h-8 text-gray-600 mx-auto mb-4" />
-              <p className="text-xl font-editorial uppercase text-gray-400">NO PROJECTS FOUND IN THIS CATEGORY</p>
-              <p className="text-xs font-mono-tech text-gray-600 mt-2">TRY CLEARING YOUR SEARCH OR CHOOSING ANOTHER CATEGORY</p>
+              <p className="text-lg sm:text-xl font-editorial uppercase text-gray-400">NO PROJECTS FOUND</p>
+              <p className="text-[11px] sm:text-xs font-mono-tech text-gray-600 mt-2">TRY CLEARING YOUR SEARCH OR CHOOSING ANOTHER CATEGORY</p>
               <button
                 onClick={() => { setActiveType('ALL'); setActiveCategory('ALL'); setSearchQuery(''); }}
-                className="mt-6 px-6 py-2.5 bg-[var(--fx-yellow)] text-black font-mono-tech text-xs uppercase tracking-widest font-semibold hover:bg-white transition-colors cursor-pointer"
+                className="mt-6 px-6 py-3 bg-[var(--fx-yellow)] text-black font-mono-tech text-xs uppercase tracking-widest font-semibold hover:bg-white transition-colors cursor-pointer rounded-xl sm:rounded-sm w-full sm:w-auto"
               >
                 SHOW ALL WORKS
               </button>
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
+              <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-10">
                 {visibleProjects.map((project, idx) => (
                   <WorkCardItem
                     key={project.id || idx}
@@ -437,10 +437,10 @@ export const WorksPage: React.FC<WorksPageProps> = ({
 
               {/* Load more */}
               {visibleCount < filteredProjects.length && (
-                <div className="mt-14 text-center">
+                <div className="mt-8 sm:mt-14 text-center px-4 sm:px-0">
                   <button
                     onClick={() => setVisibleCount(c => c + PAGE_SIZE)}
-                    className="px-10 py-4 bg-transparent border border-[var(--fx-border-dark)] hover:border-[var(--fx-yellow)] hover:text-[var(--fx-yellow)] text-white font-mono-tech text-xs uppercase tracking-widest font-semibold transition-colors cursor-pointer"
+                    className="w-full sm:w-auto px-8 sm:px-10 py-4 bg-transparent border border-white/20 hover:border-[var(--fx-yellow)] hover:text-[var(--fx-yellow)] text-white font-mono-tech text-xs uppercase tracking-widest font-semibold transition-colors cursor-pointer rounded-xl sm:rounded-sm"
                   >
                     LOAD MORE ({filteredProjects.length - visibleCount} REMAINING)
                   </button>

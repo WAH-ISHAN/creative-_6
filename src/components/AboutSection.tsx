@@ -21,7 +21,6 @@ export const AboutSection: React.FC = () => {
       if (titleRef.current) titleRef.current.style.opacity = '1';
       return;
     }
-
     let ctx = gsap.context(() => {
       gsap.from(titleRef.current, {
         y: 60,
@@ -66,16 +65,16 @@ export const AboutSection: React.FC = () => {
   }, [sec.animationsEnabled]);
 
   return (
-    <section ref={sectionRef} id="section-about" style={sec.style} className="relative w-full bg-[var(--fx-black)] text-[var(--fx-white)] py-16 sm:py-24 md:py-32 px-6 sm:px-8 md:px-12 select-none border-t border-[var(--fx-border-dark)] overflow-hidden no-parallax">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-16 md:gap-24 items-start">
+    <section ref={sectionRef} id="section-about" style={sec.style} className="relative w-full bg-[#050505] text-white py-10 sm:py-24 md:py-32 px-4 sm:px-8 md:px-12 select-none border-t border-white/10 overflow-hidden no-parallax">
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-8 sm:gap-16 md:gap-24 items-start">
 
         {/* Left Column: Title */}
-        <div className="md:w-5/12 space-y-8">
-          <div className="flex items-center gap-2 text-sm sm:text-base font-mono-tech tracking-[0.28em] text-[var(--fx-gray)] uppercase">
-            <span className="text-[var(--fx-white)]">06</span>
+        <div className="w-full md:w-5/12 space-y-5 sm:space-y-8">
+          <div className="flex items-center gap-2 text-[11px] sm:text-sm font-mono-tech tracking-[0.28em] text-white/40 uppercase">
+            <span className="text-white font-bold">06</span>
             <span>/ About Us</span>
           </div>
-          <h2 ref={titleRef} className="text-4xl sm:text-5xl md:text-6xl font-editorial font-normal uppercase tracking-tight text-[var(--fx-white)] leading-[0.95]">
+          <h2 ref={titleRef} className="text-[32px] sm:text-5xl md:text-6xl font-editorial font-normal uppercase tracking-tight text-white leading-[0.92] sm:leading-[0.95]">
             {headlineLines.map((line, i) => (
               <React.Fragment key={i}>
                 {line.includes('CREATIVEFX.') ? (
@@ -101,37 +100,44 @@ export const AboutSection: React.FC = () => {
               </React.Fragment>
             ))}
           </h2>
-          <div className="w-12 h-px bg-[var(--fx-white)]"></div>
+          <div className="w-10 sm:w-12 h-px bg-white/60"></div>
+          <div className="sm:hidden text-[13px] font-mono-tech tracking-[0.18em] text-[var(--fx-yellow)] uppercase font-bold">
+            EST. COLOMBO // SINCE 2018
+          </div>
         </div>
 
         {/* Right Column: Content */}
-        <div className="md:w-7/12 space-y-16 text-lg md:text-xl text-[var(--fx-gray)] font-tech leading-relaxed">
+        <div className="w-full md:w-7/12 space-y-8 sm:space-y-16 text-[15px] sm:text-lg md:text-xl text-white/60 font-tech leading-relaxed">
 
-          <div ref={textGroup1Ref} className="space-y-6">
-            <p className="text-[var(--fx-white)] text-xl md:text-2xl font-editorial tracking-wide uppercase animate-text-on-scroll">
+          <div ref={textGroup1Ref} className="space-y-4 sm:space-y-6">
+            <p className="text-white text-[18px] sm:text-xl md:text-2xl font-editorial tracking-wide uppercase leading-tight">
               {about.lead}
             </p>
-            <p className="animate-text-on-scroll whitespace-pre-line">
+            <p className="text-[15px] sm:text-[17px] leading-relaxed text-white/60 whitespace-pre-line">
               {about.body1}
             </p>
-            <p className="animate-text-on-scroll">
+            <p className="text-[15px] sm:text-[17px] leading-relaxed text-white/60">
               {about.body2}
             </p>
           </div>
 
           {(about.vision || about.mission) && (
-            <div ref={textGroup2Ref} className="space-y-8 pt-8 border-t border-[#222222]">
+            <div ref={textGroup2Ref} className="space-y-5 sm:space-y-8 pt-6 sm:pt-8 border-t border-white/10">
               {about.vision && (
-                <div className="space-y-2">
-                  <h3 className="text-[var(--fx-white)] font-mono-tech uppercase tracking-widest text-base mb-2">Vision</h3>
-                  <p>{about.vision}</p>
+                <div className="bg-white/[0.04] border border-white/10 rounded-xl sm:rounded-none sm:bg-transparent sm:border-0 sm:p-0 p-4 space-y-2 sm:space-y-2">
+                  <h3 className="text-white font-mono-tech uppercase tracking-[0.2em] text-[11px] sm:text-base mb-1 sm:mb-2 flex items-center gap-2">
+                    <span className="w-1 h-1 bg-[var(--fx-yellow)] rounded-full sm:hidden" /> Vision
+                  </h3>
+                  <p className="text-[14px] sm:text-[17px] leading-relaxed text-white/60">{about.vision}</p>
                 </div>
               )}
 
               {about.mission && (
-                <div className="space-y-2">
-                  <h3 className="text-[var(--fx-white)] font-mono-tech uppercase tracking-widest text-base mb-2">Mission</h3>
-                  <p>{about.mission}</p>
+                <div className="bg-white/[0.04] border border-white/10 rounded-xl sm:rounded-none sm:bg-transparent sm:border-0 sm:p-0 p-4 space-y-2 sm:space-y-2">
+                  <h3 className="text-white font-mono-tech uppercase tracking-[0.2em] text-[11px] sm:text-base mb-1 sm:mb-2 flex items-center gap-2">
+                    <span className="w-1 h-1 bg-[var(--fx-yellow)] rounded-full sm:hidden" /> Mission
+                  </h3>
+                  <p className="text-[14px] sm:text-[17px] leading-relaxed text-white/60">{about.mission}</p>
                 </div>
               )}
             </div>
