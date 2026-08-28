@@ -90,11 +90,11 @@ export const IntroductionSection: React.FC = () => {
       style={sec.style}
       className="relative w-full bg-[var(--fx-white)] text-[var(--fx-black)] py-14 sm:py-20 md:py-28 px-5 sm:px-8 md:px-12 select-none no-parallax overflow-hidden"
     >
-      {/* ─── True Background Watermark (Positioned behind all section elements) ─── */}
+      {/* ─── True Background Watermark (Balanced light-dark refined tone) ─── */}
       <div 
         ref={watermarkRef}
         aria-hidden="true"
-        className="absolute -left-4 sm:-left-8 md:-left-12 lg:-left-16 top-1/2 -translate-y-1/2 z-0 pointer-events-none select-none opacity-[0.22] sm:opacity-[0.25] md:opacity-[0.28] w-[90vw] sm:w-[75vw] md:w-[65vw] max-w-[750px] lg:max-w-[960px] overflow-hidden"
+        className="absolute -left-4 sm:-left-8 md:-left-12 lg:-left-16 top-1/2 -translate-y-1/2 z-0 pointer-events-none select-none opacity-[0.14] sm:opacity-[0.16] md:opacity-[0.18] w-[90vw] sm:w-[75vw] md:w-[65vw] max-w-[750px] lg:max-w-[960px] overflow-hidden mix-blend-multiply"
       >
         <img 
           src="/img/creativefx-watermark.png"
