@@ -92,13 +92,13 @@ export const IntroductionSection: React.FC = () => {
       ref={sectionRef}
       id="section-introduction"
       style={sec.style}
-      className="relative w-full bg-[var(--fx-white)] text-[var(--fx-black)] pt-16 pb-4 sm:pt-24 sm:pb-8 md:pt-32 md:pb-8 px-6 sm:px-8 md:px-12 select-none no-parallax"
+      className="relative w-full bg-[var(--fx-white)] text-[var(--fx-black)] py-16 sm:py-20 md:py-24 px-6 sm:px-8 md:px-12 select-none no-parallax overflow-hidden"
     >
       <div className="relative z-10 max-w-6xl mx-auto">
-        <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
 
-          {/* Left Column: Title & Intro */}
-          <div className="lg:w-7/12 space-y-12">
+          {/* Left Column: Title & Watermark */}
+          <div className="lg:w-7/12 space-y-8 relative">
             <div className="flex items-center gap-2 text-sm sm:text-base font-mono-tech tracking-[0.28em] text-[var(--fx-gray)] uppercase">
               <span className="text-[var(--fx-black)]">{intro.sectionNumber || '01'}</span>
               <span>{intro.label || '/ Studio'}</span>
@@ -119,20 +119,21 @@ export const IntroductionSection: React.FC = () => {
 
             <div className="w-12 h-1 bg-[var(--fx-black)]" style={{ backgroundColor: sec.accent || 'var(--fx-black)' }}></div>
             
-            {/* Watermark image: touching the left edge of the screen */}
+            {/* Watermark image: starts at left screen edge, extends gracefully under title */}
             <div 
               ref={watermarkRef} 
-              className="mt-4 sm:mt-6 relative"
+              className="pt-2 pointer-events-none select-none"
               style={{ 
                 marginLeft: 'calc(-50vw + 50%)', 
-                width: 'calc(50vw + 35%)',
-                maxWidth: '1200px'
+                width: 'clamp(280px, 44vw, 540px)',
+                maxWidth: '90vw'
               }}
             >
               <img 
-                src="/watermark.png" 
+                src="/img/creativefx-watermark.png" 
                 alt="CreativeFX Watermark" 
-                className="w-full h-auto opacity-100 object-contain object-left pointer-events-none filter invert"
+                className="w-full h-auto object-contain object-left opacity-25 pointer-events-none select-none"
+                loading="eager"
               />
             </div>
           </div>

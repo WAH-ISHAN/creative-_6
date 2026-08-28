@@ -145,10 +145,6 @@ export const FeaturedWorkSection: React.FC<FeaturedWorkSectionProps> = ({ onSele
       }, 0);
     });
 
-    mm.add('(max-width: 767px)', () => {
-      // Mobile fallback animation
-    });
-
     return () => mm.revert();
   }, []);
 
