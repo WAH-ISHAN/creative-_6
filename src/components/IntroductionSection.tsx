@@ -94,19 +94,13 @@ export const IntroductionSection: React.FC = () => {
       <div 
         ref={watermarkRef}
         aria-hidden="true"
-        className="absolute -left-6 sm:-left-12 md:-left-16 lg:-left-24 top-1/2 -translate-y-1/2 z-0 pointer-events-none select-none opacity-[0.08] sm:opacity-[0.10] md:opacity-[0.12] w-[80vw] sm:w-[65vw] max-w-[620px] lg:max-w-[820px] overflow-hidden"
+        className="absolute -left-4 sm:-left-8 md:-left-12 lg:-left-16 top-1/2 -translate-y-1/2 z-0 pointer-events-none select-none opacity-[0.22] sm:opacity-[0.25] md:opacity-[0.28] w-[90vw] sm:w-[75vw] md:w-[65vw] max-w-[750px] lg:max-w-[960px] overflow-hidden"
       >
         <img 
           src="/img/creativefx-watermark.png"
           alt=""
           className="w-full h-auto object-contain object-left pointer-events-none select-none"
           loading="eager"
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            if (!target.src.endsWith('/watermark.png')) {
-              target.src = '/watermark.png';
-            }
-          }}
         />
       </div>
 
