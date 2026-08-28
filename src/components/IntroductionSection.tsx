@@ -119,12 +119,20 @@ export const IntroductionSection: React.FC = () => {
 
             <div className="w-12 h-1 bg-[var(--fx-black)]" style={{ backgroundColor: sec.accent || 'var(--fx-black)' }}></div>
             
-            {/* Watermark image */}
-            <div ref={watermarkRef} className="mt-8">
+            {/* Watermark image: touching the left edge of the screen */}
+            <div 
+              ref={watermarkRef} 
+              className="mt-4 sm:mt-6 relative"
+              style={{ 
+                marginLeft: 'calc(-50vw + 50%)', 
+                width: 'calc(50vw + 35%)',
+                maxWidth: '1200px'
+              }}
+            >
               <img 
-                src="/img/creativefx-watermark.png" 
+                src="/watermark.png" 
                 alt="CreativeFX Watermark" 
-                className="w-48 sm:w-64 opacity-60 object-contain"
+                className="w-full h-auto opacity-10 object-contain object-left pointer-events-none brightness-0"
               />
             </div>
           </div>
