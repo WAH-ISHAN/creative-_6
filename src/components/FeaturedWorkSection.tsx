@@ -28,11 +28,10 @@ export const FeaturedWorkSection: React.FC<FeaturedWorkSectionProps> = ({ onSele
   worksRef.current = featuredWorks;
 
   useEffect(() => {
-    // Responsive GSAP: each breakpoint owns its animation setup and
-    // automatically reverts/re-applies when the viewport crosses it
+    // Apply GSAP animations for ALL screen sizes
     const mm = gsap.matchMedia();
 
-    mm.add('(min-width: 768px)', () => {
+    mm.add('all', () => {
       if (!worksRef.current.length) return;
 
       // Initial entry animation for text and curve
@@ -148,29 +147,6 @@ export const FeaturedWorkSection: React.FC<FeaturedWorkSectionProps> = ({ onSele
 
     mm.add('(max-width: 767px)', () => {
       // Mobile fallback animation
-      gsap.utils.toArray<HTMLElement>('.fw-mobile-item').forEach((item) => {
-        const img = item.querySelector('img');
-        if (img) {
-          gsap.fromTo(
-            img,
-            { filter: 'grayscale(100%)' },
-            {
-              filter: 'grayscale(0%)',
-              ease: 'none',
-              scrollTrigger: {
-                trigger: item,
-                start: 'top 65%',
-                end: 'bottom 35%',
-                toggleActions: 'play reverse play reverse',
-              }
-            }
-          );
-        }
-        gsap.from(item, {
-          y: 50, opacity: 0, duration: 1, ease: 'power3.out',
-          scrollTrigger: { trigger: item, start: 'top 85%' }
-        });
-      });
     });
 
     return () => mm.revert();
@@ -181,35 +157,35 @@ export const FeaturedWorkSection: React.FC<FeaturedWorkSectionProps> = ({ onSele
   return (
     <section ref={sectionRef} id="section-featured-work" className="relative w-full bg-white text-[#050505] select-none overflow-hidden no-parallax">
 
-      {/* DESKTOP PINNED EXPERIENCE */}
-      <div className="hidden md:block h-screen supports-[height:100svh]:h-[100svh] w-full relative overflow-hidden">
+      {/* PINNED EXPERIENCE (NOW FOR ALL DEVICES) */}
+      <div className="block h-screen supports-[height:100svh]:h-[100svh] w-full relative overflow-hidden">
 
         {/* Massive White Curve masking the photos */}
         <div className="fw-curve absolute left-[-45vw] top-[-35vh] w-[95vw] h-[170vh] bg-white rounded-r-full z-20 shadow-[40px_0_60px_rgba(0,0,0,0.06)] pointer-events-none" />
 
         {/* Left Side: Typography (Z-30 above curve) */}
-        <div className="absolute left-0 top-0 w-[50vw] h-full z-30 flex flex-col justify-center pl-16 lg:pl-24 xl:pl-32">
+        <div className="absolute left-0 top-0 w-[55vw] md:w-[50vw] h-full z-30 flex flex-col justify-center pl-6 sm:pl-12 lg:pl-24 xl:pl-32">
 
           <div className="fw-title overflow-hidden">
-            <h2 className="text-6xl lg:text-7xl xl:text-8xl font-editorial tracking-tight uppercase leading-[0.95]">
+            <h2 className="text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-editorial tracking-tight uppercase leading-[0.95]">
               Featured<br />Work
             </h2>
           </div>
 
-          <div className="fw-title mt-8">
-            <p className="text-xs lg:text-sm uppercase tracking-[0.25em] text-[#666666] w-64 lg:w-80 leading-relaxed font-mono-tech">
+          <div className="fw-title mt-4 sm:mt-8">
+            <p className="text-[10px] sm:text-xs lg:text-sm uppercase tracking-[0.25em] text-[#666666] w-48 sm:w-64 lg:w-80 leading-relaxed font-mono-tech">
               {featuredLabel}
             </p>
           </div>
 
-          <div className="fw-title absolute bottom-16 lg:bottom-24 left-16 lg:left-24 xl:left-32">
+          <div className="fw-title absolute bottom-12 sm:bottom-16 lg:bottom-24 left-6 sm:left-12 lg:left-24 xl:left-32">
             <div ref={progressRef} className="text-[10px] lg:text-xs font-mono-tech tracking-[0.3em] text-[#888888] mb-3">
               <span className="text-[var(--fx-white)]">01</span> / 0{featuredWorks.length}
             </div>
-            <div ref={categoryRef} className="text-2xl lg:text-3xl font-editorial tracking-widest uppercase text-[#050505] mb-1">
+            <div ref={categoryRef} className="text-xl sm:text-2xl lg:text-3xl font-editorial tracking-widest uppercase text-[#050505] mb-1">
               {featuredWorks[0]?.category || featuredWorks[0]?.categoryLabel || ''}
             </div>
-            <div ref={titleRef} className="text-xs text-[#666666] font-mono-tech tracking-widest uppercase">
+            <div ref={titleRef} className="text-[10px] sm:text-xs text-[#666666] font-mono-tech tracking-widest uppercase">
               {featuredWorks[0]?.title || ''}
             </div>
           </div>
@@ -217,13 +193,13 @@ export const FeaturedWorkSection: React.FC<FeaturedWorkSectionProps> = ({ onSele
         </div>
 
         {/* Right Side: Photo Composition (Z-10 behind curve) */}
-        <div className="absolute right-0 top-0 w-[55vw] h-full z-10 flex items-center justify-center pointer-events-none">
-          <div className="relative w-[40vw] max-w-[700px] min-w-[400px] aspect-[4/5] mr-[5vw] lg:mr-[8vw]">
+        <div className="absolute right-0 top-0 w-[60vw] md:w-[55vw] h-full z-10 flex items-center justify-center pointer-events-none">
+          <div className="relative w-[50vw] md:w-[40vw] max-w-[700px] min-w-[200px] sm:min-w-[300px] md:min-w-[400px] aspect-[4/5] mr-[2vw] sm:mr-[5vw] lg:mr-[8vw]">
             {featuredWorks.map((work) => (
               <div
                 key={work.id}
                 onClick={() => onSelectProject?.(work)}
-                className="fw-image absolute inset-0 bg-white p-3 md:p-5 pb-16 md:pb-24 shadow-2xl pointer-events-auto cursor-pointer group origin-center"
+                className="fw-image absolute inset-0 bg-white p-2 sm:p-3 md:p-5 pb-12 sm:pb-16 md:pb-24 shadow-2xl pointer-events-auto cursor-pointer group origin-center"
               >
                 <div className="w-full h-full relative overflow-hidden bg-[#F5F5F5]">
                   <img
@@ -234,7 +210,7 @@ export const FeaturedWorkSection: React.FC<FeaturedWorkSectionProps> = ({ onSele
                   />
                 </div>
                 {/* Photo metadata (polaroid style bottom) */}
-                <div className="absolute bottom-6 md:bottom-8 left-6 md:left-8 text-[10px] md:text-xs font-mono-tech tracking-widest text-[#050505] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-4 sm:left-6 md:left-8 text-[10px] md:text-xs font-mono-tech tracking-widest text-[#050505] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   VIEW PROJECT →
                 </div>
               </div>
@@ -242,45 +218,6 @@ export const FeaturedWorkSection: React.FC<FeaturedWorkSectionProps> = ({ onSele
           </div>
         </div>
       </div>
-
-      {/* MOBILE SCROLL EXPERIENCE */}
-      <div className="md:hidden w-full pt-8 pb-24 px-6 flex flex-col items-center">
-        <div className="w-full text-center mb-16">
-          <h2 className="text-5xl font-editorial tracking-tight uppercase leading-none mb-6">
-            Featured<br />Work
-          </h2>
-          <p className="text-[10px] uppercase tracking-[0.2em] text-[#666666] font-mono-tech max-w-[250px] mx-auto leading-relaxed">
-            {featuredLabel}
-          </p>
-        </div>
-
-        <div className="w-full flex flex-col gap-12">
-          {featuredWorks.map((work, idx) => (
-            <div key={work.id} onClick={() => onSelectProject?.(work)} className="fw-mobile-item flex flex-col w-full group cursor-pointer">
-              <div className="w-full aspect-[4/5] bg-white p-2 pb-12 shadow-xl relative overflow-hidden mb-4">
-                <img
-                  src={work.coverImage}
-                  alt={work.title}
-                  className="w-full h-full object-cover transition-all duration-700"
-                  referrerPolicy="no-referrer"
-                />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-[10px] font-mono-tech tracking-[0.3em] text-[#888888] mb-1">
-                  0{idx + 1} / 0{featuredWorks.length}
-                </span>
-                <span className="text-xl font-editorial tracking-widest uppercase text-[#050505]">
-                  {work.category}
-                </span>
-                <span className="text-[10px] text-[#666666] font-mono-tech tracking-wider uppercase mt-1">
-                  {work.title}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
     </section>
   );
 };
