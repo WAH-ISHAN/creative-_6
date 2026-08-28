@@ -15,12 +15,14 @@ export const IntroductionSection: React.FC = () => {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
+  const watermarkRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!sec.animationsEnabled) {
       if (titleRef.current) titleRef.current.style.opacity = '1';
       if (textRef.current) textRef.current.style.opacity = '1';
       if (imageRef.current) imageRef.current.style.opacity = '1';
+      if (watermarkRef.current) watermarkRef.current.style.opacity = '1';
       return;
     }
 
@@ -36,6 +38,21 @@ export const IntroductionSection: React.FC = () => {
           start: 'top 75%',
         }
       });
+
+      // Watermark fade up
+      if (watermarkRef.current) {
+        gsap.from(watermarkRef.current, {
+          y: 30,
+          opacity: 0,
+          duration: 1,
+          delay: 0.3,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 75%',
+          }
+        });
+      }
 
       // Text fade up
       gsap.from(textRef.current, {
@@ -101,6 +118,15 @@ export const IntroductionSection: React.FC = () => {
             </h2>
 
             <div className="w-12 h-1 bg-[var(--fx-black)]" style={{ backgroundColor: sec.accent || 'var(--fx-black)' }}></div>
+            
+            {/* Watermark image */}
+            <div ref={watermarkRef} className="mt-8">
+              <img 
+                src="/img/creativefx-watermark.png" 
+                alt="CreativeFX Watermark" 
+                className="w-48 sm:w-64 opacity-60 object-contain"
+              />
+            </div>
           </div>
 
           {/* Right Column: Text & Image */}
