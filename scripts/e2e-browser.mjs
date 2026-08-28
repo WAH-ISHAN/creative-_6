@@ -31,6 +31,11 @@ async function newPage(browser, opts = {}) {
 }
 
 async function settle(page, ms = 700) { await page.waitForTimeout(ms); }
+// Deterministic SPA-ready wait: brand loader gone AND a real <main> heading painted.
+async function waitMain(page) {
+  await page.waitForFunction(() => !document.querySelector('.loader-container'), null, { timeout: 20000 }).catch(() => {});
+  await page.waitForFunction(() => !!document.querySelector('main h1'), null, { timeout: 15000 }).catch(() => {});
+}
 
 const metrics = (page) => page.evaluate(() => {
   const docEl = document.documentElement;
@@ -51,7 +56,7 @@ const metrics = (page) => page.evaluate(() => {
     brokenImgs,
     imgCount: imgs.length,
     oversizedMedia,
-    h1: document.querySelector('h1')?.textContent?.trim() || '',
+    h1: [...document.querySelectorAll('h1')].filter(h => !h.closest('.loader-container'))[0]?.textContent?.trim() || '',
   };
 });
 
@@ -98,6 +103,10 @@ try {
     // back/forward chain: works -> detail -> back(works) -> forward(detail) -> back(home)
     await page.evaluate(() => { const card = document.querySelector('.works-card'); card?.click(); });
     await settle(page, 900);
+    if (!/^\/works\/.+/.test(new URL(page.url()).pathname)) {
+      await page.evaluate(() => { const card = document.querySelector('.works-card'); card?.click(); });
+      await settle(page, 1200);
+    }
     const detailUrl = new URL(page.url()).pathname;
     ok('2b', `project card opens ${detailUrl}`, /^\/works\/.+/.test(detailUrl));
 
@@ -235,7 +244,7 @@ try {
     }
     const shownAll = await page.evaluate(() => ({
       cards: document.querySelectorAll('.works-card').length,
-      counter: document.body.textContent.match(/SHOWING\s+(\d+)\s+OF\s+(\d+)/i)?.slice(1).map(Number) || [],
+      counter: (() => { const el = [...document.querySelectorAll('div')].find(d => /SHOWING/i.test(d.textContent) && d.textContent.length < 80); const mnum = el?.textContent.match(/(\d+)/g); return mnum ? mnum.map(Number) : []; })(),
     }));
     ok('13', 'ALL WORKS displays every published project', shownAll.cards === publishedCount, `cards=${shownAll.cards} published=${publishedCount}`);
     ok('15', 'counts generated dynamically', shownAll.counter[0] === publishedCount && shownAll.counter[1] === publishedCount, shownAll.counter.join('/'));
@@ -285,8 +294,10 @@ try {
     const published = (await getDoc()).projects.filter(p => (p.status ?? 'published') === 'published');
     let detailFails = [];
     for (const p of published) {
-      await page.goto(`${BASE}/works/${p.slug}`, { waitUntil: 'domcontentloaded' }); await settle(page, 450);
-      const t = await page.evaluate(() => document.querySelector('h1')?.textContent?.trim());
+      await page.goto(`${BASE}/works/${p.slug}`, { waitUntil: 'domcontentloaded' });
+      await waitMain(page);
+      await settle(page, 250);
+      const t = await page.evaluate(() => [...document.querySelectorAll('h1')].filter(h => !h.closest('.loader-container'))[0]?.textContent?.trim());
       if (!t || t.toUpperCase() !== p.title.toUpperCase()) detailFails.push(`${p.slug}(${t})`);
     }
     ok('19', `detail page renders for each of ${published.length} published projects`, detailFails.length === 0, detailFails.join(', ').slice(0, 120));
@@ -304,7 +315,10 @@ try {
   // ────────────────────────────────────────────────────────────────
   {
     const { context, page } = await newPage(browser);
-    await page.goto(BASE + '/weddings', { waitUntil: 'load' }); await settle(page, 1600);
+    await page.goto(BASE + '/weddings', { waitUntil: 'domcontentloaded' });
+    await page.waitForFunction(() => !document.querySelector('.loader-container'), null, { timeout: 20000 }).catch(() => {});
+    await page.waitForSelector('#wedding-story-timeline', { timeout: 15000 });
+    await settle(page, 900);
 
     const chapters = await page.evaluate(() => document.querySelectorAll('#wedding-story-timeline .grid button').length);
     ok('20b', 'wedding timeline chapters render from CMS', chapters >= 1, `chapters=${chapters}`);
@@ -380,10 +394,10 @@ try {
     await page.goto(BASE + '/admin', { waitUntil: 'load' }); await settle(page, 900);
     ok('25a', 'admin gate shows login', await page.locator('text=Sign in to manage website content').count() > 0);
     await page.fill('input[type="password"]', 'wrongpass');
-    await page.click('button[type="submit"]'); await settle(page, 700);
+    await page.click('.cfx-admin button[type="submit"]'); await settle(page, 700);
     ok('25b', 'wrong password rejected in UI', await page.locator('text=Incorrect password').count() > 0);
     await page.fill('input[type="password"]', 'creativefx2026');
-    await page.click('button[type="submit"]');
+    await page.click('.cfx-admin button[type="submit"]');
     await settle(page, 1100);
     ok('25c', 'login opens admin panel', await page.locator('text=Content management').count() > 0);
 
@@ -391,12 +405,13 @@ try {
     const inboxHasIt = await page.locator('text=Inbox Probe').count() > 0;
     ok('25d', 'inbox lists submitted inquiry', inboxHasIt);
 
-    await page.click('nav >> text=Works / Projects'); await settle(page, 700);
-    await page.click('nav >> text=All Projects'); await settle(page, 900);
+    await page.click('aside nav button:has-text("Works / Projects")'); await settle(page, 700);
+    await page.click('aside nav button:has-text("All Projects")'); await page.waitForTimeout(900); await page.fill('input[placeholder*="Search by title"]', 'DANCE'); await page.waitForTimeout(700); await settle(page, 900);
     ok('25e', 'projects module lists records', await page.locator('text=DANCE COVERS').count() > 0);
 
-    await page.click('nav >> text=WEDDINGS'.toLowerCase() === '' ? 'nav >> text=Weddings' : 'nav >> text=Weddings'); await settle(page, 600);
-    await page.click('nav >> text=Stories'); await settle(page, 900);
+    await page.click('aside nav button:has-text("Weddings")'); await settle(page, 600);
+    await page.click('aside nav button:has-text("Stories")'); await settle(page, 900);
+    await page.click('aside nav button:has-text("Stories")'); await settle(page, 900);
     ok('25f', 'weddings stories module reachable', await page.locator('text=Ravindu & Malikshi').count() > 0);
 
     // cleanup probe

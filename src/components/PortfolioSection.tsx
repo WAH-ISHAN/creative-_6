@@ -129,12 +129,8 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ onSelectProj
   ];
 
   return (
-    <section id="section-portfolio" className="relative w-full bg-[var(--fx-black)] text-[var(--fx-white)] py-12 sm:py-20 md:py-28 px-6 sm:px-8 md:px-12 select-none border-t border-[var(--fx-border-dark)] overflow-hidden">
-      {/* Continuous Architectural Arc Outline continuing from Featured Work */}
-      <div className="absolute left-[-48vw] top-[-30vh] w-[103vw] h-[120vh] rounded-r-full border-r border-white/10 pointer-events-none hidden md:block" />
-      <div className="absolute left-[-52vw] top-[-35vh] w-[110vw] h-[130vh] rounded-r-full border-r border-white/5 pointer-events-none hidden md:block" />
-
-      <div className="relative z-10 max-w-7xl mx-auto">
+    <section id="section-portfolio" className="w-full bg-[var(--fx-black)] text-[var(--fx-white)] py-12 sm:py-20 md:py-28 px-6 sm:px-8 md:px-12 select-none border-t border-[var(--fx-border-dark)]">
+      <div className="max-w-7xl mx-auto">
 
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 md:mb-24">

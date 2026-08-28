@@ -132,7 +132,7 @@ export const IntroductionSection: React.FC = () => {
               <img 
                 src="/watermark.png" 
                 alt="CreativeFX Watermark" 
-                className="w-full h-auto opacity-10 object-contain object-left pointer-events-none brightness-0"
+                className="w-full h-auto opacity-100 object-contain object-left pointer-events-none filter invert"
               />
             </div>
           </div>
