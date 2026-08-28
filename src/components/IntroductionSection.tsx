@@ -15,14 +15,12 @@ export const IntroductionSection: React.FC = () => {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
-  const watermarkRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!sec.animationsEnabled) {
       if (titleRef.current) titleRef.current.style.opacity = '1';
       if (textRef.current) textRef.current.style.opacity = '1';
       if (imageRef.current) imageRef.current.style.opacity = '1';
-      if (watermarkRef.current) watermarkRef.current.style.opacity = '1';
       return;
     }
 
@@ -37,20 +35,6 @@ export const IntroductionSection: React.FC = () => {
           start: 'top 75%',
         }
       });
-
-      if (watermarkRef.current) {
-        gsap.from(watermarkRef.current, {
-          y: 30,
-          opacity: 0,
-          duration: 1,
-          delay: 0.3,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 75%',
-          }
-        });
-      }
 
       gsap.from(textRef.current, {
         y: 40,
@@ -90,20 +74,6 @@ export const IntroductionSection: React.FC = () => {
       style={sec.style}
       className="relative w-full bg-[var(--fx-white)] text-[var(--fx-black)] py-14 sm:py-20 md:py-28 px-5 sm:px-8 md:px-12 select-none no-parallax overflow-hidden"
     >
-      {/* ─── True Background Watermark (Balanced light-dark refined tone) ─── */}
-      <div 
-        ref={watermarkRef}
-        aria-hidden="true"
-        className="absolute -left-4 sm:-left-8 md:-left-12 lg:-left-16 top-1/2 -translate-y-1/2 z-0 pointer-events-none select-none opacity-[0.14] sm:opacity-[0.16] md:opacity-[0.18] w-[90vw] sm:w-[75vw] md:w-[65vw] max-w-[750px] lg:max-w-[960px] overflow-hidden mix-blend-multiply"
-      >
-        <img 
-          src="/img/creativefx-watermark.png"
-          alt=""
-          className="w-full h-auto object-contain object-left pointer-events-none select-none"
-          loading="eager"
-        />
-      </div>
-
       <div className="relative z-10 max-w-6xl mx-auto w-full">
         <div className="flex flex-col lg:flex-row gap-10 sm:gap-14 lg:gap-20 items-start">
 
