@@ -88,22 +88,41 @@ export const IntroductionSection: React.FC = () => {
       ref={sectionRef}
       id="section-introduction"
       style={sec.style}
-      className="relative w-full bg-[#fafafa] sm:bg-[var(--fx-white)] text-[var(--fx-black)] py-10 sm:py-16 md:py-24 px-4 sm:px-8 md:px-12 select-none no-parallax overflow-hidden"
+      className="relative w-full bg-[var(--fx-white)] text-[var(--fx-black)] py-14 sm:py-20 md:py-28 px-5 sm:px-8 md:px-12 select-none no-parallax overflow-hidden"
     >
-      <div className="relative z-10 max-w-6xl mx-auto w-full">
-        <div className="flex flex-col lg:flex-row gap-8 sm:gap-12 lg:gap-20 items-start">
+      {/* ─── True Background Watermark (Positioned behind all section elements) ─── */}
+      <div 
+        ref={watermarkRef}
+        aria-hidden="true"
+        className="absolute -left-6 sm:-left-12 md:-left-16 lg:-left-24 top-1/2 -translate-y-1/2 z-0 pointer-events-none select-none opacity-[0.08] sm:opacity-[0.10] md:opacity-[0.12] w-[80vw] sm:w-[65vw] max-w-[620px] lg:max-w-[820px] overflow-hidden"
+      >
+        <img 
+          src="/img/creativefx-watermark.png"
+          alt=""
+          className="w-full h-auto object-contain object-left pointer-events-none select-none"
+          loading="eager"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            if (!target.src.endsWith('/watermark.png')) {
+              target.src = '/watermark.png';
+            }
+          }}
+        />
+      </div>
 
-          {/* Left Column: Title & Watermark */}
-          <div className="w-full lg:w-7/12 space-y-5 sm:space-y-8 relative">
-            <div className="flex items-center gap-2 text-[11px] sm:text-sm font-mono-tech tracking-[0.28em] text-[var(--fx-gray)] uppercase">
+      <div className="relative z-10 max-w-6xl mx-auto w-full">
+        <div className="flex flex-col lg:flex-row gap-10 sm:gap-14 lg:gap-20 items-start">
+
+          {/* Left Column: Title & Intro Narrative */}
+          <div className="w-full lg:w-7/12 space-y-6 sm:space-y-8 relative">
+            <div className="flex items-center gap-2 text-xs sm:text-sm font-mono-tech tracking-[0.28em] text-[var(--fx-gray)] uppercase">
               <span className="text-[var(--fx-black)] font-bold">{intro.sectionNumber || '01'}</span>
-              <span className="hidden sm:inline">{intro.label || '/ Studio'}</span>
-              <span className="sm:hidden">/ STUDIO</span>
+              <span>{intro.label || '/ Studio'}</span>
             </div>
 
             <h2 
               ref={titleRef} 
-              className="text-[32px] sm:text-5xl md:text-6xl lg:text-7xl font-editorial font-normal uppercase tracking-tight text-[var(--fx-black)] leading-[0.92] sm:leading-[0.95]"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-editorial font-normal uppercase tracking-tight text-[var(--fx-black)] leading-[0.95]"
               style={{ fontSize: sec.headingScale !== 1 ? `clamp(32px, 9vw, ${sec.headingScale * 3.75}rem)` : undefined }}
             >
               {headlineLines.map((line, i) => (
@@ -114,53 +133,12 @@ export const IntroductionSection: React.FC = () => {
               ))}
             </h2>
 
-            <div className="w-10 sm:w-12 h-[2px] sm:h-1 bg-[var(--fx-black)]" style={{ backgroundColor: sec.accent || 'var(--fx-black)' }}></div>
-            
-            {/* Watermark image: properly aligned and visible on all devices */}
-            <div 
-              ref={watermarkRef} 
-              className="relative w-full pointer-events-none select-none overflow-hidden"
-            >
-              {/* Desktop: extended from left edge */}
-              <div className="hidden lg:block" style={{ marginLeft: 'calc(-50vw + 50%)', width: 'clamp(320px, 42vw, 520px)' }}>
-                <img 
-                  src="/watermark.png"
-                  alt="CreativeFX Watermark" 
-                  className="w-full h-auto object-contain object-left opacity-[0.08] pointer-events-none select-none"
-                  loading="eager"
-                  onError={(e) => { (e.target as HTMLImageElement).src = '/img/creativefx-watermark.png'; (e.target as HTMLImageElement).onerror = () => { (e.target as HTMLImageElement).style.display='none'; }; }}
-                />
-              </div>
-              {/* Tablet */}
-              <div className="hidden sm:block lg:hidden w-full max-w-[420px]">
-                <img 
-                  src="/watermark.png"
-                  alt="CreativeFX Watermark" 
-                  className="w-full h-auto object-contain object-left opacity-[0.07] pointer-events-none select-none"
-                  loading="eager"
-                  onError={(e) => { (e.target as HTMLImageElement).src = '/img/creativefx-watermark.png'; (e.target as HTMLImageElement).onerror = () => { (e.target as HTMLImageElement).style.display='none'; }; }}
-                />
-              </div>
-              {/* Mobile: centered, contained, subtle */}
-              <div className="sm:hidden w-full flex justify-start pt-1">
-                <img 
-                  src="/watermark.png"
-                  alt="CreativeFX Watermark" 
-                  className="w-[72%] max-w-[280px] h-auto object-contain object-left opacity-[0.06] pointer-events-none select-none"
-                  loading="eager"
-                  onError={(e) => { (e.target as HTMLImageElement).src = '/img/creativefx-watermark.png'; (e.target as HTMLImageElement).onerror = () => { (e.target as HTMLImageElement).style.display='none'; }; }}
-                />
-              </div>
-            </div>
-            {/* Fallback text watermark if image fails - always visible */}
-            <div className="hidden sm:hidden absolute inset-0 pointer-events-none select-none opacity-[0.04] overflow-hidden flex items-center -z-10">
-              <span className="font-editorial text-[84px] leading-none tracking-[0.08em] text-black whitespace-nowrap -rotate-2">CREATIVEFX</span>
-            </div>
+            <div className="w-12 h-1 bg-[var(--fx-black)]" style={{ backgroundColor: sec.accent || 'var(--fx-black)' }}></div>
           </div>
 
           {/* Right Column: Text & Image */}
           <div className="w-full lg:w-5/12 space-y-6 sm:space-y-8 lg:pt-8">
-            <div ref={textRef} className="space-y-4 sm:space-y-5 text-[15px] sm:text-base text-[var(--fx-gray)] font-tech leading-relaxed">
+            <div ref={textRef} className="space-y-4 sm:space-y-5 text-base text-[var(--fx-gray)] font-tech leading-relaxed">
 
               <div className="hidden sm:block h-px w-16 bg-[var(--fx-border-light)]"></div>
 
