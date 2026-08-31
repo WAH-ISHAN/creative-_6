@@ -78,7 +78,7 @@ export const ServicesSection: React.FC<{ onSelectService?: (service: AgencyServi
           <div className="pt-4">
             <button
               onClick={() => { const el=document.getElementById('section-contact'); if(el) el.scrollIntoView({behavior:'smooth'}); }}
-              className="inline-flex items-center gap-2 text-xs font-mono-tech tracking-widest uppercase border border-black/15 px-5 py-3 hover:bg-black hover:text-white hover:border-black transition-colors md:pointer-events-auto max-md:pointer-events-none max-md:opacity-40 max-md:cursor-not-allowed"
+              className="inline-flex items-center gap-2 text-xs font-mono-tech tracking-widest uppercase border border-black/15 px-5 py-3 hover:bg-black hover:text-white hover:border-black transition-colors cursor-pointer"
             >
               START A PROJECT <ArrowUpRight className="w-3.5 h-3.5" />
             </button>
