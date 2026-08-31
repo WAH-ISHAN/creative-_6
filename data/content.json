@@ -938,7 +938,7 @@
           "type": "album"
         }
       ],
-      "status": "published"
+      "status": "draft"
     },
     {
       "id": "photo-casual",
@@ -1478,7 +1478,7 @@
           "type": "album"
         }
       ],
-      "status": "published"
+      "status": "draft"
     }
   ],
   "home": {

@@ -97,6 +97,7 @@ export const PROJECT_DEFAULTS_RAW: Omit<ProjectCase, 'status'>[] = [
   },
   {
     "id": "proj-03",
+    "status": "draft",
     "code": "PROJECT / 003",
     "slug": "vortex-titanium-stills",
     "title": "GRADUATION",
@@ -672,6 +673,7 @@ export const PROJECT_DEFAULTS_RAW: Omit<ProjectCase, 'status'>[] = [
   },
   {
     "id": "photo-graduation",
+    "status": "draft",
     "code": "PHOTO / 011",
     "slug": "graduation-photo",
     "title": "CONVOCATION PHOTOGRAPHY",
