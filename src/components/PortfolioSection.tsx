@@ -55,8 +55,8 @@ const ProjectCard = ({ project, onSelectProject, onSwitchToWeddings }: {
     }
   };
 
-  // On mobile, show color images; on desktop show grayscale->color on hover
-  const showColor = isMobile ? true : isHovered || !project.videoUrl;
+  // On mobile, show color images; on desktop show grayscale->color on hover for all images
+  const showColor = isMobile ? true : isHovered;
 
   return (
     <div
