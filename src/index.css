@@ -26,6 +26,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  overflow-x: hidden;
 }
 
 /* ── Reusable CreativeFX container (#6) ──────────────────────────────────── */
@@ -219,7 +220,6 @@ html.lenis, html.lenis body {
 }
 
 /* ─── GPU Acceleration helpers ─── */
-section,
 .fw-image,
 .will-change-transform {
   will-change: transform, opacity;

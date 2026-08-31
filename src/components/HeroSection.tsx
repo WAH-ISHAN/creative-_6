@@ -81,8 +81,8 @@ export const HeroSection: React.FC = () => {
     }
   };
 
-  const heroHeadingBase = 2.8 * sec.headingScale;
-  const heroHeadingVw = 11 * sec.headingScale;
+  const heroHeadingBase = 1.6 * sec.headingScale;
+  const heroHeadingVw = 10 * sec.headingScale;
   const heroHeadingMax = 7.5 * sec.headingScale;
 
   return (

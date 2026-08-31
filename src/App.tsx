@@ -270,7 +270,7 @@ function App() {
   const showMaintenance = !!siteSettings.maintenanceMode && !isAdminSession;
 
   return (
-    <div className={`min-h-screen bg-[var(--fx-black)] text-[var(--fx-white)] relative`}>
+    <div className={`min-h-screen bg-[var(--fx-black)] text-[var(--fx-white)] relative overflow-x-hidden`}>
       {/* Page Loader */}
       {loading && <PageLoader onComplete={() => setLoading(false)} />}
 

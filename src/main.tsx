@@ -23,7 +23,7 @@ function Root() {
       smoothWheel: true,
       wheelMultiplier: 0.85,
       touchMultiplier: 1.2,
-      syncTouch: true,
+      syncTouch: false, // Native touch scrolling on mobile for optimal performance and zooming
     });
 
     lenis.on('scroll', ScrollTrigger.update);
