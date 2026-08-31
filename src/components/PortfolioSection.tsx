@@ -69,7 +69,7 @@ const ProjectCard = ({ project, onSelectProject, onSwitchToWeddings }: {
       <div className="relative w-full aspect-[3/4] sm:aspect-[4/5] bg-[#0c0c0c] border border-white/10 sm:border-[var(--fx-border-dark)] overflow-hidden rounded-sm group-hover:border-[var(--fx-yellow)]/60 active:border-[var(--fx-yellow)]/60 transition-colors">
         {/* Cover Image */}
         <img
-          src={project.coverImage || 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=1000&auto=format&fit=crop'}
+          src={encodeURI(project.coverImage || 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=1000&auto=format&fit=crop')}
           alt={project.title}
           loading="lazy"
           decoding="async"
@@ -85,8 +85,8 @@ const ProjectCard = ({ project, onSelectProject, onSwitchToWeddings }: {
         {project.videoUrl && !isMobile && (
           <video
             ref={videoRef}
-            src={project.videoUrl}
-            poster={project.coverImage}
+            src={encodeURI(project.videoUrl)}
+            poster={project.coverImage ? encodeURI(project.coverImage) : undefined}
             muted
             loop
             playsInline

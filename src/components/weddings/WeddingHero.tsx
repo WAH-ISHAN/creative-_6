@@ -79,7 +79,7 @@ export const WeddingHero: React.FC<WeddingHeroProps> = ({
           className="relative w-full max-w-4xl aspect-video md:aspect-[21/9] overflow-hidden bg-black border border-white/20 rounded-md group cursor-pointer shadow-2xl mt-2"
         >
           <img
-            src={heroImage}
+            src={encodeURI(heroImage)}
             alt="Real Sri Lankan Wedding by CreativeFX"
             className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
             referrerPolicy="no-referrer"

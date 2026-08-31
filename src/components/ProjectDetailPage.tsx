@@ -10,6 +10,12 @@ import { soundEngine } from '../utils/audio';
 import { resetGlobalScroll, smoothScrollTo } from '../utils/scrollManager';
 import { useSeo } from '../utils/useSeo';
 
+const isIOS = () => {
+  if (typeof window === 'undefined' || typeof navigator === 'undefined') return false;
+  return /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+};
+
 // ── Lightbox ──────────────────────────────────────────────────────────────────
 const Lightbox: React.FC<{ images: GalleryMedia[]; startIdx: number; onClose: () => void }> = ({ images, startIdx, onClose }) => {
   const [idx, setIdx] = useState(startIdx);
@@ -67,7 +73,7 @@ const Lightbox: React.FC<{ images: GalleryMedia[]; startIdx: number; onClose: ()
       {/* Image — full uncropped */}
       <div className="relative max-w-[92vw] max-h-[88vh] flex flex-col items-center justify-center" onClick={e => e.stopPropagation()}>
         <img
-          src={src.url}
+          src={encodeURI(src.url)}
           alt={src.alt || src.caption || `Photo ${idx + 1}`}
           className="max-w-full max-h-[82vh] object-contain rounded-sm shadow-2xl select-none"
           draggable={false}
@@ -99,6 +105,7 @@ const GalleryGrid: React.FC<{ project: ProjectCase }> = ({ project }) => {
   // Attach detected kinds for legacy string entries
   const items: GalleryMedia[] = gallery.map(m => ({ ...m, kind: m.kind || detectMediaKind(m.url) }));
   const isPhotoProject = project.type === 'photography';
+  const deviceIsIOS = isIOS();
 
   const photos = items.filter(m => m.kind === 'image');
 
@@ -116,10 +123,23 @@ const GalleryGrid: React.FC<{ project: ProjectCase }> = ({ project }) => {
               className="gallery-item-wrapper break-inside-avoid overflow-hidden bg-[#0d0d0d] border border-white/10 rounded-sm relative group transition-all duration-300 hover:border-[var(--fx-yellow)]/50 cursor-pointer"
               onClick={() => media.kind === 'image' && setLightboxIdx(Math.max(0, photos.indexOf(media)))}
             >
-              {media.kind === 'video' ? (
+              {media.kind === 'video' && media.url.endsWith('.webm') && deviceIsIOS ? (
+                <div className="w-full relative">
+                  <img
+                    src={encodeURI(media.poster || project.coverImage)}
+                    alt={media.caption || `${project.title} frame ${idx + 1}`}
+                    className="w-full h-auto object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+                    <div className="bg-black/80 rounded-full p-2.5 shadow-xl border border-white/20">
+                      <Film className="w-4 h-4 text-[var(--fx-yellow)]" />
+                    </div>
+                  </div>
+                </div>
+              ) : media.kind === 'video' ? (
                 <video
-                  src={media.url}
-                  poster={media.poster}
+                  src={encodeURI(media.url)}
+                  poster={media.poster ? encodeURI(media.poster) : undefined}
                   autoPlay
                   loop
                   muted
@@ -128,11 +148,11 @@ const GalleryGrid: React.FC<{ project: ProjectCase }> = ({ project }) => {
                   className="w-full h-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-500"
                 />
               ) : media.kind === 'embed' ? (
-                <iframe src={media.url} className="w-full aspect-video border-0" allow="autoplay" title={`${project.title} video ${idx + 1}`} />
+                <iframe src={encodeURI(media.url)} className="w-full aspect-video border-0" allow="autoplay" title={`${project.title} video ${idx + 1}`} />
               ) : (
                 <>
                   <img
-                    src={media.url}
+                    src={encodeURI(media.url)}
                     loading="lazy"
                     decoding="async"
                     alt={media.alt || media.caption || `${project.title} ${idx + 1}`}
@@ -180,15 +200,28 @@ const GalleryGrid: React.FC<{ project: ProjectCase }> = ({ project }) => {
             >
               {media.kind === 'embed' ? (
                 <iframe
-                  src={media.url}
+                  src={encodeURI(media.url)}
                   className="w-full h-full border-0"
                   allow="autoplay"
                   title={`${project.title} video ${idx + 1}`}
                 />
+              ) : media.kind === 'video' && media.url.endsWith('.webm') && deviceIsIOS ? (
+                <div className="w-full h-full relative">
+                  <img
+                    src={encodeURI(media.poster || project.coverImage)}
+                    alt={media.caption || `${project.title} frame ${idx + 1}`}
+                    className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500 hover:scale-105"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+                    <div className="bg-black/80 rounded-full p-3 shadow-xl border border-white/20">
+                      <Film className="w-5 h-5 text-[var(--fx-yellow)]" />
+                    </div>
+                  </div>
+                </div>
               ) : media.kind === 'video' ? (
                 <video
-                  src={media.url}
-                  poster={media.poster}
+                  src={encodeURI(media.url)}
+                  poster={media.poster ? encodeURI(media.poster) : undefined}
                   autoPlay
                   loop
                   muted
@@ -201,7 +234,7 @@ const GalleryGrid: React.FC<{ project: ProjectCase }> = ({ project }) => {
               ) : (
                 <>
                   <img
-                    src={media.url}
+                    src={encodeURI(media.url)}
                     loading="lazy"
                     decoding="async"
                     alt={media.alt || media.caption || `${project.title} frame ${idx + 1}`}
@@ -250,7 +283,9 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
          (p.id && p.id.toLowerCase() === (projectSlug || '').toLowerCase())
   );
 
+  const [deviceIsIOS, setDeviceIsIOS] = useState(false);
   useEffect(() => {
+    setDeviceIsIOS(isIOS());
     resetGlobalScroll();
   }, [projectSlug]);
 
@@ -397,20 +432,20 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
 
         {/* HERO MEDIA */}
         <div className="w-full aspect-[16/9] md:aspect-[21/9] max-h-[78vh] bg-[#0d0d0d] mb-16 md:mb-24 overflow-hidden relative border-y border-white/10">
-          {project.videoUrl ? (
+          {project.videoUrl && !(project.videoUrl.endsWith('.webm') && deviceIsIOS) ? (
             <video
-              src={project.videoUrl}
+              src={encodeURI(project.videoUrl)}
               autoPlay
               muted
               loop
               playsInline
-              poster={heroVideoPoster}
+              poster={heroVideoPoster ? encodeURI(heroVideoPoster) : undefined}
               style={{ objectPosition: heroPosition }}
               className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-700"
             />
           ) : (
             <img
-              src={project.coverImage}
+              src={encodeURI(project.coverImage)}
               alt={project.title}
               style={{ objectPosition: heroPosition }}
               className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-700"
@@ -662,7 +697,7 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
                   >
                     <div className="relative aspect-[16/10] overflow-hidden bg-black mb-4 border border-white/10 rounded-sm">
                       <img
-                        src={rw.coverImage}
+                        src={encodeURI(rw.coverImage)}
                         alt={rw.title}
                         loading="lazy"
                         style={{ objectPosition: rw.heroPosition || 'center center' }}

@@ -32,13 +32,13 @@ export const FeaturedWorkSection: React.FC<FeaturedWorkSectionProps> = ({ onSele
     const isMobile = window.innerWidth <= 768;
     const slots = isMobile
       ? [
-          { x: -50,  y: -150, scale: 0.9, rot: -10, op: 0,   z: 0 },
+          { x: -15,  y: -100, scale: 0.9, rot: -8,  op: 0,   z: 0 },
           { x: 0,    y: 0,    scale: 1.0, rot: 0,   op: 1,   z: 50 },
-          { x: 30,   y: 80,   scale: 0.85, rot: 6,   op: 0.8,  z: 40 },
-          { x: 50,   y: 140,  scale: 0.75, rot: -4,  op: 0.5,  z: 30 },
-          { x: 65,   y: 190,  scale: 0.65, rot: 8,   op: 0.2,  z: 20 },
-          { x: 75,   y: 220,  scale: 0.55, rot: -3,  op: 0,    z: 10 },
-          { x: 75,   y: 220,  scale: 0.55, rot: 0,   op: 0,    z: 5 }
+          { x: 15,   y: 40,   scale: 0.9,  rot: 4,   op: 0.8,  z: 40 },
+          { x: 25,   y: 80,   scale: 0.8,  rot: -3,  op: 0.5,  z: 30 },
+          { x: 35,   y: 120,  scale: 0.7,  rot: 5,   op: 0.2,  z: 20 },
+          { x: 40,   y: 150,  scale: 0.6,  rot: -2,  op: 0,    z: 10 },
+          { x: 40,   y: 150,  scale: 0.6,  rot: 0,   op: 0,    z: 5 }
         ]
       : [
           { x: -150, y: -500, scale: 0.9, rot: -10, op: 0, z: 0 },

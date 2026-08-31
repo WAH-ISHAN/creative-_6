@@ -122,9 +122,6 @@ export const FinalCtaSection: React.FC<FinalCtaSectionProps> = ({ onStartProject
               <span>{cta.buttonLabel || 'START A PROJECT'}</span>
               <ArrowUpRight className="w-4 h-4" />
             </button>
-            <a href={`https://wa.me/94777548671`} target="_blank" rel="noopener noreferrer" className="sm:hidden w-full inline-flex items-center justify-center gap-2 bg-[#25D366] text-black font-mono-tech text-xs tracking-widest font-bold uppercase py-3.5 rounded-xl active:scale-[0.98] transition-transform">
-              CHAT ON WHATSAPP
-            </a>
           </div>
         </div>
       </div>

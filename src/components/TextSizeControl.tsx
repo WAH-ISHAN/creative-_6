@@ -52,11 +52,11 @@ export const TextSizeControl: React.FC = () => {
 
   return (
     <div
-      className="fixed bottom-6 left-5 z-[130] flex items-center gap-1 select-none rounded-full border border-white/25 bg-black/80 backdrop-blur-md p-1"
+      className="fixed bottom-4 left-4 z-[130] flex items-center gap-0.5 select-none rounded-full border border-white/25 bg-black/80 backdrop-blur-md p-0.5 sm:p-1 sm:bottom-6 sm:left-5 sm:gap-1"
       role="group"
       aria-label="Text size"
     >
-      <span className="pl-2 pr-0.5 text-[10px] font-bold tracking-widest text-white/50 uppercase">Aa</span>
+      <span className="pl-2 pr-0.5 text-[9px] sm:text-[10px] font-bold tracking-widest text-white/50 uppercase">Aa</span>
       {options.map(o => (
         <button
           key={o.key}
@@ -64,7 +64,7 @@ export const TextSizeControl: React.FC = () => {
           onClick={() => setMode(o.key)}
           aria-pressed={mode === o.key}
           title={o.title}
-          className={`h-8 w-9 rounded-full transition-colors font-semibold ${o.className ?? 'text-xs'} ${
+          className={`h-7 w-8 sm:h-8 sm:w-9 rounded-full transition-colors font-semibold ${o.className ? 'text-[10px] sm:text-xs' : 'text-xs'} ${
             mode === o.key
               ? 'bg-[var(--fx-yellow)] text-black'
               : 'text-white/80 hover:bg-white/10 hover:text-white'
@@ -78,9 +78,9 @@ export const TextSizeControl: React.FC = () => {
         onClick={() => setHidden(true)}
         title="Hide panel"
         aria-label="Hide text size panel"
-        className="h-8 w-8 ml-0.5 mr-0.5 rounded-full text-white/40 hover:text-white hover:bg-white/10 transition-colors flex items-center justify-center"
+        className="h-7 w-7 sm:h-8 sm:w-8 ml-0.5 mr-0.5 rounded-full text-white/40 hover:text-white hover:bg-white/10 transition-colors flex items-center justify-center"
       >
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true" className="sm:w-3 sm:h-3">
           <path d="M18 6L6 18M6 6l12 12" />
         </svg>
       </button>

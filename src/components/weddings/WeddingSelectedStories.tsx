@@ -137,7 +137,7 @@ export const WeddingSelectedStories: React.FC<WeddingSelectedStoriesProps> = ({
                     className="story-image-reveal relative w-full h-[460px] sm:h-[600px] lg:h-[660px] overflow-hidden bg-black cursor-zoom-in group border border-white/20 rounded-sm shadow-2xl"
                   >
                     <img
-                      src={story.heroImage}
+                      src={encodeURI(story.heroImage)}
                       alt={story.couple}
                       className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                       referrerPolicy="no-referrer"
@@ -183,7 +183,7 @@ export const WeddingSelectedStories: React.FC<WeddingSelectedStoriesProps> = ({
                         className="relative h-20 sm:h-24 overflow-hidden bg-black border border-white/10 hover:border-[var(--fx-yellow)] rounded-sm cursor-zoom-in group transition-all"
                       >
                         <img
-                          src={g.url}
+                          src={encodeURI(g.url)}
                           alt={g.caption || story.couple}
                           className="w-full h-full object-cover group-hover:scale-110 transition-all duration-500"
                         />

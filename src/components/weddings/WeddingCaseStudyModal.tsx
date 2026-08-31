@@ -136,7 +136,7 @@ export const WeddingCaseStudyModal: React.FC<WeddingCaseStudyModalProps> = ({
             className="relative w-full h-[360px] sm:h-[480px] md:h-[540px] bg-black overflow-hidden mb-12 sm:mb-16 border border-white/20 rounded-xl cursor-zoom-in group shadow-2xl"
           >
             <img
-              src={story.heroImage}
+              src={encodeURI(story.heroImage)}
               alt={story.couple}
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               referrerPolicy="no-referrer"
@@ -212,7 +212,7 @@ export const WeddingCaseStudyModal: React.FC<WeddingCaseStudyModalProps> = ({
                   }`}
                 >
                   <img
-                    src={img.url}
+                    src={encodeURI(img.url)}
                     alt={img.caption || story.couple}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     referrerPolicy="no-referrer"

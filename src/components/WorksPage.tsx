@@ -98,7 +98,7 @@ const WorkCardItem: React.FC<{
 
         {/* Cover Image (Default Black & White, turns to full vibrant color on hover) */}
         <img
-          src={project.coverImage || 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=800'}
+          src={encodeURI(project.coverImage || 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=800')}
           alt={project.title}
           loading={idx < PAGE_SIZE ? 'eager' : 'lazy'}
           decoding="async"
@@ -114,8 +114,8 @@ const WorkCardItem: React.FC<{
         {isVideo && project.videoUrl && (
           <video
             ref={videoRef}
-            src={project.videoUrl}
-            poster={project.videoPoster || project.coverImage}
+            src={encodeURI(project.videoUrl)}
+            poster={project.videoPoster ? encodeURI(project.videoPoster) : (project.coverImage ? encodeURI(project.coverImage) : undefined)}
             muted
             loop
             playsInline

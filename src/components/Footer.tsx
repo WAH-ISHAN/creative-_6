@@ -95,7 +95,7 @@ export const Footer: React.FC<FooterProps> = ({
           <p className="text-[13px] sm:text-base font-tech tracking-wide text-white/60 sm:text-gray-300 uppercase leading-relaxed whitespace-pre-line font-medium">
             {tagline}
           </p>
-          <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 sm:gap-2.5 mt-1 sm:mt-2">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-2.5 mt-2">
             <a 
               href={contact.instagram || 'https://instagram.com/creativefx.lk'} 
               target="_blank" 
