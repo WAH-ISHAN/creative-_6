@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { useContent, useSectionStyle } from '../context/ContentContext';
 import { resetGlobalScroll, smoothScrollTo } from '../utils/scrollManager';
 
@@ -77,7 +77,7 @@ export const Footer: React.FC<FooterProps> = ({
   };
 
   return (
-    <footer style={sec.style} className="w-full bg-[#050505] text-white py-10 sm:py-10 md:py-20 px-4 sm:px-4 md:px-8 md:px-12 lg:px-4 md:px-16 select-none border-t border-white/10">
+    <footer style={sec.style} className="w-full bg-[#050505] text-white py-10 sm:py-20 px-4 sm:px-8 md:px-12 lg:px-16 select-none border-t border-white/10">
       <div className="max-w-7xl mx-auto flex flex-col gap-8 sm:gap-12 md:flex-row md:justify-between md:items-start md:gap-16">
         
         {/* Left: Brand */}
@@ -88,14 +88,14 @@ export const Footer: React.FC<FooterProps> = ({
             className="text-left cursor-pointer group focus:outline-none w-fit"
             aria-label="CreativeFX Home"
           >
-            <span className="text-[28px] sm:text-2xl md:text-4xl font-editorial tracking-[0.08em] uppercase text-white group-hover:text-[var(--fx-yellow)] transition-colors">
+            <span className="text-[28px] sm:text-4xl font-editorial tracking-[0.08em] uppercase text-white group-hover:text-[var(--fx-yellow)] transition-colors">
               CREATIVE<span className="text-[var(--fx-yellow)] font-bold">FX</span>
             </span>
           </button>
           <p className="text-[13px] sm:text-base font-tech tracking-wide text-white/60 sm:text-gray-300 uppercase leading-relaxed whitespace-pre-line font-medium">
             {tagline}
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 sm:flex sm:flex-wrap gap-2 sm:gap-2.5 mt-1 sm:mt-2">
+          <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 sm:gap-2.5 mt-1 sm:mt-2">
             <a 
               href={contact.instagram || 'https://instagram.com/creativefx.lk'} 
               target="_blank" 
@@ -194,4 +194,3 @@ export const Footer: React.FC<FooterProps> = ({
     </footer>
   );
 };
-

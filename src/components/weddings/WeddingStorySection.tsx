@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, ArrowUpRight, Sparkles, Check, ZoomIn } from 'lucide-react';
@@ -102,7 +102,7 @@ export const WeddingStorySection: React.FC<WeddingStorySectionProps> = ({
     <section
       ref={sectionRef}
       id="wedding-story-timeline"
-      className="relative w-full bg-[var(--fx-black)] text-[var(--fx-white)] pt-24 sm:pt-36 pb-32 px-6 sm:px-10 md:px-14 lg:px-4 md:px-16 select-none border-t border-white/10 no-parallax"
+      className="relative w-full bg-[var(--fx-black)] text-[var(--fx-white)] pt-24 sm:pt-36 pb-32 px-6 sm:px-10 md:px-14 lg:px-16 select-none border-t border-white/10 no-parallax"
     >
       <div className="w-full max-w-7xl mx-auto">
         
@@ -119,7 +119,7 @@ export const WeddingStorySection: React.FC<WeddingStorySectionProps> = ({
           <div className="lg:col-span-8">
             <h2
               ref={headlineRef}
-              className="font-editorial font-bold text-2xl md:text-4xl sm:text-2xl md:text-4xl md:text-6xl md:text-7xl lg:text-8xl leading-[0.92] tracking-tight uppercase text-[var(--fx-white)]"
+              className="font-editorial font-bold text-4xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.92] tracking-tight uppercase text-[var(--fx-white)]"
             >
               {headlineLines.map((line, i) => (
                 <React.Fragment key={i}>
@@ -139,7 +139,7 @@ export const WeddingStorySection: React.FC<WeddingStorySectionProps> = ({
 
         {/* Timeline Tabs */}
         <div className="relative mb-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
             {stages.map((stage, idx) => (
               <button
                 key={stage.id}
@@ -201,7 +201,7 @@ export const WeddingStorySection: React.FC<WeddingStorySectionProps> = ({
                 CHAPTER {currentStage.stageNumber}
               </div>
 
-              <h3 className="font-editorial font-bold text-xl md:text-3xl sm:text-xl md:text-3xl md:text-5xl uppercase tracking-tight text-white leading-none">
+              <h3 className="font-editorial font-bold text-3xl sm:text-5xl uppercase tracking-tight text-white leading-none">
                 {currentStage.title}
               </h3>
 
@@ -245,4 +245,3 @@ export const WeddingStorySection: React.FC<WeddingStorySectionProps> = ({
     </section>
   );
 };
-

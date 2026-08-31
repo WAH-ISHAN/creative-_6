@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { detectMediaKind, GalleryMedia, ProjectCase, toGalleryItems } from '../types';
 import { usePublishedProjects, useContent } from '../context/ContentContext';
 
@@ -167,7 +167,7 @@ const GalleryGrid: React.FC<{ project: ProjectCase }> = ({ project }) => {
       {lightboxIdx !== null && photos[lightboxIdx] && (
         <Lightbox images={photos} startIdx={lightboxIdx} onClose={() => setLightboxIdx(null)} />
       )}
-      <div className={`grid grid-cols-1 ${isPortraitProject ? 'sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1 sm:grid-cols-2 md:grid-cols-3' : 'md:grid-cols-2'} gap-4 md:gap-6`}>
+      <div className={`grid grid-cols-1 ${isPortraitProject ? 'sm:grid-cols-2 lg:grid-cols-3' : 'md:grid-cols-2'} gap-4 md:gap-6`}>
         {items.map((media, idx) => {
           const spanFull = !isPortraitProject && idx % 5 === 0;
           return (
@@ -285,7 +285,7 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
         />
         <main className="flex-1 flex flex-col items-center justify-center text-center px-6 pt-32 pb-24">
           <span className="text-xs font-mono-tech tracking-[0.3em] text-[var(--fx-yellow)] uppercase mb-4">404 / INVALID SLUG</span>
-          <h1 className="text-2xl md:text-4xl sm:text-2xl md:text-4xl md:text-6xl font-editorial uppercase">PROJECT NOT FOUND</h1>
+          <h1 className="text-4xl sm:text-6xl font-editorial uppercase">PROJECT NOT FOUND</h1>
           <p className="text-sm font-tech text-[var(--fx-gray)] mt-4 max-w-md">This project may have been unpublished, renamed, or the link is incorrect.</p>
           <div className="mt-10 flex flex-wrap gap-4 justify-center">
             <button
@@ -348,7 +348,7 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
       <main className="flex-1 w-full pt-28 sm:pt-32 pb-0">
 
         {/* HERO SECTION */}
-        <div className="max-w-7xl mx-auto px-6 sm:px-4 md:px-8 md:px-12 mb-12 md:mb-16">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 md:px-12 mb-12 md:mb-16">
           <button
             onClick={() => { soundEngine.playClick(); onBack(); }}
             className="group flex items-center gap-3 text-xs font-mono-tech tracking-widest uppercase text-[var(--fx-gray)] hover:text-[var(--fx-white)] transition-colors mb-8 cursor-pointer"
@@ -367,7 +367,7 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
                    {project.year || ''}
                  </span>
                </div>
-               <h1 className="text-2xl md:text-4xl sm:text-2xl md:text-4xl md:text-6xl md:text-7xl lg:text-8xl font-editorial font-normal uppercase tracking-tight text-[var(--fx-white)] leading-none mb-6">
+               <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-editorial font-normal uppercase tracking-tight text-[var(--fx-white)] leading-none mb-6">
                  {project.title}
                </h1>
             </div>
@@ -420,7 +420,7 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
         </div>
 
         {/* STORY / DETAILS */}
-        <div className="max-w-7xl mx-auto px-6 sm:px-4 md:px-8 md:px-12 mb-20 md:mb-28">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 md:px-12 mb-20 md:mb-28">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
 
             {/* Left: Metadata */}
@@ -539,7 +539,7 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
           };
 
           return (
-            <div className="max-w-7xl mx-auto px-6 sm:px-4 md:px-8 md:px-12 mb-16 md:mb-20">
+            <div className="max-w-7xl mx-auto px-6 sm:px-8 md:px-12 mb-16 md:mb-20">
               <div className="p-6 sm:p-8 bg-[#0a0a0a] border border-white/15 rounded-sm space-y-6 shadow-2xl">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
                   <div className="flex items-center gap-3.5">
@@ -587,7 +587,7 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
                           <Film className="w-4 h-4" />
                           <span>CINEMA VIDEO REELS ({reels.length})</span>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                           {reels.map((post, pIdx) => renderSocialCard(post, pIdx))}
                         </div>
                       </div>
@@ -600,14 +600,14 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
                           <Camera className="w-4 h-4" />
                           <span>PHOTO SHOOT ALBUMS ({photos.length})</span>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                           {photos.map((post, pIdx) => renderSocialCard(post, pIdx))}
                         </div>
                       </div>
                     )}
                   </div>
                 ) : (
-                  <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                     {project.socialPosts.map((post, pIdx) => renderSocialCard(post, pIdx))}
                   </div>
                 )}
@@ -618,7 +618,7 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
 
         {/* GALLERY */}
         {project.gallery && toGalleryItems(project.gallery).length > 0 && (
-          <div className="project-gallery max-w-7xl mx-auto px-6 sm:px-4 md:px-8 md:px-12 mb-24 md:mb-32">
+          <div className="project-gallery max-w-7xl mx-auto px-6 sm:px-8 md:px-12 mb-24 md:mb-32">
             <div className="mb-8 border-b border-white/10 pb-4 flex items-center justify-between">
               <h3 className="text-xl sm:text-2xl font-editorial uppercase text-white tracking-wider">
                 Project Gallery ({toGalleryItems(project.gallery).length} Frames)
@@ -633,10 +633,10 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
 
         {/* RELATED WORK */}
         {relatedWorks.length > 0 && (
-          <div className="w-full border-t border-[var(--fx-border-dark)] pt-20 pb-20 px-6 sm:px-4 md:px-8 md:px-12 bg-[#050505]">
+          <div className="w-full border-t border-[var(--fx-border-dark)] pt-20 pb-20 px-6 sm:px-8 md:px-12 bg-[#050505]">
             <div className="max-w-7xl mx-auto">
               <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-12">
-                <h3 className="text-xl md:text-3xl md:text-4xl font-editorial uppercase tracking-tight text-[var(--fx-white)]">
+                <h3 className="text-3xl md:text-4xl font-editorial uppercase tracking-tight text-[var(--fx-white)]">
                   More Selected Work
                 </h3>
                 <button
@@ -697,4 +697,3 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
     </div>
   );
 };
-

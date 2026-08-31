@@ -1,4 +1,4 @@
-﻿import React, { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { X, Film } from 'lucide-react';
 import { WeddingStory } from '../../types';
 import { soundEngine } from '../../utils/audio';
@@ -33,7 +33,7 @@ export const WeddingFilmModal: React.FC<WeddingFilmModalProps> = ({ story, onClo
           <span className="text-xs font-mono-tech tracking-[0.3em] text-[var(--fx-yellow)] uppercase block font-bold mb-1">
             4K WEDDING CINEMA FILM // RAVINDU & MALIKSHI
           </span>
-          <span className="font-editorial font-bold text-xl sm:text-xl md:text-3xl tracking-wider text-white uppercase">
+          <span className="font-editorial font-bold text-xl sm:text-3xl tracking-wider text-white uppercase">
             {story.couple} — {story.location}
           </span>
         </div>
@@ -81,4 +81,3 @@ export const WeddingFilmModal: React.FC<WeddingFilmModalProps> = ({ story, onClo
     </div>
   );
 };
-

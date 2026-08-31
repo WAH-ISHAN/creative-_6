@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { X, ArrowRight, ArrowLeft, ArrowUpRight, Camera, Film, MapPin, Calendar, Check, Play, ZoomIn, Images } from 'lucide-react';
 import { WeddingStory } from '../../types';
 import { useContent } from '../../context/ContentContext';
@@ -64,7 +64,7 @@ export const WeddingCaseStudyModal: React.FC<WeddingCaseStudyModalProps> = ({
         className="fixed inset-0 z-50 overflow-y-auto bg-[var(--fx-black)] text-[var(--fx-white)] animate-in fade-in duration-300"
       >
         {/* Sticky Top Header Navigation */}
-        <div className="sticky top-0 z-40 w-full bg-[var(--fx-black)]/95 backdrop-blur-md border-b border-white/10 px-6 sm:px-4 md:px-12 py-4 flex justify-between items-center select-none">
+        <div className="sticky top-0 z-40 w-full bg-[var(--fx-black)]/95 backdrop-blur-md border-b border-white/10 px-6 sm:px-12 py-4 flex justify-between items-center select-none">
           
           <div className="flex items-center gap-3">
             <span className="font-editorial font-bold text-xl sm:text-2xl tracking-wider text-[var(--fx-yellow)]">
@@ -121,7 +121,7 @@ export const WeddingCaseStudyModal: React.FC<WeddingCaseStudyModalProps> = ({
               <span>VENUE: {story.venue}</span>
             </div>
 
-            <h1 className="font-editorial font-normal text-xl md:text-3xl sm:text-xl md:text-3xl md:text-5xl md:text-6xl lg:text-[4.25rem] leading-[1.05] tracking-tight uppercase text-white mb-4">
+            <h1 className="font-editorial font-normal text-3xl sm:text-5xl md:text-6xl lg:text-[4.25rem] leading-[1.05] tracking-tight uppercase text-white mb-4">
               {story.couple}
             </h1>
 
@@ -245,7 +245,7 @@ export const WeddingCaseStudyModal: React.FC<WeddingCaseStudyModalProps> = ({
               <span className="text-xs font-mono-tech tracking-[0.25em] text-[var(--fx-yellow)] uppercase block mb-1 font-bold">
                 REAL WEDDING STORY
               </span>
-              <span className="font-editorial font-bold text-2xl sm:text-xl md:text-3xl uppercase tracking-wider text-white">
+              <span className="font-editorial font-bold text-2xl sm:text-3xl uppercase tracking-wider text-white">
                 {story.couple} — {story.location}
               </span>
             </div>
@@ -268,7 +268,7 @@ export const WeddingCaseStudyModal: React.FC<WeddingCaseStudyModalProps> = ({
                   soundEngine.playOpen();
                   onInquire();
                 }}
-                className="w-full sm:w-auto px-4 md:px-8 py-4 bg-[var(--fx-yellow)] text-black hover:bg-white text-xs sm:text-sm font-mono-tech uppercase tracking-[0.25em] font-bold transition-all cursor-pointer text-center rounded-sm shadow-xl hover:scale-105"
+                className="w-full sm:w-auto px-8 py-4 bg-[var(--fx-yellow)] text-black hover:bg-white text-xs sm:text-sm font-mono-tech uppercase tracking-[0.25em] font-bold transition-all cursor-pointer text-center rounded-sm shadow-xl hover:scale-105"
               >
                 BOOK YOUR WEDDING DATE
               </button>
@@ -281,4 +281,3 @@ export const WeddingCaseStudyModal: React.FC<WeddingCaseStudyModalProps> = ({
     </>
   );
 };
-

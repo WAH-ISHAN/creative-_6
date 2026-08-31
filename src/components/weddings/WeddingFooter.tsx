@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { soundEngine } from '../../utils/audio';
 
@@ -18,7 +18,7 @@ export const WeddingFooter: React.FC<WeddingFooterProps> = ({
   onInquire,
 }) => {
   return (
-    <footer className="w-full bg-[var(--fx-black)] text-[var(--fx-white)] border-t border-white/10 py-16 sm:py-12 md:py-24 px-6 sm:px-10 md:px-14 lg:px-4 md:px-16 select-none">
+    <footer className="w-full bg-[var(--fx-black)] text-[var(--fx-white)] border-t border-white/10 py-16 sm:py-24 px-6 sm:px-10 md:px-14 lg:px-16 select-none">
       <div className="w-full max-w-7xl mx-auto flex flex-col gap-14 sm:gap-20">
         
         {/* Top Row: Brand logotype + Core Navigation */}
@@ -26,7 +26,7 @@ export const WeddingFooter: React.FC<WeddingFooterProps> = ({
           
           {/* Brand Info */}
           <div>
-            <span className="font-editorial font-bold text-2xl md:text-4xl sm:text-xl md:text-3xl md:text-5xl lg:text-2xl md:text-4xl md:text-6xl tracking-tight uppercase text-white block mb-3">
+            <span className="font-editorial font-bold text-4xl sm:text-5xl lg:text-6xl tracking-tight uppercase text-white block mb-3">
               CREATIVEFX
             </span>
             <div className="text-xs sm:text-sm md:text-base font-mono-tech tracking-[0.28em] text-[var(--fx-yellow)] uppercase flex flex-col gap-1 font-bold">
@@ -125,4 +125,3 @@ export const WeddingFooter: React.FC<WeddingFooterProps> = ({
     </footer>
   );
 };
-

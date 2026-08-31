@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { soundEngine } from '../../utils/audio';
@@ -63,7 +63,7 @@ export const WeddingHero: React.FC<WeddingHeroProps> = ({
         </div>
 
         {/* Elegant Balanced Headline */}
-        <h1 ref={headlineRef} className="text-xl md:text-3xl sm:text-xl md:text-3xl md:text-5xl md:text-6xl lg:text-7xl font-editorial tracking-tight uppercase leading-[0.98] text-center text-[var(--fx-white)] max-w-5xl">
+        <h1 ref={headlineRef} className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-editorial tracking-tight uppercase leading-[0.98] text-center text-[var(--fx-white)] max-w-5xl">
           {headlineLines.map((line, i) => (
             <React.Fragment key={i}>
               {line}
@@ -112,4 +112,3 @@ export const WeddingHero: React.FC<WeddingHeroProps> = ({
     </section>
   );
 };
-

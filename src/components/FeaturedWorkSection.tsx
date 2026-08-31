@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { resolveFeaturedWork, useContent } from '../context/ContentContext';
@@ -180,7 +180,7 @@ export const FeaturedWorkSection: React.FC<FeaturedWorkSectionProps> = ({ onSele
 
         <div className="absolute left-0 top-0 w-[50vw] h-full z-30 flex flex-col justify-center pl-12 lg:pl-24 xl:pl-32">
           <div className="fw-title overflow-hidden">
-            <h2 className="text-2xl md:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-editorial tracking-tight uppercase leading-[0.95]">
+            <h2 className="text-6xl lg:text-7xl xl:text-8xl font-editorial tracking-tight uppercase leading-[0.95]">
               Featured<br />Work
             </h2>
           </div>
@@ -195,7 +195,7 @@ export const FeaturedWorkSection: React.FC<FeaturedWorkSectionProps> = ({ onSele
             <div ref={progressRef} className="text-xs font-mono-tech tracking-[0.3em] text-[#888888] mb-3">
               <span className="text-black">01</span> / 0{featuredWorks.length}
             </div>
-            <div ref={categoryRef} className="text-2xl lg:text-xl md:text-3xl font-editorial tracking-widest uppercase text-[#050505] mb-1">
+            <div ref={categoryRef} className="text-2xl lg:text-3xl font-editorial tracking-widest uppercase text-[#050505] mb-1">
               {featuredWorks[0]?.category || featuredWorks[0]?.categoryLabel || ''}
             </div>
             <div ref={titleRef} className="text-xs text-[#666666] font-mono-tech tracking-widest uppercase">
@@ -308,4 +308,3 @@ export const FeaturedWorkSection: React.FC<FeaturedWorkSectionProps> = ({ onSele
     </section>
   );
 };
-

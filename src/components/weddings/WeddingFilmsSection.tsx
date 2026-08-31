@@ -1,4 +1,4 @@
-﻿import React, { useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { Volume2, VolumeX, Maximize2 } from 'lucide-react';
 import { useContent } from '../../context/ContentContext';
 import { WeddingStory } from '../../types';
@@ -28,7 +28,7 @@ export const WeddingFilmsSection: React.FC<WeddingFilmsSectionProps> = ({ onPlay
   return (
     <section
       id="wedding-films-section"
-      className="relative w-full bg-[var(--fx-black)] text-[var(--fx-white)] py-12 md:py-24 sm:py-36 px-6 sm:px-10 md:px-14 lg:px-4 md:px-16 select-none border-t border-white/10 no-parallax"
+      className="relative w-full bg-[var(--fx-black)] text-[var(--fx-white)] py-24 sm:py-36 px-6 sm:px-10 md:px-14 lg:px-16 select-none border-t border-white/10 no-parallax"
     >
       <div className="w-full max-w-7xl mx-auto">
         
@@ -39,7 +39,7 @@ export const WeddingFilmsSection: React.FC<WeddingFilmsSectionProps> = ({ onPlay
               <span>04</span>
               <span>/ 4K WEDDING CINEMA FILM</span>
             </span>
-            <h2 className="font-editorial font-bold text-2xl md:text-4xl sm:text-2xl md:text-4xl md:text-6xl md:text-7xl lg:text-8xl tracking-tight uppercase text-white">
+            <h2 className="font-editorial font-bold text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight uppercase text-white">
               THE MOVING<br />
               <span className="text-[var(--fx-yellow)]">CINEMA FRAME.</span>
             </h2>
@@ -98,7 +98,7 @@ export const WeddingFilmsSection: React.FC<WeddingFilmsSectionProps> = ({ onPlay
                 <span className="text-xs font-mono-tech tracking-widest text-[var(--fx-yellow)] uppercase block font-bold mb-1">
                   FEATURED CINEMA FILM
                 </span>
-                <span className="font-editorial font-bold text-xl sm:text-xl md:text-3xl tracking-wider text-white uppercase">
+                <span className="font-editorial font-bold text-xl sm:text-3xl tracking-wider text-white uppercase">
                   {featuredFilmStory.couple} — {featuredFilmStory.location}
                 </span>
               </div>
@@ -115,4 +115,3 @@ export const WeddingFilmsSection: React.FC<WeddingFilmsSectionProps> = ({ onPlay
     </section>
   );
 };
-

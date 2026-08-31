@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { smoothScrollTo, resetGlobalScroll } from '../utils/scrollManager';
 import { useContent, DEFAULT_CONTENT } from '../context/ContentContext';
 import { Header } from './Header';
@@ -111,7 +111,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
       />
 
       {/* ─── 1. HERO BANNER - mobile optimized ─── */}
-      <section className="relative pt-28 sm:pt-44 md:pt-48 pb-12 sm:pb-24 px-4 sm:px-10 md:px-14 lg:px-4 md:px-16 border-b border-white/10 overflow-hidden bg-gradient-to-b from-neutral-950 via-[#060606] to-[#050505]">
+      <section className="relative pt-28 sm:pt-44 md:pt-48 pb-12 sm:pb-24 px-4 sm:px-10 md:px-14 lg:px-16 border-b border-white/10 overflow-hidden bg-gradient-to-b from-neutral-950 via-[#060606] to-[#050505]">
         
         {/* Subtle decorative glow */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[var(--fx-yellow)]/5 rounded-full blur-3xl pointer-events-none" />
@@ -127,7 +127,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 lg:gap-16 items-end">
             <div className="lg:col-span-8">
-              <h1 className="font-editorial text-[32px] sm:text-2xl md:text-4xl md:text-6xl md:text-7xl lg:text-8xl font-normal uppercase tracking-tight text-white leading-[0.92]">
+              <h1 className="font-editorial text-[32px] sm:text-6xl md:text-7xl lg:text-8xl font-normal uppercase tracking-tight text-white leading-[0.92]">
                 FULL-SERVICE<br />
                 <span className="text-[var(--fx-yellow)]">CREATIVE PRODUCTION.</span>
               </h1>
@@ -144,7 +144,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
       </section>
 
       {/* ─── 2. SERVICES COMPREHENSIVE LIST ─── */}
-      <section className="py-10 sm:py-28 px-4 sm:px-10 md:px-14 lg:px-4 md:px-16 max-w-7xl mx-auto w-full space-y-8 sm:space-y-24">
+      <section className="py-10 sm:py-28 px-4 sm:px-10 md:px-14 lg:px-16 max-w-7xl mx-auto w-full space-y-8 sm:space-y-24">
         
         {services.map((service, index) => {
           const isEven = index % 2 === 1;
@@ -183,7 +183,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                   <span className="text-xs font-mono-tech tracking-[0.25em] text-white/50 uppercase">
                     SERVICE CODE: {service.code || `SRV-${serviceNumber}`}
                   </span>
-                  <h2 className="font-editorial text-xl md:text-3xl sm:text-2xl md:text-4xl md:text-5xl font-bold uppercase text-white leading-tight">
+                  <h2 className="font-editorial text-3xl sm:text-4xl md:text-5xl font-bold uppercase text-white leading-tight">
                     {service.title}
                   </h2>
                 </div>
@@ -198,7 +198,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                     <span className="text-xs font-mono-tech tracking-widest text-[var(--fx-yellow)] uppercase font-bold block">
                       CORE CAPABILITIES & SPECIALIZATIONS:
                     </span>
-                    <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       {service.capabilities.map((cap, i) => (
                         <div key={i} className="flex items-center gap-2 text-xs sm:text-sm font-tech text-white/90">
                           <CheckCircle2 className="w-3.5 h-3.5 text-[var(--fx-yellow)] flex-shrink-0" />
@@ -254,14 +254,14 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
       </section>
 
       {/* ─── 3. OUR PRODUCTION WORKFLOW PROCESS ─── */}
-      <section className="py-10 md:py-20 sm:py-28 px-6 sm:px-10 md:px-14 lg:px-4 md:px-16 border-t border-white/10 bg-[#060606]">
+      <section className="py-20 sm:py-28 px-6 sm:px-10 md:px-14 lg:px-16 border-t border-white/10 bg-[#060606]">
         <div className="max-w-7xl mx-auto space-y-16">
           
           <div className="text-center max-w-2xl mx-auto space-y-4">
             <span className="text-xs font-mono-tech tracking-[0.25em] text-[var(--fx-yellow)] uppercase font-bold">
               THE CREATIVE PROTOCOL
             </span>
-            <h2 className="font-editorial text-xl md:text-3xl sm:text-xl md:text-3xl md:text-5xl md:text-6xl uppercase font-bold text-white leading-tight">
+            <h2 className="font-editorial text-3xl sm:text-5xl md:text-6xl uppercase font-bold text-white leading-tight">
               FROM CONCEPT TO SCREEN.
             </h2>
             <p className="font-tech text-sm sm:text-base text-white/70">
@@ -269,7 +269,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {processSteps.map((step, idx) => {
               const StepIcon = step.icon;
               return (
@@ -278,7 +278,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                   className="bg-[#0a0a0a] border border-white/10 hover:border-[var(--fx-yellow)]/50 p-8 rounded-lg space-y-6 transition-all duration-300 shadow-xl group"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-editorial font-bold text-xl md:text-3xl text-[var(--fx-yellow)]">
+                    <span className="font-editorial font-bold text-3xl text-[var(--fx-yellow)]">
                       {step.num}
                     </span>
                     <StepIcon className="w-5 h-5 text-white/40 group-hover:text-[var(--fx-yellow)] transition-colors" />
@@ -300,12 +300,12 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
       </section>
 
       {/* ─── 4. FINAL CALL TO ACTION ─── */}
-      <section className="py-10 md:py-20 sm:py-28 px-6 sm:px-10 md:px-14 lg:px-4 md:px-16 border-t border-white/10 bg-[var(--fx-black)] text-center">
+      <section className="py-20 sm:py-28 px-6 sm:px-10 md:px-14 lg:px-16 border-t border-white/10 bg-[var(--fx-black)] text-center">
         <div className="max-w-4xl mx-auto space-y-8">
           <span className="text-xs font-mono-tech tracking-[0.3em] text-[var(--fx-yellow)] uppercase font-bold">
             START YOUR PRODUCTION
           </span>
-          <h2 className="font-editorial text-2xl md:text-4xl sm:text-2xl md:text-4xl md:text-6xl md:text-7xl font-bold uppercase text-white leading-tight">
+          <h2 className="font-editorial text-4xl sm:text-6xl md:text-7xl font-bold uppercase text-white leading-tight">
             HAVE A PROJECT IN MIND?
           </h2>
           <p className="font-tech text-base sm:text-lg text-white/80 max-w-xl mx-auto leading-relaxed">
@@ -317,7 +317,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
               href="https://wa.me/94777548671?text=Hi%20CreativeFX%2C%20I%27d%20like%20to%20discuss%20a%20new%20project."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#20b858] text-black px-4 md:px-8 py-4 font-mono-tech text-xs tracking-widest font-bold uppercase transition-all shadow-lg rounded-sm cursor-pointer"
+              className="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#20b858] text-black px-8 py-4 font-mono-tech text-xs tracking-widest font-bold uppercase transition-all shadow-lg rounded-sm cursor-pointer"
             >
               <MessageCircle className="w-4 h-4" />
               <span>QUICK CHAT ON WHATSAPP</span>
@@ -332,7 +332,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                   if (el) smoothScrollTo(el);
                 }, 150);
               }}
-              className="inline-flex items-center gap-3 bg-[var(--fx-yellow)] hover:bg-white text-black px-4 md:px-8 py-4 font-mono-tech text-xs tracking-widest font-bold uppercase transition-all shadow-lg rounded-sm cursor-pointer"
+              className="inline-flex items-center gap-3 bg-[var(--fx-yellow)] hover:bg-white text-black px-8 py-4 font-mono-tech text-xs tracking-widest font-bold uppercase transition-all shadow-lg rounded-sm cursor-pointer"
             >
               <span>SUBMIT INQUIRY FORM</span>
               <ArrowRight className="w-4 h-4" />
@@ -351,4 +351,3 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
     </div>
   );
 };
-

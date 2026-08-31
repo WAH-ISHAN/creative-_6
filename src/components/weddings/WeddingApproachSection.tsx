@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useContent } from '../../context/ContentContext';
@@ -45,7 +45,7 @@ export const WeddingApproachSection: React.FC = () => {
     <section
       ref={containerRef}
       id="wedding-approach-section"
-      className="relative w-full bg-[var(--fx-black)] text-[var(--fx-white)] py-12 md:py-24 sm:py-36 px-6 sm:px-10 md:px-14 lg:px-4 md:px-16 select-none border-t border-white/10 no-parallax"
+      className="relative w-full bg-[var(--fx-black)] text-[var(--fx-white)] py-24 sm:py-36 px-6 sm:px-10 md:px-14 lg:px-16 select-none border-t border-white/10 no-parallax"
     >
       <div className="w-full max-w-7xl mx-auto">
         
@@ -55,7 +55,7 @@ export const WeddingApproachSection: React.FC = () => {
             <span>03</span>
             <span>/ OUR PHILOSOPHY</span>
           </span>
-          <h2 className="font-editorial font-bold text-2xl md:text-4xl sm:text-2xl md:text-4xl md:text-6xl md:text-7xl lg:text-8xl tracking-tight uppercase text-white mb-6">
+          <h2 className="font-editorial font-bold text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight uppercase text-white mb-6">
             NOT AS PROPS.<br />
             <span className="text-[var(--fx-yellow)]">AS WITNESSES TO YOUR DAY.</span>
           </h2>
@@ -76,7 +76,7 @@ export const WeddingApproachSection: React.FC = () => {
                 <span className="font-mono-tech text-xs tracking-widest text-[var(--fx-yellow)] uppercase block mb-4 font-bold">
                   PRINCIPLE // {principle.number}
                 </span>
-                <h3 className="font-editorial font-bold text-2xl sm:text-xl md:text-3xl lg:text-2xl md:text-4xl tracking-wide uppercase text-white mb-4">
+                <h3 className="font-editorial font-bold text-2xl sm:text-3xl lg:text-4xl tracking-wide uppercase text-white mb-4">
                   {principle.title}
                 </h3>
                 <p className="text-sm sm:text-base text-white/70 font-tech leading-relaxed">
@@ -95,4 +95,3 @@ export const WeddingApproachSection: React.FC = () => {
     </section>
   );
 };
-

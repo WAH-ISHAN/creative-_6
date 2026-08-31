@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useContent, API_BASE, useSectionStyle } from '../context/ContentContext';
@@ -131,7 +131,7 @@ export const ContactSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="section-contact"
-      className="no-parallax relative w-full bg-white text-black py-10 sm:py-12 md:py-24 md:py-28 px-4 sm:px-4 md:px-8 md:px-12 lg:px-4 md:px-16 border-t border-neutral-200 overflow-hidden select-none"
+      className="no-parallax relative w-full bg-white text-black py-10 sm:py-24 md:py-28 px-4 sm:px-8 md:px-12 lg:px-16 border-t border-neutral-200 overflow-hidden select-none"
     >
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-16 xl:gap-20 items-start">
 
@@ -143,7 +143,7 @@ export const ContactSection: React.FC = () => {
               <span className="text-black font-bold">07</span>
               <span>/ Contact</span>
             </div>
-            <h2 className="text-[32px] sm:text-xl md:text-3xl md:text-5xl lg:text-2xl md:text-4xl md:text-6xl font-editorial tracking-tight text-black uppercase leading-[0.92] sm:leading-[0.95] whitespace-pre-line">
+            <h2 className="text-[32px] sm:text-5xl lg:text-6xl font-editorial tracking-tight text-black uppercase leading-[0.92] sm:leading-[0.95] whitespace-pre-line">
               {pageCopy.headline || "LET'S CREATE\nTOGETHER."}
             </h2>
             <p className="text-[14px] sm:text-base font-tech text-neutral-600 leading-relaxed max-w-md">
@@ -162,7 +162,7 @@ export const ContactSection: React.FC = () => {
 
           {/* Studio Quick Info */}
           <div className="space-y-4 sm:space-y-5 pt-4 sm:pt-2 border-t border-neutral-200">
-            <div className="grid grid-cols-1 md:grid-cols-2 sm:grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+            <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 sm:gap-5">
               <div className="bg-neutral-50 sm:bg-transparent border sm:border-0 border-neutral-200 rounded-xl sm:rounded-none p-3 sm:p-0">
                 <span className="flex items-center gap-1.5 text-[10px] text-neutral-400 mb-1 font-semibold tracking-widest uppercase"><Phone className="w-3 h-3 sm:hidden" /> DIRECT LINE</span>
                 <a href={`tel:${contact.phone || '+94777548671'}`} className="text-[13px] sm:text-sm font-tech font-bold text-black hover:text-[var(--fx-yellow)] transition-colors">
@@ -255,7 +255,7 @@ export const ContactSection: React.FC = () => {
           <div className="bg-[#fafafa] border border-neutral-200 rounded-2xl sm:rounded-3xl p-5 sm:p-10 md:p-12 shadow-[0_15px_40px_rgba(0,0,0,0.03)]">
             
             <div className="mb-6 sm:mb-8">
-              <h3 className="text-xl sm:text-xl md:text-3xl font-editorial uppercase tracking-tight text-black mb-1.5 sm:mb-2">
+              <h3 className="text-xl sm:text-3xl font-editorial uppercase tracking-tight text-black mb-1.5 sm:mb-2">
                 SEND AN INQUIRY
               </h3>
               <p className="text-[13px] sm:text-sm font-tech text-neutral-500">
@@ -307,7 +307,7 @@ export const ContactSection: React.FC = () => {
                   />
                 </div>
 
-                <div className="grid grid-cols-1 gap-5 sm:gap-5 sm:grid-cols-1 md:grid-cols-2">
+                <div className="grid grid-cols-1 gap-5 sm:gap-5 sm:grid-cols-2">
                   <div className="space-y-1.5 sm:space-y-2">
                     <label htmlFor="cfx-email" className="block text-[11px] sm:text-xs font-mono-tech tracking-widest text-neutral-700 uppercase font-semibold">
                       Email Address
@@ -399,4 +399,3 @@ export const ContactSection: React.FC = () => {
     </section>
   );
 };
-

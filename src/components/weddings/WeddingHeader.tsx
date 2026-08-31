@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { smoothScrollTo } from '../../utils/smoothScroll';
 import { X } from 'lucide-react';
 import { soundEngine } from '../../utils/audio';
@@ -61,7 +61,7 @@ export const WeddingHeader: React.FC<WeddingHeaderProps> = ({
             : 'bg-gradient-to-b from-black/50 to-transparent border-b border-transparent py-4 sm:py-6'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-4 md:px-12 flex items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex items-center justify-between gap-4">
           
           {/* LOGO */}
           <div 
@@ -167,4 +167,3 @@ export const WeddingHeader: React.FC<WeddingHeaderProps> = ({
     </>
   );
 };
-

@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useContent, useSectionStyle } from '../context/ContentContext';
@@ -82,7 +82,7 @@ export const IntroductionSection: React.FC = () => {
       ref={sectionRef}
       id="section-introduction"
       style={sec.style}
-      className="relative w-full bg-[var(--fx-white)] text-[var(--fx-black)] py-14 sm:py-10 md:py-20 md:py-28 px-5 sm:px-4 md:px-8 md:px-12 select-none no-parallax overflow-hidden"
+      className="relative w-full bg-[var(--fx-white)] text-[var(--fx-black)] py-14 sm:py-20 md:py-28 px-5 sm:px-8 md:px-12 select-none no-parallax overflow-hidden"
     >
       <div className="relative z-10 max-w-6xl mx-auto w-full">
         <div className="flex flex-col lg:flex-row gap-10 sm:gap-14 lg:gap-20 items-start">
@@ -96,7 +96,7 @@ export const IntroductionSection: React.FC = () => {
 
             <h2 
               ref={titleRef} 
-              className="text-2xl md:text-4xl sm:text-xl md:text-3xl md:text-5xl md:text-6xl lg:text-7xl font-editorial font-normal uppercase tracking-tight text-[var(--fx-black)] leading-[0.95]"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-editorial font-normal uppercase tracking-tight text-[var(--fx-black)] leading-[0.95]"
               style={{ fontSize: sec.headingScale !== 1 ? `clamp(32px, 9vw, ${sec.headingScale * 3.75}rem)` : undefined }}
             >
               {headlineLines.map((line, i) => (
@@ -153,4 +153,3 @@ export const IntroductionSection: React.FC = () => {
     </section>
   );
 };
-

@@ -1,4 +1,4 @@
-﻿import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { ProjectCase } from '../types';
 import { resolveSelectedWork, useContent } from '../context/ContentContext';
 import { ArrowRight, Heart, Play } from 'lucide-react';
@@ -154,7 +154,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ onSelectProj
   ];
 
   return (
-    <section id="section-portfolio" className="w-full bg-[#050505] text-white py-10 sm:py-10 md:py-20 md:py-28 px-4 sm:px-4 md:px-8 md:px-12 select-none border-t border-white/10 sm:border-[var(--fx-border-dark)]">
+    <section id="section-portfolio" className="w-full bg-[#050505] text-white py-10 sm:py-20 md:py-28 px-4 sm:px-8 md:px-12 select-none border-t border-white/10 sm:border-[var(--fx-border-dark)]">
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}
@@ -165,7 +165,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ onSelectProj
                 <span className="text-white">04</span>
                 <span>/ Selected Work</span>
               </div>
-              <h2 className="text-[34px] sm:text-xl md:text-3xl md:text-5xl md:text-6xl lg:text-7xl font-editorial font-normal uppercase tracking-tight text-white leading-[0.9]">
+              <h2 className="text-[34px] sm:text-5xl md:text-6xl lg:text-7xl font-editorial font-normal uppercase tracking-tight text-white leading-[0.9]">
                 SELECTED<br />WORK
               </h2>
             </div>
@@ -186,12 +186,12 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ onSelectProj
 
         {/* Grid */}
         {cards.length === 0 ? (
-          <div className="py-16 sm:py-10 md:py-20 text-center border border-dashed border-white/10 rounded-sm px-4">
+          <div className="py-16 sm:py-20 text-center border border-dashed border-white/10 rounded-sm px-4">
             <p className="text-base sm:text-lg font-editorial text-gray-400 uppercase">NO SELECTED WORK YET</p>
             <p className="text-xs font-mono-tech text-gray-600 mt-2">Choose projects in Admin → Homepage → Selected Work</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-6 md:gap-8 lg:gap-12">
+          <div className="grid grid-cols-2 gap-3 sm:gap-6 md:gap-8 lg:gap-12">
             {cards.map((project) => (
               <div key={project.id} role="presentation">
                 <ProjectCard project={project} onSelectProject={onSelectProject} onSwitchToWeddings={onSwitchToWeddings} />
@@ -203,4 +203,3 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ onSelectProj
     </section>
   );
 };
-

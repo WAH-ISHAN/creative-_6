@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useContent, DEFAULT_CONTENT, useSectionStyle } from '../context/ContentContext';
@@ -58,7 +58,7 @@ export const ServicesSection: React.FC<{ onSelectService?: (service: AgencyServi
   }, [sec.animationsEnabled]);
 
   return (
-    <section ref={sectionRef} id="section-services" style={sec.style} className="relative w-full bg-[#fafafa] sm:bg-[var(--fx-white)] text-[var(--fx-black)] py-10 sm:py-10 md:py-20 md:py-28 px-4 sm:px-4 md:px-8 md:px-12 select-none border-t border-black/10 overflow-hidden no-parallax">
+    <section ref={sectionRef} id="section-services" style={sec.style} className="relative w-full bg-[#fafafa] sm:bg-[var(--fx-white)] text-[var(--fx-black)] py-10 sm:py-20 md:py-28 px-4 sm:px-8 md:px-12 select-none border-t border-black/10 overflow-hidden no-parallax">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8 sm:gap-12 lg:gap-24 relative">
 
         {/* Left: Section Header & Narrative */}
@@ -67,7 +67,7 @@ export const ServicesSection: React.FC<{ onSelectService?: (service: AgencyServi
             <span className="text-black font-bold">05</span>
             <span>/ Services</span>
           </div>
-          <h2 ref={titleRef} className="text-[34px] sm:text-xl md:text-3xl md:text-5xl md:text-6xl font-editorial font-normal uppercase tracking-tight text-black leading-[0.92] sm:leading-[0.95]">
+          <h2 ref={titleRef} className="text-[34px] sm:text-5xl md:text-6xl font-editorial font-normal uppercase tracking-tight text-black leading-[0.92] sm:leading-[0.95]">
             WE TURN<br />
             <span className="text-[var(--fx-yellow)] sm:text-[var(--fx-yellow)]">IDEAS INTO<br />
             VISUALS.</span>
@@ -121,7 +121,7 @@ export const ServicesSection: React.FC<{ onSelectService?: (service: AgencyServi
                     <span className="text-xs sm:text-sm font-mono-tech tracking-widest text-black/40 pt-1 sm:pt-0 shrink-0 group-hover:text-black transition-colors">
                       {service.number || service.id || `0${idx + 1}`}
                     </span>
-                    <span className="text-2xl sm:text-xl md:text-3xl md:text-4xl lg:text-[42px] font-editorial tracking-wide uppercase text-black leading-none group-hover:tracking-wider transition-all">
+                    <span className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-editorial tracking-wide uppercase text-black leading-none group-hover:tracking-wider transition-all">
                       {service.title}
                     </span>
                     {onSelectService && <ArrowUpRight className="hidden sm:block w-5 h-5 text-black/0 group-hover:text-black/30 ml-auto transition-colors" />}
@@ -145,4 +145,3 @@ export const ServicesSection: React.FC<{ onSelectService?: (service: AgencyServi
     </section>
   );
 };
-

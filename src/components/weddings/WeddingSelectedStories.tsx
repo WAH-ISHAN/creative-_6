@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight, Play, ZoomIn, Images, Sparkles } from 'lucide-react';
@@ -80,7 +80,7 @@ export const WeddingSelectedStories: React.FC<WeddingSelectedStoriesProps> = ({
     <section
       ref={containerRef}
       id="wedding-selected-stories"
-      className="relative w-full bg-[var(--fx-black)] text-[var(--fx-white)] py-12 md:py-24 sm:py-36 px-6 sm:px-10 md:px-14 lg:px-4 md:px-16 select-none border-t border-white/10 no-parallax"
+      className="relative w-full bg-[var(--fx-black)] text-[var(--fx-white)] py-24 sm:py-36 px-6 sm:px-10 md:px-14 lg:px-16 select-none border-t border-white/10 no-parallax"
     >
       <div className="w-full max-w-7xl mx-auto">
         
@@ -91,7 +91,7 @@ export const WeddingSelectedStories: React.FC<WeddingSelectedStoriesProps> = ({
               <span>02</span>
               <span>/ FEATURED REAL WEDDINGS</span>
             </span>
-            <h2 className="font-editorial font-bold text-2xl md:text-4xl sm:text-2xl md:text-4xl md:text-6xl md:text-7xl lg:text-8xl tracking-tight uppercase text-white">
+            <h2 className="font-editorial font-bold text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight uppercase text-white">
               REAL WEDDINGS &<br />
               <span className="text-[var(--fx-yellow)]">LOVE STORIES.</span>
             </h2>
@@ -103,7 +103,7 @@ export const WeddingSelectedStories: React.FC<WeddingSelectedStoriesProps> = ({
 
         {/* Alternating Stories */}
         {stories.length === 0 ? (
-          <div className="py-10 md:py-20 text-center border border-dashed border-white/10 rounded-sm">
+          <div className="py-20 text-center border border-dashed border-white/10 rounded-sm">
             <p className="text-lg font-editorial text-white/60 uppercase">No published wedding stories yet</p>
             <p className="text-xs font-mono-tech text-white/40 mt-2 uppercase">Add stories in Admin → Weddings → Stories</p>
           </div>
@@ -175,7 +175,7 @@ export const WeddingSelectedStories: React.FC<WeddingSelectedStoriesProps> = ({
                   </div>
 
                   {/* Thumbnail Row under main photo */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 mt-3">
+                  <div className="grid grid-cols-4 gap-2.5 mt-3">
                     {story.gallery.slice(0, 4).map((g, thumbIdx) => (
                       <div
                         key={thumbIdx}
@@ -214,7 +214,7 @@ export const WeddingSelectedStories: React.FC<WeddingSelectedStoriesProps> = ({
                       soundEngine.playOpen();
                       onSelectStory(story);
                     }}
-                    className="font-editorial font-bold text-2xl md:text-4xl sm:text-xl md:text-3xl md:text-5xl md:text-6xl lg:text-7xl leading-[0.92] tracking-tight uppercase text-white mb-6 hover:text-[var(--fx-yellow)] cursor-pointer transition-colors"
+                    className="font-editorial font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[0.92] tracking-tight uppercase text-white mb-6 hover:text-[var(--fx-yellow)] cursor-pointer transition-colors"
                   >
                     {story.couple}
                   </h3>
@@ -273,4 +273,3 @@ export const WeddingSelectedStories: React.FC<WeddingSelectedStoriesProps> = ({
     </section>
   );
 };
-
