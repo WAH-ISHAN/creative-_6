@@ -135,7 +135,7 @@ export const ServicesSection: React.FC<{ onSelectService?: (service: AgencyServi
           </div>
 
           <div className="sm:hidden mt-4">
-            <button onClick={() => { const el=document.getElementById('section-contact'); if(el) el.scrollIntoView({behavior:'smooth'}); }} className="w-full bg-black text-white font-mono-tech text-xs tracking-[0.18em] font-bold uppercase py-4 rounded-xl flex items-center justify-center gap-2 active:scale-[0.98] transition-transform">
+            <button disabled className="w-full bg-black/30 text-white/30 font-mono-tech text-xs tracking-[0.18em] font-bold uppercase py-4 rounded-xl flex items-center justify-center gap-2 pointer-events-none cursor-not-allowed opacity-50">
               START A PROJECT <ArrowUpRight className="w-4 h-4" />
             </button>
           </div>
