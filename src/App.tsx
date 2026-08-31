@@ -177,13 +177,18 @@ function App() {
       const targetId = hash.replace('#', '');
       const el = document.getElementById(targetId);
       if (el) {
-        setTimeout(() => smoothScrollTo(el), 120);
+        setTimeout(() => {
+          smoothScrollTo(el);
+          ScrollTrigger.refresh();
+        }, 120);
         return;
       }
     }
 
     resetGlobalScroll();
+    setTimeout(() => ScrollTrigger.refresh(), 200);
   }, [currentView, selectedProjectSlug]);
+
 
   const scrollToSection = (sectionId: string) => {
     soundEngine.playClick();
