@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+﻿import React, { useEffect } from 'react';
 import { X, ArrowRight, Sparkles } from 'lucide-react';
 import { WeddingTimelineStage } from '../../types';
 import { soundEngine } from '../../utils/audio';
@@ -53,7 +53,7 @@ export const WeddingStageDetailModal: React.FC<WeddingStageDetailModalProps> = (
             </span>
           </div>
 
-          <h2 className="font-editorial font-black text-4xl sm:text-5xl uppercase tracking-tight text-[var(--fx-white)]">
+          <h2 className="font-editorial font-black text-2xl md:text-4xl sm:text-xl md:text-3xl md:text-5xl uppercase tracking-tight text-[var(--fx-white)]">
             {stage.title}
           </h2>
 
@@ -76,7 +76,7 @@ export const WeddingStageDetailModal: React.FC<WeddingStageDetailModalProps> = (
             <span className="text-[10px] font-mono-tech tracking-[0.25em] text-[#777777] uppercase block mb-3">
               PRIMARY DOCUMENTARY BEATS
             </span>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-2.5">
               {stage.moments.map((m, i) => (
                 <div key={i} className="flex items-center gap-2 text-xs font-tech text-[#CCCCCC]">
                   <span className="w-1.5 h-1.5 bg-[var(--fx-black)] rounded-full flex-shrink-0" />
@@ -114,3 +114,4 @@ export const WeddingStageDetailModal: React.FC<WeddingStageDetailModalProps> = (
     </div>
   );
 };
+

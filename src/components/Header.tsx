@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { smoothScrollTo } from '../utils/smoothScroll';
 import { useContent } from '../context/ContentContext';
 import { X } from 'lucide-react';
@@ -112,7 +112,7 @@ export const Header: React.FC<HeaderProps> = ({
         }`}
         style={announcementEnabled && announcementText ? { top: '28px' } : undefined}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-4 md:px-12 flex items-center justify-between gap-4">
           
           {/* BRAND TITLE / LOGO */}
           <div 
@@ -317,3 +317,4 @@ export const Header: React.FC<HeaderProps> = ({
     </>
   );
 };
+

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { X, Check, ArrowRight, Calendar, MapPin, Sparkles } from 'lucide-react';
 import { soundEngine } from '../../utils/audio';
 import { API_BASE } from '../../context/ContentContext';
@@ -95,7 +95,7 @@ export const WeddingInquiryModal: React.FC<WeddingInquiryModalProps> = ({ onClos
             <div className="w-14 h-14 rounded-full border border-[var(--fx-light-gray)] flex items-center justify-center mb-6 text-[var(--fx-white)]">
               <Check className="w-6 h-6" />
             </div>
-            <h3 className="font-editorial font-bold text-3xl sm:text-4xl uppercase tracking-wider mb-3">
+            <h3 className="font-editorial font-bold text-xl md:text-3xl sm:text-2xl md:text-4xl uppercase tracking-wider mb-3">
               YOUR STORY IS RECEIVED.
             </h3>
             <p className="text-xs sm:text-sm text-[#888888] max-w-md mb-8 font-tech leading-relaxed">
@@ -117,7 +117,7 @@ export const WeddingInquiryModal: React.FC<WeddingInquiryModalProps> = ({ onClos
               <span className="text-[10px] font-mono-tech tracking-[0.25em] text-[#777777] uppercase block mb-1">
                 COMMISSION INQUIRY // 2026–2027
               </span>
-              <h2 className="font-editorial font-bold text-3xl sm:text-4xl uppercase tracking-tight text-[var(--fx-white)]">
+              <h2 className="font-editorial font-bold text-xl md:text-3xl sm:text-2xl md:text-4xl uppercase tracking-tight text-[var(--fx-white)]">
                 BEGIN YOUR ARCHIVE
               </h2>
               <p className="text-xs text-[#888888] font-tech mt-1">
@@ -126,7 +126,7 @@ export const WeddingInquiryModal: React.FC<WeddingInquiryModalProps> = ({ onClos
             </div>
 
             {/* Inputs Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4">
               
               <div>
                 <label className="block text-[10px] font-mono-tech tracking-widest text-[#777777] uppercase mb-1.5">
@@ -278,3 +278,4 @@ export const WeddingInquiryModal: React.FC<WeddingInquiryModalProps> = ({ onClos
     </div>
   );
 };
+

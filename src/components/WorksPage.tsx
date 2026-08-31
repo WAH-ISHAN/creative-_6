@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+﻿import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { smoothScrollTo, resetGlobalScroll } from '../utils/scrollManager';
 import { usePublishedProjects, useContent } from '../context/ContentContext';
 import { ProjectCase } from '../types';
@@ -277,7 +277,7 @@ export const WorksPage: React.FC<WorksPageProps> = ({
         onOpenWeddings={onSwitchToWeddings}
       />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-8 md:px-12 pt-24 sm:pt-40 pb-16 sm:pb-24">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-4 md:px-8 md:px-12 pt-24 sm:pt-40 pb-16 sm:pb-24">
         {/* Page Top Bar */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-5 sm:gap-6 pb-6 sm:pb-10 border-b border-white/10">
           <div className="space-y-3 sm:space-y-4">
@@ -291,7 +291,7 @@ export const WorksPage: React.FC<WorksPageProps> = ({
             <div className="text-[11px] sm:text-xs font-mono-tech tracking-[0.28em] text-white/40 uppercase">
               INDEXED PORTFOLIO
             </div>
-            <h1 className="text-[36px] sm:text-6xl md:text-7xl lg:text-8xl font-editorial font-normal uppercase tracking-tight text-white leading-[0.9]">
+            <h1 className="text-[36px] sm:text-2xl md:text-4xl md:text-6xl md:text-7xl lg:text-8xl font-editorial font-normal uppercase tracking-tight text-white leading-[0.9]">
               {worksTitle[0]}<br />
               <span className="text-[var(--fx-yellow)]">{worksTitle[1] || ''}</span>
             </h1>
@@ -309,7 +309,7 @@ export const WorksPage: React.FC<WorksPageProps> = ({
           {/* Row 1: Media Type Switcher & Search Bar */}
           <div className="flex flex-col gap-4 border-b border-white/10 pb-4 sm:pb-5">
             {/* Primary Media Format Tabs */}
-            <div className="grid grid-cols-3 sm:flex sm:items-center gap-2 sm:gap-2.5 sm:flex-wrap">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 sm:flex sm:items-center gap-2 sm:gap-2.5 sm:flex-wrap">
               <button
                 onClick={() => { soundEngine.playClick(); setActiveType('ALL'); setActiveCategory('ALL'); }}
                 className={`px-2 sm:px-5 py-3 sm:py-2 rounded-xl sm:rounded-sm text-[11px] sm:text-xs font-mono-tech tracking-wider uppercase transition-all duration-200 cursor-pointer flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 min-h-[52px] sm:min-h-0 ${
@@ -411,7 +411,7 @@ export const WorksPage: React.FC<WorksPageProps> = ({
         {/* Projects Grid */}
         <div className="pt-2 sm:pt-4">
           {filteredProjects.length === 0 ? (
-            <div className="py-16 sm:py-24 text-center border border-dashed border-white/10 rounded-xl sm:rounded-sm px-4">
+            <div className="py-16 sm:py-12 md:py-24 text-center border border-dashed border-white/10 rounded-xl sm:rounded-sm px-4">
               <Sparkles className="w-8 h-8 text-gray-600 mx-auto mb-4" />
               <p className="text-lg sm:text-xl font-editorial uppercase text-gray-400">NO PROJECTS FOUND</p>
               <p className="text-[11px] sm:text-xs font-mono-tech text-gray-600 mt-2">TRY CLEARING YOUR SEARCH OR CHOOSING ANOTHER CATEGORY</p>
@@ -424,7 +424,7 @@ export const WorksPage: React.FC<WorksPageProps> = ({
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-10">
+              <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-10">
                 {visibleProjects.map((project, idx) => (
                   <WorkCardItem
                     key={project.id || idx}
@@ -441,7 +441,7 @@ export const WorksPage: React.FC<WorksPageProps> = ({
                 <div className="mt-8 sm:mt-14 text-center px-4 sm:px-0">
                   <button
                     onClick={() => setVisibleCount(c => c + PAGE_SIZE)}
-                    className="w-full sm:w-auto px-8 sm:px-10 py-4 bg-transparent border border-white/20 hover:border-[var(--fx-yellow)] hover:text-[var(--fx-yellow)] text-white font-mono-tech text-xs uppercase tracking-widest font-semibold transition-colors cursor-pointer rounded-xl sm:rounded-sm"
+                    className="w-full sm:w-auto px-4 md:px-8 sm:px-10 py-4 bg-transparent border border-white/20 hover:border-[var(--fx-yellow)] hover:text-[var(--fx-yellow)] text-white font-mono-tech text-xs uppercase tracking-widest font-semibold transition-colors cursor-pointer rounded-xl sm:rounded-sm"
                   >
                     LOAD MORE ({filteredProjects.length - visibleCount} REMAINING)
                   </button>
@@ -468,3 +468,4 @@ export const WorksPage: React.FC<WorksPageProps> = ({
     </div>
   );
 };
+

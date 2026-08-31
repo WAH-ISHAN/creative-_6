@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+﻿import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Sparkles, ArrowUpRight } from 'lucide-react';
@@ -74,7 +74,7 @@ export const FinalCtaSection: React.FC<FinalCtaSectionProps> = ({ onStartProject
   }, [sec.animationsEnabled]);
 
   return (
-    <section ref={sectionRef} style={sec.style} className="no-parallax w-full bg-[#050505] text-white py-10 sm:py-28 md:py-36 px-4 sm:px-8 md:px-12 lg:px-16 border-t border-white/10 select-none overflow-hidden">
+    <section ref={sectionRef} style={sec.style} className="no-parallax w-full bg-[#050505] text-white py-10 sm:py-28 md:py-36 px-4 sm:px-4 md:px-8 md:px-12 lg:px-4 md:px-16 border-t border-white/10 select-none overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <div ref={containerRef} className="bg-[#0a0a0a] border border-white/10 rounded-2xl sm:rounded-2xl p-6 sm:p-16 md:p-20 text-center space-y-6 sm:space-y-8 relative shadow-[0_25px_60px_rgba(0,0,0,0.9)] group sm:hover:border-white/20 transition-colors">
           
@@ -95,7 +95,7 @@ export const FinalCtaSection: React.FC<FinalCtaSectionProps> = ({ onStartProject
 
           {/* Title & Body */}
           <div className="space-y-4 sm:space-y-6 max-w-3xl mx-auto">
-            <h2 ref={titleRef} className="text-[28px] sm:text-5xl md:text-6xl lg:text-7xl font-editorial tracking-tight uppercase text-white leading-[0.92]">
+            <h2 ref={titleRef} className="text-[28px] sm:text-xl md:text-3xl md:text-5xl md:text-6xl lg:text-7xl font-editorial tracking-tight uppercase text-white leading-[0.92]">
               {headlineLines.map((line, i) => (
                 <React.Fragment key={i}>
                   {line}
@@ -131,3 +131,4 @@ export const FinalCtaSection: React.FC<FinalCtaSectionProps> = ({ onStartProject
     </section>
   );
 };
+

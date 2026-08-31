@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 
 interface PageLoaderProps {
@@ -71,7 +71,7 @@ export const PageLoader: React.FC<PageLoaderProps> = ({ onComplete }) => {
 
   return (
     <div className="loader-container fixed inset-0 z-[999] flex flex-col items-center justify-center bg-[var(--fx-black)] select-none">
-      <div className="loader-content flex flex-col items-center gap-8 w-full max-w-xs px-8">
+      <div className="loader-content flex flex-col items-center gap-8 w-full max-w-xs px-4 md:px-8">
         <h1 className="text-2xl font-editorial tracking-[0.1em] text-[var(--fx-white)] uppercase">
           CREATIVE<span className="text-[var(--fx-yellow)]">FX</span>
         </h1>
@@ -90,3 +90,4 @@ export const PageLoader: React.FC<PageLoaderProps> = ({ onComplete }) => {
     </div>
   );
 };
+

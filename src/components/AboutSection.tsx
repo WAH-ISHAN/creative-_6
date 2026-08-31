@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+﻿import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useContent, useSectionStyle } from '../context/ContentContext';
@@ -73,7 +73,7 @@ export const AboutSection: React.FC = () => {
   }, [sec.animationsEnabled]);
 
   return (
-    <section ref={sectionRef} id="section-about" style={sec.style} className="relative w-full bg-[#050505] text-white py-10 sm:py-24 md:py-32 px-4 sm:px-8 md:px-12 select-none border-t border-white/10 overflow-hidden no-parallax">
+    <section ref={sectionRef} id="section-about" style={sec.style} className="relative w-full bg-[#050505] text-white py-10 sm:py-12 md:py-24 md:py-32 px-4 sm:px-4 md:px-8 md:px-12 select-none border-t border-white/10 overflow-hidden no-parallax">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-8 sm:gap-16 md:gap-24 items-start">
 
         {/* Left Column: Title */}
@@ -82,7 +82,7 @@ export const AboutSection: React.FC = () => {
             <span className="text-white font-bold">06</span>
             <span>/ About Us</span>
           </div>
-          <h2 ref={titleRef} className="text-[32px] sm:text-5xl md:text-6xl font-editorial font-normal uppercase tracking-tight text-white leading-[0.92] sm:leading-[0.95]">
+          <h2 ref={titleRef} className="text-[32px] sm:text-xl md:text-3xl md:text-5xl md:text-6xl font-editorial font-normal uppercase tracking-tight text-white leading-[0.92] sm:leading-[0.95]">
             {headlineLines.map((line, i) => (
               <React.Fragment key={i}>
                 {line.includes('CREATIVEFX.') ? (
@@ -157,3 +157,4 @@ export const AboutSection: React.FC = () => {
     </section>
   );
 };
+

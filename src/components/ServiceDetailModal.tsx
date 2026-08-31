@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+﻿import React, { useEffect } from 'react';
 import { AgencyService } from '../types';
 import { CornerBracket, FourCornerFrame } from './CornerBracket';
 import { soundEngine } from '../utils/audio';
@@ -33,7 +33,7 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
       className="fixed inset-0 z-50 overflow-y-auto bg-[var(--fx-black)] text-[var(--fx-white)] animate-in fade-in duration-300"
     >
       {/* Top Sticky Navigation */}
-      <div className="sticky top-0 z-40 bg-[var(--fx-black)]/90 backdrop-blur-md border-b border-[var(--fx-light-gray)] px-6 sm:px-12 py-5 flex items-center justify-between">
+      <div className="sticky top-0 z-40 bg-[var(--fx-black)]/90 backdrop-blur-md border-b border-[var(--fx-light-gray)] px-6 sm:px-4 md:px-12 py-5 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <span className="w-1.5 h-1.5 bg-[var(--fx-white)]" />
           <span className="text-base font-mono-tech tracking-[0.25em] text-[var(--fx-white)] font-bold uppercase">
@@ -59,7 +59,7 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 py-12 sm:py-20 space-y-16 sm:space-y-20">
+      <div className="max-w-7xl mx-auto px-6 sm:px-4 md:px-12 py-12 sm:py-10 md:py-20 space-y-16 sm:space-y-20">
         
         {/* Service Header */}
         <div className="space-y-6">
@@ -67,7 +67,7 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
             CREATIVEFX DISCIPLINE // {service.number}
           </div>
 
-          <h1 className="text-4xl sm:text-7xl md:text-8xl font-display font-black uppercase tracking-tight text-[var(--fx-white)] leading-none">
+          <h1 className="text-2xl md:text-4xl sm:text-7xl md:text-8xl font-display font-black uppercase tracking-tight text-[var(--fx-white)] leading-none">
             {service.title}
           </h1>
 
@@ -176,3 +176,4 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
     </div>
   );
 };
+
