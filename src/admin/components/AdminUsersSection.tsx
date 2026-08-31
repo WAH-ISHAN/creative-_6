@@ -52,7 +52,7 @@ export const AdminUsersSection: React.FC = () => {
 
   const handleLogout = () => {
     sessionStorage.removeItem('cfx_admin_token');
-    window.location.href = window.location.pathname.replace(/admin=1&?/, '') || '/';
+    window.location.href = '/';
   };
 
   return (

@@ -239,10 +239,10 @@ export const DashboardSection: React.FC<DashboardSectionProps> = ({ content, onN
           <div className="border border-gray-200 rounded-lg bg-white p-5 space-y-2">
             <h3 className="text-sm font-semibold text-gray-900 mb-2">Quick links</h3>
             <div className="grid grid-cols-2 gap-2 text-xs">
-              <button onClick={() => onNavigate('Website', 'Homepage')} className="px-3 py-2.5 bg-gray-50 hover:bg-gray-100 text-gray-700 hover:text-gray-900 rounded-md text-left border border-gray-100 transition-colors">
+              <button onClick={() => onNavigate('Homepage', 'Homepage')} className="px-3 py-2.5 bg-gray-50 hover:bg-gray-100 text-gray-700 hover:text-gray-900 rounded-md text-left border border-gray-100 transition-colors">
                 Homepage content
               </button>
-              <button onClick={() => onNavigate('Wedding Stories', 'Wedding Stories')} className="px-3 py-2.5 bg-gray-50 hover:bg-gray-100 text-gray-700 hover:text-gray-900 rounded-md text-left border border-gray-100 transition-colors">
+              <button onClick={() => onNavigate('Weddings', 'Stories')} className="px-3 py-2.5 bg-gray-50 hover:bg-gray-100 text-gray-700 hover:text-gray-900 rounded-md text-left border border-gray-100 transition-colors">
                 Wedding stories
               </button>
               <button onClick={() => onNavigate('Works / Projects', 'All Projects')} className="px-3 py-2.5 bg-gray-50 hover:bg-gray-100 text-gray-700 hover:text-gray-900 rounded-md text-left border border-gray-100 transition-colors">

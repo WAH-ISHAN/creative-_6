@@ -61,6 +61,11 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onClose }) => {
     };
   }, []);
 
+  // Keep localContent in sync if external content changes (e.g. page load from server)
+  useEffect(() => {
+    setLocalContent(content);
+  }, [content]);
+
   // Local update (immediate UI) then push to context
   const update = (path: string[], value: any) => {
     const newLocal = JSON.parse(JSON.stringify(localContent));

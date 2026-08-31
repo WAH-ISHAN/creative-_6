@@ -33,12 +33,12 @@ export const SelectField: React.FC<{
 
 export const TextInput: React.FC<{
   label: string; value: string; onChange: (v: string) => void;
-  placeholder?: string; hint?: string; readOnly?: boolean;
-}> = ({ label, value, onChange, placeholder, hint, readOnly }) => (
+  placeholder?: string; hint?: string; readOnly?: boolean; type?: string;
+}> = ({ label, value, onChange, placeholder, hint, readOnly, type = 'text' }) => (
   <div>
     <FieldLabel label={label} hint={hint} />
     <input
-      type="text"
+      type={type}
       value={value ?? ''}
       onChange={e => onChange(e.target.value)}
       placeholder={placeholder}

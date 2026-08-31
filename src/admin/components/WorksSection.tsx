@@ -360,7 +360,7 @@ export const WorksSection: React.FC<WorksSectionProps> = ({ item, content, updat
                         </span>
                       )}
                     </div>
-                    <span className="text-[11px] text-gray-400 truncate block">/works/{proj.slug}</span>
+                    <span className="text-[11px] text-gray-400 truncate block">#!project={proj.slug}</span>
                   </div>
                 </button>
 
@@ -400,7 +400,7 @@ export const WorksSection: React.FC<WorksSectionProps> = ({ item, content, updat
                         label="Slug (URL)"
                         value={proj.slug || ''}
                         onChange={v => patchProject(proj.id, { slug: v.toLowerCase().replace(/[^a-z0-9]+/g, '-') })}
-                        hint={`/works/${proj.slug}`}
+                        hint={`#!project=${proj.slug}`}
                       />
                       {projects.filter(p => p.id !== proj.id && p.slug && p.slug === proj.slug).length > 0 && (
                         <p className="mt-1 text-[11px] text-red-600 flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> Duplicate slug — links will break.</p>
