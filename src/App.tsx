@@ -85,6 +85,9 @@ function App() {
   const [currentView, setCurrentView] = useState<View>(() => parseHash(window.location.hash).view);
   const [selectedProjectSlug, setSelectedProjectSlug] = useState<string | null>(() => parseHash(window.location.hash).slug);
   const [worksFilter, setWorksFilter] = useState<string | null>(() => parseHash(window.location.hash).worksFilter);
+  // Key that increments every time we return to studio — forces full remount of all home sections
+  // so GSAP scroll-triggered animations replay correctly after navigating away and back.
+  const [studioKey, setStudioKey] = useState(0);
 
   const [selectedService, setSelectedService] = useState<AgencyService | null>(null);
   const [activeSection, setActiveSection] = useState<'home' | 'work' | 'services' | 'about' | 'contact' | 'weddings'>('home');
@@ -116,6 +119,10 @@ function App() {
   useEffect(() => {
     const handleLocationChange = () => {
       const next = parseHash(window.location.hash);
+      // If navigating back to studio from another view, bump the key so sections remount
+      if (next.view === 'studio') {
+        setStudioKey(k => k + 1);
+      }
       setCurrentView(next.view);
       setSelectedProjectSlug(next.slug);
       setWorksFilter(next.worksFilter);
@@ -228,6 +235,8 @@ function App() {
     setWorksFilter(null);
     pushHash('');
     resetGlobalScroll();
+    // Increment key so all home sections fully remount → GSAP animations replay from scratch
+    setStudioKey(k => k + 1);
   };
 
   const handleSwitchToWorks = (filter?: string) => {
@@ -324,8 +333,8 @@ function App() {
                 onOpenWeddings={handleSwitchToWeddings}
               />
 
-              {/* Main Page Flow */}
-              <main className="w-full">
+              {/* Main Page Flow — key forces full remount on every return so GSAP replays */}
+              <main key={studioKey} className="w-full">
                 {/* 01 — HERO */}
                 <HeroSection
                   onExploreWork={() => scrollToSection('section-featured-work')}
