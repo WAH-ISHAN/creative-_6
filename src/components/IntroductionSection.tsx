@@ -24,47 +24,57 @@ export const IntroductionSection: React.FC = () => {
       return;
     }
 
-    let ctx = gsap.context(() => {
-      gsap.from(titleRef.current, {
-        y: 80,
-        opacity: 0,
-        duration: 1.2,
-        ease: 'power4.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
-        }
-      });
-
-      gsap.from(textRef.current, {
-        y: 40,
-        opacity: 0,
-        duration: 1,
-        delay: 0.2,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
-        }
-      });
-
-      if (imageRef.current) {
-        gsap.from(imageRef.current, {
-          y: 60,
+    // Small delay so the DOM is fully settled after remount before GSAP reads positions
+    const timer = setTimeout(() => {
+      const ctx = gsap.context(() => {
+        gsap.from(titleRef.current, {
+          y: 80,
           opacity: 0,
-          scale: 0.95,
           duration: 1.2,
-          delay: 0.4,
+          ease: 'power4.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top bottom', // fires as soon as any part enters viewport
+            once: true,
+          }
+        });
+
+        gsap.from(textRef.current, {
+          y: 40,
+          opacity: 0,
+          duration: 1,
+          delay: 0.2,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: 'top 75%',
+            start: 'top bottom',
+            once: true,
           }
         });
-      }
-    }, sectionRef);
 
-    return () => ctx.revert();
+        if (imageRef.current) {
+          gsap.from(imageRef.current, {
+            y: 60,
+            opacity: 0,
+            scale: 0.95,
+            duration: 1.2,
+            delay: 0.4,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top bottom',
+              once: true,
+            }
+          });
+        }
+
+        ScrollTrigger.refresh();
+      }, sectionRef);
+
+      return () => ctx.revert();
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, [sec.animationsEnabled]);
 
   return (

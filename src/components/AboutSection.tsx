@@ -21,47 +21,55 @@ export const AboutSection: React.FC = () => {
       if (titleRef.current) titleRef.current.style.opacity = '1';
       return;
     }
-    let ctx = gsap.context(() => {
-      gsap.from(titleRef.current, {
-        y: 60,
-        opacity: 0,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
+    const timer = setTimeout(() => {
+      const ctx = gsap.context(() => {
+        gsap.from(titleRef.current, {
+          y: 60,
+          opacity: 0,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top bottom',
+            once: true,
+          }
+        });
+
+        if (textGroup1Ref.current) {
+          gsap.from(textGroup1Ref.current.children, {
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: textGroup1Ref.current,
+              start: 'top bottom',
+              once: true,
+            }
+          });
         }
-      });
 
-      if (textGroup1Ref.current) {
-        gsap.from(textGroup1Ref.current.children, {
-          y: 30,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: textGroup1Ref.current,
-            start: 'top 85%',
-          }
-        });
-      }
+        if (textGroup2Ref.current) {
+          gsap.from(textGroup2Ref.current.children, {
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: textGroup2Ref.current,
+              start: 'top bottom',
+              once: true,
+            }
+          });
+        }
 
-      if (textGroup2Ref.current) {
-        gsap.from(textGroup2Ref.current.children, {
-          y: 30,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: textGroup2Ref.current,
-            start: 'top 85%',
-          }
-        });
-      }
-    }, sectionRef);
-    return () => ctx.revert();
+        ScrollTrigger.refresh();
+      }, sectionRef);
+      return () => ctx.revert();
+    }, 100);
+    return () => clearTimeout(timer);
   }, [sec.animationsEnabled]);
 
   return (

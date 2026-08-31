@@ -6,10 +6,10 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function useScrollEffects(dependencies: any[]) {
   useEffect(() => {
-    // Kill ALL existing ScrollTrigger instances to prevent accumulation across
-    // route changes. Without this, every navigation stacks more triggers → freeze.
-    ScrollTrigger.getAll().forEach(st => st.kill());
-
+    // We do NOT kill ALL ScrollTriggers here — doing so would destroy the
+    // component-level animation triggers (IntroductionSection, AboutSection, etc.)
+    // because React runs child useEffects BEFORE parent useEffects.
+    // Instead, each component cleans up its own triggers via ctx.revert() on unmount.
     let ctx = gsap.context(() => {
       // Wait for the new route's DOM to fully mount before scanning for sections
       setTimeout(() => {
@@ -56,10 +56,9 @@ export function useScrollEffects(dependencies: any[]) {
       }, 350);
     });
 
+    // ctx.revert() only reverts triggers created WITHIN this context — safe for other components
     return () => {
       ctx.revert();
-      // Kill again on cleanup to leave a clean slate for the next route
-      ScrollTrigger.getAll().forEach(st => st.kill());
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, dependencies);

@@ -21,34 +21,40 @@ export const ServicesSection: React.FC<{ onSelectService?: (service: AgencyServi
       if (titleRef.current) titleRef.current.style.opacity = '1';
       return;
     }
-    let ctx = gsap.context(() => {
-      gsap.from(titleRef.current, {
-        y: 60,
-        opacity: 0,
-        duration: 1.2,
-        ease: 'power4.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-        }
-      });
-
-      if (listRef.current) {
-        gsap.from(listRef.current.children, {
-          y: 40,
+    const timer = setTimeout(() => {
+      const ctx = gsap.context(() => {
+        gsap.from(titleRef.current, {
+          y: 60,
           opacity: 0,
-          duration: 1,
-          stagger: 0.15,
-          ease: 'power3.out',
+          duration: 1.2,
+          ease: 'power4.out',
           scrollTrigger: {
-            trigger: listRef.current,
-            start: 'top 85%',
+            trigger: sectionRef.current,
+            start: 'top bottom',
+            once: true,
           }
         });
-      }
-    }, sectionRef);
 
-    return () => ctx.revert();
+        if (listRef.current) {
+          gsap.from(listRef.current.children, {
+            y: 40,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.15,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: listRef.current,
+              start: 'top bottom',
+              once: true,
+            }
+          });
+        }
+        ScrollTrigger.refresh();
+      }, sectionRef);
+      return () => ctx.revert();
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, [sec.animationsEnabled]);
 
   return (

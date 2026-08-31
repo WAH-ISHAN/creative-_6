@@ -35,32 +35,42 @@ export const ContactSection: React.FC = () => {
   }, [testimonials.length]);
 
   useEffect(() => {
-    if (!sec.animationsEnabled) return;
+    if (!sec.animationsEnabled) {
+      // Just ensure they are visible if disabled
+      gsap.set('.contact-left-card, .contact-right-form', { opacity: 1, y: 0 });
+      return;
+    }
 
-    const ctx = gsap.context(() => {
-      gsap.from('.contact-left-card', {
-        y: 40,
-        opacity: 0,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%'
-        }
-      });
-      gsap.from('.contact-right-form', {
-        y: 40,
-        opacity: 0,
-        duration: 1,
-        delay: 0.15,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%'
-        }
-      });
-    }, sectionRef);
-    return () => ctx.revert();
+    const timer = setTimeout(() => {
+      const ctx = gsap.context(() => {
+        gsap.from('.contact-left-card', {
+          y: 40,
+          opacity: 0,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top bottom',
+            once: true,
+          }
+        });
+        gsap.from('.contact-right-form', {
+          y: 40,
+          opacity: 0,
+          duration: 1,
+          delay: 0.15,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top bottom',
+            once: true,
+          }
+        });
+        ScrollTrigger.refresh();
+      }, sectionRef);
+      return () => ctx.revert();
+    }, 100);
+    return () => clearTimeout(timer);
   }, [sec.animationsEnabled]);
 
   const handleSubmit = async (e: React.FormEvent) => {

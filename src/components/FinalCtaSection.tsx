@@ -26,46 +26,51 @@ export const FinalCtaSection: React.FC<FinalCtaSectionProps> = ({ onStartProject
       if (titleRef.current) titleRef.current.style.opacity = '1';
       return;
     }
-    let ctx = gsap.context(() => {
-      gsap.from(containerRef.current, {
-        y: 40,
-        opacity: 0,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 85%',
-          toggleActions: 'play none none none',
-        }
-      });
-      
-      gsap.from(titleRef.current, {
-        y: 40,
-        opacity: 0,
-        duration: 1,
-        delay: 0.15,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 85%',
-          toggleActions: 'play none none none',
-        }
-      });
-      
-      gsap.from(buttonRef.current, {
-        y: 20,
-        opacity: 0,
-        duration: 0.8,
-        delay: 0.3,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 85%',
-          toggleActions: 'play none none none',
-        }
-      });
-    }, sectionRef);
-    return () => ctx.revert();
+    const timer = setTimeout(() => {
+      const ctx = gsap.context(() => {
+        gsap.from(containerRef.current, {
+          y: 40,
+          opacity: 0,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top bottom',
+            once: true,
+          }
+        });
+        
+        gsap.from(titleRef.current, {
+          y: 40,
+          opacity: 0,
+          duration: 1,
+          delay: 0.15,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top bottom',
+            once: true,
+          }
+        });
+        
+        gsap.from(buttonRef.current, {
+          y: 20,
+          opacity: 0,
+          duration: 0.8,
+          delay: 0.3,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top bottom',
+            once: true,
+          }
+        });
+        ScrollTrigger.refresh();
+      }, sectionRef);
+      return () => ctx.revert();
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, [sec.animationsEnabled]);
 
   return (
