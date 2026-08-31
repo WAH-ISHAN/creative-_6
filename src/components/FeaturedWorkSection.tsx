@@ -29,26 +29,15 @@ export const FeaturedWorkSection: React.FC<FeaturedWorkSectionProps> = ({ onSele
   useEffect(() => {
     if (!worksRef.current.length) return;
 
-    const isMobile = window.innerWidth <= 768;
-    const slots = isMobile
-      ? [
-          { x: -15,  y: -100, scale: 0.9, rot: -8,  op: 0,   z: 0 },
-          { x: 0,    y: 0,    scale: 1.0, rot: 0,   op: 1,   z: 50 },
-          { x: 15,   y: 40,   scale: 0.9,  rot: 4,   op: 0.8,  z: 40 },
-          { x: 25,   y: 80,   scale: 0.8,  rot: -3,  op: 0.5,  z: 30 },
-          { x: 35,   y: 120,  scale: 0.7,  rot: 5,   op: 0.2,  z: 20 },
-          { x: 40,   y: 150,  scale: 0.6,  rot: -2,  op: 0,    z: 10 },
-          { x: 40,   y: 150,  scale: 0.6,  rot: 0,   op: 0,    z: 5 }
-        ]
-      : [
-          { x: -150, y: -500, scale: 0.9, rot: -10, op: 0, z: 0 },
-          { x: 0,    y: 0,    scale: 1.0, rot: 0,   op: 1, z: 50 },
-          { x: 120,  y: 350,  scale: 0.85, rot: 6,   op: 0.8, z: 40 },
-          { x: 200,  y: 600,  scale: 0.75, rot: -4,  op: 0.5, z: 30 },
-          { x: 260,  y: 800,  scale: 0.65, rot: 8,   op: 0.2, z: 20 },
-          { x: 300,  y: 950,  scale: 0.55, rot: -3,  op: 0,   z: 10 },
-          { x: 300,  y: 950,  scale: 0.55, rot: 0,   op: 0,   z: 5 }
-        ];
+    const slots = [
+      { x: '-9.375rem', y: '-31.25rem', scale: 0.9, rot: -10, op: 0,   z: 0 },
+      { x: '0rem',      y: '0rem',      scale: 1.0, rot: 0,   op: 1,   z: 50 },
+      { x: '7.5rem',    y: '21.875rem', scale: 0.85, rot: 6,   op: 0.8,  z: 40 },
+      { x: '12.5rem',   y: '37.5rem',   scale: 0.75, rot: -4,  op: 0.5,  z: 30 },
+      { x: '16.25rem',  y: '50rem',     scale: 0.65, rot: 8,   op: 0.2,  z: 20 },
+      { x: '18.75rem',  y: '59.375rem', scale: 0.55, rot: -3,  op: 0,    z: 10 },
+      { x: '18.75rem',  y: '59.375rem', scale: 0.55, rot: 0,   op: 0,    z: 5 }
+    ];
 
     const ctx = gsap.context(() => {
       gsap.from('.fw-curve', {
@@ -57,7 +46,7 @@ export const FeaturedWorkSection: React.FC<FeaturedWorkSectionProps> = ({ onSele
       });
 
       gsap.from('.fw-title', {
-        y: 40, opacity: 0, duration: 1, stagger: 0.1, ease: 'power3.out',
+        y: '2.5rem', opacity: 0, duration: 1, stagger: 0.1, ease: 'power3.out',
         scrollTrigger: { trigger: sectionRef.current, start: 'top 70%' }
       });
 

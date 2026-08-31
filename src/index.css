@@ -24,9 +24,35 @@
 }
 
 html {
+  font-size: 16px;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   overflow-x: hidden;
+}
+
+/* Fluid responsive scaling system:
+   Dynamically scales the root font size based on the viewport width, 
+   ensuring that all typography, padding, margins, and gaps (using rem/em units) 
+   scale down proportionally on tablet, mobile, and small mobile viewports. */
+@media (max-width: 1440px) {
+  html {
+    font-size: clamp(12px, 0.75rem + 0.3vw, 16px);
+  }
+}
+@media (max-width: 768px) {
+  html {
+    font-size: clamp(10px, 0.65rem + 0.5vw, 13px);
+  }
+}
+@media (max-width: 480px) {
+  html {
+    font-size: clamp(9px, 0.55rem + 0.7vw, 11px);
+  }
+}
+@media (max-width: 320px) {
+  html {
+    font-size: clamp(8px, 0.5rem + 0.9vw, 10px);
+  }
 }
 
 /* ── Reusable CreativeFX container (#6) ──────────────────────────────────── */
