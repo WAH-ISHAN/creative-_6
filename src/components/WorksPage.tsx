@@ -258,8 +258,9 @@ export const WorksPage: React.FC<WorksPageProps> = ({
     if (onSelectProject) {
       onSelectProject(project);
     } else {
-      window.history.pushState(null, '', `/works/${project.slug || project.id}`);
-      window.dispatchEvent(new Event('popstate'));
+      const slug = project.slug || project.id;
+      window.history.pushState(null, '', `/#!project=${slug}`);
+      window.dispatchEvent(new Event('hashchange'));
     }
   };
 

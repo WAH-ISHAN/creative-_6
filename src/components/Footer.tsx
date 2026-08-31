@@ -28,7 +28,7 @@ export const Footer: React.FC<FooterProps> = ({
       onNavigateHome();
     } else {
       window.history.pushState(null, '', '/');
-      window.dispatchEvent(new Event('popstate'));
+      window.dispatchEvent(new Event('hashchange'));
       resetGlobalScroll();
     }
   };
@@ -38,8 +38,8 @@ export const Footer: React.FC<FooterProps> = ({
     if (onNavigateServices) {
       onNavigateServices();
     } else {
-      window.history.pushState(null, '', '/services');
-      window.dispatchEvent(new Event('popstate'));
+      window.history.pushState(null, '', '/#!view=services');
+      window.dispatchEvent(new Event('hashchange'));
       resetGlobalScroll();
     }
   };
@@ -51,10 +51,8 @@ export const Footer: React.FC<FooterProps> = ({
       return;
     }
 
-    const isHomePage = window.location.pathname === '/' || window.location.pathname === '';
     const el = document.getElementById(sectionId);
-
-    if (isHomePage && el) {
+    if (el) {
       smoothScrollTo(el);
     } else {
       window.history.pushState(null, '', `/#${sectionId}`);
@@ -72,8 +70,8 @@ export const Footer: React.FC<FooterProps> = ({
     if (onNavigateWorks) {
       onNavigateWorks();
     } else {
-      window.history.pushState(null, '', '/works');
-      window.dispatchEvent(new Event('popstate'));
+      window.history.pushState(null, '', '/#!view=works');
+      window.dispatchEvent(new Event('hashchange'));
       resetGlobalScroll();
     }
   };

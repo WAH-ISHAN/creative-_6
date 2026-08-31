@@ -30,40 +30,45 @@ import { TextSizeControl } from './components/TextSizeControl';
 
 type View = 'studio' | 'weddings' | 'works' | 'project' | 'services';
 
-function parsePath(pathname: string): { view: View; slug: string | null; worksFilter: string | null } {
-  const path = pathname.toLowerCase().replace(/\/+$/, '') || '/';
-  const hash = typeof window !== 'undefined' ? window.location.hash.toLowerCase() : '';
-
-  if (path === '/admin') return { view: 'studio', slug: null, worksFilter: null };
-
-  // Hash-based project routing (#project-slug)
-  if (hash && hash.startsWith('#project-')) {
-    const slug = hash.replace('#project-', '').trim();
-    if (slug) return { view: 'project', slug, worksFilter: null };
+// ─── Hash-based router (URL always stays at /, hash encodes the view) ──────────
+// Format: #!view=works&f=video  |  #!project=some-slug  |  #section-contact
+function parseHash(hash: string): { view: View; slug: string | null; worksFilter: string | null } {
+  // Always fall back gracefully
+  if (!hash || hash === '#' || hash === '#!') {
+    return { view: 'studio', slug: null, worksFilter: null };
   }
 
-  // Path-based project routing (/works/slug or /projects/slug)
-  if (path.startsWith('/works/') || path.startsWith('/projects/')) {
-    const slug = path.replace('/works/', '').replace('/projects/', '').trim();
-    if (slug) return { view: 'project', slug: slug || null, worksFilter: null };
+  // Legacy section-anchor hashes stay on studio (home) page
+  if (hash.startsWith('#section-')) {
+    return { view: 'studio', slug: null, worksFilter: null };
   }
 
-  if (path.includes('wedding')) return { view: 'weddings', slug: null, worksFilter: null };
+  // Our SPA hashes all start with #!
+  if (hash.startsWith('#!')) {
+    const qs = hash.slice(2); // strip the #!
+    const params = new URLSearchParams(qs);
 
-  if (path === '/services' || path.startsWith('/services')) {
-    return { view: 'services', slug: null, worksFilter: null };
+    const project = params.get('project');
+    if (project) return { view: 'project', slug: project, worksFilter: null };
+
+    const view = params.get('view') as View | null;
+    if (view === 'weddings') return { view: 'weddings', slug: null, worksFilter: null };
+    if (view === 'services') return { view: 'services', slug: null, worksFilter: null };
+    if (view === 'works') {
+      const f = params.get('f');
+      return { view: 'works', slug: null, worksFilter: f ? f.toUpperCase() : null };
+    }
   }
-
-  if (path === '/works' || path === '/projects' || path.startsWith('/works') || path.startsWith('/projects')) {
-    const f = new URLSearchParams(window.location.search).get('f');
-    return { view: 'works', slug: null, worksFilter: f ? f.toUpperCase() : null };
-  }
-
-  // Category shortcuts → Works page with a preset filter
-  if (/^\/(photography|photos)\b/.test(path)) return { view: 'works', slug: null, worksFilter: 'PHOTOGRAPHY' };
-  if (/^\/(video|videos|cinema)\b/.test(path)) return { view: 'works', slug: null, worksFilter: 'VIDEO' };
 
   return { view: 'studio', slug: null, worksFilter: null };
+}
+
+// Push a new SPA hash without exposing URL paths
+function pushHash(hash: string) {
+  // Use replaceState to keep the URL clean (no path segments visible)
+  window.history.pushState(null, '', '/' + hash);
+  // Notify listeners
+  window.dispatchEvent(new Event('hashchange'));
 }
 
 function App() {
@@ -77,9 +82,9 @@ function App() {
   const [showAdminLogin, setShowAdminLogin] = useState(false);
   const [showAdminPanel, setShowAdminPanel] = useState(false);
 
-  const [currentView, setCurrentView] = useState<View>(() => parsePath(window.location.pathname).view);
-  const [selectedProjectSlug, setSelectedProjectSlug] = useState<string | null>(() => parsePath(window.location.pathname).slug);
-  const [worksFilter, setWorksFilter] = useState<string | null>(() => parsePath(window.location.pathname).worksFilter);
+  const [currentView, setCurrentView] = useState<View>(() => parseHash(window.location.hash).view);
+  const [selectedProjectSlug, setSelectedProjectSlug] = useState<string | null>(() => parseHash(window.location.hash).slug);
+  const [worksFilter, setWorksFilter] = useState<string | null>(() => parseHash(window.location.hash).worksFilter);
 
   const [selectedService, setSelectedService] = useState<AgencyService | null>(null);
   const [activeSection, setActiveSection] = useState<'home' | 'work' | 'services' | 'about' | 'contact' | 'weddings'>('home');
@@ -96,22 +101,21 @@ function App() {
     return () => { cancelled = true; window.clearTimeout(t); window.removeEventListener('load', refresh); };
   }, []);
 
-  // Open admin via URL param (?admin=1) or path (/admin)
+  // Open admin via URL param (?admin=1)
   useEffect(() => {
     initScrollRestoration();
     const params = new URLSearchParams(window.location.search);
-    const isPathAdmin = window.location.pathname.toLowerCase() === '/admin';
-    if (params.get('admin') === '1' || isPathAdmin) {
+    if (params.get('admin') === '1') {
       const token = sessionStorage.getItem('cfx_admin_token');
       if (token) setShowAdminPanel(true);
       else setShowAdminLogin(true);
     }
   }, []);
 
-  // Handle URL history / browser back & forward
+  // Handle browser back & forward using hash changes
   useEffect(() => {
     const handleLocationChange = () => {
-      const next = parsePath(window.location.pathname);
+      const next = parseHash(window.location.hash);
       setCurrentView(next.view);
       setSelectedProjectSlug(next.slug);
       setWorksFilter(next.worksFilter);
@@ -158,9 +162,9 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [currentView]);
 
-  // ─── Global Authoritative Scroll Restoration on Route Change ───────────────
+  // Global scroll reset on route change
   useEffect(() => {
-    // If navigating to an anchor section hash on Home (e.g. /#section-contact)
+    // If navigating to an anchor section on Home (e.g. #section-contact)
     const hash = window.location.hash;
     if (hash && hash.startsWith('#section-') && currentView === 'studio') {
       const targetId = hash.replace('#', '');
@@ -171,7 +175,6 @@ function App() {
       }
     }
 
-    // Otherwise, every normal route navigation starts at the absolute top (0, 0)
     resetGlobalScroll();
   }, [currentView, selectedProjectSlug]);
 
@@ -188,7 +191,7 @@ function App() {
     if (currentView !== 'studio') {
       setCurrentView('studio');
       setSelectedProjectSlug(null);
-      window.history.pushState(null, '', '/#section-contact');
+      pushHash('#section-contact');
       resetGlobalScroll();
       setTimeout(() => scrollToSection('section-contact'), 150);
     } else {
@@ -205,7 +208,7 @@ function App() {
     soundEngine.playOpen();
     setCurrentView('weddings');
     setSelectedProjectSlug(null);
-    window.history.pushState(null, '', '/weddings');
+    pushHash('#!view=weddings');
     resetGlobalScroll();
   };
 
@@ -214,7 +217,7 @@ function App() {
     setCurrentView('services');
     setSelectedProjectSlug(null);
     setWorksFilter(null);
-    window.history.pushState(null, '', '/services');
+    pushHash('#!view=services');
     resetGlobalScroll();
   };
 
@@ -223,7 +226,7 @@ function App() {
     setCurrentView('studio');
     setSelectedProjectSlug(null);
     setWorksFilter(null);
-    window.history.pushState(null, '', '/');
+    pushHash('');
     resetGlobalScroll();
   };
 
@@ -232,7 +235,7 @@ function App() {
     setCurrentView('works');
     setSelectedProjectSlug(null);
     setWorksFilter(filter ?? null);
-    window.history.pushState(null, '', filter ? `/works?f=${filter.toLowerCase()}` : '/works');
+    pushHash(filter ? `#!view=works&f=${filter.toLowerCase()}` : '#!view=works');
     resetGlobalScroll();
   };
 
@@ -241,23 +244,20 @@ function App() {
     const slug = typeof project === 'string' ? project : project.slug;
     setSelectedProjectSlug(slug);
     setCurrentView('project');
-    window.history.pushState(null, '', `/works/${slug}`);
+    pushHash(`#!project=${slug}`);
     resetGlobalScroll();
   };
 
-  // ─── Maintenance mode: visitors see a notice, admins keep full access ───────
-  // NOTE: rendered via early-return BELOW all hooks so React's hook order stays
-  // stable when the setting flips at runtime (fixes hooks-order crash).
+  // ─── Maintenance mode ───────────────────────────────────────────────────────
   const isAdminSession = typeof window !== 'undefined' && (
     sessionStorage.getItem('cfx_admin_token') ||
-    new URLSearchParams(window.location.search).get('admin') === '1' ||
-    window.location.pathname.toLowerCase() === '/admin'
+    new URLSearchParams(window.location.search).get('admin') === '1'
   );
   const showMaintenance = !!siteSettings.maintenanceMode && !isAdminSession;
 
   return (
     <div className={`min-h-screen bg-[var(--fx-black)] text-[var(--fx-white)] relative`}>
-      {/* Page Loader Initializer */}
+      {/* Page Loader */}
       {loading && <PageLoader onComplete={() => setLoading(false)} />}
 
       {showMaintenance ? (
@@ -393,7 +393,7 @@ function App() {
         </>
       )}
 
-      {/* Accessibility — text size control (A− / A / A+) */}
+      {/* Accessibility — text size control */}
       <TextSizeControl />
 
       {/* Admin Login Gate */}

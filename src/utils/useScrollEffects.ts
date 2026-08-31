@@ -6,7 +6,12 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function useScrollEffects(dependencies: any[]) {
   useEffect(() => {
+    // Kill ALL existing ScrollTrigger instances to prevent accumulation across
+    // route changes. Without this, every navigation stacks more triggers → freeze.
+    ScrollTrigger.getAll().forEach(st => st.kill());
+
     let ctx = gsap.context(() => {
+      // Wait for the new route's DOM to fully mount before scanning for sections
       setTimeout(() => {
         // Global Cover/Stack effect across all devices
         const sections = gsap.utils.toArray<HTMLElement>('section:not(#hero):not(.no-parallax)');
@@ -31,12 +36,12 @@ export function useScrollEffects(dependencies: any[]) {
         // Rich text reveal on scroll
         const textElements = gsap.utils.toArray<HTMLElement>('.animate-text-on-scroll');
         textElements.forEach((el) => {
-          gsap.fromTo(el, 
+          gsap.fromTo(el,
             { opacity: 0, y: 25 },
-            { 
-              opacity: 1, 
-              y: 0, 
-              duration: 1.1, 
+            {
+              opacity: 1,
+              y: 0,
+              duration: 1.1,
               ease: 'power3.out',
               scrollTrigger: {
                 trigger: el,
@@ -48,9 +53,14 @@ export function useScrollEffects(dependencies: any[]) {
         });
 
         ScrollTrigger.refresh();
-      }, 200);
+      }, 350);
     });
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      // Kill again on cleanup to leave a clean slate for the next route
+      ScrollTrigger.getAll().forEach(st => st.kill());
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, dependencies);
 }

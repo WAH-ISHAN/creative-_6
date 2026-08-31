@@ -654,8 +654,8 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
                     key={rw.id}
                     onClick={() => {
                       soundEngine.playClick();
-                      window.history.pushState(null, '', `/works/${rw.slug}`);
-                      window.dispatchEvent(new Event('popstate'));
+                      window.history.pushState(null, '', `/#!project=${rw.slug}`);
+                      window.dispatchEvent(new Event('hashchange'));
                       resetGlobalScroll();
                     }}
                     className="group cursor-pointer bg-[#0a0a0a] border border-white/10 hover:border-[var(--fx-yellow)]/60 p-4 transition-all duration-300"

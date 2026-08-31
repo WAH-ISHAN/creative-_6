@@ -47,22 +47,21 @@ export const WeddingExperiencePage: React.FC<WeddingExperiencePageProps> = ({
   const handleSelectStory = (story: WeddingStory) => {
     soundEngine.playOpen();
     setSelectedStory(story);
+    // Use hash routing so the URL stays clean (no /weddings/slug path exposed)
     const slug = story.slug || story.id || story.couple.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-    window.history.pushState({ weddingStoryId: story.id }, '', `/weddings/${slug}`);
+    window.history.pushState({ weddingStoryId: story.id }, '', `/#!view=weddings&story=${slug}`);
   };
 
   const handleCloseStory = () => {
     setSelectedStory(null);
-    if (window.location.pathname.toLowerCase().startsWith('/weddings/')) {
-      window.history.pushState(null, '', '/weddings');
-    }
+    window.history.pushState(null, '', '/#!view=weddings');
   };
 
   useEffect(() => {
     const syncRouteWithState = () => {
-      const pathname = window.location.pathname.toLowerCase();
-      if (pathname.startsWith('/weddings/')) {
-        const slug = pathname.replace('/weddings/', '').trim();
+      const hash = window.location.hash;
+      if (hash.startsWith('#!view=weddings&story=')) {
+        const slug = new URLSearchParams(hash.replace('#!view=weddings&', '')).get('story');
         if (slug) {
           const match = stories.find(s =>
             (s.slug && s.slug.toLowerCase() === slug) ||
@@ -80,8 +79,13 @@ export const WeddingExperiencePage: React.FC<WeddingExperiencePageProps> = ({
 
     syncRouteWithState();
     window.addEventListener('popstate', syncRouteWithState);
-    return () => window.removeEventListener('popstate', syncRouteWithState);
+    window.addEventListener('hashchange', syncRouteWithState);
+    return () => {
+      window.removeEventListener('popstate', syncRouteWithState);
+      window.removeEventListener('hashchange', syncRouteWithState);
+    };
   }, [stories]);
+
 
   const scrollToSection = (id: string) => {
     soundEngine.playClick();
