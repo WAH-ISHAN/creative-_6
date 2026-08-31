@@ -361,9 +361,7 @@ function App() {
                 />
 
                 {/* 05 — SERVICES / CAPABILITIES */}
-                <ServicesSection
-                  onSelectService={(service) => setSelectedService(service)}
-                />
+                <ServicesSection />
 
                 {/* 06 — ABOUT / PHILOSOPHY */}
                 <AboutSection />

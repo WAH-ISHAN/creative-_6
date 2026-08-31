@@ -91,20 +91,16 @@ export const ServicesSection: React.FC<{ onSelectService?: (service: AgencyServi
             {services.map((service, idx) => (
               <div
                 key={service.id || idx}
-                onClick={() => onSelectService?.(service)}
-                className={`flex flex-col border-b border-black/10 py-6 sm:py-8 md:py-10 transition-colors duration-300 px-4 -mx-4 sm:mx-0 sm:px-4 select-none group ${onSelectService ? 'hover:bg-black/[0.02] cursor-pointer' : ''}`}
+                className="flex flex-col border-b border-black/10 py-6 sm:py-8 md:py-10 transition-colors duration-300 px-4 -mx-4 sm:mx-0 sm:px-4 select-none group"
               >
                 <div className="flex flex-col gap-3 sm:gap-4 w-full">
                   <div className="flex items-center gap-4 sm:gap-6 md:gap-8 w-full">
                     <span className="text-xs sm:text-sm font-mono-tech tracking-widest text-black/40 pt-0.5 sm:pt-0 shrink-0 group-hover:text-black transition-colors">
                       {service.number || service.id || `0${idx + 1}`}
                     </span>
-                    <span className="text-xl sm:text-2xl md:text-3xl lg:text-[42px] font-editorial tracking-wide uppercase text-black leading-none group-hover:tracking-wider transition-all">
+                    <span className="text-xl sm:text-2xl md:text-3xl lg:text-[42px] font-editorial tracking-wide uppercase text-black leading-none transition-all">
                       {service.title}
                     </span>
-                    {onSelectService && (
-                      <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 text-black/30 group-hover:text-black sm:text-black/0 sm:group-hover:text-black/30 ml-auto transition-all transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0 self-center" />
-                    )}
                   </div>
                   <p className="text-[13px] sm:text-sm md:text-[15px] font-tech text-black/60 pl-8 sm:pl-[3.5rem] leading-relaxed max-w-xl">
                     {service.shortDesc}
