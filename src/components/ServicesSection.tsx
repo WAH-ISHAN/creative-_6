@@ -75,69 +75,43 @@ export const ServicesSection: React.FC<{ onSelectService?: (service: AgencyServi
           <p className="text-[14px] sm:text-base font-tech text-black/60 leading-relaxed max-w-sm pt-1 sm:pt-2">
             We deliver high-end photography, cinematic video production, brand strategy, and social content systems for modern brands and visionary creators.
           </p>
-          <div className="hidden sm:block pt-4">
-            <button onClick={() => { const el=document.getElementById('section-contact'); if(el) el.scrollIntoView({behavior:'smooth'}); }} className="inline-flex items-center gap-2 text-xs font-mono-tech tracking-widest uppercase border border-black/15 px-5 py-3 hover:bg-black hover:text-white hover:border-black transition-colors">
+          <div className="pt-4">
+            <button
+              onClick={() => { const el=document.getElementById('section-contact'); if(el) el.scrollIntoView({behavior:'smooth'}); }}
+              className="inline-flex items-center gap-2 text-xs font-mono-tech tracking-widest uppercase border border-black/15 px-5 py-3 hover:bg-black hover:text-white hover:border-black transition-colors md:pointer-events-auto max-md:pointer-events-none max-md:opacity-40 max-md:cursor-not-allowed"
+            >
               START A PROJECT <ArrowUpRight className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>
 
-        {/* Right: Clean Service List */}
+        {/* Right: Clean Service List (Unified responsive list) */}
         <div ref={listRef} className="lg:w-8/12 flex flex-col relative z-20 w-full">
-          {/* Mobile cards */}
-          <div className="sm:hidden flex flex-col gap-3">
+          <div className="flex flex-col">
             {services.map((service, idx) => (
               <div
                 key={service.id || idx}
                 onClick={() => onSelectService?.(service)}
-                className={`group bg-white border ${onSelectService ? 'active:bg-black active:text-white' : ''} border-black/10 p-5 rounded-xl shadow-sm flex flex-col gap-3 ${onSelectService ? 'cursor-pointer active:scale-[0.98] transition-transform' : ''}`}
+                className={`flex flex-col border-b border-black/10 py-6 sm:py-8 md:py-10 transition-colors duration-300 px-4 -mx-4 sm:mx-0 sm:px-4 select-none group ${onSelectService ? 'hover:bg-black/[0.02] cursor-pointer' : ''}`}
               >
-                <div className="flex items-start justify-between gap-3">
-                  <span className="text-[11px] font-mono-tech tracking-[0.2em] text-black/40 group-active:text-white/60 border border-black/10 group-active:border-white/20 px-2 py-1 rounded-full">
-                    {service.number || `0${idx + 1}`}
-                  </span>
-                  {onSelectService && <ArrowUpRight className="w-4 h-4 text-black/20 group-active:text-white/60 shrink-0 mt-1" />}
-                </div>
-                <h3 className="text-[22px] font-editorial tracking-wide uppercase text-black group-active:text-white leading-none">
-                  {service.title}
-                </h3>
-                <p className="text-[13px] font-tech text-black/60 group-active:text-white/70 leading-relaxed">
-                  {service.shortDesc}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          {/* Desktop list */}
-          <div className="hidden sm:flex flex-col">
-            {services.map((service, idx) => (
-              <div
-                key={service.id || idx}
-                onClick={() => onSelectService?.(service)}
-                className={`flex flex-col sm:flex-row sm:items-start justify-between border-b border-black/10 py-8 sm:py-10 transition-colors duration-300 px-4 -mx-4 sm:mx-0 sm:px-4 select-none group ${onSelectService ? 'hover:bg-black/[0.02] cursor-pointer' : ''}`}
-              >
-                <div className="flex flex-col gap-4 max-w-xl w-full">
-                  <div className="flex items-start sm:items-center gap-6 md:gap-8">
-                    <span className="text-xs sm:text-sm font-mono-tech tracking-widest text-black/40 pt-1 sm:pt-0 shrink-0 group-hover:text-black transition-colors">
+                <div className="flex flex-col gap-3 sm:gap-4 w-full">
+                  <div className="flex items-center gap-4 sm:gap-6 md:gap-8 w-full">
+                    <span className="text-xs sm:text-sm font-mono-tech tracking-widest text-black/40 pt-0.5 sm:pt-0 shrink-0 group-hover:text-black transition-colors">
                       {service.number || service.id || `0${idx + 1}`}
                     </span>
-                    <span className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-editorial tracking-wide uppercase text-black leading-none group-hover:tracking-wider transition-all">
+                    <span className="text-xl sm:text-2xl md:text-3xl lg:text-[42px] font-editorial tracking-wide uppercase text-black leading-none group-hover:tracking-wider transition-all">
                       {service.title}
                     </span>
-                    {onSelectService && <ArrowUpRight className="hidden sm:block w-5 h-5 text-black/0 group-hover:text-black/30 ml-auto transition-colors" />}
+                    {onSelectService && (
+                      <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 text-black/30 group-hover:text-black sm:text-black/0 sm:group-hover:text-black/30 ml-auto transition-all transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0 self-center" />
+                    )}
                   </div>
-                  <p className="text-base sm:text-[15px] font-tech text-black/60 md:pl-[3.5rem] leading-relaxed">
+                  <p className="text-[13px] sm:text-sm md:text-[15px] font-tech text-black/60 pl-8 sm:pl-[3.5rem] leading-relaxed max-w-xl">
                     {service.shortDesc}
                   </p>
                 </div>
               </div>
             ))}
-          </div>
-
-          <div className="sm:hidden mt-4">
-            <button disabled className="w-full bg-black/30 text-white/30 font-mono-tech text-xs tracking-[0.18em] font-bold uppercase py-4 rounded-xl flex items-center justify-center gap-2 pointer-events-none cursor-not-allowed opacity-50">
-              START A PROJECT <ArrowUpRight className="w-4 h-4" />
-            </button>
           </div>
         </div>
 
