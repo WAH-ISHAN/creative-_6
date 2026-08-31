@@ -20,7 +20,7 @@ export const WeddingHero: React.FC<WeddingHeroProps> = ({
   const { content } = useContent();
   const w = content.weddings || {};
   const headlineLines = (w.heroHeadline || 'MOMENTS\nARE NOT POSED.\nTHEY ARE\nREMEMBERED.').split('\n');
-  const heroImage = w.heroImage || '/img/wedding/Ravindu & Malikshi/DSC09233.jpg';
+  const heroImage = w.heroImage || '/img/wedding/Ravindu & Malikshi/DSC09233.webp';
 
   const containerRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);

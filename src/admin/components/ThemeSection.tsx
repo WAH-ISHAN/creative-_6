@@ -56,7 +56,7 @@ export const ThemeSection: React.FC<ThemeSectionProps> = ({ content, update }) =
     fontBody: 'Inter',
     fontMono: 'JetBrains Mono',
     customGoogleFontUrl: '',
-    logoUrl: '/img/creativefx-bgr-logo.png',
+    logoUrl: '/img/creativefx-bgr-logo.webp',
   };
 
   const [selectedSectionKey, setSelectedSectionKey] = useState('hero');

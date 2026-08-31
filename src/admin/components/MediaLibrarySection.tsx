@@ -45,7 +45,7 @@ export const MediaLibrarySection: React.FC<MediaLibrarySectionProps> = ({ item, 
     projects.forEach(p => {
       if (p.coverImage) list.push({ url: p.coverImage, title: `${p.title} (Cover)`, category: p.category || 'Portfolio' });
       (p.gallery || []).forEach((g, gi) => {
-        if (g && !g.includes('.mp4') && !g.includes('drive.google')) {
+        if (g && !g.includes('.webm') && !g.includes('drive.google')) {
           list.push({ url: g, title: `${p.title} - Frame ${gi + 1}`, category: p.category || 'Gallery' });
         }
       });
@@ -60,7 +60,7 @@ export const MediaLibrarySection: React.FC<MediaLibrarySectionProps> = ({ item, 
     projects.forEach(p => {
       if (p.videoUrl) list.push({ url: p.videoUrl, title: `${p.title} (Main video)`, category: p.category || 'Video' });
       (p.gallery || []).forEach((g, gi) => {
-        if (g && (g.includes('.mp4') || g.includes('drive.google'))) {
+        if (g && (g.includes('.webm') || g.includes('drive.google'))) {
           list.push({ url: g, title: `${p.title} - Clip ${gi + 1}`, category: p.category || 'Gallery' });
         }
       });

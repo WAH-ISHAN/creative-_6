@@ -147,7 +147,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ onSelectProj
           id: '__weddings__',
           title: 'WEDDINGS',
           categoryLabel: 'Personal / Cinematic',
-          coverImage: content.weddings?.heroImage || '/img/wedding/Ravindu & Malikshi/DSC09233.jpg',
+          coverImage: content.weddings?.heroImage || '/img/wedding/Ravindu & Malikshi/DSC09233.webp',
           isWedding: true,
         }]
       : []),

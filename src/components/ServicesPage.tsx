@@ -160,7 +160,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
               <div className={`lg:col-span-6 ${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
                 <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] overflow-hidden rounded-xl sm:rounded-md bg-black border border-white/15 group-hover:border-[var(--fx-yellow)]/50 transition-colors shadow-2xl">
                   <img
-                    src={service.previewImage || '/img/Products/Zova Clothing/DSC06381.jpg'}
+                    src={service.previewImage || '/img/Products/Zova Clothing/DSC06381.webp'}
                     alt={service.title}
                     className="w-full h-full object-cover filter grayscale contrast-110 brightness-95 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                     loading="lazy"

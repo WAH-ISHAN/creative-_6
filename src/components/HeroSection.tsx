@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useContent, useSectionStyle } from '../context/ContentContext';
 
 // Served statically from /public/video or fallback
-const HERO_VIDEO_URL = '/video/intro-hero.mp4';
+const HERO_VIDEO_URL = '/video/intro-hero.webm';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -103,7 +103,7 @@ export const HeroSection: React.FC = () => {
           muted
           playsInline
           preload="auto"
-          poster="/img/studio-workflow.jpeg"
+          poster="/img/studio-workflow.webp"
           className="w-full h-full object-cover object-center filter brightness-[0.72] contrast-[1.08] transition-opacity duration-1000"
         />
         {/* Dark Vignette & Gradient Overlays for Cinematic Contrast - stronger on mobile for readability */}

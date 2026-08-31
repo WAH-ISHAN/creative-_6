@@ -147,7 +147,7 @@ export const WeddingsAdmin: React.FC<WeddingsAdminProps> = ({ content, update, t
           type="button"
           onClick={() => update(['weddingTimeline'], [
             ...timeline,
-            { id: uid('stage'), stageNumber: String(timeline.length + 1).padStart(2, '0'), title: 'NEW CHAPTER', shortDesc: '', fullDesc: '', image: '/img/wedding/Ravindu & Malikshi/DSC09233.jpg', moodNote: '', moments: [] },
+            { id: uid('stage'), stageNumber: String(timeline.length + 1).padStart(2, '0'), title: 'NEW CHAPTER', shortDesc: '', fullDesc: '', image: '/img/wedding/Ravindu & Malikshi/DSC09233.webp', moodNote: '', moments: [] },
           ])}
           className="w-full flex items-center justify-center gap-2 border border-dashed border-gray-300 rounded-lg py-3.5 text-sm font-medium text-gray-600 hover:border-gray-900 hover:text-gray-900 transition-colors cursor-pointer"
         >
