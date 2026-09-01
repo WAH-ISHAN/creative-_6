@@ -78,6 +78,11 @@ function serveLocalMediaPlugin(): Plugin {
 export default defineConfig(() => {
   return {
     plugins: [react(), tailwindcss(), serveLocalMediaPlugin()],
+    // Strip noisy debug logging from production bundles (keeps console.warn /
+    // console.error for real error diagnostics). No effect on the dev server.
+    esbuild: {
+      pure: ['console.log', 'console.debug'],
+    },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),

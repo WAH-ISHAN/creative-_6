@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { smoothScrollTo, resetGlobalScroll, initScrollRestoration } from './utils/scrollManager';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -15,17 +15,20 @@ import { Footer } from './components/Footer';
 import { CustomCursor } from './components/CustomCursor';
 import { PageLoader } from './components/PageLoader';
 import { ServiceDetailModal } from './components/ServiceDetailModal';
-import { WeddingExperiencePage } from './components/weddings/WeddingExperiencePage';
-import { WorksPage } from './components/WorksPage';
-import { ProjectDetailPage } from './components/ProjectDetailPage';
-import { ServicesPage } from './components/ServicesPage';
+// Route-level pages are code-split so the homepage bundle stays lean. They are
+// only rendered inside the <Suspense> boundary below.
+const WeddingExperiencePage = lazy(() => import('./components/weddings/WeddingExperiencePage').then(m => ({ default: m.WeddingExperiencePage })));
+const WorksPage = lazy(() => import('./components/WorksPage').then(m => ({ default: m.WorksPage })));
+const ProjectDetailPage = lazy(() => import('./components/ProjectDetailPage').then(m => ({ default: m.ProjectDetailPage })));
+const ServicesPage = lazy(() => import('./components/ServicesPage').then(m => ({ default: m.ServicesPage })));
 import { AgencyService } from './types';
 import { soundEngine } from './utils/audio';
 import { useScrollReveal } from './utils/useScrollReveal';
 import { useScrollEffects } from './utils/useScrollEffects';
 import { ContentProvider, useContent, API_BASE } from './context/ContentContext';
-import { AdminPanel } from './admin/AdminPanel';
-import { AdminLogin } from './admin/AdminLogin';
+// The admin panel + login are code-split — public visitors never download them.
+const AdminPanel = lazy(() => import('./admin/AdminPanel').then(m => ({ default: m.AdminPanel })));
+const AdminLogin = lazy(() => import('./admin/AdminLogin').then(m => ({ default: m.AdminLogin })));
 import { TextSizeControl } from './components/TextSizeControl';
 
 type View = 'studio' | 'weddings' | 'works' | 'project' | 'services';
@@ -287,6 +290,7 @@ function App() {
       {/* Page Loader */}
       {loading && <PageLoader onComplete={() => setLoading(false)} />}
 
+      <Suspense fallback={<div className="min-h-screen bg-[var(--fx-black)]" aria-hidden="true" />}>
       {showMaintenance ? (
         <div className="min-h-screen flex items-center justify-center px-6">
           <div className="text-center max-w-md">
@@ -417,22 +421,23 @@ function App() {
           </button>
         </>
       )}
+      </Suspense>
 
       {/* Accessibility — text size control */}
       <TextSizeControl />
 
-      {/* Admin Login Gate */}
-      {showAdminLogin && (
-        <AdminLogin
-          onLogin={() => { setShowAdminLogin(false); setShowAdminPanel(true); }}
-          onClose={() => setShowAdminLogin(false)}
-        />
-      )}
-
-      {/* Admin Panel */}
-      {showAdminPanel && (
-        <AdminPanel onClose={() => setShowAdminPanel(false)} />
-      )}
+      {/* Admin Login Gate + Panel (code-split; loaded on demand) */}
+      <Suspense fallback={null}>
+        {showAdminLogin && (
+          <AdminLogin
+            onLogin={() => { setShowAdminLogin(false); setShowAdminPanel(true); }}
+            onClose={() => setShowAdminLogin(false)}
+          />
+        )}
+        {showAdminPanel && (
+          <AdminPanel onClose={() => setShowAdminPanel(false)} />
+        )}
+      </Suspense>
     </div>
   );
 }
