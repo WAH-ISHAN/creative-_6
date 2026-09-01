@@ -209,7 +209,7 @@ export const ImageUpload: React.FC<{
       <div className="flex gap-3 items-start">
         {/* Preview */}
         {currentSrc ? (
-          <img
+          <img loading="lazy" decoding="async"
             src={currentSrc}
             alt="preview"
             className="w-16 h-16 object-cover rounded-md border border-gray-200 flex-shrink-0 bg-gray-50 shadow-sm"
@@ -700,7 +700,7 @@ export const GalleryMediaManager: React.FC<{
                           <Video className="w-5 h-5" />
                         </div>
                       ) : (
-                        <img
+                        <img loading="lazy" decoding="async"
                           src={media.url}
                           alt={media.alt || `Media ${idx + 1}`}
                           className="w-full h-full object-cover"

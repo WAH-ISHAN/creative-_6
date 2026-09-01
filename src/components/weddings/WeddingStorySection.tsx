@@ -172,6 +172,8 @@ export const WeddingStorySection: React.FC<WeddingStorySectionProps> = ({
               className="relative w-full h-[420px] sm:h-[520px] lg:h-[580px] overflow-hidden bg-black border border-white/20 rounded-sm cursor-zoom-in group shadow-2xl"
             >
               <img
+            loading="lazy"
+            decoding="async"
                 ref={stageImageRef}
                 src={currentStage.image}
                 alt={currentStage.title}

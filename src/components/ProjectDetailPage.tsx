@@ -73,6 +73,8 @@ const Lightbox: React.FC<{ images: GalleryMedia[]; startIdx: number; onClose: ()
       {/* Image — full uncropped */}
       <div className="relative max-w-[92vw] max-h-[88vh] flex flex-col items-center justify-center" onClick={e => e.stopPropagation()}>
         <img
+            loading="lazy"
+            decoding="async"
           src={encodeURI(src.url)}
           alt={src.alt || src.caption || `Photo ${idx + 1}`}
           className="max-w-full max-h-[82vh] object-contain rounded-sm shadow-2xl select-none"
@@ -126,6 +128,8 @@ const GalleryGrid: React.FC<{ project: ProjectCase }> = ({ project }) => {
               {media.kind === 'video' && media.url.endsWith('.webm') && deviceIsIOS ? (
                 <div className="w-full relative">
                   <img
+            loading="lazy"
+            decoding="async"
                     src={encodeURI(media.poster || project.coverImage)}
                     alt={media.caption || `${project.title} frame ${idx + 1}`}
                     className="w-full h-auto object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500"
@@ -208,6 +212,8 @@ const GalleryGrid: React.FC<{ project: ProjectCase }> = ({ project }) => {
               ) : media.kind === 'video' && media.url.endsWith('.webm') && deviceIsIOS ? (
                 <div className="w-full h-full relative">
                   <img
+            loading="lazy"
+            decoding="async"
                     src={encodeURI(media.poster || project.coverImage)}
                     alt={media.caption || `${project.title} frame ${idx + 1}`}
                     className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500 hover:scale-105"
@@ -445,6 +451,8 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({
             />
           ) : (
             <img
+            loading="lazy"
+            decoding="async"
               src={encodeURI(project.coverImage)}
               alt={project.title}
               style={{ objectPosition: heroPosition }}

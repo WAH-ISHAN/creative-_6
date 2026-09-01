@@ -92,6 +92,8 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
           </div>
 
           <img
+            loading="lazy"
+            decoding="async"
             src={service.previewImage}
             alt={service.title}
             referrerPolicy="no-referrer"

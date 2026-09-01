@@ -298,7 +298,7 @@ export const MediaLibrarySection: React.FC<MediaLibrarySectionProps> = ({ item, 
                 <div key={f.name} className="group bg-white border border-gray-200 rounded-lg overflow-hidden flex flex-col">
                   <div className="aspect-[4/3] bg-gray-50 relative overflow-hidden flex items-center justify-center">
                     {isImage ? (
-                      <img src={f.url} alt={f.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      <img loading="lazy" decoding="async" src={f.url} alt={f.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     ) : (
                       <FileIcon className="w-8 h-8 text-gray-300" />
                     )}
@@ -349,7 +349,7 @@ export const MediaLibrarySection: React.FC<MediaLibrarySectionProps> = ({ item, 
             {allImages.map((img, i) => (
               <div key={i} className="group bg-white border border-gray-200 rounded-lg overflow-hidden flex flex-col">
                 <div className="aspect-[4/3] bg-gray-50 relative overflow-hidden">
-                  <img
+                  <img loading="lazy" decoding="async"
                     src={img.url}
                     alt={img.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

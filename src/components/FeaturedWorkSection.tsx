@@ -183,6 +183,8 @@ export const FeaturedWorkSection: React.FC<FeaturedWorkSectionProps> = ({ onSele
                   <img
                     src={work.coverImage}
                     alt={work.title}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover transition-transform duration-700 ease-out"
                     referrerPolicy="no-referrer"
                   />
