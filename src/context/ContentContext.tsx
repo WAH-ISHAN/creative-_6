@@ -572,23 +572,32 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
       root.style.setProperty('--fx-border-dark', theme.borderColor);
     }
 
-    // Font families
+    // Font families. Sanitize the font-family name so a value can't break out of
+    // the CSS variable declaration (M-2) — keep letters, numbers, spaces, hyphens.
+    const cleanFontName = (name: string) => String(name).replace(/[^a-zA-Z0-9 _-]/g, '').trim().slice(0, 64);
     if (theme.fontDisplay) {
-      root.style.setProperty('--fx-font-display', `'${theme.fontDisplay}', 'Forum', 'Cinzel', serif`);
+      root.style.setProperty('--fx-font-display', `'${cleanFontName(theme.fontDisplay)}', 'Forum', 'Cinzel', serif`);
     } else {
       root.style.setProperty('--fx-font-display', `'Forum', 'Cinzel', serif`);
     }
     if (theme.fontBody) {
-      root.style.setProperty('--fx-font-body', `'${theme.fontBody}', 'JetBrains Mono', monospace`);
+      root.style.setProperty('--fx-font-body', `'${cleanFontName(theme.fontBody)}', 'JetBrains Mono', monospace`);
     } else {
       root.style.setProperty('--fx-font-body', `'JetBrains Mono', monospace`);
     }
     if (theme.fontMono) {
-      root.style.setProperty('--fx-font-mono', `'${theme.fontMono}', 'JetBrains Mono', monospace`);
+      root.style.setProperty('--fx-font-mono', `'${cleanFontName(theme.fontMono)}', 'JetBrains Mono', monospace`);
     }
 
-    // Dynamic Google Fonts loader
-    if (theme.customGoogleFontUrl && theme.customGoogleFontUrl.startsWith('http')) {
+    // Dynamic Google Fonts loader — restricted to the official Google Fonts host
+    // so this can't be pointed at an arbitrary external stylesheet (M-2).
+    const isTrustedFontUrl = (url: string) => {
+      try {
+        const u = new URL(url);
+        return u.protocol === 'https:' && (u.hostname === 'fonts.googleapis.com' || u.hostname === 'fonts.gstatic.com');
+      } catch { return false; }
+    };
+    if (theme.customGoogleFontUrl && isTrustedFontUrl(theme.customGoogleFontUrl)) {
       let fontLink = document.getElementById('cfx-custom-google-fonts') as HTMLLinkElement | null;
       if (!fontLink) {
         fontLink = document.createElement('link');
@@ -663,12 +672,21 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
     if (!doc) return;
     setIsSaving(true);
     try {
-      await fetch(`${API_BASE}/api/content`, {
+      const res = await fetch(`${API_BASE}/api/content`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'x-admin-token': sessionStorage.getItem('cfx_admin_token') || '' },
         body: JSON.stringify(doc),
       });
-      setLastSaved(new Date());
+      // Session expired or revoked mid-edit: local edits are safe in localStorage,
+      // so drop the dead token and send the admin back to the login screen.
+      if (res.status === 401 && sessionStorage.getItem('cfx_admin_token')) {
+        sessionStorage.removeItem('cfx_admin_token');
+        if (new URLSearchParams(window.location.search).get('admin') === '1') {
+          window.location.reload();
+        }
+        return;
+      }
+      if (res.ok) setLastSaved(new Date());
     } catch (e) {
       console.error('[ContentContext] Save failed', e);
     } finally {

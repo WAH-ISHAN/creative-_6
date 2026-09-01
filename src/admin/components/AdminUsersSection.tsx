@@ -50,7 +50,17 @@ export const AdminUsersSection: React.FC = () => {
     }
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    const token = sessionStorage.getItem('cfx_admin_token') || '';
+    // Revoke the session server-side so the token cannot be reused after logout.
+    try {
+      await fetch(`${API_BASE}/api/admin/logout`, {
+        method: 'POST',
+        headers: { 'x-admin-token': token },
+      });
+    } catch {
+      /* even if the request fails, still clear the local token below */
+    }
     sessionStorage.removeItem('cfx_admin_token');
     window.location.href = '/';
   };

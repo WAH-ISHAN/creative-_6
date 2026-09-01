@@ -23,7 +23,7 @@ import { AgencyService } from './types';
 import { soundEngine } from './utils/audio';
 import { useScrollReveal } from './utils/useScrollReveal';
 import { useScrollEffects } from './utils/useScrollEffects';
-import { ContentProvider, useContent } from './context/ContentContext';
+import { ContentProvider, useContent, API_BASE } from './context/ContentContext';
 import { AdminPanel } from './admin/AdminPanel';
 import { AdminLogin } from './admin/AdminLogin';
 import { TextSizeControl } from './components/TextSizeControl';
@@ -108,11 +108,24 @@ function App() {
   useEffect(() => {
     initScrollRestoration();
     const params = new URLSearchParams(window.location.search);
-    if (params.get('admin') === '1') {
-      const token = sessionStorage.getItem('cfx_admin_token');
-      if (token) setShowAdminPanel(true);
-      else setShowAdminLogin(true);
-    }
+    if (params.get('admin') !== '1') return;
+    const token = sessionStorage.getItem('cfx_admin_token');
+    if (!token) { setShowAdminLogin(true); return; }
+    // Validate the stored session with the server; expired/revoked tokens fall
+    // back to the login screen instead of opening the panel with a dead session.
+    let cancelled = false;
+    fetch(`${API_BASE}/api/admin/session`, { headers: { 'x-admin-token': token } })
+      .then(res => {
+        if (cancelled) return;
+        if (res.ok) {
+          setShowAdminPanel(true);
+        } else {
+          sessionStorage.removeItem('cfx_admin_token');
+          setShowAdminLogin(true);
+        }
+      })
+      .catch(() => { if (!cancelled) setShowAdminPanel(true); }); // server unreachable: don't lock the admin out
+    return () => { cancelled = true; };
   }, []);
 
   // Handle browser back & forward using hash changes
