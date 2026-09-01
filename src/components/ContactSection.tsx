@@ -104,8 +104,9 @@ export const ContactSection: React.FC = () => {
     const waUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(fullMessage)}`;
 
     setIsSubmitting(true);
+    let apiOk = false;
     try {
-      await fetch(`${API_BASE}/api/inquiries`, {
+      const res = await fetch(`${API_BASE}/api/inquiries`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -117,12 +118,21 @@ export const ContactSection: React.FC = () => {
           source: 'contact',
         }),
       });
+      apiOk = res.ok;
     } catch {
+      apiOk = false;
     }
-
     setIsSubmitting(false);
-    setSubmitted(true);
+
+    // The WhatsApp hand-off is the primary contact channel, so it is always
+    // honored (the button explicitly promises it). The success screen, however,
+    // only appears when the inquiry was actually recorded server-side.
     window.open(waUrl, '_blank');
+    if (apiOk) {
+      setSubmitted(true);
+    } else {
+      setSubmitError('We’ve opened WhatsApp with your message ready to send — please tap send there to reach us. (We couldn’t save a copy on our side just now.)');
+    }
   };
 
   const currentTestimonial = testimonials[activeTestimonial];
