@@ -283,6 +283,7 @@ html {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
   .lenis.lenis-smooth {
     overflow: auto !important;
@@ -430,16 +431,7 @@ header a {
 }
 
 /* ── Reduced motion — calm non-essential movement, keep all content ──────── */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.15s !important;
-    scroll-behavior: auto !important;
-  }
-}
+/* (reduced-motion handling consolidated into the single block near the top) */
 
 @keyframes shine-sweep {
   0% { background-position: -200% 0; }
@@ -542,17 +534,6 @@ header a {
 }
 
 /* ── Reduced motion — calm non-essential movement, keep all content ──────── */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.15s !important;
-    scroll-behavior: auto !important;
-  }
-}
-
 /* ── Admin usability scale — compact-but-readable controls (#29–32) ──────── */
 .cfx-admin button {
   font-size: 0.9375rem; /* 15px */
@@ -562,6 +543,17 @@ header a {
 .cfx-admin select,
 .cfx-admin textarea {
   font-size: 1rem; /* 16px */
+}
+
+/* Prevent iOS Safari from auto-zooming when a field is focused: form controls
+   need an absolute font-size >= 16px on small screens (rem scales below that
+   because the root font shrinks on mobile). Same specificity, so no !important. */
+@media (max-width: 640px) {
+  .cfx-admin input,
+  .cfx-admin select,
+  .cfx-admin textarea {
+    font-size: 16px;
+  }
 }
 
 /* ── Continuous Smooth Gold Shimmer Light Sweep Effect ── */

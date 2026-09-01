@@ -15,6 +15,13 @@ function Root() {
   useEffect(() => {
     initScrollRestoration();
 
+    // Respect prefers-reduced-motion: skip Lenis' smooth/inertia scrolling entirely
+    // and use native scrolling. GSAP ScrollTrigger still updates on native scroll,
+    // and scrollManager falls back to native scroll when window.__lenis is unset.
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+
     // Universal Lenis smooth scroll with touch support
     const lenis = new Lenis({
       duration: 0.9,
