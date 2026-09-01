@@ -1,6 +1,7 @@
 import {StrictMode, useEffect} from 'react';
 import {createRoot} from 'react-dom/client';
 import App from './App.tsx';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import './index.css';
 import Lenis from 'lenis';
 import { gsap } from 'gsap';
@@ -13,6 +14,13 @@ initScrollRestoration();
 function Root() {
   useEffect(() => {
     initScrollRestoration();
+
+    // Respect prefers-reduced-motion: skip Lenis' smooth/inertia scrolling entirely
+    // and use native scrolling. GSAP ScrollTrigger still updates on native scroll,
+    // and scrollManager falls back to native scroll when window.__lenis is unset.
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
 
     // Universal Lenis smooth scroll with touch support
     const lenis = new Lenis({
@@ -50,6 +58,8 @@ function Root() {
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Root />
+    <ErrorBoundary>
+      <Root />
+    </ErrorBoundary>
   </StrictMode>,
 );

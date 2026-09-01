@@ -355,7 +355,7 @@ export const WorksPage: React.FC<WorksPageProps> = ({
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search title, category, tag..."
-                className="w-full pl-10 sm:pl-9 pr-8 py-3.5 sm:py-2.5 bg-[#181818] border border-white/15 sm:border-white/20 rounded-xl sm:rounded-sm text-[13px] sm:text-xs font-mono-tech text-white placeholder:text-gray-500 focus:outline-none focus:border-[var(--fx-yellow)] focus:ring-1 focus:ring-[var(--fx-yellow)] transition-all min-h-[48px] sm:min-h-0"
+                className="w-full pl-10 sm:pl-9 pr-8 py-3.5 sm:py-2.5 bg-[#181818] border border-white/15 sm:border-white/20 rounded-xl sm:rounded-sm text-[16px] sm:text-xs font-mono-tech text-white placeholder:text-gray-500 focus:outline-none focus:border-[var(--fx-yellow)] focus:ring-1 focus:ring-[var(--fx-yellow)] transition-all min-h-[48px] sm:min-h-0"
               />
               {searchQuery && (
                 <button

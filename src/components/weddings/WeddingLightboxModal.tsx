@@ -127,6 +127,8 @@ export const WeddingLightboxModal: React.FC<WeddingLightboxModalProps> = ({
         {/* Center High-Res Image */}
         <div className="w-full h-full flex items-center justify-center p-2 sm:p-6 overflow-auto">
           <img
+            loading="lazy"
+            decoding="async"
             key={currentItem.url}
             src={currentItem.url}
             alt={currentItem.caption || 'Wedding Archival Frame'}
@@ -181,6 +183,8 @@ export const WeddingLightboxModal: React.FC<WeddingLightboxModalProps> = ({
                 }`}
               >
                 <img
+            loading="lazy"
+            decoding="async"
                   src={img.url}
                   alt={`Thumb ${idx + 1}`}
                   className="w-full h-full object-cover"

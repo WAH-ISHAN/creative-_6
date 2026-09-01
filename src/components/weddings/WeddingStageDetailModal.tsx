@@ -60,6 +60,8 @@ export const WeddingStageDetailModal: React.FC<WeddingStageDetailModalProps> = (
           {/* Image */}
           <div className="w-full h-64 sm:h-80 bg-[#111111] overflow-hidden border border-[var(--fx-border-dark)]">
             <img
+            loading="lazy"
+            decoding="async"
               src={stage.image}
               alt={stage.title}
               className="w-full h-full object-cover filter grayscale contrast-125 brightness-90"

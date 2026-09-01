@@ -138,7 +138,7 @@ export const WeddingInquiryModal: React.FC<WeddingInquiryModalProps> = ({ onClos
                   placeholder="e.g. Maya & Daniel"
                   value={coupleNames}
                   onChange={(e) => setCoupleNames(e.target.value)}
-                  className="w-full bg-[#111111] border border-[var(--fx-border-dark)] focus:border-[var(--fx-light-gray)] p-3 text-xs font-mono-tech text-[var(--fx-white)] outline-none transition-colors"
+                  className="w-full bg-[#111111] border border-[var(--fx-border-dark)] focus:border-[var(--fx-light-gray)] p-3 text-[16px] sm:text-xs font-mono-tech text-[var(--fx-white)] outline-none transition-colors"
                 />
               </div>
 
@@ -152,7 +152,7 @@ export const WeddingInquiryModal: React.FC<WeddingInquiryModalProps> = ({ onClos
                   placeholder="hello@couple.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-[#111111] border border-[var(--fx-border-dark)] focus:border-[var(--fx-light-gray)] p-3 text-xs font-mono-tech text-[var(--fx-white)] outline-none transition-colors"
+                  className="w-full bg-[#111111] border border-[var(--fx-border-dark)] focus:border-[var(--fx-light-gray)] p-3 text-[16px] sm:text-xs font-mono-tech text-[var(--fx-white)] outline-none transition-colors"
                 />
               </div>
 
@@ -165,7 +165,7 @@ export const WeddingInquiryModal: React.FC<WeddingInquiryModalProps> = ({ onClos
                   placeholder="+94 77 123 4567"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full bg-[#111111] border border-[var(--fx-border-dark)] focus:border-[var(--fx-light-gray)] p-3 text-xs font-mono-tech text-[var(--fx-white)] outline-none transition-colors"
+                  className="w-full bg-[#111111] border border-[var(--fx-border-dark)] focus:border-[var(--fx-light-gray)] p-3 text-[16px] sm:text-xs font-mono-tech text-[var(--fx-white)] outline-none transition-colors"
                 />
               </div>
 
@@ -178,7 +178,7 @@ export const WeddingInquiryModal: React.FC<WeddingInquiryModalProps> = ({ onClos
                   required
                   value={weddingDate}
                   onChange={(e) => setWeddingDate(e.target.value)}
-                  className="w-full bg-[#111111] border border-[var(--fx-border-dark)] focus:border-[var(--fx-light-gray)] p-3 text-xs font-mono-tech text-[var(--fx-white)] outline-none transition-colors"
+                  className="w-full bg-[#111111] border border-[var(--fx-border-dark)] focus:border-[var(--fx-light-gray)] p-3 text-[16px] sm:text-xs font-mono-tech text-[var(--fx-white)] outline-none transition-colors"
                 />
               </div>
 
@@ -189,7 +189,7 @@ export const WeddingInquiryModal: React.FC<WeddingInquiryModalProps> = ({ onClos
                 <select
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
-                  className="w-full bg-[#111111] border border-[var(--fx-border-dark)] focus:border-[var(--fx-light-gray)] p-3 text-xs font-mono-tech text-[var(--fx-white)] outline-none transition-colors"
+                  className="w-full bg-[#111111] border border-[var(--fx-border-dark)] focus:border-[var(--fx-light-gray)] p-3 text-[16px] sm:text-xs font-mono-tech text-[var(--fx-white)] outline-none transition-colors"
                 >
                   <option value="Colombo">Colombo, Sri Lanka</option>
                   <option value="Kandy">Kandy (Highlands), Sri Lanka</option>
@@ -209,7 +209,7 @@ export const WeddingInquiryModal: React.FC<WeddingInquiryModalProps> = ({ onClos
                   placeholder="e.g. Galle Face Hotel, Amangalla"
                   value={venue}
                   onChange={(e) => setVenue(e.target.value)}
-                  className="w-full bg-[#111111] border border-[var(--fx-border-dark)] focus:border-[var(--fx-light-gray)] p-3 text-xs font-mono-tech text-[var(--fx-white)] outline-none transition-colors"
+                  className="w-full bg-[#111111] border border-[var(--fx-border-dark)] focus:border-[var(--fx-light-gray)] p-3 text-[16px] sm:text-xs font-mono-tech text-[var(--fx-white)] outline-none transition-colors"
                 />
               </div>
 

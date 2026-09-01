@@ -115,7 +115,7 @@ export const HomepageSection: React.FC<HomepageSectionProps> = ({ content, updat
                 <div className="flex items-center gap-2 min-w-0">
                   <GripVertical className="w-4 h-4 text-gray-300 flex-shrink-0" />
                   <span className="text-xs font-mono font-bold text-gray-400 w-5">{String(idx + 1).padStart(2, '0')}</span>
-                  {p!.coverImage && <img src={p!.coverImage} alt="" className="w-9 h-9 object-cover rounded-sm border border-gray-200" />}
+                  {p!.coverImage && <img loading="lazy" decoding="async" src={p!.coverImage} alt="" className="w-9 h-9 object-cover rounded-sm border border-gray-200" />}
                   <span className="text-sm text-gray-800 truncate">{p!.title}</span>
                 </div>
                 <div className="flex items-center gap-1 flex-shrink-0">
@@ -145,7 +145,7 @@ export const HomepageSection: React.FC<HomepageSectionProps> = ({ content, updat
                     picked ? 'border-green-500 bg-green-50' : 'border-gray-200 bg-white hover:border-gray-400'
                   }`}
                 >
-                  {p.coverImage && <img src={p.coverImage} alt="" className="w-8 h-8 object-cover rounded-sm flex-shrink-0" />}
+                  {p.coverImage && <img loading="lazy" decoding="async" src={p.coverImage} alt="" className="w-8 h-8 object-cover rounded-sm flex-shrink-0" />}
                   <span className="text-xs text-gray-800 truncate">{p.title}</span>
                   {picked && <span className="ml-auto text-[10px] font-bold text-green-600 uppercase">Added</span>}
                 </button>
@@ -188,7 +188,7 @@ export const HomepageSection: React.FC<HomepageSectionProps> = ({ content, updat
                 <div className="flex items-center gap-2 min-w-0">
                   <GripVertical className="w-4 h-4 text-gray-300 flex-shrink-0" />
                   <span className="text-xs font-mono font-bold text-gray-400 w-5">{String(idx + 1).padStart(2, '0')}</span>
-                  {p.coverImage && <img src={p.coverImage} alt="" className="w-9 h-9 object-cover rounded-sm border border-gray-200" />}
+                  {p.coverImage && <img loading="lazy" decoding="async" src={p.coverImage} alt="" className="w-9 h-9 object-cover rounded-sm border border-gray-200" />}
                   <span className="text-sm text-gray-800 truncate">{p.title}</span>
                   {(p.status ?? 'published') !== 'published' && (
                     <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700 uppercase">{p.status}</span>

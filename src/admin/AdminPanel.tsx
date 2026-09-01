@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   X, Save, RotateCcw, Loader, CheckCircle, LayoutDashboard, Globe, FolderKanban,
   Image as ImageIcon, FileText, Briefcase, Heart, Palette, Mail,
-  Search, BarChart3, Settings, ShieldCheck, Home
+  Search, BarChart3, Settings, ShieldCheck, Home, Menu
 } from 'lucide-react';
 import { useContent } from '../context/ContentContext';
 import { DashboardSection } from './components/DashboardSection';
@@ -51,6 +51,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onClose }) => {
   const [activeItem, setActiveItem] = useState('Dashboard');
   const [localContent, setLocalContent] = useState(content);
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved'>('idle');
+  // On phones the fixed-width sidebar is an off-canvas drawer (desktop unchanged).
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Prevent background body scroll while Admin Panel is open
   useEffect(() => {
@@ -114,9 +116,20 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onClose }) => {
         onWheel={e => e.stopPropagation()}
       >
 
-        {/* Sidebar */}
+        {/* Mobile drawer backdrop — only when the sidebar is open on small screens */}
+        {sidebarOpen && (
+          <div
+            className="md:hidden absolute inset-0 z-20 bg-gray-900/40"
+            onClick={() => setSidebarOpen(false)}
+            aria-hidden="true"
+          />
+        )}
+
+        {/* Sidebar — off-canvas drawer on mobile, static column on md+ */}
         <aside
-          className="w-60 bg-white border-r border-gray-200 flex flex-col flex-shrink-0 h-full overflow-y-auto overscroll-contain"
+          className={`absolute md:static inset-y-0 left-0 z-30 w-60 bg-white border-r border-gray-200 flex flex-col flex-shrink-0 h-full overflow-y-auto overscroll-contain transition-transform duration-300 md:translate-x-0 ${
+            sidebarOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full'
+          }`}
           data-lenis-prevent="true"
         >
           <div className="px-5 py-4 border-b border-gray-200 flex-shrink-0">
@@ -131,7 +144,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onClose }) => {
                 <div key={menu.category} className="mb-1">
                   <button
                     type="button"
-                    onClick={() => { setActiveCategory(menu.category); setActiveItem(menu.items[0]); }}
+                    onClick={() => { setActiveCategory(menu.category); setActiveItem(menu.items[0]); if (menu.items.length <= 1) setSidebarOpen(false); }}
                     className={`w-full flex items-center gap-2.5 px-5 py-2.5 text-sm transition-colors cursor-pointer ${
                       catActive ? 'text-gray-900 font-semibold bg-gray-100' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                     }`}
@@ -147,7 +160,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onClose }) => {
                           <button
                             key={item}
                             type="button"
-                            onClick={() => { setActiveCategory(menu.category); setActiveItem(item); }}
+                            onClick={() => { setActiveCategory(menu.category); setActiveItem(item); setSidebarOpen(false); }}
                             className={`w-full text-left pl-[46px] pr-5 py-2 text-[13px] transition-colors cursor-pointer ${
                               isActive
                                 ? 'text-gray-900 font-medium bg-gray-50'
@@ -169,8 +182,18 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onClose }) => {
         {/* Main Content Area */}
         <div className="flex-1 flex flex-col min-w-0 h-full max-h-screen overflow-hidden">
           {/* Header */}
-          <header className="flex items-center justify-between px-8 py-4 border-b border-gray-200 bg-white flex-shrink-0">
-            <div>
+          <header className="flex items-center justify-between px-4 sm:px-8 py-4 border-b border-gray-200 bg-white flex-shrink-0">
+            <div className="flex items-center gap-2 min-w-0">
+              <button
+                type="button"
+                onClick={() => setSidebarOpen(true)}
+                title="Open menu"
+                aria-label="Open menu"
+                className="md:hidden p-2 -ml-2 text-gray-500 hover:text-gray-900 rounded-md transition-colors cursor-pointer flex-shrink-0"
+              >
+                <Menu className="w-5 h-5" />
+              </button>
+              <div className="min-w-0">
               <nav className="flex items-center gap-1.5 text-xs text-gray-400">
                 <span>{activeCategory}</span>
                 {activeCategory !== activeItem && (
@@ -187,6 +210,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onClose }) => {
                     ? `All changes saved · ${lastSaved.toLocaleTimeString()}`
                     : 'All changes save automatically'}
               </p>
+              </div>
             </div>
             <div className="flex items-center gap-2">
               <button

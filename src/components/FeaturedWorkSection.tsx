@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { resolveFeaturedWork, useContent } from '../context/ContentContext';
@@ -26,7 +26,23 @@ export const FeaturedWorkSection: React.FC<FeaturedWorkSectionProps> = ({ onSele
   const worksRef = useRef(featuredWorks);
   worksRef.current = featuredWorks;
 
+  // On phones/small tablets we swap the pinned GSAP scroll for a native
+  // touch carousel. Desktop (>=768px) keeps the exact original behavior.
+  const [isMobile, setIsMobile] = useState<boolean>(
+    () => typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches
+  );
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mq = window.matchMedia('(max-width: 767px)');
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener('change', handler);
+    setIsMobile(mq.matches);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
+  useEffect(() => {
+    // Desktop-only: skip the expensive pinned ScrollTrigger timeline on mobile.
+    if (isMobile) return;
     if (!worksRef.current.length) return;
 
     const slots = [
@@ -130,16 +146,73 @@ export const FeaturedWorkSection: React.FC<FeaturedWorkSectionProps> = ({ onSele
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [isMobile]);
 
   if (!featuredWorks.length) return null;
 
   return (
-    <section ref={sectionRef} id="section-featured-work" className="relative w-full h-screen supports-[height:100svh]:h-[100svh] bg-white text-[#050505] select-none overflow-hidden no-parallax">
-      
-      {/* Curved Background - responsive width & height */}
-      <div className="fw-curve absolute left-[-45vw] top-[-35vh] w-[95vw] h-[170vh] bg-white rounded-r-full z-20 shadow-[40px_0_60px_rgba(0,0,0,0.06)] pointer-events-none" />
+    <section ref={sectionRef} id="section-featured-work" className="relative w-full md:h-screen md:supports-[height:100svh]:h-[100svh] bg-white text-[#050505] select-none overflow-hidden no-parallax">
 
+      {/* Curved Background - responsive width & height (desktop scroll animation only) */}
+      <div className="fw-curve hidden md:block absolute left-[-45vw] top-[-35vh] w-[95vw] h-[170vh] bg-white rounded-r-full z-20 shadow-[40px_0_60px_rgba(0,0,0,0.06)] pointer-events-none" />
+
+      {isMobile ? (
+        /* ── MOBILE: native, touch-friendly horizontal carousel (no GSAP pin) ── */
+        <div className="relative z-30 w-full py-12">
+          <div className="px-6">
+            <h2 className="text-4xl font-editorial tracking-tight uppercase leading-[0.95] text-black">
+              Featured<br />Work
+            </h2>
+            <p className="mt-4 text-xs uppercase tracking-[0.25em] text-[#666666] max-w-[280px] leading-relaxed font-mono-tech">
+              {featuredLabel}
+            </p>
+          </div>
+
+          <div
+            className="mt-8 flex gap-4 overflow-x-auto snap-x snap-mandatory px-6 pb-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            style={{ WebkitOverflowScrolling: 'touch' }}
+          >
+            {featuredWorks.map((work, i) => (
+              <div
+                key={work.id}
+                onClick={() => onSelectProject?.(work)}
+                role="button"
+                tabIndex={0}
+                aria-label={`Open project ${work.title}`}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onSelectProject?.(work); } }}
+                className="snap-center shrink-0 w-[78vw] max-w-[330px] bg-white p-2 pb-3 shadow-2xl border border-black/5 cursor-pointer active:scale-[0.99] transition-transform"
+              >
+                <div className="w-full aspect-[4/5] relative overflow-hidden bg-[#F5F5F5]">
+                  <img
+                    src={work.coverImage}
+                    alt={work.title}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute top-2 left-2 text-[10px] font-mono-tech tracking-[0.25em] text-white bg-black/45 px-2 py-0.5 backdrop-blur-sm">
+                    0{i + 1} / 0{featuredWorks.length}
+                  </div>
+                </div>
+                <div className="pt-3 px-1 flex items-end justify-between gap-3">
+                  <div className="min-w-0">
+                    <div className="text-lg font-editorial tracking-widest uppercase text-[#050505] leading-none truncate">
+                      {work.category || work.categoryLabel || ''}
+                    </div>
+                    <div className="mt-1 text-[10px] text-[#666666] font-mono-tech tracking-widest uppercase truncate">
+                      {work.title}
+                    </div>
+                  </div>
+                  <span className="shrink-0 text-[10px] font-mono-tech tracking-widest text-[#050505] whitespace-nowrap">VIEW →</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <p className="px-6 mt-1 text-[10px] font-mono-tech tracking-[0.3em] text-[#999999] uppercase">Swipe to explore →</p>
+        </div>
+      ) : (
       <div className="relative w-full h-full z-30 flex flex-row items-stretch">
         
         {/* Left Column (Text Info) */}
@@ -183,6 +256,8 @@ export const FeaturedWorkSection: React.FC<FeaturedWorkSectionProps> = ({ onSele
                   <img
                     src={work.coverImage}
                     alt={work.title}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover transition-transform duration-700 ease-out"
                     referrerPolicy="no-referrer"
                   />
@@ -196,6 +271,7 @@ export const FeaturedWorkSection: React.FC<FeaturedWorkSectionProps> = ({ onSele
         </div>
 
       </div>
+      )}
     </section>
   );
 };

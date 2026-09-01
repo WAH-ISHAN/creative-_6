@@ -104,8 +104,9 @@ export const ContactSection: React.FC = () => {
     const waUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(fullMessage)}`;
 
     setIsSubmitting(true);
+    let apiOk = false;
     try {
-      await fetch(`${API_BASE}/api/inquiries`, {
+      const res = await fetch(`${API_BASE}/api/inquiries`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -117,12 +118,21 @@ export const ContactSection: React.FC = () => {
           source: 'contact',
         }),
       });
+      apiOk = res.ok;
     } catch {
+      apiOk = false;
     }
-
     setIsSubmitting(false);
-    setSubmitted(true);
+
+    // The WhatsApp hand-off is the primary contact channel, so it is always
+    // honored (the button explicitly promises it). The success screen, however,
+    // only appears when the inquiry was actually recorded server-side.
     window.open(waUrl, '_blank');
+    if (apiOk) {
+      setSubmitted(true);
+    } else {
+      setSubmitError('We’ve opened WhatsApp with your message ready to send — please tap send there to reach us. (We couldn’t save a copy on our side just now.)');
+    }
   };
 
   const currentTestimonial = testimonials[activeTestimonial];
@@ -352,7 +362,7 @@ export const ContactSection: React.FC = () => {
                     value={formData.name}
                     onChange={(e) => setFormData(p => ({ ...p, name: e.target.value }))}
                     placeholder="e.g. Ruwan Perera"
-                    className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-[15px] sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech shadow-sm"
+                    className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-[16px] sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech shadow-sm"
                   />
                 </div>
 
@@ -368,7 +378,7 @@ export const ContactSection: React.FC = () => {
                       value={formData.email}
                       onChange={(e) => setFormData(p => ({ ...p, email: e.target.value }))}
                       placeholder="you@example.com"
-                      className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-[15px] sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech shadow-sm"
+                      className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-[16px] sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech shadow-sm"
                     />
                   </div>
 
@@ -383,7 +393,7 @@ export const ContactSection: React.FC = () => {
                       value={formData.phone}
                       onChange={(e) => setFormData(p => ({ ...p, phone: e.target.value }))}
                       placeholder="+94 77 123 4567"
-                      className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-[15px] sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech shadow-sm"
+                      className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-[16px] sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech shadow-sm"
                     />
                   </div>
                 </div>
@@ -399,7 +409,7 @@ export const ContactSection: React.FC = () => {
                     value={formData.service}
                     onChange={(e) => setFormData(p => ({ ...p, service: e.target.value }))}
                     placeholder="e.g. Wedding Film, Commercial Shoot"
-                    className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-[15px] sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech shadow-sm"
+                    className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-[16px] sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech shadow-sm"
                   />
                   <datalist id="cfx-service-options">
                     {(content.services || []).map(s => (
@@ -418,7 +428,7 @@ export const ContactSection: React.FC = () => {
                     value={formData.message}
                     onChange={(e) => setFormData(p => ({ ...p, message: e.target.value }))}
                     placeholder="Tell us about your project, timelines, location..."
-                    className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-[15px] sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech resize-none shadow-sm"
+                    className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-[16px] sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech resize-none shadow-sm"
                   />
                 </div>
 

@@ -333,7 +333,7 @@ export const WorksSection: React.FC<WorksSectionProps> = ({ item, content, updat
                 >
                   <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform flex-shrink-0 ${isExpanded ? '' : '-rotate-90'}`} />
                   {proj.coverImage ? (
-                    <img src={proj.coverImage} alt="" className="w-10 h-10 object-cover rounded-sm border border-gray-200 flex-shrink-0" />
+                    <img loading="lazy" decoding="async" src={proj.coverImage} alt="" className="w-10 h-10 object-cover rounded-sm border border-gray-200 flex-shrink-0" />
                   ) : (
                     <div className="w-10 h-10 rounded-sm bg-gray-100 flex-shrink-0" />
                   )}
