@@ -76,12 +76,12 @@ export const WeddingHeader: React.FC<WeddingHeaderProps> = ({
 
           {/* DESKTOP NAV */}
           <nav className="hidden md:flex items-center gap-6 lg:gap-8 xl:gap-10">
-            <button onClick={() => handleLinkClick(onNavigateToStories)} className="px-2 py-1 text-xs sm:text-sm font-mono-tech tracking-[0.22em] text-white/70 hover:text-[var(--fx-yellow)] transition-all duration-300 uppercase cursor-pointer relative group">
-              <span>STORIES</span>
-              <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-[var(--fx-yellow)] transition-all duration-300 group-hover:w-full" />
-            </button>
             <button onClick={() => handleLinkClick(onNavigateToTimeline)} className="px-2 py-1 text-xs sm:text-sm font-mono-tech tracking-[0.22em] text-white/70 hover:text-[var(--fx-yellow)] transition-all duration-300 uppercase cursor-pointer relative group">
               <span>TIMELINE</span>
+              <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-[var(--fx-yellow)] transition-all duration-300 group-hover:w-full" />
+            </button>
+            <button onClick={() => handleLinkClick(onNavigateToStories)} className="px-2 py-1 text-xs sm:text-sm font-mono-tech tracking-[0.22em] text-white/70 hover:text-[var(--fx-yellow)] transition-all duration-300 uppercase cursor-pointer relative group">
+              <span>STORIES</span>
               <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-[var(--fx-yellow)] transition-all duration-300 group-hover:w-full" />
             </button>
             <button onClick={() => handleLinkClick(onNavigateToApproach)} className="px-2 py-1 text-xs sm:text-sm font-mono-tech tracking-[0.22em] text-white/70 hover:text-[var(--fx-yellow)] transition-all duration-300 uppercase cursor-pointer relative group">
@@ -138,12 +138,12 @@ export const WeddingHeader: React.FC<WeddingHeaderProps> = ({
         </div>
 
         <nav className="flex-1 overflow-y-auto px-6 py-6 flex flex-col gap-1">
-          <button onClick={() => handleLinkClick(onNavigateToStories)} className="flex items-center justify-between w-full text-left py-4 border-b border-white/10">
-            <span className="text-[15px] font-mono-tech tracking-[0.2em] text-white uppercase">STORIES</span>
-            <span className="text-white/30">›</span>
-          </button>
           <button onClick={() => handleLinkClick(onNavigateToTimeline)} className="flex items-center justify-between w-full text-left py-4 border-b border-white/10">
             <span className="text-[15px] font-mono-tech tracking-[0.2em] text-white uppercase">TIMELINE</span>
+            <span className="text-white/30">›</span>
+          </button>
+          <button onClick={() => handleLinkClick(onNavigateToStories)} className="flex items-center justify-between w-full text-left py-4 border-b border-white/10">
+            <span className="text-[15px] font-mono-tech tracking-[0.2em] text-white uppercase">STORIES</span>
             <span className="text-white/30">›</span>
           </button>
           <button onClick={() => handleLinkClick(onNavigateToApproach)} className="flex items-center justify-between w-full text-left py-4 border-b border-white/10">

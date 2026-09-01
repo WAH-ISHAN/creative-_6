@@ -41,21 +41,21 @@ export const WeddingFooter: React.FC<WeddingFooterProps> = ({
               type="button"
               onClick={() => {
                 soundEngine.playClick();
-                onNavigateToStories();
-              }}
-              className="hover:text-[var(--fx-yellow)] transition-colors cursor-pointer"
-            >
-              STORIES
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                soundEngine.playClick();
                 onNavigateToTimeline();
               }}
               className="hover:text-[var(--fx-yellow)] transition-colors cursor-pointer"
             >
               TIMELINE
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                soundEngine.playClick();
+                onNavigateToStories();
+              }}
+              className="hover:text-[var(--fx-yellow)] transition-colors cursor-pointer"
+            >
+              STORIES
             </button>
             <button
               type="button"
