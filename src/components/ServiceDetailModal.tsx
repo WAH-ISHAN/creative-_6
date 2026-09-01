@@ -117,7 +117,7 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
 
             <div className="space-y-4 border-t border-[#EBEBEB] pt-8">
               <span className="text-base font-mono-tech tracking-[0.25em] uppercase text-[var(--fx-gray)] font-bold">
-                02 // CAPABILITIES & SCOPE
+                02 // WHAT'S INCLUDED
               </span>
               <ul className="space-y-3">
                 {service.capabilities.map((cap, i) => (

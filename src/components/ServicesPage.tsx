@@ -50,11 +50,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
   }, []);
 
   const handleInquire = (serviceTitle: string) => {
-    if (onOpenInquiry) {
-      onOpenInquiry(serviceTitle);
-    } else {
-      window.location.href = `https://wa.me/94777548671?text=${encodeURIComponent(`Hi CreativeFX! I would like to inquire about ${serviceTitle}.`)}`;
-    }
+    window.open(`https://wa.me/94777548671?text=${encodeURIComponent(`Hi CreativeFX! I would like to inquire about pricing for ${serviceTitle}.`)}`, '_blank');
   };
 
   const processSteps = [
@@ -194,9 +190,9 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                 {/* Capabilities Checklist */}
                 {service.capabilities && service.capabilities.length > 0 && (
                   <div className="space-y-2.5 pt-2">
-                    <span className="text-xs font-mono-tech tracking-widest text-[var(--fx-yellow)] uppercase font-bold block">
-                      CORE CAPABILITIES & SPECIALIZATIONS:
-                    </span>
+                      <span className="text-xs font-mono-tech tracking-widest text-[var(--fx-yellow)] uppercase font-bold block">
+                        WHAT'S INCLUDED:
+                      </span>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       {service.capabilities.map((cap, i) => (
                         <div key={i} className="flex items-center gap-2 text-xs sm:text-sm font-tech text-white/90">

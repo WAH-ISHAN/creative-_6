@@ -14,33 +14,7 @@
     "label": "/ Studio",
     "image": "/img/studio-workflow.webp"
   },
-  "services": [
-    {
-      "id": "01",
-      "title": "PHOTOGRAPHY & VIDEOGRAPHY",
-      "description": "We capture high quality photos and videos for brands, products, events, and promotional purposes, ensuring visually compelling and professional content."
-    },
-    {
-      "id": "02",
-      "title": "VIDEO EDITING & MOTION GRAPHICS",
-      "description": "We create engaging video content with smooth editing, visual effects, and motion graphics to enhance storytelling and marketing impact."
-    },
-    {
-      "id": "03",
-      "title": "SOCIAL MEDIA CONTENT DESIGN",
-      "description": "Creation of engaging social media graphics and promotional content that increases brand visibility and audience engagement across digital platforms."
-    },
-    {
-      "id": "04",
-      "title": "BRANDING & DESIGN",
-      "description": "We develop strong brand identities through logo design, visual branding, and creative graphic designs that represent your business effectively."
-    },
-    {
-      "id": "05",
-      "title": "DIGITAL MARKETING",
-      "description": "We provide creative digital marketing solutions, including social media content and campaigns, to help brands reach and engage their target audience."
-    }
-  ],
+
   "about": {
     "headline": "WE ARE\nCREATIVEFX.",
     "body": "A team of passionate creatives, storytellers, and technologists dedicated to crafting unforgettable visual experiences. We believe every brand has a unique story — our mission is to tell it beautifully.",
