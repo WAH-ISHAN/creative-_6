@@ -207,9 +207,6 @@ export const ContactSection: React.FC = () => {
                   </div>
                   <span className="text-[10px] font-mono-tech tracking-[0.2em] text-neutral-800 uppercase font-bold flex items-center gap-1.5">
                     CLIENT EXPERIENCES
-                    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9px] font-mono-tech tracking-wider font-bold">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" /> GOOGLE VERIFIED
-                    </span>
                   </span>
                 </div>
 
