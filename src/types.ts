@@ -101,10 +101,26 @@ export interface StudioMetric {
 }
 
 export interface Testimonial {
+  id?: string;
   quote: string;
   author: string;
   role: string;
   avatar: string;
+  rating?: number; // 1 to 5, default 5
+  timeAgo?: string;
+  verified?: boolean; // verified review checkmark
+  source?: 'google' | 'direct';
+  googleReviewUrl?: string;
+}
+
+export interface GoogleReviewsConfig {
+  enabled: boolean;
+  placeUrl: string;
+  writeReviewUrl: string;
+  rating: number;
+  totalReviews: number;
+  badgeLabel?: string;
+  lastSyncedAt?: string;
 }
 
 export interface WeddingTimelineStage {
