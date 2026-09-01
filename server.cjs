@@ -1,44 +1,79 @@
 /**
  * CreativeFX Admin API Server
  * Run with: node server.cjs
- * 
+ *
  * Endpoints:
- *   GET  /api/content           — Get site content
+ *   GET  /api/health            — healthcheck
+ *   GET  /api/content           — Get site content (public)
  *   POST /api/content           — Save site content (auth required)
  *   POST /api/content/reset     — Reset to defaults (auth required)
- *   POST /api/admin/login       — Get auth token
- *   POST /api/upload            — Upload image (auth required)
- *   POST /api/import-drive      — Import from Google Drive (auth required)
+ *   GET  /api/google-reviews    — Reviews config (public)
+ *   POST /api/google-reviews/sync — Update reviews config (auth required)
+ *   POST /api/admin/login       — Get a short-lived session token
+ *   POST /api/admin/logout      — Revoke the current session token (auth required)
+ *   POST /api/admin/password    — Change admin password (auth + current pw required)
+ *   GET  /api/inquiries         — list inquiries (auth required)
+ *   POST /api/inquiries         — public contact-form submission
+ *   PATCH/DELETE /api/inquiries/:id — update/remove inquiry (auth required)
+ *   GET  /api/uploads           — list uploaded files (auth required)
+ *   DELETE /api/uploads/:name   — delete an uploaded file (auth required)
+ *   GET  /api/stats             — storage stats (auth required)
+ *   POST /api/upload            — Upload image/video (auth required)
+ *   POST /api/import-drive      — Import from Google Drive / OneDrive (auth required)
+ *   POST /api/import-url        — Import from a public URL (auth required)
  */
+
+// H-1: load .env for local development. In production the hosting provider
+// (Render/Vercel) injects real environment variables, which take precedence.
+require('dotenv').config({ quiet: true });
 
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
 const https = require('https');
 const http = require('http');
 const crypto = require('crypto');
+const dns = require('dns');
+const net = require('net');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-// ─── Config ───────────────────────────────────────────────────────────────────
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'creativefx2026';
-const SECRET_KEY = process.env.SECRET_KEY || 'cfx-secret-2026';
+// H-4: We sit behind exactly one reverse proxy (Render / Vercel). Trusting a
+// single hop lets express-rate-limit derive the real client IP from
+// X-Forwarded-For without letting clients spoof it with extra hops.
+app.set('trust proxy', 1);
+
+// ─── Config & secret validation (C-3) ─────────────────────────────────────────
 const IS_PRODUCTION = (process.env.NODE_ENV || '').toLowerCase() === 'production';
-const USING_DEFAULT_PASSWORD = ADMIN_PASSWORD === 'creativefx2026';
+const INSECURE_PASSWORDS = new Set(['creativefx2026', 'creativefx2025']);
+const INSECURE_SECRETS = new Set(['cfx-secret-2026', 'change-this-to-something-random-and-long']);
 
-if (IS_PRODUCTION && USING_DEFAULT_PASSWORD) {
-  console.log('\n  [NOTICE] Running in production with default admin password: creativefx2026');
-  console.log('           You can set a custom ADMIN_PASSWORD in Render Environment variables anytime.\n');
-}
-const DATA_FILE = path.join(__dirname, 'data', 'content.json');
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '';
+let SECRET_KEY = process.env.SECRET_KEY || '';
+
+const DATA_DIR = path.join(__dirname, 'data');
+const DATA_FILE = path.join(DATA_DIR, 'content.json');
 const UPLOADS_DIR = path.join(__dirname, 'public', 'uploads');
-const INQUIRIES_FILE = path.join(__dirname, 'data', 'inquiries.json');
-const AUTH_FILE = path.join(__dirname, 'data', 'auth.json');
+const INQUIRIES_FILE = path.join(DATA_DIR, 'inquiries.json');
+const AUTH_FILE = path.join(DATA_DIR, 'auth.json');
+const SESSIONS_FILE = path.join(DATA_DIR, 'sessions.json');
 
-// ─── Stored credential (set via /api/admin/password) ──────────────────────────
+// Ensure directories exist before anything reads/writes them
+if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+if (!fs.existsSync(UPLOADS_DIR)) fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+
+/** Atomic JSON write: temp file + rename, so a crash can never truncate data. */
+function writeJsonAtomic(file, data) {
+  const tmp = `${file}.${process.pid}.tmp`;
+  fs.writeFileSync(tmp, JSON.stringify(data, null, 2), 'utf8');
+  fs.renameSync(tmp, file);
+}
+
 function sha256(value) {
   return crypto.createHash('sha256').update(value).digest('hex');
 }
@@ -50,94 +85,339 @@ function readStoredAuth() {
   return null;
 }
 
+// A usable admin credential exists if a strong env password is set OR a custom
+// password hash was previously stored by an admin via /api/admin/password.
+const storedAuthAtBoot = readStoredAuth();
+const hasStoredHash = !!(storedAuthAtBoot && storedAuthAtBoot.hash);
+const envPasswordIsStrong = !!ADMIN_PASSWORD && !INSECURE_PASSWORDS.has(ADMIN_PASSWORD);
+const hasSecurePassword = hasStoredHash || envPasswordIsStrong;
+const secretIsStrong = !!SECRET_KEY && !INSECURE_SECRETS.has(SECRET_KEY) && SECRET_KEY.length >= 16;
+
+// C-3: In production, refuse to start on missing or insecure secrets. This is a
+// deliberate safety gate — set strong values in the hosting environment first.
+if (IS_PRODUCTION) {
+  const problems = [];
+  if (!secretIsStrong) problems.push('SECRET_KEY is missing, too short, or set to a known insecure default');
+  if (!hasSecurePassword) problems.push('ADMIN_PASSWORD is missing or set to a known insecure default (and no custom password has been set in the admin panel)');
+  if (problems.length) {
+    console.error('\n  [FATAL] Refusing to start in production due to insecure configuration:');
+    problems.forEach(p => console.error('          - ' + p));
+    console.error('\n  Set strong values in your hosting environment (e.g. Render → Environment):');
+    console.error('          SECRET_KEY     = a long random string  (generate with: openssl rand -hex 32)');
+    console.error('          ADMIN_PASSWORD = a strong, unique password\n');
+    process.exit(1);
+  }
+}
+
+// Development conveniences (never reached in production because of the gate above).
+if (!SECRET_KEY || INSECURE_SECRETS.has(SECRET_KEY)) {
+  SECRET_KEY = crypto.randomBytes(32).toString('hex');
+  console.warn('  [dev] SECRET_KEY not set (or insecure) — generated a random ephemeral secret. Sessions reset on restart.');
+}
+// The only valid password is the configured one (stored hash or env). If neither
+// exists in development, generate a random one and print it so the dev can log in.
+let DEV_GENERATED_PASSWORD = '';
+if (!hasSecurePassword) {
+  if (ADMIN_PASSWORD && INSECURE_PASSWORDS.has(ADMIN_PASSWORD)) {
+    console.warn('  [dev] ADMIN_PASSWORD is a known-weak default; it will still work locally but is rejected in production.');
+  } else {
+    DEV_GENERATED_PASSWORD = crypto.randomBytes(9).toString('base64url');
+    console.warn(`  [dev] No ADMIN_PASSWORD configured. Temporary admin password for this run: ${DEV_GENERATED_PASSWORD}`);
+  }
+}
+// The effective plaintext password to compare against (empty when a stored hash
+// is the source of truth). A stored hash always takes precedence in verifyPassword().
+const EFFECTIVE_ADMIN_PASSWORD = ADMIN_PASSWORD || DEV_GENERATED_PASSWORD;
+
+// ─── Sessions (H-3): random, expiring, revocable, file-persisted ──────────────
+const SESSION_TTL_MS = 8 * 60 * 60 * 1000; // 8 hours
+let sessions = loadSessions(); // { token: { createdAt, expiresAt } }
+
+function loadSessions() {
+  try {
+    if (fs.existsSync(SESSIONS_FILE)) return JSON.parse(fs.readFileSync(SESSIONS_FILE, 'utf8')) || {};
+  } catch (e) { /* ignore */ }
+  return {};
+}
+function persistSessions() {
+  try { writeJsonAtomic(SESSIONS_FILE, sessions); } catch (e) { /* best effort */ }
+}
+function pruneSessions() {
+  const now = Date.now();
+  let changed = false;
+  for (const [t, s] of Object.entries(sessions)) {
+    if (!s || typeof s.expiresAt !== 'number' || s.expiresAt <= now) { delete sessions[t]; changed = true; }
+  }
+  if (changed) persistSessions();
+}
+function createSession() {
+  pruneSessions();
+  // 256 bits of entropy, mixed with SECRET_KEY so a leaked sessions file alone
+  // (without the server secret) cannot be used to forge new tokens.
+  const raw = crypto.randomBytes(32);
+  const token = crypto.createHmac('sha256', SECRET_KEY).update(raw).digest('hex');
+  const now = Date.now();
+  sessions[token] = { createdAt: now, expiresAt: now + SESSION_TTL_MS };
+  persistSessions();
+  return token;
+}
+function isValidSession(token) {
+  if (!token || typeof token !== 'string') return false;
+  const s = sessions[token];
+  if (!s) return false;
+  if (s.expiresAt <= Date.now()) { delete sessions[token]; persistSessions(); return false; }
+  return true;
+}
+function destroySession(token) {
+  if (token && sessions[token]) { delete sessions[token]; persistSessions(); }
+}
+function destroyAllSessions() {
+  sessions = {};
+  persistSessions();
+}
+
+// Constant-time comparisons to avoid leaking credential details via timing.
+function timingSafeEqualStr(a, b) {
+  const ab = Buffer.from(String(a));
+  const bb = Buffer.from(String(b));
+  if (ab.length !== bb.length) return false;
+  return crypto.timingSafeEqual(ab, bb);
+}
+function timingSafeEqualHex(a, b) {
+  try {
+    const ab = Buffer.from(String(a), 'hex');
+    const bb = Buffer.from(String(b), 'hex');
+    return ab.length === bb.length && crypto.timingSafeEqual(ab, bb);
+  } catch (e) { return false; }
+}
+
+// C-2: authenticate ONLY against the configured credential — a stored password
+// hash if present, otherwise the environment password. No hardcoded fallback.
+function verifyPassword(password) {
+  if (!password) return false;
+  const stored = readStoredAuth();
+  if (stored && stored.hash) {
+    return timingSafeEqualHex(sha256(password), stored.hash);
+  }
+  if (EFFECTIVE_ADMIN_PASSWORD) {
+    return timingSafeEqualStr(password, EFFECTIVE_ADMIN_PASSWORD);
+  }
+  return false;
+}
+
+// ─── Serialized writes (M-7) ──────────────────────────────────────────────────
+// A promise chain that guarantees read-modify-write sequences on the JSON store
+// run one at a time, so concurrent requests never clobber each other's changes.
+let writeChain = Promise.resolve();
+function withLock(fn) {
+  const run = writeChain.then(() => fn());
+  writeChain = run.then(() => {}, () => {}); // keep the chain alive on error
+  return run;
+}
+
 function readInquiries() {
   try {
     if (fs.existsSync(INQUIRIES_FILE)) return JSON.parse(fs.readFileSync(INQUIRIES_FILE, 'utf8'));
   } catch (e) { /* fall through */ }
   return [];
 }
-
 function writeInquiries(list) {
   writeJsonAtomic(INQUIRIES_FILE, list);
 }
 
-/** Atomic JSON write: temp file + rename, so a crash can never truncate data. */
-function writeJsonAtomic(file, data) {
-  const tmp = `${file}.${process.pid}.tmp`;
-  fs.writeFileSync(tmp, JSON.stringify(data, null, 2), 'utf8');
-  fs.renameSync(tmp, file);
+// ─── SSRF protection (C-4) ────────────────────────────────────────────────────
+const ALLOWED_PROTOCOLS = new Set(['http:', 'https:']);
+
+/** True for loopback, private, link-local, CGNAT, multicast and reserved ranges. */
+function isPrivateIp(ip) {
+  if (net.isIPv4(ip)) {
+    const p = ip.split('.').map(Number);
+    if (p[0] === 0) return true;                        // 0.0.0.0/8 "this network"
+    if (p[0] === 10) return true;                       // private
+    if (p[0] === 127) return true;                      // loopback
+    if (p[0] === 169 && p[1] === 254) return true;      // link-local + 169.254.169.254 metadata
+    if (p[0] === 172 && p[1] >= 16 && p[1] <= 31) return true; // private
+    if (p[0] === 192 && p[1] === 168) return true;      // private
+    if (p[0] === 100 && p[1] >= 64 && p[1] <= 127) return true; // CGNAT
+    if (p[0] === 192 && p[1] === 0 && p[2] === 0) return true;  // IETF protocol assignments
+    if (p[0] >= 224) return true;                       // multicast / reserved / broadcast
+    return false;
+  }
+  if (net.isIPv6(ip)) {
+    const low = ip.toLowerCase().replace(/^\[|\]$/g, '');
+    if (low === '::1' || low === '::') return true;     // loopback / unspecified
+    if (low.startsWith('fe80')) return true;            // link-local
+    if (low.startsWith('fc') || low.startsWith('fd')) return true; // unique-local fc00::/7
+    if (low.startsWith('ff')) return true;              // multicast
+    if (low.startsWith('::ffff:')) {                    // IPv4-mapped
+      const v4 = low.split(':').pop();
+      if (net.isIPv4(v4)) return isPrivateIp(v4);
+    }
+    return false;
+  }
+  return true; // not a valid IP literal → treat as unsafe
 }
 
-// Ensure directories exist
-if (!fs.existsSync(path.dirname(DATA_FILE))) fs.mkdirSync(path.dirname(DATA_FILE), { recursive: true });
-if (!fs.existsSync(UPLOADS_DIR)) fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+function dnsLookupAll(host) {
+  return new Promise((resolve, reject) => {
+    dns.lookup(host, { all: true }, (err, addresses) => {
+      if (err) return reject(err);
+      resolve((addresses || []).map(a => a.address));
+    });
+  });
+}
+
+/** Rejects internal/unsafe targets. Called before the initial request AND before
+ *  following every redirect, which defeats redirect-based SSRF bypasses. */
+async function assertPublicUrl(urlStr) {
+  let u;
+  try { u = new URL(urlStr); } catch (e) { throw new Error('Invalid URL'); }
+  if (!ALLOWED_PROTOCOLS.has(u.protocol)) throw new Error('Only http and https URLs are allowed');
+  const host = u.hostname.replace(/^\[|\]$/g, '');
+  if (net.isIP(host)) {
+    if (isPrivateIp(host)) throw new Error('Blocked internal/private address');
+    return;
+  }
+  let addrs;
+  try { addrs = await dnsLookupAll(host); }
+  catch (e) { throw new Error('DNS resolution failed'); }
+  if (!addrs.length) throw new Error('No DNS records');
+  for (const a of addrs) {
+    if (isPrivateIp(a)) throw new Error('Blocked internal/private address');
+  }
+}
 
 // ─── Middleware ───────────────────────────────────────────────────────────────
-app.use(cors({ origin: '*' }));
-app.use(express.json({ limit: '100mb' }));
+
+// M-1: security headers. CSP is defined on the frontend host (see vercel.json)
+// and also applied here for deployments where Express serves the built app.
+app.use(helmet({
+  contentSecurityPolicy: {
+    useDefaults: true,
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+      fontSrc: ["'self'", 'https://fonts.gstatic.com', 'data:'],
+      imgSrc: ["'self'", 'data:', 'blob:', 'https:'],
+      mediaSrc: ["'self'", 'data:', 'blob:', 'https:'],
+      connectSrc: ["'self'", 'https:'],
+      frameSrc: ["'self'", 'https://drive.google.com', 'https://*.google.com', 'https://onedrive.live.com', 'https://1drv.ms', 'https://*.sharepoint.com'],
+      objectSrc: ["'none'"],
+      baseUri: ["'self'"],
+      frameAncestors: ["'none'"],
+      upgradeInsecureRequests: null,
+    },
+  },
+  crossOriginResourcePolicy: { policy: 'cross-origin' }, // allow media to be embedded by the frontend origin
+  crossOriginEmbedderPolicy: false,
+}));
+
+// H-5: CORS restricted to an allow-list. Requests with no Origin (server-to-server,
+// health checks, curl) are allowed; browser requests from unknown origins get no
+// CORS headers and are blocked by the browser.
+const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || '')
+  .split(',').map(s => s.trim()).filter(Boolean);
+const DEFAULT_ORIGINS = [
+  'http://localhost:3000', 'http://localhost:4000', 'http://localhost:5173',
+  'https://creativefx.lk', 'https://www.creativefx.lk',
+];
+const originAllowList = ALLOWED_ORIGINS.length ? ALLOWED_ORIGINS : DEFAULT_ORIGINS;
+app.use(cors({
+  origin(origin, cb) {
+    if (!origin) return cb(null, true);
+    return cb(null, originAllowList.includes(origin));
+  },
+  methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'x-admin-token'],
+  exposedHeaders: ['x-refreshed-token'],
+}));
+
+// H-6: cap request bodies. Content is small JSON (no embedded binaries), so 4MB
+// is a generous ceiling that still prevents storage-abuse via oversized payloads.
+app.use(express.json({ limit: '4mb' }));
+
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/uploads', express.static(UPLOADS_DIR));
 app.use('/img', express.static(path.join(__dirname, 'img')));
 app.use('/video', express.static(path.join(__dirname, 'video')));
 
-// Multer for media uploads — images & videos only, 500MB ceiling
+// ─── Rate limiters (H-4) ──────────────────────────────────────────────────────
+const loginLimiter = rateLimit({
+  windowMs: 10 * 60 * 1000,
+  max: 10,                       // 10 failed attempts per IP per 10 min
+  standardHeaders: true,
+  legacyHeaders: false,
+  skipSuccessfulRequests: true,  // successful logins don't count toward the limit
+  message: { error: 'Too many attempts. Try again later.' },
+});
+const importLimiter = rateLimit({
+  windowMs: 5 * 60 * 1000,
+  max: 30,                       // expensive/outbound endpoints
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many import requests. Slow down.' },
+});
+
+// ─── Multer for media uploads — images & videos only, 500MB ceiling ───────────
 const ALLOWED_MIME = /^(image\/(jpeg|jpg|png|webp|gif|avif)|video\/(mp4|webm|quicktime|x-matroska))$/i;
+const ALLOWED_UPLOAD_EXT = new Set(['.jpg', '.jpeg', '.png', '.webp', '.gif', '.avif', '.mp4', '.webm', '.mov', '.mkv']);
 const storage = multer.diskStorage({
   destination: UPLOADS_DIR,
   filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname).toLowerCase().replace(/[^.a-z0-9]/g, '') || '.bin';
-    const name = `${Date.now()}-${Math.random().toString(36).slice(2)}${ext}`;
+    let ext = path.extname(file.originalname).toLowerCase().replace(/[^.a-z0-9]/g, '');
+    if (!ALLOWED_UPLOAD_EXT.has(ext)) ext = '.bin';
+    const name = `${Date.now()}-${crypto.randomBytes(6).toString('hex')}${ext}`;
     cb(null, name);
   },
 });
 const upload = multer({
   storage,
-  limits: { fileSize: 500 * 1024 * 1024 }, // 500MB limit (video support)
+  limits: { fileSize: 500 * 1024 * 1024, files: 1 },
   fileFilter: (req, file, cb) => {
     if (ALLOWED_MIME.test(file.mimetype)) return cb(null, true);
     cb(new Error('Only image and video files are allowed'));
   },
 });
 
-// ─── Auth Middleware ──────────────────────────────────────────────────────────
-function makeToken(password) {
-  return crypto.createHmac('sha256', SECRET_KEY).update(password).digest('hex');
+// M-3: verify the real file signature (magic bytes) after upload. The client
+// controls the declared MIME type; this checks the actual bytes on disk.
+function sniffFileKind(filepath) {
+  let fd;
+  try {
+    fd = fs.openSync(filepath, 'r');
+    const buf = Buffer.alloc(16);
+    fs.readSync(fd, buf, 0, 16, 0);
+    // Images
+    if (buf[0] === 0xff && buf[1] === 0xd8 && buf[2] === 0xff) return 'image'; // JPEG
+    if (buf[0] === 0x89 && buf[1] === 0x50 && buf[2] === 0x4e && buf[3] === 0x47) return 'image'; // PNG
+    if (buf[0] === 0x47 && buf[1] === 0x49 && buf[2] === 0x46) return 'image'; // GIF
+    if (buf.slice(0, 4).toString('latin1') === 'RIFF' && buf.slice(8, 12).toString('latin1') === 'WEBP') return 'image'; // WEBP
+    // Video / ISO-BMFF (mp4, mov, avif share the ftyp box)
+    if (buf.slice(4, 8).toString('latin1') === 'ftyp') {
+      const brand = buf.slice(8, 12).toString('latin1');
+      if (brand.startsWith('avif') || brand.startsWith('avis')) return 'image';
+      return 'video';
+    }
+    if (buf[0] === 0x1a && buf[1] === 0x45 && buf[2] === 0xdf && buf[3] === 0xa3) return 'video'; // WEBM/Matroska
+    return 'unknown';
+  } catch (e) {
+    return 'unknown';
+  } finally {
+    if (fd !== undefined) { try { fs.closeSync(fd); } catch (e) { /* ignore */ } }
+  }
 }
 
-// Simple in-memory rate limiter for the login endpoint
-const loginAttempts = new Map(); // ip -> { count, firstAt }
-function isRateLimited(ip) {
-  if (!ip || ip === '127.0.0.1' || ip === '::1' || ip.includes('127.0.0.1') || ip === 'localhost' || ip === 'unknown') {
-    return false;
-  }
-  const now = Date.now();
-  const windowMs = 2 * 60 * 1000; // 2 minutes
-  const maxAttempts = 50;
-  const entry = loginAttempts.get(ip);
-  if (!entry || now - entry.firstAt > windowMs) {
-    loginAttempts.set(ip, { count: 1, firstAt: now });
-    return false;
-  }
-  entry.count += 1;
-  return entry.count > maxAttempts;
-}
-
+// ─── Auth middleware ──────────────────────────────────────────────────────────
 function authMiddleware(req, res, next) {
   const token = req.headers['x-admin-token'] || '';
-  // NOTE: the legacy 'dev-token' backdoor was removed — tokens are only valid
-  // when issued by /api/admin/login against the real password or stored hash.
-  const expected = makeToken(ADMIN_PASSWORD);
-  const stored = readStoredAuth();
-  if ((token && (token === expected || token === 'dev-token')) || (stored && stored.token && token === stored.token)) {
-    next();
-  } else {
-    res.status(401).json({ error: 'Unauthorized' });
-  }
+  if (isValidSession(token)) return next();
+  res.status(401).json({ error: 'Unauthorized' });
 }
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
 
-// GET /api/health — healthcheck endpoint for Render / monitoring
+// GET /api/health
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
@@ -161,36 +441,56 @@ app.get('/api/content', (req, res) => {
   }
 });
 
+// H-6: structural validation for the content document. We keep the freeform
+// content model (so the admin edits exactly as before) but reject non-objects,
+// arrays, prototype-pollution keys, and pathologically large documents.
+const FORBIDDEN_KEYS = new Set(['__proto__', 'constructor', 'prototype']);
+function validateContentDoc(doc) {
+  if (!doc || typeof doc !== 'object' || Array.isArray(doc)) return 'Invalid content document';
+  if (Object.keys(doc).length === 0) return 'Refusing to save an empty content document';
+  let nodeCount = 0;
+  const MAX_NODES = 100000;
+  const MAX_DEPTH = 40;
+  function walk(node, depth) {
+    if (depth > MAX_DEPTH) throw new Error('Content document nested too deeply');
+    if (node && typeof node === 'object') {
+      for (const key of Object.keys(node)) {
+        if (FORBIDDEN_KEYS.has(key)) throw new Error('Disallowed property name');
+        if (++nodeCount > MAX_NODES) throw new Error('Content document has too many fields');
+        walk(node[key], depth + 1);
+      }
+    }
+  }
+  try { walk(doc, 0); } catch (e) { return e.message; }
+  return null;
+}
+
 // POST /api/content
 app.post('/api/content', authMiddleware, (req, res) => {
-  try {
-    if (!req.body || typeof req.body !== 'object' || Array.isArray(req.body)) {
-      return res.status(400).json({ error: 'Invalid content document' });
-    }
-    if (Object.keys(req.body).length === 0) {
-      return res.status(400).json({ error: 'Refusing to save an empty content document' });
-    }
-    const docToSave = { ...req.body, _updatedAt: req.body._updatedAt || Date.now() };
+  const err = validateContentDoc(req.body);
+  if (err) return res.status(400).json({ error: err });
+  const docToSave = { ...req.body, _updatedAt: req.body._updatedAt || Date.now() };
+  withLock(async () => {
     writeJsonAtomic(DATA_FILE, docToSave);
-    res.json({ ok: true, _updatedAt: docToSave._updatedAt });
-  } catch (e) {
-    res.status(500).json({ error: 'Failed to save' });
-  }
+  }).then(
+    () => res.json({ ok: true, _updatedAt: docToSave._updatedAt }),
+    () => res.status(500).json({ error: 'Failed to save' }),
+  );
 });
 
 // POST /api/content/reset
 app.post('/api/content/reset', authMiddleware, (req, res) => {
-  try {
+  withLock(async () => {
     if (fs.existsSync(DATA_FILE)) fs.unlinkSync(DATA_FILE);
-    res.json({ ok: true });
-  } catch (e) {
-    res.status(500).json({ error: 'Failed to reset' });
-  }
+  }).then(
+    () => res.json({ ok: true }),
+    () => res.status(500).json({ error: 'Failed to reset' }),
+  );
 });
 
 // ─── Google Reviews API ───────────────────────────────────────────────────────
 
-// GET /api/google-reviews — get Google Reviews configuration and reviews list
+// GET /api/google-reviews
 app.get('/api/google-reviews', (req, res) => {
   try {
     let content = {};
@@ -213,9 +513,9 @@ app.get('/api/google-reviews', (req, res) => {
   }
 });
 
-// POST /api/google-reviews/sync — sync or add reviews from Google
+// POST /api/google-reviews/sync
 app.post('/api/google-reviews/sync', authMiddleware, (req, res) => {
-  try {
+  withLock(async () => {
     let content = {};
     if (fs.existsSync(DATA_FILE)) {
       content = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
@@ -228,64 +528,56 @@ app.post('/api/google-reviews/sync', authMiddleware, (req, res) => {
       writeReviewUrl: req.body?.writeReviewUrl || content.googleReviewsConfig?.writeReviewUrl || 'https://www.google.com/search?q=creativefx+pvt+ltd+kaduwela+reviews#lrd=0xbfe9d365346670d:0x60fdaf92bd3171c7,3',
     };
     writeJsonAtomic(DATA_FILE, content);
-    res.json({ ok: true, config: content.googleReviewsConfig, reviews: content.testimonials || [] });
-  } catch (e) {
-    res.status(500).json({ error: 'Sync failed' });
-  }
+    return content;
+  }).then(
+    (content) => res.json({ ok: true, config: content.googleReviewsConfig, reviews: content.testimonials || [] }),
+    () => res.status(500).json({ error: 'Sync failed' }),
+  );
 });
 
+// ─── Admin auth ───────────────────────────────────────────────────────────────
+
 // POST /api/admin/login
-app.post('/api/admin/login', (req, res) => {
+app.post('/api/admin/login', loginLimiter, (req, res) => {
   const rawPassword = req.body?.password;
   const password = typeof rawPassword === 'string' ? rawPassword.trim() : '';
-  const stored = readStoredAuth();
-  
-  // Valid password check bypasses rate limit
-  if (stored && stored.hash && sha256(password) === stored.hash) {
-    return res.json({ token: stored.token });
+  if (password && verifyPassword(password)) {
+    return res.json({ token: createSession() });
   }
-  if (password === ADMIN_PASSWORD || password === 'creativefx2026') {
-    return res.json({ token: makeToken(ADMIN_PASSWORD) });
-  }
-
-  // Rate limiting applies to wrong attempts
-  const ip = req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown';
-  if (isRateLimited(String(ip))) {
-    return res.status(429).json({ error: 'Too many attempts. Try again later.' });
-  }
-
   res.status(401).json({ error: 'Incorrect password' });
+});
+
+// POST /api/admin/logout — revoke the caller's session (H-3)
+app.post('/api/admin/logout', (req, res) => {
+  destroySession(req.headers['x-admin-token'] || '');
+  res.json({ ok: true });
+});
+
+// GET /api/admin/session — lightweight check that the caller's token is still valid
+app.get('/api/admin/session', authMiddleware, (req, res) => {
+  res.json({ ok: true });
 });
 
 // POST /api/admin/password — change the admin password (auth + current pw required)
 app.post('/api/admin/password', authMiddleware, (req, res) => {
-  const { currentPassword, newPassword } = req.body;
+  const { currentPassword, newPassword } = req.body || {};
   if (!newPassword || typeof newPassword !== 'string' || newPassword.length < 6) {
     return res.status(400).json({ error: 'New password must be at least 6 characters' });
   }
-  // Verify the caller actually knows the current credential
-  const stored = readStoredAuth();
-  const currentOk =
-    currentPassword === ADMIN_PASSWORD ||
-    (stored && stored.hash && sha256(currentPassword) === stored.hash);
-  if (!currentOk) {
+  if (!currentPassword || !verifyPassword(String(currentPassword))) {
     return res.status(401).json({ error: 'Current password is incorrect' });
   }
   try {
-    const token = makeToken(`${newPassword}-custom-${Date.now()}`);
-    fs.writeFileSync(AUTH_FILE, JSON.stringify({ hash: sha256(newPassword), token, updatedAt: new Date().toISOString() }, null, 2));
-    // Keep the client's session token valid for the new credential
-    sessionStorageNote(res, token);
+    writeJsonAtomic(AUTH_FILE, { hash: sha256(newPassword), updatedAt: new Date().toISOString() });
+    // Revoke every existing session, then issue a fresh one for this caller.
+    destroyAllSessions();
+    const token = createSession();
+    res.setHeader('x-refreshed-token', token);
     res.json({ ok: true, token });
   } catch (e) {
     res.status(500).json({ error: 'Failed to update password' });
   }
 });
-
-// Issue the fresh token back to the client via header so it can refresh its session
-function sessionStorageNote(res, token) {
-  res.setHeader('x-refreshed-token', token);
-}
 
 // ─── Inquiries ────────────────────────────────────────────────────────────────
 
@@ -303,10 +595,10 @@ app.post('/api/inquiries', (req, res) => {
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email))) {
     return res.status(400).json({ error: 'Invalid email address' });
   }
-  try {
+  withLock(async () => {
     const list = readInquiries();
     list.unshift({
-      id: `inq-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+      id: `inq-${Date.now()}-${crypto.randomBytes(3).toString('hex')}`,
       name: String(name).slice(0, 200),
       email: email ? String(email).slice(0, 200) : '',
       phone: phone ? String(phone).slice(0, 50) : '',
@@ -317,10 +609,10 @@ app.post('/api/inquiries', (req, res) => {
       createdAt: new Date().toISOString(),
     });
     writeInquiries(list);
-    res.json({ ok: true });
-  } catch (e) {
-    res.status(500).json({ error: 'Failed to save inquiry' });
-  }
+  }).then(
+    () => res.json({ ok: true }),
+    () => res.status(500).json({ error: 'Failed to save inquiry' }),
+  );
 });
 
 // PATCH /api/inquiries/:id — update status (auth required)
@@ -330,21 +622,31 @@ app.patch('/api/inquiries/:id', authMiddleware, (req, res) => {
   if (!INQUIRY_STATUSES.includes(status)) {
     return res.status(400).json({ error: 'Invalid status' });
   }
-  const list = readInquiries();
-  const idx = list.findIndex(i => i.id === req.params.id);
-  if (idx === -1) return res.status(404).json({ error: 'Not found' });
-  list[idx].status = status;
-  writeInquiries(list);
-  res.json({ ok: true });
+  withLock(async () => {
+    const list = readInquiries();
+    const idx = list.findIndex(i => i.id === req.params.id);
+    if (idx === -1) return { notFound: true };
+    list[idx].status = status;
+    writeInquiries(list);
+    return { notFound: false };
+  }).then(
+    (r) => r.notFound ? res.status(404).json({ error: 'Not found' }) : res.json({ ok: true }),
+    () => res.status(500).json({ error: 'Failed to update inquiry' }),
+  );
 });
 
 // DELETE /api/inquiries/:id — remove an inquiry (auth required)
 app.delete('/api/inquiries/:id', authMiddleware, (req, res) => {
-  const list = readInquiries();
-  const next = list.filter(i => i.id !== req.params.id);
-  if (next.length === list.length) return res.status(404).json({ error: 'Not found' });
-  writeInquiries(next);
-  res.json({ ok: true });
+  withLock(async () => {
+    const list = readInquiries();
+    const next = list.filter(i => i.id !== req.params.id);
+    if (next.length === list.length) return { notFound: true };
+    writeInquiries(next);
+    return { notFound: false };
+  }).then(
+    (r) => r.notFound ? res.status(404).json({ error: 'Not found' }) : res.json({ ok: true }),
+    () => res.status(500).json({ error: 'Failed to delete inquiry' }),
+  );
 });
 
 // ─── Uploaded files library ───────────────────────────────────────────────────
@@ -369,7 +671,10 @@ app.get('/api/uploads', authMiddleware, (req, res) => {
 app.delete('/api/uploads/:name', authMiddleware, (req, res) => {
   const safeName = path.basename(req.params.name);
   const filepath = path.join(UPLOADS_DIR, safeName);
-  if (!fs.existsSync(filepath)) return res.status(404).json({ error: 'Not found' });
+  // Ensure the resolved path stays inside the uploads directory
+  if (path.dirname(filepath) !== UPLOADS_DIR || !fs.existsSync(filepath)) {
+    return res.status(404).json({ error: 'Not found' });
+  }
   try {
     fs.unlinkSync(filepath);
     res.json({ ok: true });
@@ -400,32 +705,37 @@ app.post('/api/upload', authMiddleware, (req, res) => {
   upload.single('file')(req, res, (err) => {
     if (err) return res.status(400).json({ error: err.message || 'Upload rejected' });
     if (!req.file) return res.status(400).json({ error: 'No file' });
+    // M-3: confirm the bytes match an allowed media type, not just the declared MIME.
+    const kind = sniffFileKind(req.file.path);
+    const declaredImage = /^image\//i.test(req.file.mimetype);
+    const declaredVideo = /^video\//i.test(req.file.mimetype);
+    const ok = (kind === 'image' && declaredImage) || (kind === 'video' && declaredVideo);
+    if (!ok) {
+      fs.unlink(req.file.path, () => {});
+      return res.status(400).json({ error: 'File content does not match an allowed image or video type' });
+    }
     res.json({ url: `/uploads/${req.file.filename}`, type: req.file.mimetype });
   });
 });
 
 // ─── Shared download helper ───────────────────────────────────────────────────
-/**
- * Downloads a file from a URL, follows redirects, detects content type,
- * and saves to UPLOADS_DIR. Falls back to embed/original URL if needed.
- */
-function downloadFromUrl(downloadUrl, res, mimeHint, fallbackUrl, googleFileId, redirectCount) {
-  if (!redirectCount) redirectCount = 0;
-  if (redirectCount > 10) return res.json({ url: fallbackUrl || downloadUrl, type: 'embed' });
-
+/** Streams a remote file to UPLOADS_DIR, following redirects. Every hop is
+ *  re-validated by assertPublicUrl() to prevent SSRF via redirects. */
+function doDownload(downloadUrl, res, mimeHint, fallbackUrl, googleFileId, redirectCount) {
   const reqModule = downloadUrl.startsWith('https') ? https : http;
   const request = reqModule.get(downloadUrl, {
     headers: {
       'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36',
     },
   }, (response) => {
-
-    // Follow redirects (301, 302, 303, 307, 308)
+    // Follow redirects (301, 302, 303, 307, 308) — re-validated in downloadFromUrl
     if ([301, 302, 303, 307, 308].includes(response.statusCode)) {
       const location = response.headers.location;
       response.resume();
       if (!location) return res.json({ url: fallbackUrl || downloadUrl, type: 'embed' });
-      const absLocation = location.startsWith('http') ? location : `https://${new URL(downloadUrl).host}${location}`;
+      let absLocation;
+      try { absLocation = new URL(location, downloadUrl).href; }
+      catch (e) { return res.json({ url: fallbackUrl || '', type: 'embed' }); }
       console.log(`[Import] Redirect (${response.statusCode}) -> ${absLocation.substring(0, 100)}`);
       return downloadFromUrl(absLocation, res, mimeHint, fallbackUrl, googleFileId, redirectCount + 1);
     }
@@ -444,18 +754,17 @@ function downloadFromUrl(downloadUrl, res, mimeHint, fallbackUrl, googleFileId, 
     // Google Drive confirmation / virus-warning page — parse token and retry
     if (isHtml && googleFileId) {
       let body = '';
-      response.on('data', chunk => { body += chunk; });
+      response.on('data', chunk => { body += chunk; if (body.length > 1_000_000) request.destroy(); });
       response.on('end', () => {
         const m = body.match(/confirm=([0-9a-zA-Z_-]+)/) || body.match(/name="confirm"\s+value="([^"]+)"/);
         if (m) {
           const token = m[1];
-          const confirmUrl = `https://drive.usercontent.google.com/download?id=${googleFileId}&export=download&confirm=${token}&uuid=${Date.now()}`;
-          console.log(`[Import] Found Google Drive confirm token (${token}), retrying download...`);
+          const confirmUrl = `https://drive.usercontent.google.com/download?id=${googleFileId}&export=download&confirm=${token}`;
+          console.log(`[Import] Found Google Drive confirm token, retrying download...`);
           return downloadFromUrl(confirmUrl, res, mimeHint, fallbackUrl, googleFileId, redirectCount + 1);
-        } else {
-          console.log('[Import] HTML response without token, falling back to embed URL');
-          return res.json({ url: fallbackUrl || downloadUrl, type: 'embed' });
         }
+        console.log('[Import] HTML response without token, falling back to embed URL');
+        return res.json({ url: fallbackUrl || downloadUrl, type: 'embed' });
       });
       return;
     }
@@ -488,7 +797,7 @@ function downloadFromUrl(downloadUrl, res, mimeHint, fallbackUrl, googleFileId, 
     }
 
     const prefix = isImage ? 'img' : 'vid';
-    const filename = `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}${ext}`;
+    const filename = `${prefix}-${Date.now()}-${crypto.randomBytes(3).toString('hex')}${ext}`;
     const filepath = path.join(UPLOADS_DIR, filename);
     const file = fs.createWriteStream(filepath);
 
@@ -528,8 +837,24 @@ function downloadFromUrl(downloadUrl, res, mimeHint, fallbackUrl, googleFileId, 
   });
 }
 
-// POST /api/import-drive — download from Google Drive or OneDrive to VPS
-app.post('/api/import-drive', authMiddleware, (req, res) => {
+/** SSRF-guarded entrypoint: validates the target (and every redirect) before fetching. */
+function downloadFromUrl(downloadUrl, res, mimeHint, fallbackUrl, googleFileId, redirectCount) {
+  if (!redirectCount) redirectCount = 0;
+  if (redirectCount > 10) return res.json({ url: fallbackUrl || downloadUrl, type: 'embed' });
+  assertPublicUrl(downloadUrl).then(
+    () => doDownload(downloadUrl, res, mimeHint, fallbackUrl, googleFileId, redirectCount),
+    (err) => {
+      console.warn(`[Import] Blocked URL (${err.message}): ${String(downloadUrl).slice(0, 80)}`);
+      // Initial target blocked → hard error. A blocked redirect → stop and return
+      // the safe fallback embed URL without fetching anything internal.
+      if (redirectCount === 0) return res.status(400).json({ error: 'This URL is not allowed' });
+      return res.json({ url: fallbackUrl || '', type: 'embed' });
+    },
+  );
+}
+
+// POST /api/import-drive — download from Google Drive or OneDrive to the server
+app.post('/api/import-drive', authMiddleware, importLimiter, (req, res) => {
   const { fileId, driveUrl, provider, mimeHint } = req.body;
   if (!fileId) return res.status(400).json({ error: 'No fileId provided' });
 
@@ -547,17 +872,17 @@ app.post('/api/import-drive', authMiddleware, (req, res) => {
   }
 
   // Google Drive
-  const downloadUrl = `https://drive.usercontent.google.com/download?id=${fileId}&export=download&confirm=t`;
-  const fallback = `https://drive.google.com/file/d/${fileId}/preview`;
+  const downloadUrl = `https://drive.usercontent.google.com/download?id=${encodeURIComponent(fileId)}&export=download&confirm=t`;
+  const fallback = `https://drive.google.com/file/d/${encodeURIComponent(fileId)}/preview`;
   console.log(`[Import] Google Drive fileId=${fileId}`);
   downloadFromUrl(downloadUrl, res, mimeHint, fallback, fileId, 0);
 });
 
 // POST /api/import-url — download from any direct public URL (Dropbox, CDN, etc.)
-app.post('/api/import-url', authMiddleware, (req, res) => {
+app.post('/api/import-url', authMiddleware, importLimiter, (req, res) => {
   const { url, mimeHint } = req.body;
   if (!url) return res.status(400).json({ error: 'No URL provided' });
-  console.log(`[Import] Direct URL: ${url.substring(0, 100)}`);
+  console.log(`[Import] Direct URL: ${String(url).substring(0, 100)}`);
   downloadFromUrl(url, res, mimeHint, url, null, 0);
 });
 
@@ -575,14 +900,9 @@ app.get('*', (req, res) => {
 app.listen(PORT, () => {
   console.log('');
   console.log('  ╔═══════════════════════════════════════╗');
-  console.log('  ║   CREATIVEFX Admin Server Running     ║');
-  console.log(`  ║   http://localhost:${PORT}               ║`);
-  if (USING_DEFAULT_PASSWORD) {
-    console.log('  ║   ⚠ DEV: default admin password in use ║'.padEnd(43) + '║');
-    console.log('  ║   Set ADMIN_PASSWORD before deploying! ║');
-  } else {
-    console.log('  ║   Admin password: (custom · hidden)    ║');
-  }
+  console.log('  ║   CREATIVEFX Admin Server Running      ║');
+  console.log(`  ║   http://localhost:${PORT}${' '.repeat(Math.max(0, 16 - String(PORT).length))}║`);
+  console.log('  ║   Admin auth: session-based (hardened) ║');
   console.log('  ╚═══════════════════════════════════════╝');
   console.log('');
 });

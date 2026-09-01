@@ -7,6 +7,17 @@ coverage/
 .env*
 !.env.example
 
+# Runtime data that must never be committed:
+#  - inquiries.json holds customer PII (name/email/phone/message)
+#  - auth.json holds the admin password hash
+#  - sessions.json holds live admin session tokens
+# content.json (site content) is intentionally kept tracked as the content seed.
+data/inquiries.json
+data/inquiries.json.bak
+data/auth.json
+data/sessions.json
+data/*.tmp
+
 # Exclude root video/ folder and files over 100MB
 /video/
 /web intro/
