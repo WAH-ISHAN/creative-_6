@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { detectMediaKind, GalleryMedia, ProjectCase, toGalleryItems } from '../types';
+import { detectMediaKind, GalleryMedia, ProjectCase, SocialPostItem, toGalleryItems } from '../types';
 import { usePublishedProjects, useContent } from '../context/ContentContext';
 
 import { ArrowLeft, X, ChevronLeft, ChevronRight, ZoomIn, Film, Camera, ArrowUpRight } from 'lucide-react';

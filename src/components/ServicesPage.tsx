@@ -37,7 +37,6 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
   useSeo({
     title: 'Services & Capabilities — CreativeFX Studio',
     description: 'Commercial photography, 8K videography, motion graphics, video editing, brand design, and digital marketing solutions.',
-    canonicalPath: '/services',
   });
 
   const { content } = useContent();
@@ -189,7 +188,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                 </div>
 
                 <p className="font-tech text-base sm:text-lg text-white/80 leading-relaxed">
-                  {service.fullDesc || service.description || service.shortDesc}
+                  {service.fullDesc || service.shortDesc}
                 </p>
 
                 {/* Capabilities Checklist */}

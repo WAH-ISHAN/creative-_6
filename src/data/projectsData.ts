@@ -3,7 +3,10 @@ import { ContentStatus, ProjectCase } from '../types';
 // Base static projects — DEFAULTS for the website.
 // The Admin Panel edits the authoritative copy stored in data/content.json;
 // these records are used as fallbacks when a server record is missing fields.
-export const PROJECT_DEFAULTS_RAW: Omit<ProjectCase, 'status'>[] = [
+// `status` is optional on ProjectCase; a couple of seed entries carry an explicit
+// value but ALL_PROJECTS below normalizes every default to 'published', so the
+// live projects list is driven by the admin content, not these seed flags.
+export const PROJECT_DEFAULTS_RAW: ProjectCase[] = [
   {
     "id": "proj-01",
     "code": "PROJECT / 001",
