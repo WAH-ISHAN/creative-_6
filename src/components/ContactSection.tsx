@@ -380,7 +380,7 @@ export const ContactSection: React.FC = () => {
                     value={formData.name}
                     onChange={(e) => setFormData(p => ({ ...p, name: e.target.value }))}
                     placeholder="e.g. Ruwan Perera"
-                    className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-[15px] sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech shadow-sm"
+                    className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-[16px] sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech shadow-sm"
                   />
                 </div>
 
@@ -396,7 +396,7 @@ export const ContactSection: React.FC = () => {
                       value={formData.email}
                       onChange={(e) => setFormData(p => ({ ...p, email: e.target.value }))}
                       placeholder="you@example.com"
-                      className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-[15px] sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech shadow-sm"
+                      className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-[16px] sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech shadow-sm"
                     />
                   </div>
 
@@ -411,7 +411,7 @@ export const ContactSection: React.FC = () => {
                       value={formData.phone}
                       onChange={(e) => setFormData(p => ({ ...p, phone: e.target.value }))}
                       placeholder="+94 77 123 4567"
-                      className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-[15px] sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech shadow-sm"
+                      className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-[16px] sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech shadow-sm"
                     />
                   </div>
                 </div>
@@ -427,7 +427,7 @@ export const ContactSection: React.FC = () => {
                     value={formData.service}
                     onChange={(e) => setFormData(p => ({ ...p, service: e.target.value }))}
                     placeholder="e.g. Wedding Film, Commercial Shoot"
-                    className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-[15px] sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech shadow-sm"
+                    className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-[16px] sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech shadow-sm"
                   />
                   <datalist id="cfx-service-options">
                     {(content.services || []).map(s => (
@@ -446,7 +446,7 @@ export const ContactSection: React.FC = () => {
                     value={formData.message}
                     onChange={(e) => setFormData(p => ({ ...p, message: e.target.value }))}
                     placeholder="Tell us about your project, timelines, location..."
-                    className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-[15px] sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech resize-none shadow-sm"
+                    className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-3.5 text-[16px] sm:text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all font-tech resize-none shadow-sm"
                   />
                 </div>
 
