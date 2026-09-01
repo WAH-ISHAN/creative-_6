@@ -435,6 +435,10 @@ function migrateContent(raw: unknown): SiteContent {
       merged.home = { ...merged.home, selectedWorkIds: ids };
     }
   }
+
+  // FORCE hardcoded services to avoid stale Render API overrides
+  merged.services = DEFAULT_CONTENT.services;
+    
   return merged as SiteContent;
 }
 
